@@ -42,9 +42,6 @@
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-        .ios-safe-bottom {
-            padding-bottom: env(safe-area-inset-bottom, 16px);
-        }
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -122,11 +119,9 @@
                         <!-- Diamante Facetado Geométrico -->
                         <g stroke="#0A111C" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" fill="none">
                             <polygon points="160,240 28,75 78,25 242,25 292,75" fill="#FFFFFF" fill-opacity="0.95" />
-                            <!-- Facetas Superiores -->
                             <polygon points="78,25 242,25 205,75 115,75" fill="#EBF3FC" />
                             <polygon points="28,75 78,25 115,75" fill="#DFECFB" />
                             <polygon points="292,75 242,25 205,75" fill="#DFECFB" />
-                            <!-- Facetas Inferiores / Pabellón -->
                             <polygon points="115,75 205,75 160,175" fill="#C5DFF9" />
                             <line x1="28" y1="75" x2="160" y2="240" />
                             <line x1="292" y1="75" x2="160" y2="240" />
@@ -235,7 +230,6 @@
     <div id="mobile-drawer" class="fixed top-0 bottom-0 left-0 w-72 bg-[#081935] text-white z-50 transform -translate-x-full transition-transform duration-300 flex flex-col border-r border-[#0D2347]">
         <div class="p-5 border-b border-white/10 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <!-- Logo Diamante Compacto Oficial -->
                 <div class="w-11 h-9 flex items-center justify-center">
                     <svg viewBox="0 0 320 250" class="w-full h-full drop-shadow-md">
                         <g stroke="#FFFFFF" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" fill="none">
@@ -326,7 +320,7 @@
             </div>
             <button onclick="navigateTab('perfil'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
                 <i class="fa-solid fa-user-gear w-4 text-center text-slate-400"></i>
-                <span>Mi Perfil & Respaldo</span>
+                <span>Mi Perfil & Foto</span>
             </button>
         </nav>
 
@@ -346,7 +340,6 @@
         <!-- SIDEBAR DE ESCRITORIO -->
         <aside id="sidebar-desktop" class="w-64 bg-[#081935] text-white flex-shrink-0 hidden lg:flex flex-col border-r border-[#0D2347] z-40">
             <div class="p-5 border-b border-white/10 flex items-center gap-3">
-                <!-- Logo Diamante Compacto Oficial -->
                 <div class="w-12 h-10 flex items-center justify-center shrink-0">
                     <svg viewBox="0 0 320 250" class="w-full h-full drop-shadow-md">
                         <g stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" fill="none">
@@ -462,7 +455,7 @@
                 <button onclick="navigateTab('perfil')" id="nav-btn-perfil"
                     class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
                     <i class="fa-solid fa-user-gear w-4 text-center text-slate-400"></i>
-                    <span>Mi Perfil & Respaldo</span>
+                    <span>Mi Perfil & Foto</span>
                 </button>
             </nav>
 
@@ -519,7 +512,7 @@
                     </div>
 
                     <div onclick="navigateTab('perfil');" class="flex items-center gap-2.5 pl-3 border-l border-slate-200 cursor-pointer">
-                        <div id="header-user-avatar" class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-xs flex items-center justify-center ring-2 ring-[#0066FF]/20 shadow-sm">
+                        <div id="header-user-avatar" class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-xs flex items-center justify-center ring-2 ring-[#0066FF]/20 shadow-sm overflow-hidden">
                             RG
                         </div>
                         <div class="hidden sm:block text-left">
@@ -550,7 +543,7 @@
                             </div>
                         </div>
 
-                        <!-- Reemplazo de SISTEMA CRM - FuXion 360• por el Logo Oficial de Leader Prospect -->
+                        <!-- Insignia Oficial LEADER PROSPECT -->
                         <div class="flex items-center justify-center z-10">
                             <div class="w-48 sm:w-56 h-auto p-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center shadow-lg">
                                 <svg viewBox="0 0 320 230" class="w-full h-auto drop-shadow-md">
@@ -570,7 +563,7 @@
                                     <text x="160" y="148" text-anchor="middle" font-family="'Inter', Arial Black, sans-serif" font-weight="900" font-size="37" fill="#58B8EE" stroke="#050E1D" stroke-width="3" paint-order="stroke fill" letter-spacing="0.5">PROSPECT</text>
                                     <line x1="48" y1="160" x2="265" y2="160" stroke="#FFFFFF" stroke-width="2.2" />
                                     <text x="50" y="174" font-family="'Inter', sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" stroke="#050E1D" stroke-width="1.8" paint-order="stroke fill" letter-spacing="0.6">NETWORK MARKETING SUCCESS</text>
-                                    <path d="M260,174 L272,163 M272,163 L264,163 M272,163 L272,171" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M260,174 L272,163 M272,163 L264,163 L272,171" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
@@ -721,9 +714,7 @@
                                     </button>
                                 </div>
                                 <p class="text-[11px] text-slate-400 mb-3">Prospectos con contacto agendado para la fecha:</p>
-                                <div id="dashboard-today-list" class="space-y-2.5">
-                                    <!-- Render dinámico desde JS -->
-                                </div>
+                                <div id="dashboard-today-list" class="space-y-2.5"></div>
                             </div>
 
                             <button onclick="openAddProspectModal();" class="mt-4 w-full py-2.5 px-4 rounded-xl border border-dashed border-[#0066FF] text-[#0066FF] hover:bg-blue-50 font-bold text-xs flex items-center justify-center gap-2 transition-all">
@@ -785,7 +776,7 @@
 
                 </div>
 
-                <!-- ================= FEATURE: LÁMINAS DE RECONOCIMIENTO CON FOTO SUBIDA ================= -->
+                <!-- ================= FEATURE: LÁMINAS DE RECONOCIMIENTO ================= -->
                 <div id="tab-reconocimiento" class="hidden space-y-6">
                     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-6">
                         <div class="text-center space-y-1">
@@ -809,7 +800,6 @@
 
                         <!-- MODALIDAD 1: GENERADOR DE LÁMINA OFICIAL -->
                         <div id="rec-mode-generator-container" class="space-y-5">
-                            <!-- Previsualización Oficial -->
                             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-tr from-[#081935] via-[#0C2D63] to-[#040C1A] p-6 text-white text-center shadow-xl border border-blue-400/30 flex flex-col items-center">
                                 <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-r from-amber-400 via-sky-400 to-[#00D2FF] mb-3 relative group">
                                     <div class="w-full h-full rounded-full overflow-hidden bg-slate-800 flex items-center justify-center relative">
@@ -839,7 +829,6 @@
                                 </div>
                             </div>
 
-                            <!-- Campos Editables -->
                             <div class="space-y-3 pt-2">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Nombre del Socio Reconocido:</label>
@@ -866,7 +855,7 @@
                             </button>
                         </div>
 
-                        <!-- MODALIDAD 2: SUBIR ARCHIVO O IMAGEN PROPIA Y COMPARTIR -->
+                        <!-- MODALIDAD 2: SUBIR ARCHIVO O IMAGEN PROPIA -->
                         <div id="rec-mode-custom-container" class="hidden space-y-4">
                             <div class="p-6 border-2 border-dashed border-blue-300 rounded-3xl bg-blue-50/40 text-center relative hover:bg-blue-50/70 transition-colors">
                                 <input type="file" id="custom-image-file-input" accept="image/*" onchange="handleCustomArtUpload(event);"
@@ -882,7 +871,7 @@
                                 </div>
                             </div>
 
-                            <!-- Previsualización de la Imagen Subida -->
+                            <!-- Previsualización -->
                             <div id="custom-art-preview-wrapper" class="hidden space-y-3">
                                 <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-80 flex items-center justify-center shadow-inner">
                                     <img id="custom-art-preview-img" src="" alt="Arte Personalizado" class="w-full h-auto max-h-80 object-contain">
@@ -947,7 +936,7 @@
                         </a>
                     </div>
 
-                    <!-- Herramienta de Compartir Avance con Imagen Corta de Prueba -->
+                    <!-- Compartir Avance con Imagen de Prueba -->
                     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-5">
                         <div class="text-center space-y-1">
                             <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mx-auto mb-2">
@@ -957,7 +946,6 @@
                             <p class="text-xs text-slate-500">Sube una imagen corta de tu avance personal, testimonio o venta y compártela directamente.</p>
                         </div>
 
-                        <!-- Selector y Subida de Imagen Corta de Prueba -->
                         <div class="p-4 border-2 border-dashed border-emerald-300 rounded-2xl bg-emerald-50/40 text-center relative hover:bg-emerald-50/70 transition-colors">
                             <input type="file" id="group-leader-img-input" accept="image/*" onchange="handleGroupLeaderImageUpload(event);"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
@@ -968,7 +956,6 @@
                             </div>
                         </div>
 
-                        <!-- Previsualización -->
                         <div id="group-leader-preview-box" class="hidden space-y-3">
                             <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-72 flex items-center justify-center">
                                 <img id="group-leader-preview-img" src="" alt="Avance Líder" class="w-full h-auto max-h-72 object-contain">
@@ -1010,9 +997,7 @@
                         </button>
                     </div>
 
-                    <div id="events-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Inyectado dinámicamente -->
-                    </div>
+                    <div id="events-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
 
                 <!-- ================= SECCIÓN: PROSPECTOS CRM ================= -->
@@ -1077,9 +1062,7 @@
                                         <th class="p-4 text-center">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="prospects-table-body" class="divide-y divide-slate-100 text-xs">
-                                    <!-- Render dinámico desde JS -->
-                                </tbody>
+                                <tbody id="prospects-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
                             </table>
                         </div>
                     </div>
@@ -1097,9 +1080,7 @@
                         </span>
                     </div>
 
-                    <div id="agenda-hoy-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Render dinámico -->
-                    </div>
+                    <div id="agenda-hoy-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </div>
 
                 <!-- ================= SECCIÓN: SIMULADOR DE RANGOS FUXION PV ================= -->
@@ -1137,10 +1118,7 @@
                             </div>
                         </div>
 
-                        <!-- Tarjeta de Diagnóstico -->
-                        <div id="sim-rank-result" class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-[#081935] text-white shadow-card-soft space-y-3">
-                            <!-- Inyectado por JS -->
-                        </div>
+                        <div id="sim-rank-result" class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-[#081935] text-white shadow-card-soft space-y-3"></div>
                     </div>
                 </div>
 
@@ -1154,9 +1132,7 @@
                     </div>
 
                     <div id="team-view-tree-container" class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft overflow-x-auto">
-                        <div class="min-w-[650px] flex flex-col items-center space-y-6 py-4" id="mlm-tree-render">
-                            <!-- Render dinámico desde JS -->
-                        </div>
+                        <div class="min-w-[650px] flex flex-col items-center space-y-6 py-4" id="mlm-tree-render"></div>
                     </div>
                 </div>
 
@@ -1175,18 +1151,14 @@
                         <span class="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-900 font-black text-xs">Exclusivo Superadministrador</span>
                     </div>
 
-                    <div class="space-y-4" id="admin-pending-activations-list">
-                        <!-- Render dinámico desde JS -->
-                    </div>
+                    <div class="space-y-4" id="admin-pending-activations-list"></div>
 
                     <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-card-soft space-y-3">
                         <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                             <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
                             <span>Historial Seguro de Códigos y Mensajes Despachados</span>
                         </h3>
-                        <div id="admin-audit-logs" class="space-y-2 text-xs text-slate-600 max-h-48 overflow-y-auto">
-                            <!-- Logs dinámicos -->
-                        </div>
+                        <div id="admin-audit-logs" class="space-y-2 text-xs text-slate-600 max-h-48 overflow-y-auto"></div>
                     </div>
                 </div>
 
@@ -1204,9 +1176,7 @@
                     </div>
 
                     <div class="bg-white rounded-3xl border border-slate-100 shadow-card-soft p-5">
-                        <div id="activity-timeline-list" class="space-y-3">
-                            <!-- Render dinámico -->
-                        </div>
+                        <div id="activity-timeline-list" class="space-y-3"></div>
                     </div>
                 </div>
 
@@ -1256,9 +1226,7 @@
                         <p class="text-xs text-slate-400">Segmentadas para Salud (Bebidas) o Negocio (Multinivel)</p>
                     </div>
 
-                    <div id="whatsapp-templates-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Render dinámico desde JS -->
-                    </div>
+                    <div id="whatsapp-templates-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
 
                 <!-- ================= SECCIÓN: HERRAMIENTAS FUXION ================= -->
@@ -1313,19 +1281,35 @@
                     </div>
                 </div>
 
-                <!-- ================= SECCIÓN: MI PERFIL & RESPALDO ================= -->
+                <!-- ================= SECCIÓN: MI PERFIL & FOTO DE PERFIL ================= -->
                 <div id="tab-perfil" class="hidden space-y-6">
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-6">
-                        <div class="flex items-center gap-4 pb-4 border-b border-slate-100">
-                            <div id="profile-avatar-large" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-xl flex items-center justify-center shadow-md">
-                                RG
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-6">
+                        
+                        <!-- Encabezado de Perfil con Subida de Foto -->
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6 border-b border-slate-100">
+                            <!-- Contenedor Avatar con Cámara Interactiva -->
+                            <div class="relative group cursor-pointer shrink-0">
+                                <div id="profile-avatar-large" class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-2xl flex items-center justify-center shadow-lg border-2 border-white ring-4 ring-blue-50 overflow-hidden relative">
+                                    RG
+                                </div>
+                                <!-- Botón Overlay de Cámara -->
+                                <label for="profile-photo-input" class="absolute -bottom-1 -right-1 w-9 h-9 rounded-2xl bg-[#0066FF] hover:bg-blue-600 text-white flex items-center justify-center text-sm shadow-md cursor-pointer border-2 border-white transition-transform active:scale-90" title="Cambiar Foto de Perfil">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhotoUpload(event);" class="hidden">
+                                </label>
                             </div>
-                            <div>
-                                <h2 id="profile-display-name" class="text-lg font-bold text-slate-900">Rudy Bryan Geldres Reategui</h2>
-                                <p id="profile-display-email" class="text-xs text-slate-500">c*************s@gmail.com</p>
-                                <span id="profile-display-role" class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-[#0066FF] text-[10px] font-bold">
-                                    Superadministrador
-                                </span>
+
+                            <div class="text-center sm:text-left space-y-1">
+                                <h2 id="profile-display-name" class="text-xl font-black text-slate-900">Rudy Bryan Geldres Reategui</h2>
+                                <p id="profile-display-email" class="text-xs text-slate-500 font-medium">c*************s@gmail.com</p>
+                                <div class="pt-1 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                                    <span id="profile-display-role" class="px-3 py-1 rounded-full bg-blue-50 text-[#0066FF] text-[10px] font-bold border border-blue-200">
+                                        Superadministrador
+                                    </span>
+                                    <button type="button" onclick="removeProfilePhoto();" id="btn-remove-photo" class="text-[10px] text-rose-500 hover:text-rose-700 font-bold hover:underline hidden">
+                                        Quitar foto
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -1338,7 +1322,7 @@
                             <p class="text-[11px] text-slate-600 leading-relaxed">
                                 Descarga una copia completa de tus prospectos y actividades en un archivo local (.JSON / .CSV).
                             </p>
-                            <div class="flex items-center gap-2 pt-1">
+                            <div class="flex items-center gap-2 pt-1 flex-wrap">
                                 <button type="button" onclick="exportUserDatabaseJSON();" class="py-2 px-3.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
                                     <i class="fa-solid fa-file-code"></i> Exportar Respaldo JSON
                                 </button>
@@ -1512,9 +1496,7 @@
                     <textarea id="import-pasted-text" rows="3" placeholder="Carlos Mendez, +51987654321&#10;Maria Ramos, +51912345678" class="w-full p-2.5 text-xs rounded-xl border border-slate-200 font-mono"></textarea>
                 </div>
 
-                <div id="import-batch-report" class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1 hidden">
-                    <!-- Reporte dinámico -->
-                </div>
+                <div id="import-batch-report" class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1 hidden"></div>
 
                 <button onclick="processPastedContactsE164();" class="w-full py-2.5 rounded-xl bg-[#0066FF] text-white font-bold text-xs shadow-glow-btn">
                     Procesar e Importar Contactos
@@ -1751,6 +1733,10 @@
                     const storedAdminPass = localStorage.getItem('lp_admin_pass') || ADMIN_OFFICIAL_PASS;
                     if (pass === storedAdminPass || pass === ADMIN_OFFICIAL_PASS || pass.toLowerCase() === ADMIN_OFFICIAL_PASS.toLowerCase()) {
                         if (errBox) errBox.classList.add('hidden');
+                        
+                        // Rescatar foto guardada si existe
+                        const existingAdminPhoto = localStorage.getItem('lp_admin_photo_avatar') || null;
+
                         const adminUser = {
                             id: 'usr_admin_rudy',
                             name: ADMIN_FULL_NAME,
@@ -1758,7 +1744,8 @@
                             role: 'Superadministrador',
                             sponsorCode: ADMIN_SPONSOR_CODE,
                             phone: ADMIN_WHATSAPP_NUMBER,
-                            isAdmin: true
+                            isAdmin: true,
+                            avatarUrl: existingAdminPhoto
                         };
                         appState.currentUser = adminUser;
                         localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
@@ -1812,22 +1799,6 @@
                 }
             } catch (err) {
                 console.error("Error en executeLogin:", err);
-                const emailInput = document.getElementById('input-auth-email');
-                if (emailInput && emailInput.value.trim().toLowerCase() === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
-                    const adminUser = {
-                        id: 'usr_admin_rudy',
-                        name: ADMIN_FULL_NAME,
-                        email: ADMIN_OFFICIAL_EMAIL,
-                        role: 'Superadministrador',
-                        sponsorCode: ADMIN_SPONSOR_CODE,
-                        phone: ADMIN_WHATSAPP_NUMBER,
-                        isAdmin: true
-                    };
-                    appState.currentUser = adminUser;
-                    localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
-                    loadUserScopedData(adminUser.id);
-                    launchDashboard();
-                }
             }
         }
 
@@ -1889,15 +1860,13 @@
             if (refLinkEl) refLinkEl.value = 'https://leaderprospect.com/r/' + user.sponsorCode;
             if (qrSponsorEl) qrSponsorEl.textContent = user.sponsorCode;
 
-            const initials = user.name.split(' ').map(n => n[0]).slice(0, 2).join('') || 'LP';
-            const avatarEl = document.getElementById('header-user-avatar');
-            const profAvatar = document.getElementById('profile-avatar-large');
+            // Renderizar Avatares (Con Foto Personalizada o Iniciales)
+            renderUserAvatars();
+
             const profName = document.getElementById('profile-display-name');
             const profEmail = document.getElementById('profile-display-email');
             const profRole = document.getElementById('profile-display-role');
 
-            if (avatarEl) avatarEl.textContent = initials;
-            if (profAvatar) profAvatar.textContent = initials;
             if (profName) profName.textContent = user.name;
             if (profEmail) profEmail.textContent = user.isAdmin ? 'c*************s@gmail.com' : user.email;
             if (profRole) profRole.textContent = user.role;
@@ -1932,6 +1901,117 @@
             recalculateFuXionRank();
             renderEventsList();
             updateRecognitionPreview();
+        }
+
+        // =========================================================
+        // GESTIÓN DE FOTO DE PERFIL (SUBIDA, RECORTE, ALMACENAMIENTO)
+        // =========================================================
+        function renderUserAvatars() {
+            const user = appState.currentUser;
+            if (!user) return;
+
+            const headerAvatar = document.getElementById('header-user-avatar');
+            const profileAvatar = document.getElementById('profile-avatar-large');
+            const btnRemove = document.getElementById('btn-remove-photo');
+            const initials = user.name.split(' ').map(n => n[0]).slice(0, 2).join('') || 'LP';
+
+            if (user.avatarUrl) {
+                // Hay foto de perfil activa
+                if (headerAvatar) {
+                    headerAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="Avatar" class="w-full h-full object-cover">`;
+                }
+                if (profileAvatar) {
+                    profileAvatar.innerHTML = `<img src="${user.avatarUrl}" alt="Foto de Perfil" class="w-full h-full object-cover">`;
+                }
+                if (btnRemove) btnRemove.classList.remove('hidden');
+            } else {
+                // No hay foto de perfil -> mostrar iniciales con degradado
+                if (headerAvatar) {
+                    headerAvatar.innerHTML = initials;
+                }
+                if (profileAvatar) {
+                    profileAvatar.innerHTML = initials;
+                }
+                if (btnRemove) btnRemove.classList.add('hidden');
+            }
+        }
+
+        function handleProfilePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validación de tipo
+            if (!file.type.match('image.*')) {
+                showToast('Por favor selecciona un archivo de imagen válido.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    // Optimizar y comprimir imagen en Canvas (tamaño ideal avatar: 300x300)
+                    const canvas = document.createElement('canvas');
+                    const size = 300;
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+
+                    // Recorte cuadrado centrado
+                    const minEdge = Math.min(img.width, img.height);
+                    const startX = (img.width - minEdge) / 2;
+                    const startY = (img.height - minEdge) / 2;
+
+                    ctx.drawImage(img, startX, startY, minEdge, minEdge, 0, 0, size, size);
+                    const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+                    // Actualizar estado del usuario
+                    appState.currentUser.avatarUrl = optimizedDataUrl;
+
+                    // Persistencia en sesión y base de datos
+                    localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
+
+                    if (appState.currentUser.isAdmin) {
+                        localStorage.setItem('lp_admin_photo_avatar', optimizedDataUrl);
+                    } else {
+                        const users = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                        const idx = users.findIndex(u => u.id === appState.currentUser.id);
+                        if (idx !== -1) {
+                            users[idx].avatarUrl = optimizedDataUrl;
+                            localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                        }
+                    }
+
+                    renderUserAvatars();
+                    showToast('¡Foto de perfil actualizada con éxito!');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeProfilePhoto() {
+            if (!appState.currentUser) return;
+            appState.currentUser.avatarUrl = null;
+
+            localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
+
+            if (appState.currentUser.isAdmin) {
+                localStorage.removeItem('lp_admin_photo_avatar');
+            } else {
+                const users = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                const idx = users.findIndex(u => u.id === appState.currentUser.id);
+                if (idx !== -1) {
+                    users[idx].avatarUrl = null;
+                    localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                }
+            }
+
+            const photoInput = document.getElementById('profile-photo-input');
+            if (photoInput) photoInput.value = '';
+
+            renderUserAvatars();
+            showToast('Foto de perfil eliminada.');
         }
 
         function updateKPIs() {
@@ -2344,7 +2424,8 @@
                 uplineCode: sponsor,
                 password: pass,
                 code,
-                date: new Date().toLocaleString()
+                date: new Date().toLocaleString(),
+                avatarUrl: null
             };
 
             // 1. Guardar en solicitudes pendientes del sistema
