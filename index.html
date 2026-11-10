@@ -1,0 +1,3176 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LEADER PROSPECT — Network Marketing Success</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lp: {
+                            navy: '#081935',
+                            midnight: '#030A16',
+                            blue: '#0066FF',
+                            cyan: '#00D2FF',
+                            sky: '#38BDF8',
+                            emerald: '#00B074',
+                            gold: '#F59E0B'
+                        }
+                    },
+                    boxShadow: {
+                        'glow-btn': '0 0 20px rgba(0, 102, 255, 0.45)',
+                        'glow-cyan': '0 0 20px rgba(0, 210, 255, 0.35)',
+                        'card-soft': '0 10px 25px -5px rgba(8, 25, 53, 0.06)'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.03);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,102,255,0.3);
+            border-radius: 9999px;
+        }
+        .cosmic-auth-bg {
+            background: radial-gradient(circle at 50% 20%, #153e75 0%, #081a36 45%, #030a16 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .cosmic-auth-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 45px 75px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #5BC0F8, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 230px 80px, #00D2FF, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 290px 150px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 360px 360px;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+        .angled-badge {
+            clip-path: polygon(18px 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        @media (max-width: 768px) {
+            .angled-badge {
+                clip-path: none;
+                border-radius: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#F4F7FC] text-slate-800 h-full flex flex-col select-none overflow-x-hidden">
+
+    <!-- ========================================================================= -->
+    <!-- PANTALLA 1: BIENVENIDA Y ACCESO (DISEÑO CÓSMICO LIMPIO)                   -->
+    <!-- ========================================================================= -->
+    <div id="auth-screen" class="min-h-screen w-full flex items-center justify-center p-3 sm:p-6 cosmic-auth-bg relative z-50">
+        
+        <!-- Silueta de Montaña con Líderes en la Cumbre -->
+        <div class="absolute -bottom-2 inset-x-0 pointer-events-none opacity-45 flex justify-center">
+            <svg viewBox="0 0 1440 380" class="w-full h-auto max-h-64 text-[#001433] fill-current">
+                <path d="M0,250L48,240C96,230,192,210,288,220C384,230,480,270,576,275C672,280,768,250,864,225C960,200,1056,180,1152,190C1248,200,1344,240,1392,260L1440,280L1440,380L1392,380C1344,380,1248,380,1152,380C1056,380,960,380,864,380C768,380,672,380,576,380C480,380,384,380,288,380C192,380,96,380,48,380L0,380Z"></path>
+                <circle cx="720" cy="225" r="4.5" fill="#5BC0F8" />
+                <path d="M716,233 L724,233 L722,248 L718,248 Z" fill="#5BC0F8" />
+                <path d="M713,235 L720,230 L727,235" stroke="#5BC0F8" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                <circle cx="734" cy="227" r="4" fill="#00D2FF" />
+                <circle cx="706" cy="228" r="4" fill="#FFFFFF" />
+            </svg>
+        </div>
+
+        <!-- Tarjeta de Acceso -->
+        <div class="w-full max-w-md glass-card rounded-3xl p-6 sm:p-8 relative z-20 border border-white/70 shadow-2xl">
+            
+            <div class="flex flex-col items-center text-center mb-6">
+                <!-- Logotipo Oficial Vectorial Fiel a la Imagen -->
+                <div class="relative w-44 h-36 mb-1 flex items-center justify-center">
+                    <svg viewBox="0 0 320 250" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,102,255,0.25)]">
+                        <!-- Diamante Facetado Geométrico -->
+                        <g stroke="#0A111C" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" fill="none">
+                            <polygon points="160,240 28,75 78,25 242,25 292,75" fill="#FFFFFF" fill-opacity="0.95" />
+                            <!-- Facetas Superiores -->
+                            <polygon points="78,25 242,25 205,75 115,75" fill="#EBF3FC" />
+                            <polygon points="28,75 78,25 115,75" fill="#DFECFB" />
+                            <polygon points="292,75 242,25 205,75" fill="#DFECFB" />
+                            <!-- Facetas Inferiores / Pabellón -->
+                            <polygon points="115,75 205,75 160,175" fill="#C5DFF9" />
+                            <line x1="28" y1="75" x2="160" y2="240" />
+                            <line x1="292" y1="75" x2="160" y2="240" />
+                            <line x1="115" y1="75" x2="160" y2="240" />
+                            <line x1="205" y1="75" x2="160" y2="240" />
+                            <line x1="28" y1="75" x2="292" y2="75" />
+                        </g>
+                        <!-- Texto LEADER -->
+                        <text x="160" y="122" text-anchor="middle" font-family="'Inter', Arial Black, sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" stroke="#0A111C" stroke-width="4.5" paint-order="stroke fill" letter-spacing="1">LEADER</text>
+                        <!-- Texto PROSPECT -->
+                        <text x="160" y="158" text-anchor="middle" font-family="'Inter', Arial Black, sans-serif" font-weight="900" font-size="40" fill="#58B8EE" stroke="#0A111C" stroke-width="3" paint-order="stroke fill" letter-spacing="0.5">PROSPECT</text>
+                        <!-- Barra de Acento y Subtítulo -->
+                        <line x1="48" y1="172" x2="265" y2="172" stroke="#FFFFFF" stroke-width="2.5" />
+                        <text x="50" y="188" font-family="'Inter', sans-serif" font-weight="900" font-size="12" fill="#FFFFFF" stroke="#0A111C" stroke-width="1.8" paint-order="stroke fill" letter-spacing="0.8">NETWORK MARKETING SUCCESS</text>
+                        <path d="M260,188 L272,176 M272,176 L264,176 M272,176 L272,184" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 text-[11px] font-bold text-slate-400 mt-1">
+                    <span>Conecta</span>
+                    <span class="text-[#00D2FF]">•</span>
+                    <span>Comparte</span>
+                    <span class="text-[#00D2FF]">•</span>
+                    <span>Crece</span>
+                </div>
+            </div>
+
+            <div class="text-center mb-5">
+                <h2 class="text-xl font-bold text-slate-900">¡Bienvenido!</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Ingresa a tu espacio de oportunidades FuXion</p>
+            </div>
+
+            <div id="login-error-box" class="hidden mb-4 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
+                <i class="fa-solid fa-circle-exclamation text-rose-500 text-sm"></i>
+                <span id="login-error-text">Credenciales incorrectas.</span>
+            </div>
+
+            <form id="form-auth-login" onsubmit="event.preventDefault(); executeLogin();" class="space-y-3.5">
+                <div>
+                    <div class="relative flex items-center">
+                        <i class="fa-regular fa-envelope absolute left-4 text-slate-400 text-sm pointer-events-none"></i>
+                        <input type="email" id="input-auth-email" required placeholder="Correo electrónico"
+                            autocomplete="email"
+                            class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0066FF] transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-lock absolute left-4 text-slate-400 text-sm pointer-events-none"></i>
+                        <input type="password" id="input-auth-password" required placeholder="Contraseña"
+                            autocomplete="current-password"
+                            class="w-full pl-11 pr-11 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0066FF] transition-all shadow-sm">
+                        <button type="button" onclick="togglePasswordVisibility('input-auth-password', this)"
+                            class="absolute right-3.5 p-1 text-slate-400 hover:text-slate-600 transition-colors">
+                            <i class="fa-regular fa-eye text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs pt-0.5">
+                    <label class="flex items-center gap-2 text-slate-600 cursor-pointer">
+                        <input type="checkbox" id="chk-remember" checked class="w-4 h-4 rounded text-[#0066FF] border-slate-300 focus:ring-0">
+                        <span>Recordar mi acceso</span>
+                    </label>
+                    <button type="button" onclick="showToast('Comunícate con Rudy Geldres al +51 970 425 293 para restablecer tu clave.');" class="font-semibold text-[#0066FF] hover:underline">
+                        ¿Olvidaste tu contraseña?
+                    </button>
+                </div>
+
+                <button type="submit" id="btn-submit-login"
+                    class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#0066FF] to-[#00D2FF] hover:opacity-95 active:scale-[0.98] text-white font-bold text-sm shadow-glow-btn flex items-center justify-center gap-2 transition-all cursor-pointer">
+                    <span>Iniciar sesión</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </form>
+
+            <div class="relative my-4 flex items-center justify-center">
+                <div class="w-full border-t border-slate-200"></div>
+                <span class="absolute bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">o</span>
+            </div>
+
+            <button type="button" onclick="openGoogleRegisterModal();"
+                class="w-full py-3 px-4 border border-slate-200 hover:bg-slate-50 active:scale-[0.98] rounded-2xl bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-3 transition-all shadow-sm">
+                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+                <span>Continuar con Google</span>
+            </button>
+
+            <div class="mt-4 text-center">
+                <button type="button" onclick="openRegisterModal();" class="text-xs text-slate-600 hover:text-slate-900 transition-colors">
+                    ¿No tienes cuenta? <span class="font-bold text-[#0066FF] hover:underline">Regístrate aquí &gt;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- DRAWER MÓVIL OVERLAY (OFF-CANVAS PARA CELULARES)                          -->
+    <!-- ========================================================================= -->
+    <div id="mobile-drawer-backdrop" onclick="toggleMobileDrawer();" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+    <div id="mobile-drawer" class="fixed top-0 bottom-0 left-0 w-72 bg-[#081935] text-white z-50 transform -translate-x-full transition-transform duration-300 flex flex-col border-r border-[#0D2347]">
+        <div class="p-5 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <!-- Logo Diamante Compacto Oficial -->
+                <div class="w-11 h-9 flex items-center justify-center">
+                    <svg viewBox="0 0 320 250" class="w-full h-full drop-shadow-md">
+                        <g stroke="#FFFFFF" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" fill="none">
+                            <polygon points="160,240 28,75 78,25 242,25 292,75" fill="#0A1E3F" />
+                            <polygon points="78,25 242,25 205,75 115,75" fill="#123B75" />
+                            <polygon points="115,75 205,75 160,175" fill="#0066FF" />
+                            <line x1="28" y1="75" x2="160" y2="240" />
+                            <line x1="292" y1="75" x2="160" y2="240" />
+                            <line x1="115" y1="75" x2="160" y2="240" />
+                            <line x1="205" y1="75" x2="160" y2="240" />
+                            <line x1="28" y1="75" x2="292" y2="75" />
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xs font-black tracking-tight uppercase flex items-center gap-1 text-white">
+                        <span>LEADER</span>
+                        <span class="text-[#58B8EE]">PROSPECT</span>
+                    </h2>
+                    <p class="text-[7.5px] font-extrabold text-white/80 tracking-wider uppercase flex items-center gap-1">
+                        <span>NETWORK MARKETING SUCCESS</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[6px]"></i>
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleMobileDrawer();" class="text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <nav class="flex-1 p-3 space-y-1 overflow-y-auto" id="mobile-nav-items">
+            <button onclick="navigateTab('inicio'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0066FF]">
+                <i class="fa-solid fa-house w-4 text-center"></i>
+                <span>Inicio</span>
+            </button>
+            <button onclick="navigateTab('grupo-leader'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-300 hover:bg-white/5">
+                <i class="fa-brands fa-whatsapp w-4 text-center text-emerald-400"></i>
+                <span>Grupo Leader</span>
+            </button>
+            <button onclick="navigateTab('reconocimiento'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-award w-4 text-center text-purple-400"></i>
+                <span>Reconocimientos</span>
+            </button>
+            <button onclick="navigateTab('eventos'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-video w-4 text-center text-sky-400"></i>
+                <span>Eventos & Zoom</span>
+            </button>
+            <button onclick="navigateTab('prospectos'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-users-viewfinder w-4 text-center text-emerald-400"></i>
+                <span>Prospectos CRM</span>
+            </button>
+            <button onclick="navigateTab('agenda-hoy'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-calendar-day w-4 text-center text-amber-400"></i>
+                <span>Agenda de Hoy</span>
+            </button>
+            <button onclick="navigateTab('equipo'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-sitemap w-4 text-center text-purple-400"></i>
+                <span>Mi Equipo MLM</span>
+            </button>
+            <button onclick="navigateTab('simulador'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-calculator w-4 text-center text-cyan-400"></i>
+                <span>Simulador FuXion PV</span>
+            </button>
+            <button onclick="navigateTab('actividad'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-chart-line w-4 text-center text-[#00D2FF]"></i>
+                <span>Mi Actividad</span>
+            </button>
+            <button onclick="navigateTab('enlaces'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-qrcode w-4 text-center text-cyan-400"></i>
+                <span>Enlaces y QR</span>
+            </button>
+            <button onclick="navigateTab('whatsapp'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-brands fa-whatsapp w-4 text-center text-emerald-400 text-sm"></i>
+                <span>WhatsApp Business</span>
+            </button>
+            <button onclick="navigateTab('herramientas'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-file-pdf w-4 text-center text-rose-400"></i>
+                <span>Herramientas FuXion</span>
+            </button>
+            <div id="mobile-admin-activation-nav" class="pt-2 border-t border-white/10 hidden">
+                <button onclick="navigateTab('activacion-socios'); toggleMobileDrawer();" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                        <span>Activación Socios</span>
+                    </span>
+                    <span id="mobile-badge-pending-count" class="px-2 py-0.5 rounded-full text-[10px] bg-amber-400 text-slate-900 font-black">0</span>
+                </button>
+            </div>
+            <button onclick="navigateTab('perfil'); toggleMobileDrawer();" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-user-gear w-4 text-center text-slate-400"></i>
+                <span>Mi Perfil & Respaldo</span>
+            </button>
+        </nav>
+
+        <div class="p-3 border-t border-white/10">
+            <button onclick="executeLogout();" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 border border-white/10">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PANTALLA 2: DASHBOARD PRINCIPAL Y SUITE EJECUTIVA (POST LOGIN)            -->
+    <!-- ========================================================================= -->
+    <div id="dashboard-screen" style="display: none;" class="min-h-screen w-full flex-col lg:flex-row bg-[#F4F7FC]">
+        
+        <!-- SIDEBAR DE ESCRITORIO -->
+        <aside id="sidebar-desktop" class="w-64 bg-[#081935] text-white flex-shrink-0 hidden lg:flex flex-col border-r border-[#0D2347] z-40">
+            <div class="p-5 border-b border-white/10 flex items-center gap-3">
+                <!-- Logo Diamante Compacto Oficial -->
+                <div class="w-12 h-10 flex items-center justify-center shrink-0">
+                    <svg viewBox="0 0 320 250" class="w-full h-full drop-shadow-md">
+                        <g stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" fill="none">
+                            <polygon points="160,240 28,75 78,25 242,25 292,75" fill="#0A1E3F" />
+                            <polygon points="78,25 242,25 205,75 115,75" fill="#123B75" />
+                            <polygon points="115,75 205,75 160,175" fill="#0066FF" />
+                            <line x1="28" y1="75" x2="160" y2="240" />
+                            <line x1="292" y1="75" x2="160" y2="240" />
+                            <line x1="115" y1="75" x2="160" y2="240" />
+                            <line x1="205" y1="75" x2="160" y2="240" />
+                            <line x1="28" y1="75" x2="292" y2="75" />
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-sm font-black tracking-tight uppercase flex items-center gap-1 text-white">
+                        <span>LEADER</span>
+                        <span class="text-[#58B8EE]">PROSPECT</span>
+                    </h2>
+                    <p class="text-[8px] font-extrabold text-blue-200 tracking-wider uppercase flex items-center gap-1">
+                        <span>NETWORK MARKETING SUCCESS</span>
+                        <i class="fa-solid fa-arrow-trend-up text-[8px]"></i>
+                    </p>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+                <button onclick="navigateTab('inicio')" id="nav-btn-inicio"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0066FF] shadow-glow-btn transition-all">
+                    <i class="fa-solid fa-house w-4 text-center"></i>
+                    <span>Inicio</span>
+                </button>
+
+                <button onclick="navigateTab('grupo-leader')" id="nav-btn-grupo-leader"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-brands fa-whatsapp w-4 text-center text-emerald-400"></i>
+                    <span>Grupo Leader</span>
+                </button>
+
+                <button onclick="navigateTab('reconocimiento')" id="nav-btn-reconocimiento"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-award w-4 text-center text-purple-400"></i>
+                    <span>Reconocimientos</span>
+                </button>
+
+                <button onclick="navigateTab('eventos')" id="nav-btn-eventos"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-video w-4 text-center text-sky-400"></i>
+                    <span>Eventos & Zoom</span>
+                </button>
+
+                <button onclick="navigateTab('prospectos')" id="nav-btn-prospectos"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-users-viewfinder w-4 text-center text-emerald-400"></i>
+                    <span>Prospectos CRM</span>
+                </button>
+
+                <button onclick="navigateTab('agenda-hoy')" id="nav-btn-agenda-hoy"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-calendar-day w-4 text-center text-amber-400"></i>
+                    <span>Agenda de Hoy</span>
+                    <span id="badge-agenda-hoy-count" class="ml-auto px-1.5 py-0.5 rounded-full text-[9px] bg-amber-500/20 text-amber-300 font-bold">0</span>
+                </button>
+
+                <button onclick="navigateTab('equipo')" id="nav-btn-equipo"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-sitemap w-4 text-center text-purple-400"></i>
+                    <span>Mi Equipo MLM</span>
+                </button>
+
+                <button onclick="navigateTab('simulador')" id="nav-btn-simulador"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-calculator w-4 text-center text-cyan-400"></i>
+                    <span>Simulador FuXion PV</span>
+                </button>
+
+                <button onclick="navigateTab('actividad')" id="nav-btn-actividad"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-chart-line w-4 text-center text-[#00D2FF]"></i>
+                    <span>Mi Actividad</span>
+                </button>
+
+                <button onclick="navigateTab('enlaces')" id="nav-btn-enlaces"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-qrcode w-4 text-center text-cyan-400"></i>
+                    <span>Enlaces y QR</span>
+                </button>
+
+                <button onclick="navigateTab('whatsapp')" id="nav-btn-whatsapp"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-brands fa-whatsapp w-4 text-center text-emerald-400 text-sm"></i>
+                    <span>WhatsApp Business</span>
+                </button>
+
+                <button onclick="navigateTab('herramientas')" id="nav-btn-herramientas"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-file-pdf w-4 text-center text-rose-400"></i>
+                    <span>Herramientas FuXion</span>
+                </button>
+
+                <!-- Menú Exclusivo Administrador -->
+                <div id="admin-activation-nav-item" class="pt-2 border-t border-white/10 hidden">
+                    <button onclick="navigateTab('activacion-socios')" id="nav-btn-activacion-socios"
+                        class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 transition-all border border-amber-500/30">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                            <span>Activación Socios</span>
+                        </span>
+                        <span id="badge-nav-pending-count" class="px-2 py-0.5 rounded-full text-[10px] bg-amber-400 text-slate-900 font-black">0</span>
+                    </button>
+                </div>
+
+                <button onclick="navigateTab('perfil')" id="nav-btn-perfil"
+                    class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fa-solid fa-user-gear w-4 text-center text-slate-400"></i>
+                    <span>Mi Perfil & Respaldo</span>
+                </button>
+            </nav>
+
+            <div class="p-3 border-t border-white/10">
+                <button onclick="executeLogout();"
+                    class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800/80 hover:bg-slate-700/80 transition-all border border-white/10">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTENEDOR PRINCIPAL DERECHO -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            
+            <!-- Cabecera Superior -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-30 px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="toggleMobileDrawer();" class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <!-- Brand Oficial Header -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-7 flex items-center justify-center">
+                            <svg viewBox="0 0 320 250" class="w-full h-full">
+                                <g stroke="#0A111C" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" fill="none">
+                                    <polygon points="160,240 28,75 78,25 242,25 292,75" fill="#EBF3FC" />
+                                    <polygon points="78,25 242,25 205,75 115,75" fill="#C5DFF9" />
+                                    <polygon points="115,75 205,75 160,175" fill="#58B8EE" />
+                                    <line x1="28" y1="75" x2="160" y2="240" />
+                                    <line x1="292" y1="75" x2="160" y2="240" />
+                                    <line x1="115" y1="75" x2="160" y2="240" />
+                                    <line x1="205" y1="75" x2="160" y2="240" />
+                                    <line x1="28" y1="75" x2="292" y2="75" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <h2 class="text-xs font-black tracking-tight uppercase flex items-center gap-1 text-[#081935] leading-none">
+                                <span>LEADER</span>
+                                <span class="text-[#58B8EE]">PROSPECT</span>
+                            </h2>
+                            <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Network Marketing Success</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <div class="relative">
+                        <button type="button" onclick="handleNotificationBellClick();" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors relative" title="Notificaciones">
+                            <i class="fa-regular fa-bell text-sm"></i>
+                            <span id="header-bell-badge" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center px-1 ring-2 ring-white shadow-sm hidden">0</span>
+                        </button>
+                    </div>
+
+                    <div onclick="navigateTab('perfil');" class="flex items-center gap-2.5 pl-3 border-l border-slate-200 cursor-pointer">
+                        <div id="header-user-avatar" class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-xs flex items-center justify-center ring-2 ring-[#0066FF]/20 shadow-sm">
+                            RG
+                        </div>
+                        <div class="hidden sm:block text-left">
+                            <div class="flex items-center gap-1.5">
+                                <p id="header-user-name" class="text-xs font-bold text-slate-800 leading-tight">Rudy Geldres</p>
+                                <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                            </div>
+                            <p id="header-user-role" class="text-[10px] font-semibold text-slate-400">Superadministrador</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-4 sm:p-6 lg:p-7 space-y-6 flex-1 pb-24 lg:pb-8">
+                
+                <!-- ================= SECCIÓN: INICIO (DASHBOARD REAL) ================= -->
+                <div id="tab-inicio" class="space-y-6">
+
+                    <!-- HERO BANNER -->
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#071E4A] via-[#0A295C] to-[#041129] p-6 sm:p-7 text-white shadow-card-soft border border-[#163B72] flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-1.5 text-center md:text-left z-10">
+                            <h1 id="header-user-greeting" class="text-2xl sm:text-3xl font-black tracking-tight text-white">¡Bienvenido, Rudy!</h1>
+                            <p class="text-xs sm:text-sm text-blue-200 font-medium">Construyamos juntos una vida extraordinaria con FuXion</p>
+                            <div class="pt-1 flex items-center justify-center md:justify-start gap-2 text-[11px] font-semibold text-blue-300">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>Código de Patrocinio Activo:</span>
+                                <span id="banner-sponsor-code" class="font-extrabold text-[#38BDF8] bg-white/10 px-2 py-0.5 rounded-md">RudyG-Ad</span>
+                            </div>
+                        </div>
+
+                        <!-- Reemplazo de SISTEMA CRM - FuXion 360• por el Logo Oficial de Leader Prospect -->
+                        <div class="flex items-center justify-center z-10">
+                            <div class="w-48 sm:w-56 h-auto p-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center shadow-lg">
+                                <svg viewBox="0 0 320 230" class="w-full h-auto drop-shadow-md">
+                                    <g stroke="#050E1D" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" fill="none">
+                                        <polygon points="160,225 28,68 78,20 242,20 292,68" fill="#FFFFFF" />
+                                        <polygon points="78,20 242,20 205,68 115,68" fill="#E6F2FF" />
+                                        <polygon points="28,68 78,20 115,68" fill="#D4E8FC" />
+                                        <polygon points="292,68 242,20 205,68" fill="#D4E8FC" />
+                                        <polygon points="115,68 205,68 160,165" fill="#BAE0FD" />
+                                        <line x1="28" y1="68" x2="160" y2="225" />
+                                        <line x1="292" y1="68" x2="160" y2="225" />
+                                        <line x1="115" y1="68" x2="160" y2="225" />
+                                        <line x1="205" y1="68" x2="160" y2="225" />
+                                        <line x1="28" y1="68" x2="292" y2="68" />
+                                    </g>
+                                    <text x="160" y="112" text-anchor="middle" font-family="'Inter', Arial Black, sans-serif" font-weight="900" font-size="48" fill="#FFFFFF" stroke="#050E1D" stroke-width="4.5" paint-order="stroke fill" letter-spacing="1">LEADER</text>
+                                    <text x="160" y="148" text-anchor="middle" font-family="'Inter', Arial Black, sans-serif" font-weight="900" font-size="37" fill="#58B8EE" stroke="#050E1D" stroke-width="3" paint-order="stroke fill" letter-spacing="0.5">PROSPECT</text>
+                                    <line x1="48" y1="160" x2="265" y2="160" stroke="#FFFFFF" stroke-width="2.2" />
+                                    <text x="50" y="174" font-family="'Inter', sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" stroke="#050E1D" stroke-width="1.8" paint-order="stroke fill" letter-spacing="0.6">NETWORK MARKETING SUCCESS</text>
+                                    <path d="M260,174 L272,163 M272,163 L264,163 M272,163 L272,171" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTADOR DE CIERRE DE CICLO SEMANAL FUXION -->
+                    <div class="bg-gradient-to-r from-slate-900 via-[#0B254E] to-[#051329] rounded-3xl p-5 sm:p-6 text-white border border-[#1E4D8C] shadow-card-soft flex flex-col lg:flex-row items-center justify-between gap-5">
+                        <div class="flex items-center gap-4 text-center sm:text-left">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-stopwatch animate-pulse"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 justify-center sm:justify-start">
+                                    <h3 class="text-sm sm:text-base font-black text-white">Cierre de Ciclo FuXion Oficial</h3>
+                                    <span id="cycle-tag-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">Semana 1 • Periodo 1</span>
+                                </div>
+                                <p class="text-xs text-blue-200 mt-0.5" id="cycle-alert-text">Cierre semanal: <b>Martes a las 11:59:59 PM</b> (Ciclo de 28 días / 4 Semanas por Periodo).</p>
+                            </div>
+                        </div>
+
+                        <!-- Reloj Regresivo en Vivo -->
+                        <div class="flex items-center gap-2 sm:gap-3 text-center">
+                            <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/10 min-w-[55px]">
+                                <span id="countdown-days" class="text-xl sm:text-2xl font-black text-amber-400 leading-none block">00</span>
+                                <span class="text-[9px] font-bold text-blue-200 uppercase tracking-wider">Días</span>
+                            </div>
+                            <span class="text-xl font-bold text-slate-400">:</span>
+                            <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/10 min-w-[55px]">
+                                <span id="countdown-hours" class="text-xl sm:text-2xl font-black text-white leading-none block">00</span>
+                                <span class="text-[9px] font-bold text-blue-200 uppercase tracking-wider">Horas</span>
+                            </div>
+                            <span class="text-xl font-bold text-slate-400">:</span>
+                            <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/10 min-w-[55px]">
+                                <span id="countdown-minutes" class="text-xl sm:text-2xl font-black text-white leading-none block">00</span>
+                                <span class="text-[9px] font-bold text-blue-200 uppercase tracking-wider">Min</span>
+                            </div>
+                            <span class="text-xl font-bold text-slate-400">:</span>
+                            <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/10 min-w-[55px]">
+                                <span id="countdown-seconds" class="text-xl sm:text-2xl font-black text-cyan-400 leading-none block">00</span>
+                                <span class="text-[9px] font-bold text-blue-200 uppercase tracking-wider">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 4 TARJETAS KPI -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+                        <div class="bg-[#1D72FE] rounded-2xl p-4 sm:p-5 text-white shadow-card-soft flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-users text-xl"></i>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl sm:text-3xl font-black leading-none" id="kpi-prospects-count">0</div>
+                                    <span class="text-xs font-bold text-blue-100 mt-1 block">Prospectos</span>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-semibold text-blue-100 mt-3 pt-2 border-t border-white/15">
+                                Base 100% privada
+                            </div>
+                        </div>
+
+                        <div class="bg-[#10B981] rounded-2xl p-4 sm:p-5 text-white shadow-card-soft flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-chart-simple text-xl"></i>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl sm:text-3xl font-black leading-none" id="kpi-activity-count">0</div>
+                                    <span class="text-xs font-bold text-emerald-100 mt-1 block">Actividad Hoy</span>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-semibold text-emerald-100 mt-3 pt-2 border-t border-white/15">
+                                Avances registrados
+                            </div>
+                        </div>
+
+                        <div class="bg-[#7C3AED] rounded-2xl p-4 sm:p-5 text-white shadow-card-soft flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-trophy text-xl"></i>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl sm:text-3xl font-black leading-none" id="kpi-socios-count">0</div>
+                                    <span class="text-xs font-bold text-purple-100 mt-1 block">Nuevos Socios</span>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-semibold text-purple-100 mt-3 pt-2 border-t border-white/15">
+                                Equipo descendente
+                            </div>
+                        </div>
+
+                        <div class="bg-[#06B6D4] rounded-2xl p-4 sm:p-5 text-white shadow-card-soft flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
+                                    <i class="fa-regular fa-star text-xl"></i>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl sm:text-3xl font-black leading-none" id="kpi-meta-percent">0%</div>
+                                    <span class="text-xs font-bold text-cyan-100 mt-1 block">Cumplimiento</span>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-semibold text-cyan-100 mt-3 pt-2 border-t border-white/15">
+                                Meta FuXion
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AUDITORÍA DE REGISTROS (SOLO SUPERADMIN) -->
+                    <div id="admin-kpi-row" class="hidden bg-white rounded-2xl p-4 sm:p-5 shadow-card-soft border border-amber-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-amber-500 text-sm"></i>
+                                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Auditoría Superadmin: Conteo de Nuevos Líderes Registrados</h3>
+                            </div>
+                            <button onclick="navigateTab('activacion-socios')" class="text-xs font-bold text-[#0066FF] hover:underline">
+                                Ver Bandeja de Activación &gt;
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                <span class="text-[11px] text-slate-500 font-bold block">Total Registrados (Ilimitado):</span>
+                                <p id="admin-counter-total" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-blue-50 border border-blue-200">
+                                <span class="text-[11px] text-[#0066FF] font-bold block">Con Link de Patrocinio:</span>
+                                <p id="admin-counter-link" class="text-2xl font-black text-[#0066FF] mt-0.5">0</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                                <span class="text-[11px] text-emerald-700 font-bold block">Cuentas Nuevas Directas:</span>
+                                <p id="admin-counter-direct" class="text-2xl font-black text-emerald-600 mt-0.5">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AGENDA ACTIVA DE HOY Y ENLACE PERSONAL -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Agenda Activa de Hoy -->
+                        <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-card-soft border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                                        <h3 class="text-sm sm:text-base font-bold text-slate-900">Agenda Activa de Hoy</h3>
+                                    </div>
+                                    <button onclick="navigateTab('agenda-hoy')" class="text-xs font-bold text-[#0066FF] hover:underline flex items-center gap-1">
+                                        <span>Gestionar</span>
+                                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                    </button>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mb-3">Prospectos con contacto agendado para la fecha:</p>
+                                <div id="dashboard-today-list" class="space-y-2.5">
+                                    <!-- Render dinámico desde JS -->
+                                </div>
+                            </div>
+
+                            <button onclick="openAddProspectModal();" class="mt-4 w-full py-2.5 px-4 rounded-xl border border-dashed border-[#0066FF] text-[#0066FF] hover:bg-blue-50 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                                <span>Agregar Prospecto a Mi Base</span>
+                            </button>
+                        </div>
+
+                        <!-- Mi Enlace Personal y Código QR -->
+                        <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-card-soft border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fa-solid fa-link text-[#0066FF] text-xs"></i>
+                                    <h3 class="text-sm font-bold text-slate-900">Mi Enlace Personal de Patrocinador</h3>
+                                </div>
+
+                                <div class="flex items-center gap-1.5 mb-3">
+                                    <input type="text" id="widget-referral-link" readonly value="https://leaderprospect.com/r/RudyG-Ad"
+                                        class="flex-1 py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 select-all">
+                                    <button onclick="copyReferralLink();" class="p-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white transition-colors" title="Copiar Enlace">
+                                        <i class="fa-regular fa-copy text-xs"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex justify-center my-2">
+                                    <div class="p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                        <svg viewBox="0 0 100 100" class="w-20 h-20 text-slate-900 fill-current">
+                                            <path d="M0,0 h35 v35 h-35 z M5,5 v25 h25 v-25 z M10,10 h15 v15 h-15 z" />
+                                            <path d="M65,0 h35 v35 h-35 z M70,5 v25 h25 v-25 z M75,10 h15 v15 h-15 z" />
+                                            <path d="M0,65 h35 v35 h-35 z M5,70 v25 h25 v-25 z M10,75 h15 v15 h-15 z" />
+                                            <rect x="45" y="10" width="10" height="20" />
+                                            <rect x="45" y="45" width="10" height="10" />
+                                            <rect x="65" y="45" width="25" height="10" />
+                                            <rect x="45" y="65" width="20" height="10" />
+                                            <rect x="75" y="75" width="20" height="20" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="shareLinkViaWhatsApp();" class="w-full py-2.5 px-4 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span>Compartir Invitación por WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FOOTER EJECUTIVO -->
+                    <div class="bg-[#081935] rounded-3xl p-4 sm:p-5 text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-card-soft border border-[#163B72]">
+                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 text-xs font-semibold text-slate-300">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-gem text-[#38BDF8]"></i> Organiza tus contactos</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-[#00D2FF]"></i> Haz seguimiento</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-people-group text-purple-400"></i> Desarrolla tu equipo</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-[#00A3FF] to-[#00D2FF] px-6 sm:px-8 py-2.5 text-xs sm:text-sm font-black text-white tracking-wide text-center shadow-lg angled-badge">
+                            Los sueños son para cumplirlos con responsabilidad
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ================= FEATURE: LÁMINAS DE RECONOCIMIENTO CON FOTO SUBIDA ================= -->
+                <div id="tab-reconocimiento" class="hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-6">
+                        <div class="text-center space-y-1">
+                            <h2 class="text-xl font-black text-slate-900">Módulo de Reconocimientos & Celebración</h2>
+                            <p class="text-xs text-slate-500">Diseña láminas personalizadas o sube tus propios artes y compártelos al instante</p>
+                        </div>
+
+                        <!-- Selector de Modos -->
+                        <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-100 rounded-2xl">
+                            <button type="button" id="btn-rec-mode-generator" onclick="switchRecognitionMode('generator');"
+                                class="py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-[#0066FF] shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>1. Generador de Lámina</span>
+                            </button>
+                            <button type="button" id="btn-rec-mode-custom" onclick="switchRecognitionMode('custom');"
+                                class="py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>2. Subir Archivo Propio</span>
+                            </button>
+                        </div>
+
+                        <!-- MODALIDAD 1: GENERADOR DE LÁMINA OFICIAL -->
+                        <div id="rec-mode-generator-container" class="space-y-5">
+                            <!-- Previsualización Oficial -->
+                            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-tr from-[#081935] via-[#0C2D63] to-[#040C1A] p-6 text-white text-center shadow-xl border border-blue-400/30 flex flex-col items-center">
+                                <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-r from-amber-400 via-sky-400 to-[#00D2FF] mb-3 relative group">
+                                    <div class="w-full h-full rounded-full overflow-hidden bg-slate-800 flex items-center justify-center relative">
+                                        <img id="rec-preview-img" src="" alt="Foto" class="w-full h-full object-cover hidden">
+                                        <div id="rec-preview-avatar" class="text-2xl font-black text-amber-400">CM</div>
+                                    </div>
+                                    <label class="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-xs font-bold cursor-pointer transition-opacity">
+                                        <i class="fa-solid fa-camera mr-1"></i> Subir
+                                        <input type="file" accept="image/*" onchange="handleRecognitionImageUpload(event);" class="hidden">
+                                    </label>
+                                </div>
+
+                                <span id="rec-preview-badge" class="px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 mb-2 shadow-md">
+                                    ¡NUEVO SOCIO CALIFICADO!
+                                </span>
+
+                                <h3 id="rec-preview-name" class="text-xl font-black tracking-tight text-white">Carlos Mendez</h3>
+                                <p class="text-xs text-blue-200 mt-0.5">Organización de Alto Rendimiento FuXion</p>
+                                
+                                <div class="mt-4 pt-3 border-t border-white/10 w-full flex items-center justify-center gap-2">
+                                    <div class="w-6 h-5 flex items-center justify-center">
+                                        <svg viewBox="0 0 320 250" class="w-full h-full">
+                                            <polygon points="160,240 28,75 78,25 242,25 292,75" stroke="#FFFFFF" stroke-width="12" fill="#58B8EE" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-[10px] font-black tracking-wider text-slate-200 uppercase">LEADER PROSPECT • NETWORK MARKETING SUCCESS</span>
+                                </div>
+                            </div>
+
+                            <!-- Campos Editables -->
+                            <div class="space-y-3 pt-2">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Nombre del Socio Reconocido:</label>
+                                    <input type="text" id="rec-input-name" value="Carlos Mendez" oninput="updateRecognitionPreview();"
+                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold focus:ring-2 focus:ring-[#0066FF] focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Rango o Distinción:</label>
+                                    <select id="rec-input-badge" onchange="updateRecognitionPreview();"
+                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold focus:ring-2 focus:ring-[#0066FF] focus:outline-none bg-white">
+                                        <option value="¡NUEVO SOCIO CALIFICADO!">¡Nuevo Socio Calificado!</option>
+                                        <option value="¡CALIFICADO A RANGO PRO 1!">¡Nuevo Pro 1 (500 pts)!</option>
+                                        <option value="¡NUEVO TEAM BUILDER!">¡Nuevo Team Builder!</option>
+                                        <option value="¡NUEVO LÍDER X!">¡Nuevo Líder X FuXion!</option>
+                                        <option value="¡NUEVO DIAMANTE FUXION!">¡Nuevo Diamante FuXion!</option>
+                                        <option value="¡TOP PRODUCTOR DE LA SEMANA!">¡Top Productor de la Semana!</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button onclick="shareRecognitionWhatsApp();" class="w-full py-3 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span>Compartir Felicitación por WhatsApp</span>
+                            </button>
+                        </div>
+
+                        <!-- MODALIDAD 2: SUBIR ARCHIVO O IMAGEN PROPIA Y COMPARTIR -->
+                        <div id="rec-mode-custom-container" class="hidden space-y-4">
+                            <div class="p-6 border-2 border-dashed border-blue-300 rounded-3xl bg-blue-50/40 text-center relative hover:bg-blue-50/70 transition-colors">
+                                <input type="file" id="custom-image-file-input" accept="image/*" onchange="handleCustomArtUpload(event);"
+                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                <div class="flex flex-col items-center justify-center space-y-2 pointer-events-none">
+                                    <div class="w-14 h-14 rounded-2xl bg-white text-[#0066FF] flex items-center justify-center text-2xl shadow-sm border border-blue-100">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-800">Toca para seleccionar tu archivo o imagen</p>
+                                        <p class="text-[10px] text-slate-500 mt-0.5">Formatos admitidos: JPG, PNG, WEBP</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Previsualización de la Imagen Subida -->
+                            <div id="custom-art-preview-wrapper" class="hidden space-y-3">
+                                <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-80 flex items-center justify-center shadow-inner">
+                                    <img id="custom-art-preview-img" src="" alt="Arte Personalizado" class="w-full h-auto max-h-80 object-contain">
+                                    <button type="button" onclick="clearCustomArtUpload();" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center text-xs hover:bg-black transition-colors" title="Quitar imagen">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Dedicatoria o Mensaje de Felicitación:</label>
+                                    <textarea id="custom-art-caption" rows="3" class="w-full p-3 rounded-2xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#0066FF] focus:outline-none"
+                                        placeholder="Escribe el mensaje de reconocimiento..."></textarea>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <button type="button" onclick="setCustomCaptionPreset('felicidades');" class="py-1 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-semibold text-slate-700">
+                                        🎉 Felicitaciones
+                                    </button>
+                                    <button type="button" onclick="setCustomCaptionPreset('bienvenido');" class="py-1 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-semibold text-slate-700">
+                                        🚀 Bienvenido
+                                    </button>
+                                    <button type="button" onclick="setCustomCaptionPreset('pro1');" class="py-1 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-semibold text-slate-700">
+                                        💎 Pro 1 FuXion
+                                    </button>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3 pt-2">
+                                    <button type="button" onclick="shareCustomArtViaWhatsApp();" class="py-3 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                                        <span>Compartir a WhatsApp</span>
+                                    </button>
+                                    <button type="button" onclick="downloadCustomArtFile();" class="py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                        <i class="fa-solid fa-download"></i>
+                                        <span>Descargar Archivo</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN NUEVA: GRUPO LEADER ================= -->
+                <div id="tab-grupo-leader" class="hidden space-y-6">
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#04281E] via-[#083D2F] to-[#0A1A2E] p-6 sm:p-7 text-white shadow-card-soft border border-emerald-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-2 text-center md:text-left z-10">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[11px] font-black uppercase tracking-wider">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span>Comunidad Oficial de Líderes FuXion</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">GRUPO LEADER</h2>
+                            <p class="text-xs sm:text-sm text-emerald-100 max-w-xl">
+                                Conéctate con todo el equipo, comparte tus resultados, testimonios y celebra los avances del negocio en tiempo real.
+                            </p>
+                        </div>
+
+                        <a href="https://chat.whatsapp.com/C5LyNgJyfE4JbNDZQuWFOj?s=cl&p=i&mlu=4&ilr=4&iam=2" target="_blank"
+                            class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:opacity-95 text-white font-extrabold text-xs shadow-glow-btn flex items-center gap-2.5 shrink-0 transform active:scale-95 transition-all">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Unirme al Grupo de WhatsApp</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Herramienta de Compartir Avance con Imagen Corta de Prueba -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-5">
+                        <div class="text-center space-y-1">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mx-auto mb-2">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-black text-slate-900">Compartir Avance / Meta al Grupo Leader</h3>
+                            <p class="text-xs text-slate-500">Sube una imagen corta de tu avance personal, testimonio o venta y compártela directamente.</p>
+                        </div>
+
+                        <!-- Selector y Subida de Imagen Corta de Prueba -->
+                        <div class="p-4 border-2 border-dashed border-emerald-300 rounded-2xl bg-emerald-50/40 text-center relative hover:bg-emerald-50/70 transition-colors">
+                            <input type="file" id="group-leader-img-input" accept="image/*" onchange="handleGroupLeaderImageUpload(event);"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div class="flex flex-col items-center justify-center space-y-1 pointer-events-none">
+                                <i class="fa-solid fa-camera text-emerald-600 text-2xl mb-1"></i>
+                                <p class="text-xs font-bold text-slate-800">Toca para seleccionar tu captura o foto de avance</p>
+                                <p class="text-[10px] text-slate-500">Admite capturas de compras FuXion, rango o afiliación</p>
+                            </div>
+                        </div>
+
+                        <!-- Previsualización -->
+                        <div id="group-leader-preview-box" class="hidden space-y-3">
+                            <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-72 flex items-center justify-center">
+                                <img id="group-leader-preview-img" src="" alt="Avance Líder" class="w-full h-auto max-h-72 object-contain">
+                                <button type="button" onclick="clearGroupLeaderPreview();" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center text-xs hover:bg-black">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Mensaje de Avance para el Grupo:</label>
+                                <textarea id="group-leader-message" rows="3" class="w-full p-3 rounded-2xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                                    placeholder="¡Equipo! Comparto mi nuevo avance en FuXion..."></textarea>
+                            </div>
+
+                            <div class="flex items-center gap-3 pt-1">
+                                <button type="button" onclick="shareProgressToGroupLeader();" class="flex-1 py-3 px-4 rounded-2xl bg-[#25D366] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                                    <span>Compartir al Grupo WhatsApp</span>
+                                </button>
+                                <button type="button" onclick="downloadGroupLeaderPreview();" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                    <i class="fa-solid fa-download"></i>
+                                    <span>Guardar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= FEATURE: GESTOR DE EVENTOS Y SALAS ZOOM ================= -->
+                <div id="tab-eventos" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Agenda de Presentaciones & Salas Zoom</h2>
+                            <p class="text-xs text-slate-400">Conecta a tus prospectos a las presentaciones oficiales de FuXion</p>
+                        </div>
+                        <button onclick="openCreateEventModal();" class="py-2.5 px-4 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-glow-btn">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                            <span>Crear Evento</span>
+                        </button>
+                    </div>
+
+                    <div id="events-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: PROSPECTOS CRM ================= -->
+                <div id="tab-prospectos" class="hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Gestión de Prospectos CRM (Base Privada)</h2>
+                            <p class="text-xs text-slate-400">Segmentación por embudo y registro de contactos realizados</p>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button onclick="openImportModal();" class="py-2.5 px-4 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs flex items-center gap-2 transition-all border border-purple-200">
+                                <i class="fa-solid fa-file-import"></i>
+                                <span>Importar Masivo (+3000)</span>
+                            </button>
+                            <button onclick="openAddProspectModal();" class="py-2.5 px-4 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-glow-btn">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Nuevo Prospecto</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filtros Semáforo y Embudo -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-card-soft">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button onclick="filterProspectsByStatus('todos');" class="prospect-filter-btn px-3 py-1 rounded-full text-xs font-bold bg-[#0066FF] text-white" data-status="todos">
+                                Todos (<span id="count-filter-all">0</span>)
+                            </button>
+                            <button onclick="filterProspectsByStatus('verde');" class="prospect-filter-btn px-3 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-600 hover:bg-slate-100" data-status="verde">
+                                🟢 Interesados (<span id="count-filter-green">0</span>)
+                            </button>
+                            <button onclick="filterProspectsByStatus('amarillo');" class="prospect-filter-btn px-3 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-600 hover:bg-slate-100" data-status="amarillo">
+                                🟡 Evaluando (<span id="count-filter-yellow">0</span>)
+                            </button>
+                            <button onclick="filterProspectsByStatus('rojo');" class="prospect-filter-btn px-3 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-600 hover:bg-slate-100" data-status="rojo">
+                                🔴 No Interesados (<span id="count-filter-red">0</span>)
+                            </button>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-slate-400">Embudo FuXion:</span>
+                            <select id="filter-funnel-select" onchange="renderProspectsTable();" class="px-3 py-1 text-xs rounded-xl border border-slate-200 bg-white font-semibold text-slate-700">
+                                <option value="todos">Todos los embudos</option>
+                                <option value="salud">🍵 Consumidor / Salud</option>
+                                <option value="negocio">💼 Emprendedor / Negocio</option>
+                                <option value="sin_clasificar">⚪ Sin clasificar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de Prospectos CRM -->
+                    <div class="bg-white rounded-3xl border border-slate-100 shadow-card-soft overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                                        <th class="p-4">Contacto Real</th>
+                                        <th class="p-4">Teléfono</th>
+                                        <th class="p-4">Embudo</th>
+                                        <th class="p-4">Semáforo</th>
+                                        <th class="p-4">Seguimiento</th>
+                                        <th class="p-4">Notas Privadas</th>
+                                        <th class="p-4 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prospects-table-body" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Render dinámico desde JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: AGENDA ACTIVA DE HOY ================= -->
+                <div id="tab-agenda-hoy" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft flex items-center justify-between">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Agenda de Seguimientos del Día</h2>
+                            <p class="text-xs text-slate-400">Prospectos cuya fecha de llamada programada coincide con hoy</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-bold text-xs border border-amber-200">
+                            Prioridad de Cierre
+                        </span>
+                    </div>
+
+                    <div id="agenda-hoy-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Render dinámico -->
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: SIMULADOR DE RANGOS FUXION PV ================= -->
+                <div id="tab-simulador" class="hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft space-y-6">
+                        <div>
+                            <h2 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-calculator text-[#0066FF]"></i>
+                                <span>Simulador de Rango FuXion (Plan PRO-LEV X™)</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Calcula tus puntos de volumen personal (PV) y líneas activas requeridas</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Rango FuXion Objetivo</label>
+                                <select id="sim-target-rank" onchange="recalculateFuXionRank();" class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800">
+                                    <option value="pro1">Pro 1 (500 pts clientes)</option>
+                                    <option value="teambuilder">Team Builder (1,000 DBV)</option>
+                                    <option value="seniorteambuilder">Senior Team Builder (2,000 DBV)</option>
+                                    <option value="liderx" selected>Líder X (6,000 DBV / 2 Pro 1)</option>
+                                    <option value="premier">Premier Líder (12,000 DBV)</option>
+                                    <option value="diamante">Diamante FuXion (60,000 DBV)</option>
+                                </select>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200">
+                                <label class="block text-xs font-bold text-[#0066FF] mb-1">Tu Volumen Personal Actual (PV)</label>
+                                <input type="number" id="sim-my-pv" value="100" min="0" oninput="recalculateFuXionRank();" class="w-full p-2.5 rounded-xl border border-blue-300 bg-white text-xs font-bold text-slate-800">
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
+                                <label class="block text-xs font-bold text-emerald-800 mb-1">Líneas Activas en Tu Red</label>
+                                <input type="number" id="sim-my-lines" value="4" min="0" oninput="recalculateFuXionRank();" class="w-full p-2.5 rounded-xl border border-emerald-300 bg-white text-xs font-bold text-slate-800">
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta de Diagnóstico -->
+                        <div id="sim-rank-result" class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-[#081935] text-white shadow-card-soft space-y-3">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: MI EQUIPO MLM & ÁRBOL GENEALÓGICO ================= -->
+                <div id="tab-equipo" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Mi Equipo & Árbol Genealógico MLM</h2>
+                            <p class="text-xs text-slate-400">Estructura organizativa FuXion y red descendente</p>
+                        </div>
+                    </div>
+
+                    <div id="team-view-tree-container" class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft overflow-x-auto">
+                        <div class="min-w-[650px] flex flex-col items-center space-y-6 py-4" id="mlm-tree-render">
+                            <!-- Render dinámico desde JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: ACTIVACIÓN SOCIOS (EXCLUSIVO SUPERADMINISTRADOR) ================= -->
+                <div id="tab-activacion-socios" class="hidden space-y-6">
+                    <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-5 rounded-3xl border border-amber-300 shadow-card-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-900 flex items-center justify-center font-black text-xl shadow-md">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-black text-slate-900">Bandeja de Activación de Nuevos Socios</h2>
+                                <p class="text-xs text-slate-600">Recepción universal de códigos despachados a Rudy Geldres (<b>+51 970 425 293</b>)</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-900 font-black text-xs">Exclusivo Superadministrador</span>
+                    </div>
+
+                    <div class="space-y-4" id="admin-pending-activations-list">
+                        <!-- Render dinámico desde JS -->
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-card-soft space-y-3">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
+                            <span>Historial Seguro de Códigos y Mensajes Despachados</span>
+                        </h3>
+                        <div id="admin-audit-logs" class="space-y-2 text-xs text-slate-600 max-h-48 overflow-y-auto">
+                            <!-- Logs dinámicos -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: MI ACTIVIDAD ================= -->
+                <div id="tab-actividad" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft flex items-center justify-between">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Bitácora de Mi Actividad Diaria Real</h2>
+                            <p class="text-xs text-slate-400">Registra tus presentaciones y avances de prospección</p>
+                        </div>
+                        <button onclick="openAddActivityModal();" class="py-2.5 px-4 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-glow-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Registrar Actividad</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-3xl border border-slate-100 shadow-card-soft p-5">
+                        <div id="activity-timeline-list" class="space-y-3">
+                            <!-- Render dinámico -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: ENLACES & QR ================= -->
+                <div id="tab-enlaces" class="hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-xl mx-auto text-center space-y-5">
+                        <h2 class="text-xl font-bold text-slate-900">Mi Código QR y Enlace Personal</h2>
+                        <p class="text-xs text-slate-500">Muestra tu código QR en presentaciones presenciales para registrar nuevos socios.</p>
+                        
+                        <div class="p-6 bg-slate-50 rounded-3xl border border-slate-200 inline-block shadow-inner">
+                            <div class="w-44 h-44 bg-white p-3 rounded-2xl shadow-sm flex items-center justify-center">
+                                <svg viewBox="0 0 100 100" class="w-full h-full text-slate-900 fill-current">
+                                    <path d="M0,0 h35 v35 h-35 z M5,5 v25 h25 v-25 z M10,10 h15 v15 h-15 z" />
+                                    <path d="M65,0 h35 v35 h-35 z M70,5 v25 h25 v-25 z M75,10 h15 v15 h-15 z" />
+                                    <path d="M0,65 h35 v35 h-35 z M5,70 v25 h25 v-25 z M10,75 h15 v15 h-15 z" />
+                                    <rect x="45" y="10" width="10" height="20" />
+                                    <rect x="45" y="45" width="10" height="10" />
+                                    <rect x="65" y="45" width="25" height="10" />
+                                    <rect x="45" y="65" width="20" height="10" />
+                                    <rect x="75" y="75" width="20" height="20" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400">Código de Patrocinador Asignado:</span>
+                            <p id="qr-screen-sponsor-code" class="text-base font-black text-[#0066FF]">RudyG-Ad</p>
+                        </div>
+
+                        <div class="flex items-center justify-center gap-3">
+                            <button onclick="copyReferralLink();" class="py-2.5 px-4 rounded-xl bg-[#0066FF] text-white font-bold text-xs flex items-center gap-2">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copiar Enlace</span>
+                            </button>
+                            <button onclick="shareLinkViaWhatsApp();" class="py-2.5 px-4 rounded-xl bg-[#00B074] text-white font-bold text-xs flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: WHATSAPP BUSINESS SUITE ================= -->
+                <div id="tab-whatsapp" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft">
+                        <h2 class="text-lg font-bold text-slate-900">Plantillas para WhatsApp Business</h2>
+                        <p class="text-xs text-slate-400">Segmentadas para Salud (Bebidas) o Negocio (Multinivel)</p>
+                    </div>
+
+                    <div id="whatsapp-templates-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Render dinámico desde JS -->
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: HERRAMIENTAS FUXION ================= -->
+                <div id="tab-herramientas" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft">
+                        <h2 class="text-lg font-bold text-slate-900">Documentos Oficiales FuXion</h2>
+                        <p class="text-xs text-slate-400">Descarga y comparte guías ejecutivas para tu negocio</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-card-soft flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center text-xl mb-3">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900">Plan de Acción FuXion</h3>
+                                <p class="text-xs text-slate-500 mt-1">Guía para el arranque efectivo de tu negocio.</p>
+                            </div>
+                            <button onclick="showToast('Descargando Plan de Acción FuXion...');" class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Descargar PDF</span>
+                            </button>
+                        </div>
+
+                        <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-card-soft flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] flex items-center justify-center text-xl mb-3">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900">Fast Track V.3</h3>
+                                <p class="text-xs text-slate-500 mt-1">Metodología acelerada para alcanzar rangos ejecutivos.</p>
+                            </div>
+                            <button onclick="showToast('Descargando Fast Track V.3...');" class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Descargar PDF</span>
+                            </button>
+                        </div>
+
+                        <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-card-soft flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-3">
+                                    <i class="fa-solid fa-award"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900">Plan PRO-LEV X™</h3>
+                                <p class="text-xs text-slate-500 mt-1">Estructura de bonos y comisiones FuXion.</p>
+                            </div>
+                            <button onclick="showToast('Descargando Plan PRO-LEV X™...');" class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Descargar PDF</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN: MI PERFIL & RESPALDO ================= -->
+                <div id="tab-perfil" class="hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-card-soft max-w-2xl mx-auto space-y-6">
+                        <div class="flex items-center gap-4 pb-4 border-b border-slate-100">
+                            <div id="profile-avatar-large" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#0066FF] to-[#00D2FF] text-white font-black text-xl flex items-center justify-center shadow-md">
+                                RG
+                            </div>
+                            <div>
+                                <h2 id="profile-display-name" class="text-lg font-bold text-slate-900">Rudy Bryan Geldres Reategui</h2>
+                                <p id="profile-display-email" class="text-xs text-slate-500">c*************s@gmail.com</p>
+                                <span id="profile-display-role" class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-[#0066FF] text-[10px] font-bold">
+                                    Superadministrador
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Sección de Respaldo Privado -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 space-y-2">
+                            <div class="flex items-center gap-2 text-[#0066FF]">
+                                <i class="fa-solid fa-cloud-arrow-down text-base"></i>
+                                <h3 class="text-xs font-bold uppercase tracking-wider">Copia de Seguridad y Respaldo Personal</h3>
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                Descarga una copia completa de tus prospectos y actividades en un archivo local (.JSON / .CSV).
+                            </p>
+                            <div class="flex items-center gap-2 pt-1">
+                                <button type="button" onclick="exportUserDatabaseJSON();" class="py-2 px-3.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                                    <i class="fa-solid fa-file-code"></i> Exportar Respaldo JSON
+                                </button>
+                                <button type="button" onclick="exportUserProspectsCSV();" class="py-2 px-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                                    <i class="fa-solid fa-file-excel"></i> Exportar Contactos CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de Perfil y Cambio de Contraseña -->
+                        <form onsubmit="event.preventDefault(); saveProfileChanges();" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo</label>
+                                <input type="text" id="profile-input-name" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#0066FF] focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Número de WhatsApp</label>
+                                <input type="text" id="profile-input-whatsapp" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#0066FF] focus:outline-none">
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Cambiar Contraseña</label>
+                                <input type="password" id="profile-input-newpass" placeholder="Ingresa nueva contraseña (mínimo 6 caracteres)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#0066FF] focus:outline-none">
+                            </div>
+
+                            <button type="submit" class="w-full py-3 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white font-bold text-xs shadow-glow-btn transition-all">
+                                Guardar Cambios en Mi Perfil
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL DE REGISTRO DE NUEVO SOCIO                                          -->
+    <!-- ========================================================================= -->
+    <div id="modal-register-user" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl relative border border-slate-100 my-8">
+            <button onclick="closeRegisterModal();" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-2 mb-4">
+                <div class="w-9 h-9 rounded-xl bg-blue-50 text-[#0066FF] flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-user-plus text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-900">Registro de Nuevo Socio</h3>
+                    <p class="text-[11px] text-slate-400">Inicia tu organización multinivel</p>
+                </div>
+            </div>
+
+            <form onsubmit="event.preventDefault(); submitUserRegistration();" class="space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Primer Nombre</label>
+                        <input type="text" id="reg-name" required placeholder="Carlos" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Primer Apellido</label>
+                        <input type="text" id="reg-lastname" required placeholder="Mendez" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Correo Electrónico</label>
+                    <input type="email" id="reg-email" required placeholder="carlos.mendez@correo.com" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">País</label>
+                        <select id="reg-country" class="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-white">
+                            <option value="+51">🇵🇪 Perú (+51)</option>
+                            <option value="+57">🇨🇴 Colombia (+57)</option>
+                            <option value="+52">🇲🇽 México (+52)</option>
+                            <option value="+593">🇪🇨 Ecuador (+593)</option>
+                            <option value="+56">🇨🇱 Chile (+56)</option>
+                            <option value="+1">🇺🇸 USA (+1)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">WhatsApp Celular</label>
+                        <input type="tel" id="reg-phone" required placeholder="987654321" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Código Patrocinador</label>
+                    <input type="text" id="reg-sponsor" value="RudyG-Ad" class="w-full px-3 py-2 rounded-xl border border-slate-200 font-bold text-[#0066FF] bg-slate-50">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Crear Contraseña</label>
+                    <input type="password" id="reg-pass" required placeholder="Mínimo 6 caracteres" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                </div>
+
+                <div class="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-amber-800 text-[11px] leading-relaxed">
+                    <i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>
+                    El código de 6 dígitos será despachado al Administrador Rudy Geldres (+51 970 425 293), quien te lo brindará por WhatsApp Business.
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#00D2FF] text-white font-bold text-xs shadow-glow-btn mt-2">
+                    REGISTRARME Y SOLICITAR CÓDIGO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL DE ESPERA Y VALIDACIÓN DE CÓDIGO                                    -->
+    <!-- ========================================================================= -->
+    <div id="modal-waiting-code" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl relative border border-slate-100 text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-blue-50 text-[#0066FF] flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-paper-plane animate-bounce"></i>
+            </div>
+            
+            <h3 class="text-lg font-bold text-slate-900">¡Solicitud de Registro Enviada!</h3>
+            <p class="text-xs text-slate-600 max-w-sm mx-auto">
+                Por favor comunícate con el Administrador Rudy Geldres para recibir tu <b>código de 6 dígitos</b> por WhatsApp Business.
+            </p>
+
+            <button onclick="openWhatsAppWithAdmin();" class="w-full py-3 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+                <span>Solicitar mi Código a Rudy (+51 970 425 293)</span>
+            </button>
+
+            <div class="pt-3 border-t border-slate-100">
+                <label class="block text-xs font-bold text-slate-700 mb-2">Ingresa tu Código de 6 Dígitos Recibido:</label>
+                <div class="flex items-center justify-center gap-2">
+                    <input type="text" id="input-verification-code" maxlength="6" placeholder="000000" class="w-36 py-2.5 text-center text-xl font-black tracking-widest text-[#0066FF] border-2 border-blue-200 rounded-xl focus:outline-none focus:border-[#0066FF]">
+                    <button onclick="validateVerificationCode();" class="py-2.5 px-4 bg-[#0066FF] text-white font-bold text-xs rounded-xl shadow-glow-btn">
+                        Activar Cuenta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL DE IMPORTACIÓN MASIVA                                               -->
+    <!-- ========================================================================= -->
+    <div id="modal-import-contacts" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl relative border border-slate-100 space-y-4">
+            <button onclick="closeImportModal();" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-address-book"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-900">Importación Masiva Real (+3000)</h3>
+                    <p class="text-[11px] text-slate-400">Normalización telefónica y sin duplicados</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl text-center hover:bg-slate-50 transition-colors cursor-pointer relative">
+                    <input type="file" id="file-import-input" accept=".csv, .vcf, .txt" onchange="handleFileUploadE164(event);" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-purple-500 mb-1"></i>
+                    <p class="text-xs font-bold text-slate-700">Subir archivo real (.CSV o .VCF)</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">O pegar lista rápida (Nombre, Teléfono por línea):</label>
+                    <textarea id="import-pasted-text" rows="3" placeholder="Carlos Mendez, +51987654321&#10;Maria Ramos, +51912345678" class="w-full p-2.5 text-xs rounded-xl border border-slate-200 font-mono"></textarea>
+                </div>
+
+                <div id="import-batch-report" class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1 hidden">
+                    <!-- Reporte dinámico -->
+                </div>
+
+                <button onclick="processPastedContactsE164();" class="w-full py-2.5 rounded-xl bg-[#0066FF] text-white font-bold text-xs shadow-glow-btn">
+                    Procesar e Importar Contactos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL AGREGAR PROSPECTO INDIVIDUAL                                        -->
+    <!-- ========================================================================= -->
+    <div id="modal-add-prospect" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl relative border border-slate-100 space-y-4">
+            <button onclick="closeAddProspectModal();" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-xl bg-blue-50 text-[#0066FF] flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-user-plus text-sm"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900">Agregar Prospecto Real</h3>
+            </div>
+
+            <form onsubmit="event.preventDefault(); submitNewProspect();" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nombre Completo</label>
+                    <input type="text" id="new-prospect-name" required placeholder="Ej. Ana Lucía Torres" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Prefijo</label>
+                        <select id="new-prospect-prefix" class="w-full px-2 py-2 rounded-xl border border-slate-200 bg-white">
+                            <option value="+51">+51 (PE)</option>
+                            <option value="+57">+57 (CO)</option>
+                            <option value="+52">+52 (MX)</option>
+                            <option value="+1">+1 (US)</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-bold text-slate-700 mb-1">Número de Teléfono</label>
+                        <input type="tel" id="new-prospect-phone" required placeholder="987654321" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Embudo FuXion</label>
+                        <select id="new-prospect-funnel" class="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-white font-semibold">
+                            <option value="salud">🍵 Salud / Bebidas</option>
+                            <option value="negocio">💼 Negocio / Red</option>
+                            <option value="sin_clasificar">⚪ Sin clasificar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Semáforo de Interés</label>
+                        <select id="new-prospect-status" class="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-white font-semibold">
+                            <option value="verde">🟢 Interesado</option>
+                            <option value="amarillo" selected>🟡 Evaluando</option>
+                            <option value="rojo">🔴 No Interesado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Fecha de Seguimiento (Opcional)</label>
+                    <input type="date" id="new-prospect-scheduled" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Notas Confidenciales</label>
+                    <textarea id="new-prospect-notes" rows="2" placeholder="Interesado en Prunex y Vita Energía..." class="w-full p-2.5 rounded-xl border border-slate-200"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-[#0066FF] text-white font-bold text-xs shadow-glow-btn">
+                    Guardar Prospecto
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST FLOTANTE -->
+    <div id="toast-message" class="hidden fixed bottom-6 right-6 z-50 bg-[#081935] text-white px-4 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-2.5 text-xs font-semibold">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-text">Acción ejecutada</span>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- SCRIPT PRINCIPAL TOTALMENTE ENCAPSULADO                                   -->
+    <!-- ========================================================================= -->
+    <script>
+        // Constantes del Superadministrador
+        const ADMIN_OFFICIAL_EMAIL = "corporativogeldres@gmail.com";
+        const ADMIN_OFFICIAL_PASS = "Reategui7";
+        const ADMIN_FULL_NAME = "Rudy Bryan Geldres Reategui";
+        const ADMIN_SPONSOR_CODE = "RudyG-Ad";
+        const ADMIN_WHATSAPP_NUMBER = "+51970425293";
+        const ADMIN_DISPLAY_PHONE = "+51 970 425 293";
+
+        // Estado global de la aplicación
+        const appState = {
+            currentUser: null,
+            prospects: [],
+            team: [],
+            activities: [],
+            events: [],
+            pendingActivations: [],
+            auditLogs: [],
+            counters: { totalRegistrations: 0, withLink: 0, direct: 0 }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeStorage();
+            startCycleCountdownTimer();
+
+            // Auto-recuperación de sesión
+            const savedSession = localStorage.getItem('lp_active_session');
+            if (savedSession) {
+                try {
+                    const sessionData = JSON.parse(savedSession);
+                    if (sessionData && sessionData.id) {
+                        appState.currentUser = sessionData;
+                        loadUserScopedData(sessionData.id);
+                        launchDashboard();
+                    }
+                } catch(err) {
+                    localStorage.removeItem('lp_active_session');
+                }
+            }
+        });
+
+        function toggleMobileDrawer() {
+            const drawer = document.getElementById('mobile-drawer');
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+            if (!drawer || !backdrop) return;
+            const isClosed = drawer.classList.contains('-translate-x-full');
+            if (isClosed) {
+                drawer.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function initializeStorage() {
+            if (!localStorage.getItem('lp_admin_pass')) {
+                localStorage.setItem('lp_admin_pass', ADMIN_OFFICIAL_PASS);
+            }
+            if (!localStorage.getItem('lp_pending_activations')) {
+                localStorage.setItem('lp_pending_activations', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('lp_registered_users')) {
+                localStorage.setItem('lp_registered_users', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('lp_audit_logs')) {
+                localStorage.setItem('lp_audit_logs', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('lp_registration_counters')) {
+                localStorage.setItem('lp_registration_counters', JSON.stringify({ totalRegistrations: 0, withLink: 0, direct: 0 }));
+            }
+
+            appState.pendingActivations = JSON.parse(localStorage.getItem('lp_pending_activations') || '[]');
+            appState.auditLogs = JSON.parse(localStorage.getItem('lp_audit_logs') || '[]');
+            appState.counters = JSON.parse(localStorage.getItem('lp_registration_counters') || '{"totalRegistrations":0,"withLink":0,"direct":0}');
+        }
+
+        function loadUserScopedData(userId) {
+            const userDbKey = 'lp_user_db_' + userId;
+            const savedData = localStorage.getItem(userDbKey);
+            if (savedData) {
+                try {
+                    const parsed = JSON.parse(savedData);
+                    appState.prospects = parsed.prospects || [];
+                    appState.team = parsed.team || [];
+                    appState.activities = parsed.activities || [];
+                    appState.events = parsed.events || [
+                        { title: 'Presentación Oficial de Negocio FuXion (Zoom)', date: 'Martes 8:00 PM', host: 'Liderazgo FuXion', link: 'https://zoom.us/j/leaderprospect' }
+                    ];
+                } catch (e) {
+                    initEmptyUserData();
+                }
+            } else {
+                initEmptyUserData();
+            }
+        }
+
+        function initEmptyUserData() {
+            appState.prospects = [];
+            appState.team = [];
+            appState.activities = [];
+            appState.events = [
+                { title: 'Presentación Oficial de Negocio FuXion (Zoom)', date: 'Martes 8:00 PM', host: 'Liderazgo FuXion', link: 'https://zoom.us/j/leaderprospect' }
+            ];
+            saveUserScopedData();
+        }
+
+        function saveUserScopedData() {
+            if (!appState.currentUser || !appState.currentUser.id) return;
+            const dataToSave = {
+                prospects: appState.prospects,
+                team: appState.team,
+                activities: appState.activities,
+                events: appState.events
+            };
+            localStorage.setItem('lp_user_db_' + appState.currentUser.id, JSON.stringify(dataToSave));
+            updateKPIs();
+        }
+
+        // =========================================================
+        // AUTENTICACIÓN Y ACCESO BLINDADO
+        // =========================================================
+        function executeLogin() {
+            try {
+                const emailInput = document.getElementById('input-auth-email');
+                const passInput = document.getElementById('input-auth-password');
+                const errBox = document.getElementById('login-error-box');
+                const errText = document.getElementById('login-error-text');
+
+                if (!emailInput || !passInput) return;
+                const email = emailInput.value.trim().toLowerCase();
+                const pass = passInput.value.trim();
+
+                if (!email || !pass) {
+                    if (errBox) {
+                        errBox.classList.remove('hidden');
+                        errText.textContent = 'Por favor ingresa tu correo y contraseña.';
+                    }
+                    return;
+                }
+
+                // 1. Acceso de Superadministrador (Rudy Geldres)
+                if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
+                    const storedAdminPass = localStorage.getItem('lp_admin_pass') || ADMIN_OFFICIAL_PASS;
+                    if (pass === storedAdminPass || pass === ADMIN_OFFICIAL_PASS || pass.toLowerCase() === ADMIN_OFFICIAL_PASS.toLowerCase()) {
+                        if (errBox) errBox.classList.add('hidden');
+                        const adminUser = {
+                            id: 'usr_admin_rudy',
+                            name: ADMIN_FULL_NAME,
+                            email: ADMIN_OFFICIAL_EMAIL,
+                            role: 'Superadministrador',
+                            sponsorCode: ADMIN_SPONSOR_CODE,
+                            phone: ADMIN_WHATSAPP_NUMBER,
+                            isAdmin: true
+                        };
+                        appState.currentUser = adminUser;
+                        localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
+                        loadUserScopedData(adminUser.id);
+                        launchDashboard();
+                        return;
+                    } else {
+                        if (errBox) {
+                            errBox.classList.remove('hidden');
+                            errText.textContent = 'Contraseña incorrecta de Administrador.';
+                        }
+                        return;
+                    }
+                }
+
+                // 2. Acceso de Socios Registrados
+                const registeredUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                const foundUser = registeredUsers.find(u => u.email && u.email.toLowerCase() === email);
+
+                if (foundUser) {
+                    if (foundUser.password === pass) {
+                        if (errBox) errBox.classList.add('hidden');
+                        foundUser.role = 'Líder de Red';
+                        foundUser.isAdmin = false;
+                        appState.currentUser = foundUser;
+                        localStorage.setItem('lp_active_session', JSON.stringify(foundUser));
+                        loadUserScopedData(foundUser.id);
+                        launchDashboard();
+                        return;
+                    } else {
+                        if (errBox) {
+                            errBox.classList.remove('hidden');
+                            errText.textContent = 'Contraseña incorrecta.';
+                        }
+                        return;
+                    }
+                }
+
+                // 3. Comprobar registros pendientes de activación
+                const pendingList = JSON.parse(localStorage.getItem('lp_pending_activations') || '[]');
+                const isPending = pendingList.find(p => p.email && p.email.toLowerCase() === email);
+
+                if (isPending) {
+                    openWaitingModal(isPending);
+                    return;
+                }
+
+                if (errBox) {
+                    errBox.classList.remove('hidden');
+                    errText.textContent = 'Usuario no encontrado. Regístrate para solicitar tu código.';
+                }
+            } catch (err) {
+                console.error("Error en executeLogin:", err);
+                const emailInput = document.getElementById('input-auth-email');
+                if (emailInput && emailInput.value.trim().toLowerCase() === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
+                    const adminUser = {
+                        id: 'usr_admin_rudy',
+                        name: ADMIN_FULL_NAME,
+                        email: ADMIN_OFFICIAL_EMAIL,
+                        role: 'Superadministrador',
+                        sponsorCode: ADMIN_SPONSOR_CODE,
+                        phone: ADMIN_WHATSAPP_NUMBER,
+                        isAdmin: true
+                    };
+                    appState.currentUser = adminUser;
+                    localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
+                    loadUserScopedData(adminUser.id);
+                    launchDashboard();
+                }
+            }
+        }
+
+        function launchDashboard() {
+            const authScreen = document.getElementById('auth-screen');
+            const dashboardScreen = document.getElementById('dashboard-screen');
+
+            if (authScreen) {
+                authScreen.classList.add('hidden');
+                authScreen.classList.remove('flex');
+                authScreen.style.display = 'none';
+            }
+            if (dashboardScreen) {
+                dashboardScreen.classList.remove('hidden');
+                dashboardScreen.classList.add('flex');
+                dashboardScreen.style.display = 'flex';
+            }
+
+            renderDashboardUI();
+            navigateTab('inicio');
+        }
+
+        function executeLogout() {
+            localStorage.removeItem('lp_active_session');
+            appState.currentUser = null;
+            const authScreen = document.getElementById('auth-screen');
+            const dashboardScreen = document.getElementById('dashboard-screen');
+
+            if (authScreen) {
+                authScreen.classList.remove('hidden');
+                authScreen.classList.add('flex');
+                authScreen.style.display = 'flex';
+            }
+            if (dashboardScreen) {
+                dashboardScreen.classList.add('hidden');
+                dashboardScreen.classList.remove('flex');
+                dashboardScreen.style.display = 'none';
+            }
+
+            const errBox = document.getElementById('login-error-box');
+            if (errBox) errBox.classList.add('hidden');
+        }
+
+        function renderDashboardUI() {
+            const user = appState.currentUser;
+            if (!user) return;
+
+            const nameEl = document.getElementById('header-user-name');
+            const roleEl = document.getElementById('header-user-role');
+            const greetEl = document.getElementById('header-user-greeting');
+            const sponsorEl = document.getElementById('banner-sponsor-code');
+            const refLinkEl = document.getElementById('widget-referral-link');
+            const qrSponsorEl = document.getElementById('qr-screen-sponsor-code');
+
+            if (nameEl) nameEl.textContent = user.name;
+            if (roleEl) roleEl.textContent = user.role;
+            if (greetEl) greetEl.textContent = '¡Bienvenido, ' + (user.name.split(' ')[0] || user.name) + '!';
+            if (sponsorEl) sponsorEl.textContent = user.sponsorCode;
+            if (refLinkEl) refLinkEl.value = 'https://leaderprospect.com/r/' + user.sponsorCode;
+            if (qrSponsorEl) qrSponsorEl.textContent = user.sponsorCode;
+
+            const initials = user.name.split(' ').map(n => n[0]).slice(0, 2).join('') || 'LP';
+            const avatarEl = document.getElementById('header-user-avatar');
+            const profAvatar = document.getElementById('profile-avatar-large');
+            const profName = document.getElementById('profile-display-name');
+            const profEmail = document.getElementById('profile-display-email');
+            const profRole = document.getElementById('profile-display-role');
+
+            if (avatarEl) avatarEl.textContent = initials;
+            if (profAvatar) profAvatar.textContent = initials;
+            if (profName) profName.textContent = user.name;
+            if (profEmail) profEmail.textContent = user.isAdmin ? 'c*************s@gmail.com' : user.email;
+            if (profRole) profRole.textContent = user.role;
+
+            const inpName = document.getElementById('profile-input-name');
+            const inpWa = document.getElementById('profile-input-whatsapp');
+            if (inpName) inpName.value = user.name;
+            if (inpWa) inpWa.value = user.phone;
+
+            const adminActivationItem = document.getElementById('admin-activation-nav-item');
+            const mobileAdminActivation = document.getElementById('mobile-admin-activation-nav');
+            const adminKpiRow = document.getElementById('admin-kpi-row');
+
+            if (user.isAdmin) {
+                if (adminActivationItem) adminActivationItem.classList.remove('hidden');
+                if (mobileAdminActivation) mobileAdminActivation.classList.remove('hidden');
+                if (adminKpiRow) adminKpiRow.classList.remove('hidden');
+                renderAdminActivationQueue();
+                updateAdminCountersUI();
+            } else {
+                if (adminActivationItem) adminActivationItem.classList.add('hidden');
+                if (mobileAdminActivation) mobileAdminActivation.classList.add('hidden');
+                if (adminKpiRow) adminKpiRow.classList.add('hidden');
+            }
+
+            updateKPIs();
+            renderDashboardTodayAgenda();
+            renderProspectsTable();
+            renderMLMTree();
+            renderWhatsAppTemplates();
+            renderActivityTimeline();
+            recalculateFuXionRank();
+            renderEventsList();
+            updateRecognitionPreview();
+        }
+
+        function updateKPIs() {
+            const pCount = document.getElementById('kpi-prospects-count');
+            const aCount = document.getElementById('kpi-activity-count');
+            const sCount = document.getElementById('kpi-socios-count');
+            const mPercent = document.getElementById('kpi-meta-percent');
+
+            if (pCount) pCount.textContent = appState.prospects.length;
+            if (aCount) aCount.textContent = appState.activities.length;
+            if (sCount) sCount.textContent = appState.team.length;
+            
+            const metaPercent = Math.min(100, Math.round((appState.prospects.length / 50) * 100));
+            if (mPercent) mPercent.textContent = metaPercent + '%';
+
+            const todayStr = new Date().toISOString().split('T')[0];
+            const dueToday = appState.prospects.filter(p => p.scheduledDate === todayStr).length;
+            const agendaCountBadge = document.getElementById('badge-agenda-hoy-count');
+            if (agendaCountBadge) agendaCountBadge.textContent = dueToday;
+
+            const pendingCount = appState.pendingActivations.length;
+            const bellBadge = document.getElementById('header-bell-badge');
+            if (bellBadge) {
+                if (appState.currentUser && appState.currentUser.isAdmin && pendingCount > 0) {
+                    bellBadge.textContent = pendingCount;
+                    bellBadge.classList.remove('hidden');
+                } else {
+                    bellBadge.classList.add('hidden');
+                }
+            }
+
+            const navBadge = document.getElementById('badge-nav-pending-count');
+            const mobileNavBadge = document.getElementById('mobile-badge-pending-count');
+            if (navBadge) navBadge.textContent = pendingCount;
+            if (mobileNavBadge) mobileNavBadge.textContent = pendingCount;
+        }
+
+        function updateAdminCountersUI() {
+            const totalEl = document.getElementById('admin-counter-total');
+            const linkEl = document.getElementById('admin-counter-link');
+            const directEl = document.getElementById('admin-counter-direct');
+
+            if (totalEl) totalEl.textContent = appState.counters.totalRegistrations;
+            if (linkEl) linkEl.textContent = appState.counters.withLink;
+            if (directEl) directEl.textContent = appState.counters.direct;
+        }
+
+        function handleNotificationBellClick() {
+            if (appState.currentUser && appState.currentUser.isAdmin) {
+                navigateTab('activacion-socios');
+            } else {
+                showToast('No tienes notificaciones pendientes.');
+            }
+        }
+
+        // =========================================================
+        // CIERRE DE CICLO FUXION: MARTES 11:59:59 PM (PERIODO 28 DÍAS)
+        // =========================================================
+        function startCycleCountdownTimer() {
+            function updateCountdown() {
+                const now = new Date();
+                const day = now.getDay();
+                let daysToTuesday = (2 - day + 7) % 7;
+                
+                if (daysToTuesday === 0 && now.getHours() === 23 && now.getMinutes() === 59 && now.getSeconds() >= 59) {
+                    daysToTuesday = 7;
+                }
+
+                const targetClosing = new Date(now);
+                targetClosing.setDate(now.getDate() + daysToTuesday);
+                targetClosing.setHours(23, 59, 59, 999);
+
+                const diff = Math.max(0, targetClosing - now);
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                const dEl = document.getElementById('countdown-days');
+                const hEl = document.getElementById('countdown-hours');
+                const mEl = document.getElementById('countdown-minutes');
+                const sEl = document.getElementById('countdown-seconds');
+
+                if (dEl) dEl.textContent = String(days).padStart(2, '0');
+                if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+                if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+                if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+
+                const startOfYear = new Date(now.getFullYear(), 0, 1);
+                const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+                const weekOfYear = Math.min(52, Math.max(1, Math.floor(dayOfYear / 7) + 1));
+                
+                const currentPeriod = Math.min(13, Math.floor((weekOfYear - 1) / 4) + 1);
+                const weekInPeriod = ((weekOfYear - 1) % 4) + 1;
+
+                const tagBadge = document.getElementById('cycle-tag-badge');
+                if (tagBadge) {
+                    tagBadge.textContent = 'Semana ' + weekOfYear + ' (Semana ' + weekInPeriod + ' de 4) • Periodo ' + currentPeriod;
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // =========================================================
+        // LÁMINAS DE RECONOCIMIENTO (CON SUBIDA DE FOTO EDITABLE)
+        // =========================================================
+        let currentCustomArtDataUrl = null;
+
+        function switchRecognitionMode(mode) {
+            const btnGen = document.getElementById('btn-rec-mode-generator');
+            const btnCustom = document.getElementById('btn-rec-mode-custom');
+            const secGen = document.getElementById('rec-mode-generator-container');
+            const secCustom = document.getElementById('rec-mode-custom-container');
+
+            if (mode === 'generator') {
+                if (btnGen) {
+                    btnGen.className = 'py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-[#0066FF] shadow-sm flex items-center justify-center gap-2';
+                }
+                if (btnCustom) {
+                    btnCustom.className = 'py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2';
+                }
+                if (secGen) secGen.classList.remove('hidden');
+                if (secCustom) secCustom.classList.add('hidden');
+            } else {
+                if (btnCustom) {
+                    btnCustom.className = 'py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-[#0066FF] shadow-sm flex items-center justify-center gap-2';
+                }
+                if (btnGen) {
+                    btnGen.className = 'py-2 px-3 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2';
+                }
+                if (secGen) secGen.classList.add('hidden');
+                if (secCustom) secCustom.classList.remove('hidden');
+            }
+        }
+
+        function handleCustomArtUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentCustomArtDataUrl = e.target.result;
+                const previewImg = document.getElementById('custom-art-preview-img');
+                const previewWrapper = document.getElementById('custom-art-preview-wrapper');
+                
+                if (previewImg && previewWrapper) {
+                    previewImg.src = currentCustomArtDataUrl;
+                    previewWrapper.classList.remove('hidden');
+                }
+
+                const captionEl = document.getElementById('custom-art-caption');
+                if (captionEl && !captionEl.value.trim()) {
+                    setCustomCaptionPreset('felicidades');
+                }
+
+                showToast('Imagen cargada con éxito. Lista para compartir.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearCustomArtUpload() {
+            currentCustomArtDataUrl = null;
+            const previewWrapper = document.getElementById('custom-art-preview-wrapper');
+            const fileInput = document.getElementById('custom-image-file-input');
+            if (previewWrapper) previewWrapper.classList.add('hidden');
+            if (fileInput) fileInput.value = '';
+            showToast('Imagen retirada.');
+        }
+
+        function setCustomCaptionPreset(presetKey) {
+            const captionEl = document.getElementById('custom-art-caption');
+            if (!captionEl) return;
+
+            if (presetKey === 'felicidades') {
+                captionEl.value = '🎉💎 ¡MUCHAS FELICIDADES POR ESTE NUEVO LOGRO! 🚀✨\nTu esfuerzo y disciplina en FuXion hoy dan grandes frutos. ¡Sigue inspirando al equipo hacia el siguiente nivel! 👏🔥';
+            } else if (presetKey === 'bienvenido') {
+                captionEl.value = '🌟🚀 ¡OFICIALMENTE BIENVENIDO(A) A LA FAMILIA FUXION! 💎✨\nIniciamos este gran camino juntos hacia tu libertad financiera y salud plena. ¡A construir en grande! 💪🤝';
+            } else if (presetKey === 'pro1') {
+                captionEl.value = '🏆✨ ¡NUEVO PRO 1 CALIFICADO! 🎉🔥\nFelicitamos a nuestro socio por alcanzar su meta comercial y liderar con el ejemplo en FuXion. ¡Vamos con todo por el Líder X! 💎🚀';
+            }
+        }
+
+        async function shareCustomArtViaWhatsApp() {
+            const caption = (document.getElementById('custom-art-caption') || {}).value || '';
+            const myName = appState.currentUser ? appState.currentUser.name : 'Liderazgo FuXion';
+            const fullText = caption + '\n\n— Compartido desde *LEADER PROSPECT* por ' + myName + ' 💎';
+
+            if (currentCustomArtDataUrl && navigator.canShare) {
+                try {
+                    const response = await fetch(currentCustomArtDataUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], 'reconocimiento_fuxion.png', { type: blob.type });
+
+                    if (navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'Reconocimiento FuXion',
+                            text: fullText
+                        });
+                        showToast('Reconocimiento compartido con éxito.');
+                        return;
+                    }
+                } catch (err) {
+                    // Fallback directo a WhatsApp
+                }
+            }
+
+            const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(fullText);
+            window.open(url, '_blank');
+            showToast('Abriendo WhatsApp con tu dedicatoria...');
+        }
+
+        function downloadCustomArtFile() {
+            if (!currentCustomArtDataUrl) {
+                showToast('Primero selecciona o sube una imagen.');
+                return;
+            }
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute('href', currentCustomArtDataUrl);
+            dlAnchor.setAttribute('download', 'Reconocimiento_FuXion_' + Date.now() + '.png');
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+            showToast('Descarga iniciada.');
+        }
+
+        function handleRecognitionImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imgEl = document.getElementById('rec-preview-img');
+                const avatarEl = document.getElementById('rec-preview-avatar');
+                if (imgEl && avatarEl) {
+                    imgEl.src = e.target.result;
+                    imgEl.classList.remove('hidden');
+                    avatarEl.classList.add('hidden');
+                }
+                showToast('Foto cargada exitosamente.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateRecognitionPreview() {
+            const nameInput = document.getElementById('rec-input-name');
+            const badgeInput = document.getElementById('rec-input-badge');
+            const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Carlos Mendez';
+            const badge = (badgeInput && badgeInput.value) ? badgeInput.value : '¡NUEVO SOCIO CALIFICADO!';
+
+            const nameEl = document.getElementById('rec-preview-name');
+            const badgeEl = document.getElementById('rec-preview-badge');
+            if (nameEl) nameEl.textContent = name;
+            if (badgeEl) badgeEl.textContent = badge;
+
+            const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('') || 'CM';
+            const avatarEl = document.getElementById('rec-preview-avatar');
+            if (avatarEl) avatarEl.textContent = initials;
+        }
+
+        function shareRecognitionWhatsApp() {
+            const nameInput = document.getElementById('rec-input-name');
+            const badgeInput = document.getElementById('rec-input-badge');
+            const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'nuestro socio';
+            const badge = (badgeInput && badgeInput.value) ? badgeInput.value : 'un nuevo logro';
+            const text = '🎉💎 ¡RECONOCIMIENTO OFICIAL EN EL EQUIPO! 🚀✨\n\nFelicitamos a nuestro líder *' + name + '* por alcanzar el rango de:\n🏆 *' + badge + '* 🏆\n\n¡Un ejemplo de constancia en FuXion! ¡Vamos por el siguiente nivel hacia el Diamante! 💎🔥👏';
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
+        }
+
+        // =========================================================
+        // NAVEGACIÓN ENTRE PESTAÑAS
+        // =========================================================
+        function navigateTab(tabId) {
+            const tabs = ['inicio', 'grupo-leader', 'reconocimiento', 'eventos', 'prospectos', 'agenda-hoy', 'simulador', 'equipo', 'actividad', 'enlaces', 'whatsapp', 'herramientas', 'perfil', 'activacion-socios'];
+            tabs.forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                if (el) el.classList.add('hidden');
+                
+                const btn = document.getElementById('nav-btn-' + t);
+                if (btn) {
+                    btn.classList.remove('bg-[#0066FF]', 'text-white', 'shadow-glow-btn');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) activeTab.classList.remove('hidden');
+
+            const activeBtn = document.getElementById('nav-btn-' + tabId);
+            if (activeBtn && tabId !== 'activacion-socios') {
+                activeBtn.classList.add('bg-[#0066FF]', 'text-white', 'shadow-glow-btn');
+                activeBtn.classList.remove('text-slate-300');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // =========================================================
+        // SECCIÓN GRUPO LEADER (WHATSAPP & AVANCES)
+        // =========================================================
+        let currentGroupLeaderImgDataUrl = null;
+
+        function handleGroupLeaderImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentGroupLeaderImgDataUrl = e.target.result;
+                const previewImg = document.getElementById('group-leader-preview-img');
+                const box = document.getElementById('group-leader-preview-box');
+                const msgBox = document.getElementById('group-leader-message');
+
+                if (previewImg && box) {
+                    previewImg.src = currentGroupLeaderImgDataUrl;
+                    box.classList.remove('hidden');
+                }
+
+                if (msgBox && !msgBox.value.trim()) {
+                    const myName = appState.currentUser ? appState.currentUser.name : 'Socio FuXion';
+                    msgBox.value = '🚀💎 ¡Hola Familia FuXion del GRUPO LEADER! ✨🔥\nLes saluda ' + myName + '. Comparto con ustedes mi nuevo avance y meta alcanzada en el equipo. ¡Seguimos sumando y duplicando con todo! 👏💪';
+                }
+                showToast('Captura de avance cargada. Lista para compartir.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearGroupLeaderPreview() {
+            currentGroupLeaderImgDataUrl = null;
+            const box = document.getElementById('group-leader-preview-box');
+            const fileInput = document.getElementById('group-leader-img-input');
+            if (box) box.classList.add('hidden');
+            if (fileInput) fileInput.value = '';
+        }
+
+        async function shareProgressToGroupLeader() {
+            const message = (document.getElementById('group-leader-message') || {}).value || '';
+            const fullText = message + '\n\n— *LEADER PROSPECT* • FuXion Business 💎\nÚnete al grupo: https://chat.whatsapp.com/C5LyNgJyfE4JbNDZQuWFOj?s=cl&p=i&mlu=4&ilr=4&iam=2';
+
+            if (currentGroupLeaderImgDataUrl && navigator.canShare) {
+                try {
+                    const response = await fetch(currentGroupLeaderImgDataUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], 'avance_fuxion.png', { type: blob.type });
+
+                    if (navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'Avance Grupo Leader FuXion',
+                            text: fullText
+                        });
+                        showToast('Avance compartido con el Grupo Leader.');
+                        return;
+                    }
+                } catch(err) {
+                    // Fallback
+                }
+            }
+
+            const targetUrl = 'https://chat.whatsapp.com/C5LyNgJyfE4JbNDZQuWFOj?s=cl&p=i&mlu=4&ilr=4&iam=2';
+            window.open(targetUrl, '_blank');
+            showToast('Abriendo Grupo Leader en WhatsApp...');
+        }
+
+        function downloadGroupLeaderPreview() {
+            if (!currentGroupLeaderImgDataUrl) {
+                showToast('No hay imagen para descargar.');
+                return;
+            }
+            const dl = document.createElement('a');
+            dl.href = currentGroupLeaderImgDataUrl;
+            dl.download = 'Avance_GrupoLeader_' + Date.now() + '.png';
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+            showToast('Imagen descargada.');
+        }
+
+        // =========================================================
+        // REGISTRO Y VALIDACIÓN DE CÓDIGOS
+        // =========================================================
+        function submitUserRegistration() {
+            const name = document.getElementById('reg-name').value.trim();
+            const lastname = document.getElementById('reg-lastname').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const country = document.getElementById('reg-country').value;
+            const rawPhone = document.getElementById('reg-phone').value.trim();
+            const sponsor = document.getElementById('reg-sponsor').value.trim() || ADMIN_SPONSOR_CODE;
+            const pass = document.getElementById('reg-pass').value.trim();
+
+            if (!name || !lastname || !email || !rawPhone || !pass) {
+                showToast('Completa todos los campos obligatorios.');
+                return;
+            }
+
+            const phone = `${country}${rawPhone.replace(/[^0-9]/g, '')}`;
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            const userSponsorCode = `${name}${lastname}`.replace(/\s+/g, '');
+
+            const newRegistration = {
+                id: 'usr_' + Date.now(),
+                name: `${name} ${lastname}`,
+                email,
+                country,
+                phone,
+                sponsorCode: userSponsorCode,
+                uplineCode: sponsor,
+                password: pass,
+                code,
+                date: new Date().toLocaleString()
+            };
+
+            // 1. Guardar en solicitudes pendientes del sistema
+            appState.pendingActivations.unshift(newRegistration);
+            localStorage.setItem('lp_pending_activations', JSON.stringify(appState.pendingActivations));
+
+            // 2. Incrementar contadores universales de altas
+            appState.counters.totalRegistrations++;
+            if (sponsor !== ADMIN_SPONSOR_CODE) {
+                appState.counters.withLink++;
+            } else {
+                appState.counters.direct++;
+            }
+            localStorage.setItem('lp_registration_counters', JSON.stringify(appState.counters));
+
+            // 3. Sincronización Automática: Envío a Email de Administrador y Registro SMS hacia +51 970 425 293
+            const dispatchLog = `[SINCRONIZADO AUTO] Código: ${code} | Socio: ${newRegistration.name} (${phone}) | Email Admin: ${ADMIN_OFFICIAL_EMAIL} | SMS Admin: ${ADMIN_DISPLAY_PHONE}`;
+            appState.auditLogs.unshift(dispatchLog);
+            localStorage.setItem('lp_audit_logs', JSON.stringify(appState.auditLogs));
+
+            // 4. Actualizar inmediatamente campana y bandeja si el administrador está activo
+            updateKPIs();
+            if (appState.currentUser && appState.currentUser.isAdmin) {
+                renderAdminActivationQueue();
+                updateAdminCountersUI();
+            }
+
+            closeRegisterModal();
+            openWaitingModal(newRegistration);
+            showToast('Código de 6 dígitos despachado al Administrador (+51 970 425 293).');
+        }
+
+        // =========================================================
+        // AGENDA ACTIVA DE HOY
+        // =========================================================
+        function renderDashboardTodayAgenda() {
+            const container = document.getElementById('dashboard-today-list');
+            const fullGrid = document.getElementById('agenda-hoy-cards-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            if (fullGrid) fullGrid.innerHTML = '';
+
+            const todayStr = new Date().toISOString().split('T')[0];
+            const dueToday = appState.prospects.filter(p => p.scheduledDate === todayStr);
+
+            if (dueToday.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">No tienes seguimientos agendados para hoy.</p>';
+                if (fullGrid) fullGrid.innerHTML = '<div class="col-span-3 p-8 text-center text-xs text-slate-400 bg-white rounded-3xl border border-slate-100">Sin contactos programados para hoy.</div>';
+                return;
+            }
+
+            dueToday.slice(0, 3).forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-2.5 rounded-2xl bg-amber-50/50 border border-amber-200/80';
+                item.innerHTML = `
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-xl bg-amber-500 text-white font-black text-xs flex items-center justify-center">
+                            ${p.name.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-900 leading-tight">${p.name}</p>
+                            <p class="text-[10px] text-slate-500">${p.phone}</p>
+                        </div>
+                    </div>
+                    <button onclick="sendWhatsAppToProspect('${p.name}', '${p.phone}', '${p.funnel || 'salud'}');" class="p-2 rounded-xl bg-[#00B074] text-white hover:bg-emerald-600 shadow-sm" title="Abrir WhatsApp">
+                        <i class="fa-brands fa-whatsapp text-xs"></i>
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+
+            if (fullGrid) {
+                dueToday.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-5 rounded-3xl border border-amber-200 shadow-card-soft flex flex-col justify-between space-y-3';
+                    card.innerHTML = `
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900">${p.name}</h4>
+                                <p class="text-xs font-semibold text-[#0066FF]">${p.phone}</p>
+                            </div>
+                            <span class="px-2 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800">
+                                Hoy
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            ${p.notes || 'Sin notas.'}
+                        </p>
+                        <button onclick="sendWhatsAppToProspect('${p.name}', '${p.phone}', '${p.funnel || 'salud'}');" class="w-full py-2.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Contactar por WhatsApp Business</span>
+                        </button>
+                    `;
+                    fullGrid.appendChild(card);
+                });
+            }
+        }
+
+        // =========================================================
+        // PROSPECTOS CRM
+        // =========================================================
+        function renderProspectsTable(filter = 'todos') {
+            const tbody = document.getElementById('prospects-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            let list = appState.prospects;
+            if (filter !== 'todos') {
+                list = list.filter(p => p.status === filter);
+            }
+
+            const funnelFilter = (document.getElementById('filter-funnel-select') || {}).value || 'todos';
+            if (funnelFilter !== 'todos') {
+                list = list.filter(p => (p.funnel || 'sin_clasificar') === funnelFilter);
+            }
+
+            document.getElementById('count-filter-all').textContent = appState.prospects.length;
+            document.getElementById('count-filter-green').textContent = appState.prospects.filter(p => p.status === 'verde').length;
+            document.getElementById('count-filter-yellow').textContent = appState.prospects.filter(p => p.status === 'amarillo').length;
+            document.getElementById('count-filter-red').textContent = appState.prospects.filter(p => p.status === 'rojo').length;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="p-8 text-center text-slate-400 font-semibold">
+                            <i class="fa-solid fa-users text-2xl mb-2 block text-slate-300"></i>
+                            No hay prospectos registrados. ¡Agrega uno nuevo o importa contactos!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            list.forEach((p, idx) => {
+                let badgeClass = 'bg-emerald-50 text-emerald-600 border border-emerald-200';
+                let badgeText = '🟢 Interesado';
+                if (p.status === 'amarillo') {
+                    badgeClass = 'bg-amber-50 text-amber-600 border border-amber-200';
+                    badgeText = '🟡 Evaluando';
+                } else if (p.status === 'rojo') {
+                    badgeClass = 'bg-rose-50 text-rose-600 border border-rose-200';
+                    badgeText = '🔴 No Interesado';
+                }
+
+                let funnelBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600">⚪ Sin clasificar</span>';
+                if (p.funnel === 'salud') {
+                    funnelBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🍵 Salud</span>';
+                } else if (p.funnel === 'negocio') {
+                    funnelBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">💼 Negocio</span>';
+                }
+
+                const scheduled = p.scheduledDate ? 'Agendado: ' + p.scheduledDate : 'Sin fecha';
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-slate-900">${p.name}</td>
+                    <td class="p-4 font-mono text-slate-600">${p.phone}</td>
+                    <td class="p-4">${funnelBadge}</td>
+                    <td class="p-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-black ${badgeClass}">
+                            ${badgeText}
+                        </span>
+                    </td>
+                    <td class="p-4 text-slate-500">
+                        <div class="text-[10px] font-semibold text-amber-600">${scheduled}</div>
+                    </td>
+                    <td class="p-4 text-slate-500 max-w-xs truncate">${p.notes || 'Sin notas'}</td>
+                    <td class="p-4 text-center whitespace-nowrap">
+                        <button onclick="sendWhatsAppToProspect('${p.name}', '${p.phone}', '${p.funnel || 'salud'}');" class="p-2 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors mr-1" title="Enviar WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                        </button>
+                        <button onclick="deleteProspect(${idx});" class="p-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors" title="Eliminar">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterProspectsByStatus(status) {
+            renderProspectsTable(status);
+            document.querySelectorAll('.prospect-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-status') === status) {
+                    btn.classList.add('bg-[#0066FF]', 'text-white');
+                    btn.classList.remove('bg-slate-50', 'text-slate-600');
+                } else {
+                    btn.classList.remove('bg-[#0066FF]', 'text-white');
+                    btn.classList.add('bg-slate-50', 'text-slate-600');
+                }
+            });
+        }
+
+        function submitNewProspect() {
+            const name = document.getElementById('new-prospect-name').value.trim();
+            const prefix = document.getElementById('new-prospect-prefix').value;
+            const rawPhone = document.getElementById('new-prospect-phone').value.trim();
+            const status = document.getElementById('new-prospect-status').value;
+            const funnel = document.getElementById('new-prospect-funnel').value;
+            const scheduledDate = document.getElementById('new-prospect-scheduled').value;
+            const notes = document.getElementById('new-prospect-notes').value.trim();
+
+            if (!name || !rawPhone) return;
+
+            const phone = `${prefix}${rawPhone.replace(/[^0-9]/g, '')}`;
+
+            appState.prospects.unshift({
+                name,
+                phone,
+                status,
+                funnel,
+                scheduledDate,
+                notes,
+                createdAt: new Date().toISOString()
+            });
+
+            saveUserScopedData();
+            closeAddProspectModal();
+            renderProspectsTable();
+            renderDashboardTodayAgenda();
+            showToast('Prospecto guardado en tu base privada.');
+        }
+
+        function deleteProspect(index) {
+            appState.prospects.splice(index, 1);
+            saveUserScopedData();
+            renderProspectsTable();
+            renderDashboardTodayAgenda();
+            showToast('Prospecto eliminado.');
+        }
+
+        // =========================================================
+        // IMPORTACIÓN MASIVA
+        // =========================================================
+        function handleFileUploadE164(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const text = event.target.result;
+                const items = [];
+                const lines = text.split('\n');
+                lines.forEach(line => {
+                    const parts = line.split(',');
+                    if (parts.length >= 2) {
+                        items.push({
+                            name: parts[0].trim(),
+                            phone: parts[1].trim()
+                        });
+                    }
+                });
+                processBatchListE164(items);
+            };
+            reader.readAsText(file);
+        }
+
+        function processPastedContactsE164() {
+            const text = document.getElementById('import-pasted-text').value.trim();
+            if (!text) return;
+
+            const items = [];
+            const lines = text.split('\n');
+            lines.forEach(line => {
+                const parts = line.split(',');
+                if (parts.length >= 2) {
+                    items.push({
+                        name: parts[0].trim(),
+                        phone: parts[1].trim()
+                    });
+                }
+            });
+
+            processBatchListE164(items);
+        }
+
+        function processBatchListE164(items) {
+            let count = 0;
+            items.forEach(item => {
+                if (item.name && item.phone) {
+                    appState.prospects.push({
+                        name: item.name,
+                        phone: item.phone,
+                        status: 'amarillo',
+                        funnel: 'sin_clasificar',
+                        scheduledDate: null,
+                        notes: 'Importado masivamente',
+                        createdAt: new Date().toISOString()
+                    });
+                    count++;
+                }
+            });
+
+            saveUserScopedData();
+            renderProspectsTable();
+            renderDashboardTodayAgenda();
+
+            const reportEl = document.getElementById('import-batch-report');
+            if (reportEl) {
+                reportEl.classList.remove('hidden');
+                reportEl.innerHTML = '<p class="font-bold text-emerald-700">✓ ' + count + ' contactos agregados con éxito.</p>';
+            }
+            showToast('Importación completa: ' + count + ' contactos cargados.');
+        }
+
+        // =========================================================
+        // GESTOR DE EVENTOS Y PRESENTACIONES ZOOM
+        // =========================================================
+        function renderEventsList() {
+            const container = document.getElementById('events-list-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (appState.events.length === 0) {
+                container.innerHTML = '<div class="col-span-2 p-8 text-center text-xs text-slate-400 bg-white rounded-3xl border border-slate-100">No hay eventos agendados.</div>';
+                return;
+            }
+
+            appState.events.forEach((ev, idx) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft flex flex-col justify-between space-y-4';
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-video"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900">${ev.title}</h3>
+                                <p class="text-xs text-slate-400 mt-0.5"><i class="fa-regular fa-clock mr-1 text-[#0066FF]"></i>${ev.date}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600 space-y-1">
+                        <p><b>Anfitrión:</b> ${ev.host || 'Liderazgo FuXion'}</p>
+                        <p class="truncate"><b>Enlace:</b> <a href="${ev.link}" target="_blank" class="text-[#0066FF] hover:underline font-mono">${ev.link}</a></p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="shareEventInvitation(${idx});" class="flex-1 py-2.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Invitar por WhatsApp</span>
+                        </button>
+                        <button onclick="deleteEvent(${idx});" class="p-2.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openCreateEventModal() {
+            const title = prompt('Nombre de la Presentación:', 'Presentación Oficial de Negocio FuXion (Zoom)');
+            if (!title) return;
+            const date = prompt('Día y Hora:', 'Hoy 8:00 PM (Hora Perú)');
+            if (!date) return;
+            const link = prompt('Enlace Zoom:', 'https://zoom.us/j/leaderprospect');
+            if (!link) return;
+
+            appState.events.unshift({
+                title,
+                date,
+                link,
+                host: appState.currentUser ? appState.currentUser.name : 'Liderazgo FuXion'
+            });
+
+            saveUserScopedData();
+            renderEventsList();
+            showToast('Evento registrado con éxito.');
+        }
+
+        function deleteEvent(idx) {
+            appState.events.splice(idx, 1);
+            saveUserScopedData();
+            renderEventsList();
+            showToast('Evento eliminado.');
+        }
+
+        function shareEventInvitation(idx) {
+            const ev = appState.events[idx];
+            if (!ev) return;
+            const myName = appState.currentUser ? appState.currentUser.name : 'Tu Socio FuXion';
+            const msg = '¡Hola! Te saluda ' + myName + ' 🚀✨. Te invito a una sesión exclusiva de FuXion:\n\n📌 *' + ev.title + '*\n⏰ *Horario:* ' + ev.date + '\n🔗 *Enlace de acceso:* ' + ev.link + '\n\n¡Nos vemos en la sala! 💎🔥';
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(msg), '_blank');
+        }
+
+        // =========================================================
+        // SIMULADOR DE RANGO FUXION
+        // =========================================================
+        function recalculateFuXionRank() {
+            const targetRank = document.getElementById('sim-target-rank').value;
+            const myPv = parseInt(document.getElementById('sim-my-pv').value || 0, 10);
+            const myLines = parseInt(document.getElementById('sim-my-lines').value || 0, 10);
+            const resContainer = document.getElementById('sim-rank-result');
+
+            const rankRules = {
+                pro1: { name: 'Pro 1', minPv: 500, minLines: 0, note: '500 puntos en clientes preferentes (25 cajas)' },
+                teambuilder: { name: 'Team Builder', minPv: 60, minLines: 2, note: '1,000 DBV multinivel con mínimo 2 líneas activas' },
+                seniorteambuilder: { name: 'Senior Team Builder', minPv: 60, minLines: 2, note: '2,000 DBV multinivel' },
+                liderx: { name: 'Líder X', minPv: 100, minLines: 4, note: '6,000 DBV multinivel + 2 Líneas con rango Pro 1' },
+                premier: { name: 'Premier Líder', minPv: 100, minLines: 4, note: '12,000 DBV multinivel' },
+                diamante: { name: 'Diamante FuXion', minPv: 100, minLines: 4, note: '60,000 DBV multinivel' }
+            };
+
+            const rule = rankRules[targetRank];
+            const pvDiff = Math.max(0, rule.minPv - myPv);
+            const linesDiff = Math.max(0, rule.minLines - myLines);
+
+            resContainer.innerHTML = `
+                <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                    <span class="text-sm font-black text-[#5BC0F8] uppercase">${rule.name}</span>
+                    <span class="text-xs px-2.5 py-0.5 rounded-full ${pvDiff === 0 && linesDiff === 0 ? 'bg-emerald-500 text-white' : 'bg-amber-400 text-slate-900'} font-bold">
+                        ${pvDiff === 0 && linesDiff === 0 ? '✓ Estructura Lista' : 'En Calificación'}
+                    </span>
+                </div>
+                <p class="text-xs text-blue-200">${rule.note}</p>
+                <div class="grid grid-cols-2 gap-3 text-xs pt-1">
+                    <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">
+                        <span class="text-slate-400 block text-[10px]">Volumen Personal:</span>
+                        <b>${myPv} / ${rule.minPv} PV</b>
+                    </div>
+                    <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">
+                        <span class="text-slate-400 block text-[10px]">Líneas Activas:</span>
+                        <b>${myLines} / ${rule.minLines}</b>
+                    </div>
+                </div>
+            `;
+        }
+
+        // =========================================================
+        // ÁRBOL GENEALÓGICO MLM
+        // =========================================================
+        function renderMLMTree() {
+            const container = document.getElementById('mlm-tree-render');
+            if (!container) return;
+            const user = appState.currentUser;
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="px-6 py-3 rounded-2xl bg-[#0066FF] text-white font-bold text-xs shadow-glow-btn flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-amber-300"></i>
+                        <span>${user.name} (Tú)</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 mt-1">Patrocinador: ${user.sponsorCode}</span>
+                    <div class="w-0.5 h-6 bg-slate-300 mt-1"></div>
+                </div>
+
+                <div class="flex items-start justify-center gap-8">
+                    ${appState.team.length === 0 ? `
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-dashed border-slate-300 text-xs text-slate-400 text-center">
+                            Aún no tienes socios en tu red.<br>Comparte tu enlace de patrocinio para registrar líderes.
+                        </div>
+                    ` : appState.team.map(m => `
+                        <div class="flex flex-col items-center">
+                            <div class="w-0.5 h-4 bg-slate-300 mb-1"></div>
+                            <div class="p-3 bg-white rounded-2xl border border-slate-200 shadow-sm text-center">
+                                <p class="text-xs font-bold text-slate-900">${m.name}</p>
+                                <p class="text-[10px] text-purple-600 font-semibold">${m.code}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // =========================================================
+        // BANDEJA ACTIVACIÓN SOCIOS (EXCLUSIVO SUPERADMIN)
+        // =========================================================
+        function renderAdminActivationQueue() {
+            const container = document.getElementById('admin-pending-activations-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (appState.pendingActivations.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-card-soft text-center text-slate-400">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-3xl mb-2 block"></i>
+                        <p class="text-xs font-bold text-slate-700">No hay solicitudes pendientes de activación.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            appState.pendingActivations.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-5 rounded-3xl border border-amber-200 shadow-card-soft flex flex-col sm:flex-row items-center justify-between gap-4';
+                card.innerHTML = `
+                    <div class="space-y-1 text-center sm:text-left">
+                        <div class="flex items-center gap-2 justify-center sm:justify-start">
+                            <span class="text-sm font-bold text-slate-900">${item.name}</span>
+                            <span class="px-2 py-0.5 rounded-full bg-blue-50 text-[#0066FF] text-[10px] font-bold">${item.country}</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Correo: <b>${item.email}</b> • WhatsApp: <b>${item.phone}</b></p>
+                        <p class="text-[10px] text-slate-400">Patrocinador Solicitado: <b>${item.sponsorCode}</b> • Fecha: ${item.date}</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-3">
+                        <div class="px-4 py-2 rounded-2xl bg-emerald-50 border border-emerald-300 text-center">
+                            <span class="text-[9px] font-black text-emerald-700 uppercase block tracking-wider">Código</span>
+                            <span class="text-lg font-black text-emerald-600 tracking-widest">${item.code}</span>
+                        </div>
+
+                        <button onclick="dispatchCodeViaWhatsApp(${index});" class="py-2.5 px-4 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Enviar código por WhatsApp</span>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function dispatchCodeViaWhatsApp(index) {
+            const item = appState.pendingActivations[index];
+            if (!item) return;
+
+            const message = '¡Hola ' + item.name + '! 🚀💎 Bienvenido(a) a LEADER PROSPECT — NETWORK MARKETING SUCCESS. Tu código de activación para ingresar a la plataforma es:\n👉 *' + item.code + '* 👈\n\nIngrésalo ahora en tu pantalla para activar tu cuenta. ¡Muchos éxitos en FuXion! 🏆🌟';
+            
+            const auditEntry = '[' + new Date().toLocaleTimeString() + '] Código ' + item.code + ' enviado a ' + item.name + ' (' + item.phone + ')';
+            appState.auditLogs.unshift(auditEntry);
+            localStorage.setItem('lp_audit_logs', JSON.stringify(appState.auditLogs));
+
+            const logContainer = document.getElementById('admin-audit-logs');
+            if (logContainer) {
+                const p = document.createElement('p');
+                p.textContent = auditEntry;
+                logContainer.prepend(p);
+            }
+
+            const cleanPhone = item.phone.replace(/[^0-9]/g, '');
+            const url = 'https://api.whatsapp.com/send?phone=' + cleanPhone + '&text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+            showToast('Mensaje con código ' + item.code + ' despachado.');
+        }
+
+        function openWaitingModal(regData) {
+            window.currentPendingRegistration = regData;
+            document.getElementById('modal-waiting-code').classList.remove('hidden');
+        }
+
+        function openWhatsAppWithAdmin() {
+            const reg = window.currentPendingRegistration;
+            if (!reg) return;
+
+            const text = '¡Hola Rudy! Me acabo de registrar en LEADER PROSPECT:\n*Nombre:* ' + reg.name + '\n*Correo:* ' + reg.email + '\n*WhatsApp:* ' + reg.phone + '\n\nPor favor compárteme mi código de confirmación para ingresar a la plataforma.';
+            const url = 'https://api.whatsapp.com/send?phone=' + ADMIN_WHATSAPP_NUMBER.replace('+', '') + '&text=' + encodeURIComponent(text);
+            window.open(url, '_blank');
+        }
+
+        function validateVerificationCode() {
+            const inputCode = document.getElementById('input-verification-code').value.trim();
+            const reg = window.currentPendingRegistration;
+
+            if (!reg || inputCode !== reg.code) {
+                showToast('Código incorrecto. Verifica con Rudy.');
+                return;
+            }
+
+            const registeredUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+            registeredUsers.push(reg);
+            localStorage.setItem('lp_registered_users', JSON.stringify(registeredUsers));
+
+            appState.pendingActivations = appState.pendingActivations.filter(p => p.email !== reg.email);
+            localStorage.setItem('lp_pending_activations', JSON.stringify(appState.pendingActivations));
+
+            document.getElementById('modal-waiting-code').classList.add('hidden');
+            
+            appState.currentUser = reg;
+            loadUserScopedData(reg.id);
+            launchDashboard();
+            showToast('¡Cuenta activada con éxito! Bienvenido.');
+        }
+
+        // =========================================================
+        // WHATSAPP BUSINESS & CONTACTOS
+        // =========================================================
+        function renderWhatsAppTemplates() {
+            const grid = document.getElementById('whatsapp-templates-grid');
+            if (!grid) return;
+
+            const templates = [
+                {
+                    title: '🍵 Embudo Salud: Bebidas Nutracéuticas FuXion',
+                    body: '¡Hola {nombre}! Te saluda {mi_nombre}. Sé que te apasiona cuidar de tu salud de forma natural. Las bebidas FuXion te brindan energía limpia y salud digestiva. Conoce más en mi enlace: {link}'
+                },
+                {
+                    title: '💼 Embudo Negocio: Expansión Multinivel PRO-LEV X™',
+                    body: '¡Hola {nombre}! Te saluda {mi_nombre}. Estamos expandiendo la red FuXion y pensé en tu perfil emprendedor para generar ingresos escalables. Revisa la propuesta en mi enlace: {link}'
+                }
+            ];
+
+            grid.innerHTML = templates.map((t, idx) => `
+                <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-card-soft space-y-3 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900">${t.title}</h3>
+                        <p class="text-xs text-slate-600 mt-2 p-3 bg-slate-50 rounded-2xl border border-slate-200 font-mono text-[11px] leading-relaxed">
+                            ${t.body}
+                        </p>
+                    </div>
+                    <button onclick="useTemplateIndex(${idx});" class="w-full py-2 px-3 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-xs flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Usar con un Prospecto</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function useTemplateIndex(idx) {
+            if (appState.prospects.length === 0) {
+                showToast('Primero agrega un prospecto para usar la plantilla.');
+                return;
+            }
+            const p = appState.prospects[0];
+            sendWhatsAppToProspect(p.name, p.phone, idx === 0 ? 'salud' : 'negocio');
+        }
+
+        function sendWhatsAppToProspect(name, phone, funnel = 'salud') {
+            const myName = appState.currentUser.name;
+            const link = 'https://leaderprospect.com/r/' + appState.currentUser.sponsorCode;
+
+            let text = '¡Hola ' + name + '! Te saluda ' + myName + '. Sé que te apasiona cuidar de tu salud de forma natural. Las bebidas FuXion te brindan energía y bienestar. Conoce más aquí: ' + link;
+            if (funnel === 'negocio') {
+                text = '¡Hola ' + name + '! Te saluda ' + myName + '. Estamos expandiendo la red de FuXion y pensé en tu perfil emprendedor para generar ingresos comisionables. Revisa los detalles aquí: ' + link;
+            }
+
+            const cleanPhone = phone.replace(/[^0-9]/g, '');
+            const url = 'https://api.whatsapp.com/send?phone=' + cleanPhone + '&text=' + encodeURIComponent(text);
+            window.open(url, '_blank');
+        }
+
+        // =========================================================
+        // EXPORTACIÓN DE BASE DE DATOS
+        // =========================================================
+        function exportUserDatabaseJSON() {
+            const user = appState.currentUser;
+            if (!user) return;
+
+            const payload = {
+                user: { name: user.name, email: user.email, sponsorCode: user.sponsorCode },
+                exportDate: new Date().toISOString(),
+                prospects: appState.prospects,
+                team: appState.team,
+                activities: appState.activities
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", 'LeaderProspect_Backup_' + user.sponsorCode + '.json');
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+
+            showToast('Copia de respaldo JSON descargada.');
+        }
+
+        function exportUserProspectsCSV() {
+            const user = appState.currentUser;
+            if (!user) return;
+
+            if (appState.prospects.length === 0) {
+                showToast('No tienes prospectos para exportar.');
+                return;
+            }
+
+            let csv = "Nombre,Telefono,Estado,Embudo,Notas\n";
+            appState.prospects.forEach(p => {
+                const cleanNotes = (p.notes || '').replace(/"/g, '""');
+                csv += `"${p.name}","${p.phone}","${p.status}","${p.funnel || 'sin_clasificar'}","${cleanNotes}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", url);
+            dlAnchor.setAttribute("download", 'Prospectos_FuXion_' + user.sponsorCode + '.csv');
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+
+            showToast('Contactos exportados en CSV.');
+        }
+
+        // =========================================================
+        // BITÁCORA Y PERFIL
+        // =========================================================
+        function renderActivityTimeline() {
+            const container = document.getElementById('activity-timeline-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (appState.activities.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">No has registrado actividades hoy.</p>';
+                return;
+            }
+
+            appState.activities.forEach(a => {
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-slate-50 rounded-2xl flex items-center justify-between';
+                div.innerHTML = `
+                    <div>
+                        <p class="text-xs font-bold text-slate-800">${a.title}</p>
+                        <p class="text-[10px] text-slate-400">${a.time}</p>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-[#0066FF]">${a.category}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function openAddActivityModal() {
+            const title = prompt('Descripción de la actividad realizada:');
+            if (title) {
+                appState.activities.unshift({
+                    title,
+                    category: 'Presentación',
+                    time: new Date().toLocaleTimeString()
+                });
+                saveUserScopedData();
+                renderActivityTimeline();
+                showToast('Actividad registrada con éxito.');
+            }
+        }
+
+        function saveProfileChanges() {
+            const newName = document.getElementById('profile-input-name').value.trim();
+            const newPhone = document.getElementById('profile-input-whatsapp').value.trim();
+            const newPass = document.getElementById('profile-input-newpass').value.trim();
+
+            if (newName) appState.currentUser.name = newName;
+            if (newPhone) appState.currentUser.phone = newPhone;
+
+            if (newPass && newPass.length >= 6) {
+                if (appState.currentUser.isAdmin) {
+                    localStorage.setItem('lp_admin_pass', newPass);
+                } else {
+                    appState.currentUser.password = newPass;
+                    const users = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                    const idx = users.findIndex(u => u.id === appState.currentUser.id);
+                    if (idx !== -1) {
+                        users[idx].password = newPass;
+                        localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                    }
+                }
+                showToast('Contraseña actualizada de forma privada.');
+            } else {
+                showToast('Datos de perfil actualizados.');
+            }
+
+            renderDashboardUI();
+        }
+
+        // =========================================================
+        // UTILIDADES UI Y MODALES
+        // =========================================================
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-regular fa-eye-slash text-sm text-[#0066FF]';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-regular fa-eye text-sm text-slate-400';
+            }
+        }
+
+        function openRegisterModal() {
+            document.getElementById('modal-register-user').classList.remove('hidden');
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('modal-register-user').classList.add('hidden');
+        }
+
+        function openGoogleRegisterModal() {
+            openRegisterModal();
+            showToast('Completa los campos para continuar con tu registro.');
+        }
+
+        function openImportModal() {
+            document.getElementById('modal-import-contacts').classList.remove('hidden');
+        }
+
+        function closeImportModal() {
+            document.getElementById('modal-import-contacts').classList.add('hidden');
+        }
+
+        function openAddProspectModal() {
+            document.getElementById('modal-add-prospect').classList.remove('hidden');
+        }
+
+        function closeAddProspectModal() {
+            document.getElementById('modal-add-prospect').classList.add('hidden');
+        }
+
+        function copyReferralLink() {
+            const link = document.getElementById('widget-referral-link').value;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link);
+            } else {
+                document.getElementById('widget-referral-link').select();
+                document.execCommand('copy');
+            }
+            showToast('¡Enlace de patrocinio copiado!');
+        }
+
+        function shareLinkViaWhatsApp() {
+            const link = document.getElementById('widget-referral-link').value;
+            const text = '¡Hola! Únete a mi equipo FuXion en LEADER PROSPECT:\n' + link;
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-message');
+            const text = document.getElementById('toast-text');
+            if (toast && text) {
+                text.textContent = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3500);
+            }
+        }
+    </script>
+</body>
+</html>
