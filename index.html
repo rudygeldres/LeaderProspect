@@ -12,10 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <!-- jsPDF & PDF.js + QRious -->
+    <!-- jsPDF, PDF.js, QRious & SheetJS (XLSX/XLS/ODS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -120,7 +121,7 @@
             <p class="text-xs font-semibold tracking-widest uppercase text-sky-300/90">Conecta • Comparte • Crece</p>
         </header>
 
-        <!-- Tarjeta Blanca de Inicio de Sesión (Sin botones de emergencia) -->
+        <!-- Tarjeta Blanca de Inicio de Sesión -->
         <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-4">
             <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100">
                 <div class="text-center mb-6">
@@ -739,7 +740,7 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO ==================== -->
+                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO (IMPORTACIÓN UNIVERSAL TODO FORMATO + SELECCIONAR TODO) ==================== -->
                 <section id="tab-prospectos" class="tab-section hidden space-y-6">
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -751,33 +752,43 @@
                                     </span>
                                 </div>
                                 <p class="text-xs text-slate-500 mt-0.5">
-                                    Tus contactos están aislados en tu cuenta personal. Detecta automáticamente el país y coloca su bandera.
+                                    Tus contactos están aislados en tu cuenta personal. Soporta todo tipo de archivo y coloca la bandera de cada país.
                                 </p>
                             </div>
 
                             <div class="flex flex-wrap items-center gap-2">
-                                <button type="button" onclick="openAddProspectModal();" class="py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                                <button type="button" onclick="openAddProspectModal();" class="py-2.5 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
                                     <i class="fa-solid fa-user-plus"></i><span>Nuevo Prospecto</span>
                                 </button>
-                                <button type="button" onclick="connectDeviceContactsAndroidOrIOS();" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                                <button type="button" onclick="openPasteBulkModal();" class="py-2.5 px-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-paste"></i><span>Pegar Lista Masiva</span>
+                                </button>
+                                <button type="button" onclick="connectDeviceContactsAndroidOrIOS();" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
                                     <i class="fa-solid fa-mobile-screen-button text-sky-400"></i><span>Conectar Dispositivo (Android / iOS)</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Importador Universal compatible con iPhone .VCF -->
-                        <div class="relative rounded-2xl border-2 border-dashed border-sky-300 bg-sky-50/50 hover:bg-sky-50 p-5 text-center transition-all">
-                            <input type="file" id="universal-contacts-file-input" accept="*/*" onchange="handleUniversalContactsFileImport(event);"
+                        <!-- Importador Universal Sin Restricción de Formato (accept="*/*" + multiple) -->
+                        <div class="relative rounded-2xl border-2 border-dashed border-sky-400 bg-sky-50/60 hover:bg-sky-50 p-5 text-center transition-all">
+                            <input type="file" id="universal-contacts-file-input" accept="*/*" multiple onchange="handleUniversalContactsFileImport(event);"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                            <div class="space-y-1.5 pointer-events-none">
-                                <div class="w-11 h-11 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mx-auto">
-                                    <i class="fa-solid fa-file-import"></i>
+                            <div class="space-y-2 pointer-events-none">
+                                <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-xl mx-auto shadow-md">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
                                 </div>
-                                <p class="text-xs sm:text-sm font-black text-slate-800">
-                                    Importar Archivo de Contactos (.VCF de iPhone, .CSV, .TXT, .JSON, Excel)
+                                <p class="text-xs sm:text-sm font-black text-slate-900">
+                                    Importar Contactos en Cualquier Formato (Archivo Único o Múltiple)
                                 </p>
-                                <p class="text-[11px] text-slate-500 max-w-lg mx-auto">
-                                    Compatible con vCard 2.1, 3.0 y 4.0 de iPhone/iCloud y Android. Limpieza E.164 y asignación automática de banderas.
+                                <div class="flex flex-wrap items-center justify-center gap-1.5 text-[10px] font-extrabold text-sky-800">
+                                    <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200">.VCF (iPhone / Android)</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200">Excel (.XLSX / .XLS / .ODS)</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200">.CSV / .TSV</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200">.PDF</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200">.TXT / .JSON / .XML / .HTML</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500 max-w-xl mx-auto">
+                                    Al cargar tus archivos se abrirá la ventana de vista previa con el botón <b>SELECCIONAR TODO</b> para verificar nombres, banderas y números E.164 antes de guardarlos.
                                 </p>
                             </div>
                         </div>
@@ -797,6 +808,7 @@
                                 <option value="ALL">Todos los Embudo</option>
                                 <option value="Salud / Bebidas">Salud / Bebidas FuXion</option>
                                 <option value="Negocio / Multinivel">Negocio / Multinivel</option>
+                                <option value="Sin clasificar">Sin clasificar</option>
                             </select>
                         </div>
 
@@ -1417,6 +1429,7 @@
                         <select id="pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                             <option value="Salud / Bebidas">Salud / Bebidas</option>
                             <option value="Negocio / Multinivel">Negocio / Multinivel</option>
+                            <option value="Sin clasificar">Sin clasificar</option>
                         </select>
                     </div>
                     <div>
@@ -1447,10 +1460,10 @@
             </div>
             <ol class="text-xs text-slate-700 space-y-2 list-decimal pl-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                 <li>Abre la app <b>Contactos</b> de tu iPhone, toca <b>Listas</b> arriba a la izquierda, mantén presionado <b>Todos los contactos</b> y selecciona <b>Exportar</b> &gt; <b>Guardar en Archivos</b>.</li>
-                <li>Toca el botón azul abajo para elegir el archivo <b>.vcf</b> guardado. Se importarán con su bandera y quedarán 100% privados en tu cuenta.</li>
+                <li>Toca el botón azul abajo para elegir el archivo <b>.vcf</b> guardado. Se abrirá la vista previa con el botón <b>SELECCIONAR TODO</b> para importar los que elijas a tu base privada.</li>
             </ol>
             <div class="relative">
-                <input type="file" accept="*/*" onchange="handleUniversalContactsFileImport(event); closeModal('modal-ios-contacts-guide');"
+                <input type="file" accept="*/*" multiple onchange="handleUniversalContactsFileImport(event); closeModal('modal-ios-contacts-guide');"
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
                 <button type="button" class="w-full py-3.5 rounded-2xl bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-glow-btn">
                     <i class="fa-solid fa-folder-open"></i><span>Seleccionar Archivo .VCF desde iPhone</span>
@@ -1489,6 +1502,85 @@
                     Guardar Recordatorio en Agenda y Campana
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal 7: Pegado Masivo de Texto Libre -->
+    <div id="modal-paste-bulk-contacts" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900">Pegar Lista Masiva de Contactos</h3>
+                <button type="button" onclick="closeModal('modal-paste-bulk-contacts');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <p class="text-xs text-slate-500">Pega cualquier lista desde WhatsApp, Excel o notas (un contacto por línea, ej: <i>Juan Pérez, +51 987 654 321</i>).</p>
+            <textarea id="paste-bulk-textarea" rows="7" placeholder="Carlos Mendoza - 987654321&#10;Ana Lucía Torres, +57 300 456 7890&#10;Roberto Silva +52 55 1234 5678"
+                class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal('modal-paste-bulk-contacts');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
+                <button type="button" onclick="processPastedBulkContacts();" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
+                    Procesar y Previsualizar Contactos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 8: Vista Previa y Selección Masiva ("SELECCIONAR TODO") antes de Importar al CRM -->
+    <div id="modal-import-preview" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+            <!-- Cabecera del Modal -->
+            <div class="p-5 bg-[#060D1A] text-white flex items-center justify-between gap-3">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-sky-400">Importación Universal Multiformato</span>
+                    <h3 class="text-base sm:text-lg font-black">Vista Previa y Selección de Contactos</h3>
+                </div>
+                <button type="button" onclick="closeModal('modal-import-preview');" class="w-9 h-9 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center">✕</button>
+            </div>
+
+            <!-- Barra de Acciones: Botón SELECCIONAR TODO + Filtros + Embudo por Defecto -->
+            <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" id="btn-toggle-select-all-import" onclick="toggleSelectAllImportPreview();"
+                        class="py-2 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs flex items-center gap-2 shadow-sm transition-all">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span id="label-toggle-select-all">SELECCIONAR TODO</span>
+                    </button>
+                    <span id="import-preview-counter-badge" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-extrabold text-slate-800">
+                        Seleccionados: 0 de 0
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                    <select id="import-preview-filter" onchange="renderImportPreviewTable();" class="px-3 py-2 rounded-xl bg-white border border-slate-200 font-bold text-slate-700">
+                        <option value="ALL">Ver Todos</option>
+                        <option value="NEW_ONLY">Solo Nuevos</option>
+                        <option value="HIDE_DUP">Ocultar Duplicados</option>
+                    </select>
+                    <select id="import-default-funnel" onchange="applyDefaultFunnelToStaging();" class="px-3 py-2 rounded-xl bg-white border border-slate-200 font-bold text-sky-800">
+                        <option value="Sin clasificar">Embudo: Sin clasificar</option>
+                        <option value="Salud / Bebidas">Embudo: Salud / Bebidas</option>
+                        <option value="Negocio / Multinivel">Embudo: Negocio / Multinivel</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Lista Scrolleable de Contactos Detectados -->
+            <div id="import-preview-list" class="flex-1 overflow-y-auto p-4 space-y-2 bg-white"></div>
+
+            <!-- Pie de Confirmación -->
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[11px] text-slate-500">
+                    <i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i>Se guardarán exclusivamente en tu base de datos privada.
+                </p>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button type="button" onclick="closeModal('modal-import-preview');" class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl bg-white border border-slate-300 text-slate-700 font-bold text-xs">
+                        Cancelar
+                    </button>
+                    <button type="button" id="btn-confirm-staged-import" onclick="confirmStagedContactsImport();"
+                        class="flex-1 sm:flex-initial py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md transition-all">
+                        Importar 0 Contactos Seleccionados
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1672,6 +1764,7 @@
             currentUser: null,
             prospects: [],
             agendaTasks: [],
+            stagedImportContacts: [],
             customPresentationMsg: '',
             recBannerPhoto: null,
             groupProgressImage: null,
@@ -1999,7 +2092,6 @@
             const user = appState.currentUser;
             const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
             const directCount = user ? regUsers.filter(u => u.uplineCode === user.sponsorCode).length : 0;
-            // Meta Plan de Acción Paso 4: Lista de 70 personas para inauguración
             const pct = total > 0 ? Math.min(100, Math.round((total / 70) * 100)) : 0;
 
             const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
@@ -2351,7 +2443,6 @@
             const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
             const myDirects = regUsers.filter(u => u.uplineCode === user.sponsorCode);
 
-            // 1. Renderizar Árbol Genealógico Visual MLM
             const treeEl = document.getElementById('mlm-genealogy-tree');
             if (treeEl) {
                 const directsHtml = myDirects.length > 0
@@ -2375,13 +2466,11 @@
                     </div>`;
 
                 treeEl.innerHTML = `
-                    <!-- Nodo Patrocinador Upline -->
                     <div class="px-5 py-2.5 rounded-2xl bg-slate-200 text-slate-700 text-center text-xs font-bold">
                         <span class="text-[9px] uppercase block text-slate-500">Patrocinador Ascendente</span>
                         <span>${user.uplineCode || ADMIN_SPONSOR_CODE}</span>
                     </div>
                     <div class="mlm-connector-v"></div>
-                    <!-- Nodo Central (TÚ) -->
                     <div class="px-6 py-4 rounded-3xl cosmic-hero-bg text-white text-center shadow-lg border-2 border-sky-400">
                         <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">TÚ • LÍDER PRINCIPAL</span>
                         <p class="text-sm font-black mt-1">${user.name}</p>
@@ -2392,7 +2481,6 @@
                 `;
             }
 
-            // 2. Renderizar Tabla Ejecutiva de Datos
             const tbody = document.getElementById('team-data-table-body');
             const filterTxt = (document.getElementById('team-table-search')?.value || '').toLowerCase();
             if (tbody) {
@@ -2755,7 +2843,7 @@
             listEl.innerHTML = itemsHtml;
         }
 
-        // ==================== PROSPECTOS CRM UNIVERSAL (.VCF IPHONE + BANDERAS) ====================
+        // ==================== PROSPECTOS CRM UNIVERSAL (TODO FORMATO + VISTA PREVIA + SELECCIONAR TODO) ====================
         function normalizePhoneAndFlag(rawPhone) {
             let clean = String(rawPhone || '').replace(/[^\d+]/g, '');
             if (!clean) return null;
@@ -2832,121 +2920,300 @@
                     }
                 });
 
-                const resolvedName = fullName || structuredName || 'Contacto iPhone';
+                const resolvedName = fullName || structuredName || 'Contacto vCard';
                 phones.forEach(p => results.push({ name: resolvedName, rawPhone: p }));
             });
             return results;
         }
 
-        function handleUniversalContactsFileImport(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        function parseTabularOrFreeText(rawText) {
+            const results = [];
+            const lines = String(rawText || '').split(/\r?\n/);
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const content = String(e.target.result || '');
-                let extracted = [];
+            lines.forEach(line => {
+                const trimmed = line.replace(/<[^>]+>/g, ' ').trim();
+                if (!trimmed) return;
 
-                if (/BEGIN:VCARD/i.test(content)) {
-                    extracted = parseAppleVCard(content);
-                } else if (content.trim().startsWith('[') || content.trim().startsWith('{')) {
-                    try {
-                        const parsed = JSON.parse(content);
-                        const arr = Array.isArray(parsed) ? parsed : (parsed.prospects || parsed.contacts || []);
-                        arr.forEach(item => {
-                            const n = item.name || item.nombre || item.FN || 'Prospecto JSON';
-                            const p = item.phone || item.telefono || item.tel || '';
-                            if (p) extracted.push({ name: n, rawPhone: p });
-                        });
-                    } catch (err) {}
-                } else {
-                    content.split(/\r?\n/).forEach(line => {
-                        const trimmed = line.trim();
-                        if (!trimmed) return;
-                        const parts = trimmed.split(/[,;\t|]/);
-                        if (parts.length >= 2) {
-                            const candidatePhone = parts.slice(1).find(col => /\d{7,}/.test(col)) || parts[1];
-                            if (/\d{7,}/.test(candidatePhone) && !/phone|telefono|celular/i.test(candidatePhone)) {
-                                extracted.push({ name: parts[0].trim() || 'Prospecto Importado', rawPhone: candidatePhone.trim() });
-                            }
-                        } else if (/\d{7,}/.test(parts[0])) {
-                            extracted.push({ name: 'Prospecto Importado', rawPhone: parts[0].trim() });
+                // Detectar delimitadores CSV/TSV/Punto y coma/Pipe
+                const parts = trimmed.split(/[,;\t|]/).map(s => s.trim()).filter(Boolean);
+                if (parts.length >= 2) {
+                    const phoneIdx = parts.findIndex(col => /\+?\d[\d\s\-().]{6,}\d/.test(col));
+                    if (phoneIdx !== -1) {
+                        const rawPhone = parts[phoneIdx];
+                        if (!/phone|telefono|celular|movil|whatsapp/i.test(rawPhone)) {
+                            const nameCol = parts.find((c, idx) => idx !== phoneIdx && !/^\d+$/.test(c) && !/@/.test(c));
+                            results.push({ name: nameCol || 'Contacto Importado', rawPhone });
+                        }
+                        return;
+                    }
+                }
+
+                // Extracción flexible de línea libre: "Juan Pérez +51 987 654 321" o "+51 987 654 321 Juan Pérez"
+                const phoneMatch = trimmed.match(/(\+?\d[\d\s\-().]{6,}\d)/);
+                if (phoneMatch) {
+                    const rawPhone = phoneMatch[1].trim();
+                    const leftName = trimmed.replace(phoneMatch[0], ' ').replace(/[:\-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+                    results.push({ name: leftName || 'Contacto Importado', rawPhone });
+                }
+            });
+            return results;
+        }
+
+        async function extractContactsFromAnyFile(file) {
+            const fileName = (file.name || '').toLowerCase();
+
+            // 1. Excel / Hojas de cálculo (.xlsx, .xls, .ods) vía SheetJS
+            if (/\.(xlsx|xls|ods|xlsm|xlsb)$/i.test(fileName) && typeof XLSX !== 'undefined') {
+                const buffer = await file.arrayBuffer();
+                const workbook = XLSX.read(buffer, { type: 'array' });
+                const collected = [];
+                workbook.SheetNames.forEach(sheetName => {
+                    const sheet = workbook.Sheets[sheetName];
+                    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+                    rows.forEach(row => {
+                        const cells = row.map(c => String(c || '').trim()).filter(Boolean);
+                        if (cells.length === 0) return;
+                        const phoneCell = cells.find(c => /\+?\d[\d\s\-().]{6,}\d/.test(c));
+                        if (phoneCell && !/phone|telefono|celular|numero/i.test(phoneCell)) {
+                            const nameCell = cells.find(c => c !== phoneCell && !/^\d+$/.test(c) && !/@/.test(c));
+                            collected.push({ name: nameCell || 'Contacto Excel', rawPhone: phoneCell });
                         }
                     });
-                }
-
-                let added = 0;
-                let duplicates = 0;
-                const existingPhones = new Set(appState.prospects.map(p => p.phone));
-
-                extracted.forEach(item => {
-                    const norm = normalizePhoneAndFlag(item.rawPhone);
-                    if (!norm) return;
-                    if (existingPhones.has(norm.e164)) { duplicates++; return; }
-                    existingPhones.add(norm.e164);
-                    appState.prospects.unshift({
-                        id: 'prs_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-                        name: item.name,
-                        phone: norm.e164,
-                        flag: norm.flag,
-                        country: norm.country,
-                        funnel: 'Salud / Bebidas',
-                        followUpDate: new Date().toISOString().split('T')[0],
-                        note: 'Importado en base privada'
-                    });
-                    added++;
                 });
+                return collected;
+            }
 
-                saveUserScopedData();
-                renderProspectsList();
-                updateDashboardKPIs();
-                renderDashboardTodayAgenda();
-
-                const repBox = document.getElementById('crm-import-report');
-                const repText = document.getElementById('crm-import-report-text');
-                if (repBox && repText) {
-                    repText.textContent = `Importación privada lista: ${added} contactos nuevos agregados, ${duplicates} duplicados omitidos.`;
-                    repBox.classList.remove('hidden');
+            // 2. Documentos PDF (.pdf) vía PDF.js
+            if (/\.pdf$/i.test(fileName) && typeof pdfjsLib !== 'undefined') {
+                const buffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+                let text = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const content = await page.getTextContent();
+                    text += content.items.map(it => it.str).join(' ') + '\n';
                 }
-                showToast(`${added} contactos guardados en tu base privada.`);
-                event.target.value = '';
-            };
-            reader.readAsText(file);
+                return parseTabularOrFreeText(text);
+            }
+
+            // 3. Lectura universal de texto (.vcf, .csv, .txt, .json, .xml, .html, etc.)
+            const textContent = await file.text();
+            if (/BEGIN:VCARD/i.test(textContent)) {
+                return parseAppleVCard(textContent);
+            }
+            if (textContent.trim().startsWith('[') || textContent.trim().startsWith('{')) {
+                try {
+                    const parsed = JSON.parse(textContent);
+                    const arr = Array.isArray(parsed) ? parsed : (parsed.prospects || parsed.contacts || parsed.data || []);
+                    const collected = [];
+                    arr.forEach(item => {
+                        const n = item.name || item.nombre || item.FN || item.fullName || 'Contacto JSON';
+                        const p = item.phone || item.telefono || item.tel || item.celular || item.whatsapp || '';
+                        if (p) collected.push({ name: String(n), rawPhone: String(p) });
+                    });
+                    if (collected.length > 0) return collected;
+                } catch (e) {}
+            }
+            return parseTabularOrFreeText(textContent);
+        }
+
+        function openStagedContactsPreview(rawCandidates, sourceLabel) {
+            const existingPhones = new Set(appState.prospects.map(p => p.phone));
+            const seenInBatch = new Set();
+            const staged = [];
+
+            rawCandidates.forEach((item, idx) => {
+                const norm = normalizePhoneAndFlag(item.rawPhone);
+                if (!norm) return;
+                if (seenInBatch.has(norm.e164)) return;
+                seenInBatch.add(norm.e164);
+
+                const alreadyInCrm = existingPhones.has(norm.e164);
+                staged.push({
+                    tempId: 'stg_' + idx + '_' + Math.random().toString(36).slice(2, 6),
+                    selected: !alreadyInCrm, // Selecciona automáticamente todos los nuevos
+                    name: String(item.name || 'Prospecto').trim(),
+                    phone: norm.e164,
+                    flag: norm.flag,
+                    country: norm.country,
+                    funnel: document.getElementById('import-default-funnel')?.value || 'Sin clasificar',
+                    isDuplicate: alreadyInCrm,
+                    source: sourceLabel || 'Archivo Importado'
+                });
+            });
+
+            if (staged.length === 0) {
+                showToast('No se detectaron números telefónicos válidos en los archivos seleccionados.');
+                return;
+            }
+
+            appState.stagedImportContacts = staged;
+            renderImportPreviewTable();
+            openModal('modal-import-preview');
+        }
+
+        async function handleUniversalContactsFileImport(event) {
+            const files = Array.from(event.target.files || []);
+            if (files.length === 0) return;
+
+            let allExtracted = [];
+            for (const file of files) {
+                try {
+                    const items = await extractContactsFromAnyFile(file);
+                    allExtracted = allExtracted.concat(items);
+                } catch (err) {
+                    console.warn('Error leyendo archivo:', file.name, err);
+                }
+            }
+
+            event.target.value = '';
+            openStagedContactsPreview(allExtracted, files.map(f => f.name).join(', '));
+        }
+
+        function openPasteBulkModal() {
+            const ta = document.getElementById('paste-bulk-textarea');
+            if (ta) ta.value = '';
+            openModal('modal-paste-bulk-contacts');
+        }
+
+        function processPastedBulkContacts() {
+            const raw = document.getElementById('paste-bulk-textarea')?.value || '';
+            const extracted = parseTabularOrFreeText(raw);
+            closeModal('modal-paste-bulk-contacts');
+            openStagedContactsPreview(extracted, 'Pegado Masivo');
+        }
+
+        function toggleSelectAllImportPreview() {
+            const list = appState.stagedImportContacts;
+            if (!list || list.length === 0) return;
+            const allSelected = list.every(c => c.selected);
+            const nextState = !allSelected;
+            list.forEach(c => { c.selected = nextState; });
+            renderImportPreviewTable();
+        }
+
+        function toggleSingleStagedContact(tempId) {
+            const item = appState.stagedImportContacts.find(c => c.tempId === tempId);
+            if (item) {
+                item.selected = !item.selected;
+                updateImportPreviewCounters();
+            }
+        }
+
+        function applyDefaultFunnelToStaging() {
+            const val = document.getElementById('import-default-funnel')?.value || 'Sin clasificar';
+            appState.stagedImportContacts.forEach(c => { c.funnel = val; });
+            renderImportPreviewTable();
+        }
+
+        function updateImportPreviewCounters() {
+            const total = appState.stagedImportContacts.length;
+            const selectedCount = appState.stagedImportContacts.filter(c => c.selected).length;
+            const allSelected = total > 0 && selectedCount === total;
+
+            const badge = document.getElementById('import-preview-counter-badge');
+            const labelBtn = document.getElementById('label-toggle-select-all');
+            const confirmBtn = document.getElementById('btn-confirm-staged-import');
+
+            if (badge) badge.textContent = `Seleccionados: ${selectedCount} de ${total}`;
+            if (labelBtn) labelBtn.textContent = allSelected ? 'DESELECCIONAR TODO' : 'SELECCIONAR TODO';
+            if (confirmBtn) confirmBtn.textContent = `Importar ${selectedCount} Contactos Seleccionados`;
+        }
+
+        function renderImportPreviewTable() {
+            const listEl = document.getElementById('import-preview-list');
+            if (!listEl) return;
+
+            const filter = document.getElementById('import-preview-filter')?.value || 'ALL';
+            const visible = appState.stagedImportContacts.filter(c => {
+                if (filter === 'NEW_ONLY' || filter === 'HIDE_DUP') return !c.isDuplicate;
+                return true;
+            });
+
+            if (visible.length === 0) {
+                listEl.innerHTML = `<p class="text-center text-xs text-slate-400 py-8">No hay contactos que coincidan con el filtro seleccionado.</p>`;
+            } else {
+                listEl.innerHTML = visible.map(c => `
+                    <label class="flex items-center justify-between gap-3 p-3 rounded-2xl border ${c.selected ? 'bg-sky-50/60 border-sky-300' : 'bg-slate-50 border-slate-200/80'} cursor-pointer hover:border-sky-400 transition-all">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <input type="checkbox" ${c.selected ? 'checked' : ''} onchange="toggleSingleStagedContact('${c.tempId}');"
+                                class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300 shrink-0">
+                            <span class="text-lg shrink-0" title="${c.country}">${c.flag}</span>
+                            <div class="min-w-0">
+                                <p class="text-xs font-black text-slate-900 truncate">${c.name}</p>
+                                <p class="text-[11px] font-mono text-slate-600">${c.phone} • <span class="font-sans text-slate-400">${c.country}</span></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            ${c.isDuplicate
+                                ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Ya existe</span>`
+                                : `<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Nuevo</span>`}
+                        </div>
+                    </label>
+                `).join('');
+            }
+            updateImportPreviewCounters();
+        }
+
+        function confirmStagedContactsImport() {
+            const selectedItems = appState.stagedImportContacts.filter(c => c.selected);
+            if (selectedItems.length === 0) {
+                showToast('Selecciona al menos un contacto para importar.');
+                return;
+            }
+
+            let added = 0;
+            let skipped = 0;
+            const existingPhones = new Set(appState.prospects.map(p => p.phone));
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            selectedItems.forEach(item => {
+                if (existingPhones.has(item.phone)) {
+                    skipped++;
+                    return;
+                }
+                existingPhones.add(item.phone);
+                appState.prospects.unshift({
+                    id: 'prs_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+                    name: item.name,
+                    phone: item.phone,
+                    flag: item.flag,
+                    country: item.country,
+                    funnel: item.funnel || 'Sin clasificar',
+                    followUpDate: todayStr,
+                    note: `Importado (${item.source})`
+                });
+                added++;
+            });
+
+            saveUserScopedData();
+            closeModal('modal-import-preview');
+            appState.stagedImportContacts = [];
+            renderProspectsList();
+            updateDashboardKPIs();
+            renderDashboardTodayAgenda();
+
+            const repBox = document.getElementById('crm-import-report');
+            const repText = document.getElementById('crm-import-report-text');
+            if (repBox && repText) {
+                repText.textContent = `Base privada actualizada: ${added} contactos importados correctamente${skipped > 0 ? ` (${skipped} ya existentes omitidos)` : ''}.`;
+                repBox.classList.remove('hidden');
+            }
+            showToast(`${added} contactos guardados en tu base privada.`);
         }
 
         async function connectDeviceContactsAndroidOrIOS() {
             if ('contacts' in navigator && 'ContactsManager' in window) {
                 try {
                     const contacts = await navigator.contacts.select(['name', 'tel'], { multiple: true });
-                    let added = 0;
-                    const existingPhones = new Set(appState.prospects.map(p => p.phone));
-
+                    const rawList = [];
                     contacts.forEach(c => {
                         const name = (c.name && c.name[0]) || 'Contacto Móvil';
                         (Array.isArray(c.tel) ? c.tel : []).forEach(tel => {
-                            const norm = normalizePhoneAndFlag(tel);
-                            if (norm && !existingPhones.has(norm.e164)) {
-                                existingPhones.add(norm.e164);
-                                appState.prospects.unshift({
-                                    id: 'prs_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-                                    name,
-                                    phone: norm.e164,
-                                    flag: norm.flag,
-                                    country: norm.country,
-                                    funnel: 'Salud / Bebidas',
-                                    followUpDate: new Date().toISOString().split('T')[0],
-                                    note: 'Sincronizado desde dispositivo'
-                                });
-                                added++;
-                            }
+                            rawList.push({ name, rawPhone: tel });
                         });
                     });
-
-                    saveUserScopedData();
-                    renderProspectsList();
-                    updateDashboardKPIs();
-                    renderDashboardTodayAgenda();
-                    showToast(`${added} contactos sincronizados desde tu dispositivo.`);
+                    openStagedContactsPreview(rawList, 'Agenda del Dispositivo');
                 } catch (err) {
                     showToast('Selección cancelada.');
                 }
