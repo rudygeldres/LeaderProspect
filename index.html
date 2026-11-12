@@ -121,7 +121,7 @@
             <p class="text-xs font-semibold tracking-widest uppercase text-sky-300/90">Conecta • Comparte • Crece</p>
         </header>
 
-        <!-- Tarjeta Blanca de Inicio de Sesión -->
+        <!-- Tarjeta Blanca de Inicio de Sesión (Limpia, sin credenciales precargadas ni accesos directos admin) -->
         <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-4">
             <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100">
                 <div class="text-center mb-6">
@@ -140,14 +140,14 @@
                     </button>
                 </div>
 
-                <form id="login-form" onsubmit="event.preventDefault(); handleLogin(); return false;" class="space-y-4">
+                <form id="login-form" autocomplete="off" onsubmit="event.preventDefault(); handleLogin(); return false;" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Correo electrónico</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
                                 <i class="fa-regular fa-envelope"></i>
                             </span>
-                            <input type="email" id="input-auth-email" required autocomplete="email" placeholder="ejemplo@correo.com"
+                            <input type="email" id="input-auth-email" required value="" autocomplete="off" placeholder="ejemplo@correo.com"
                                 class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
                                 <i class="fa-solid fa-lock"></i>
                             </span>
-                            <input type="password" id="input-auth-password" required autocomplete="current-password" placeholder="••••••••"
+                            <input type="password" id="input-auth-password" required value="" autocomplete="new-password" placeholder="••••••••"
                                 class="w-full pl-10 pr-11 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
                             <button type="button" onclick="togglePasswordVisibility('input-auth-password', 'eye-login');" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
                                 <i id="eye-login" class="fa-regular fa-eye"></i>
@@ -168,7 +168,7 @@
 
                     <div class="flex items-center justify-between text-xs pt-0.5">
                         <label class="inline-flex items-center gap-2 text-slate-600 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-remember" checked class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+                            <input type="checkbox" id="chk-remember" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
                             <span>Recordar mi acceso</span>
                         </label>
                         <button type="button" onclick="openRecoveryModal();" class="font-bold text-sky-600 hover:text-sky-700">
@@ -740,8 +740,146 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO (IMPORTACIÓN UNIVERSAL TODO FORMATO + SELECCIONAR TODO) ==================== -->
+                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO + ESTRUCTURA LEADER PROSPECT (4 PASOS) ==================== -->
                 <section id="tab-prospectos" class="tab-section hidden space-y-6">
+
+                    <!-- BLOQUE A: ESTRUCTURA LEADER PROSPECT — PLANTILLAS DE MENSAJERÍA (4 PASOS + PERSONALIZADAS) -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase">
+                                    Estructura Leader Prospect • Administrador &amp; Usuarios Socios
+                                </span>
+                                <h2 class="text-lg font-black text-slate-900 mt-1">Plantillas de Mensajería — 4 Pasos</h2>
+                                <p class="text-xs text-slate-500">
+                                    Selecciona un prospecto destinatario para reemplazar automáticamente <code class="px-1.5 py-0.5 rounded bg-slate-100 text-sky-700 font-bold">{nombre}</code> y <code class="px-1.5 py-0.5 rounded bg-slate-100 text-sky-700 font-bold">{nombre y apellido del socio o administrador}</code>.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button type="button" onclick="openCustomTemplateModal();" class="py-2.5 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-plus"></i><span>Agregar Mensaje Personalizado</span>
+                                </button>
+                                <button type="button" onclick="restoreDefaultMessagingSteps();" class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
+                                    Restaurar 4 Pasos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Prospecto Destinatario Activo -->
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div class="flex items-center gap-2.5 shrink-0">
+                                <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-[10px] font-black uppercase text-slate-500">Prospecto Destinatario</span>
+                                    <span class="text-xs font-extrabold text-slate-800">Vista previa dinámica en tiempo real</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col sm:flex-row gap-2 max-w-2xl">
+                                <input type="text" id="msg-recipient-filter" oninput="populateMessagingRecipientSelect();" placeholder="🔍 Filtrar contacto..."
+                                    class="sm:w-44 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <select id="msg-recipient-select" onchange="renderMessagingStepsCards();"
+                                    class="flex-1 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                    <option value="">-- Selecciona un prospecto de tu CRM privado --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Grid de los 4 Pasos Separados (Cada uno con botón Enviar y botón Editar Mensaje) -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <!-- PASO 1 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-sky-300 transition-all">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-black uppercase">Paso 1 • Saludo</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Primer Contacto</span>
+                                    </div>
+                                    <div id="msg-step-preview-1" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
+                                </div>
+                                <div class="flex items-center gap-2 pt-1">
+                                    <button type="button" onclick="sendStepWhatsApp(1);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
+                                    </button>
+                                    <button type="button" onclick="openEditStepModal(1);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- PASO 2 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-emerald-300 transition-all">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase">Paso 2 • Salud y Familia</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Propuesta de Valor</span>
+                                    </div>
+                                    <div id="msg-step-preview-2" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
+                                </div>
+                                <div class="flex items-center gap-2 pt-1">
+                                    <button type="button" onclick="sendStepWhatsApp(2);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
+                                    </button>
+                                    <button type="button" onclick="openEditStepModal(2);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- PASO 3 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-amber-300 transition-all">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-black uppercase">Paso 3 • La Encuesta</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Cierre de Horario</span>
+                                    </div>
+                                    <div id="msg-step-preview-3" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
+                                </div>
+                                <div class="flex items-center gap-2 pt-1">
+                                    <button type="button" onclick="sendStepWhatsApp(3);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
+                                    </button>
+                                    <button type="button" onclick="openEditStepModal(3);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- PASO 4 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-indigo-300 transition-all">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-black uppercase">Paso 4 • Presentación de 1 Minuto</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Visión de Negocio</span>
+                                    </div>
+                                    <div id="msg-step-preview-4" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
+                                </div>
+                                <div class="flex items-center gap-2 pt-1">
+                                    <button type="button" onclick="sendStepWhatsApp(4);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
+                                    </button>
+                                    <button type="button" onclick="openEditStepModal(4);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Mensajes Personalizados Adicionales -->
+                        <div class="pt-3 border-t border-slate-100 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-700">
+                                    <i class="fa-solid fa-comment-dots text-sky-600 mr-1.5"></i>Mis Mensajes Personalizados
+                                </h3>
+                                <button type="button" onclick="openCustomTemplateModal();" class="text-xs font-extrabold text-sky-600 hover:underline">
+                                    + Nuevo Mensaje Personalizado
+                                </button>
+                            </div>
+                            <div id="custom-templates-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE B: CARTERA PRIVADA DE PROSPECTOS CRM -->
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
@@ -752,7 +890,7 @@
                                     </span>
                                 </div>
                                 <p class="text-xs text-slate-500 mt-0.5">
-                                    Tus contactos están aislados en tu cuenta personal. Soporta todo tipo de archivo y coloca la bandera de cada país.
+                                    Tus contactos están aislados en tu cuenta personal. Soporta todo tipo de archivo, edita detalles o etiquetas y coloca la bandera de cada país.
                                 </p>
                             </div>
 
@@ -801,7 +939,7 @@
                         <div class="flex flex-col sm:flex-row gap-3">
                             <div class="relative flex-1">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="crm-search-input" oninput="renderProspectsList();" placeholder="Buscar por nombre, teléfono o país..."
+                                <input type="text" id="crm-search-input" oninput="renderProspectsList();" placeholder="Buscar por nombre, teléfono, etiqueta o detalle..."
                                     class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
                             </div>
                             <select id="crm-filter-funnel" onchange="renderProspectsList();" class="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700">
@@ -1434,11 +1572,15 @@
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Fecha Seguimiento</label>
-                        <input type="date" id="pros-date" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <input type="date" id="pros-date" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nota / Interés</label>
+                    <label class="block font-bold text-slate-700 mb-1">Etiquetas (separadas por coma)</label>
+                    <input type="text" id="pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nota / Detalle</label>
                     <input type="text" id="pros-note" placeholder="Ej. Interesada en Prunex / Termo T3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
                 <button type="submit" class="w-full py-3.5 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
@@ -1584,6 +1726,135 @@
         </div>
     </div>
 
+    <!-- Modal 9: Editar Mensaje de Paso (Estructura Leader Prospect 1-4) -->
+    <div id="modal-edit-msg-step" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Estructura Leader Prospect</span>
+                    <h3 id="modal-edit-step-title" class="text-base font-black text-slate-900">Editar Mensaje de Paso</h3>
+                </div>
+                <button type="button" onclick="closeModal('modal-edit-msg-step');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <input type="hidden" id="edit-step-index">
+            <p class="text-[11px] text-slate-500">
+                Variables automáticas disponibles: <b class="text-sky-700">{nombre}</b> (prospecto) y <b class="text-sky-700">{nombre y apellido del socio o administrador}</b>.
+            </p>
+            <textarea id="edit-step-body" rows="6" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 leading-relaxed focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal('modal-edit-msg-step');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
+                <button type="button" onclick="saveEditedStepTemplate();" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
+                    Guardar Mensaje
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 10: Agregar / Editar Mensaje Personalizado -->
+    <div id="modal-custom-template" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-custom-template-title" class="text-base font-black text-slate-900">Agregar Mensaje Personalizado</h3>
+                <button type="button" onclick="closeModal('modal-custom-template');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveCustomTemplateItem(); return false;" class="space-y-3 text-xs">
+                <input type="hidden" id="custom-tpl-id">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Título de la Plantilla *</label>
+                        <input type="text" id="custom-tpl-name" required placeholder="Ej. Seguimiento Prunex 1" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Categoría / Etiqueta</label>
+                        <input type="text" id="custom-tpl-tag" placeholder="Ej. Salud / Cierre" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Mensaje * (usa {nombre} y {nombre y apellido del socio o administrador})</label>
+                    <textarea id="custom-tpl-body" rows="5" required placeholder="Hola {nombre} 😊 soy {nombre y apellido del socio o administrador}..." class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 leading-relaxed"></textarea>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modal-custom-template');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
+                    <button type="submit" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
+                        Guardar Plantilla
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 11: Editar Prospecto CRM (Detalles, Etiquetas, Embudo y Seguimiento) -->
+    <div id="modal-edit-prospect" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">CRM Privado</span>
+                    <h3 class="text-base font-black text-slate-900">Editar Prospecto, Etiquetas y Detalles</h3>
+                </div>
+                <button type="button" onclick="closeModal('modal-edit-prospect');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveEditedProspect(); return false;" class="space-y-3 text-xs">
+                <input type="hidden" id="edit-pros-id">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nombre y Apellidos *</label>
+                    <input type="text" id="edit-pros-name" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Teléfono / WhatsApp (E.164) *</label>
+                    <input type="tel" id="edit-pros-phone" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Embudo FuXion</label>
+                        <select id="edit-pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                            <option value="Salud / Bebidas">Salud / Bebidas</option>
+                            <option value="Negocio / Multinivel">Negocio / Multinivel</option>
+                            <option value="Sin clasificar">Sin clasificar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Fecha Seguimiento</label>
+                        <input type="date" id="edit-pros-date" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Etiquetas Rápidas (Pulsa para agregar)</label>
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <button type="button" onclick="appendTagToEditProspect('Fx');" class="px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 font-bold text-[10px]">+ Fx</button>
+                        <button type="button" onclick="appendTagToEditProspect('Encuesta');" class="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-bold text-[10px]">+ Encuesta</button>
+                        <button type="button" onclick="appendTagToEditProspect('Cliente');" class="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[10px]">+ Cliente</button>
+                        <button type="button" onclick="appendTagToEditProspect('Socio');" class="px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold text-[10px]">+ Socio</button>
+                        <button type="button" onclick="appendTagToEditProspect('VIP');" class="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-bold text-[10px]">+ VIP</button>
+                    </div>
+                    <input type="text" id="edit-pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Detalles / Notas Privadas</label>
+                    <textarea id="edit-pros-note" rows="3" placeholder="Escribe detalles de interés, producto o recordatorio..." class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200"></textarea>
+                </div>
+                <div class="flex justify-end gap-2 pt-1">
+                    <button type="button" onclick="closeModal('modal-edit-prospect');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
+                    <button type="submit" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 12: Selector Rápido de Destinatario al pulsar Enviar WhatsApp sin prospecto seleccionado -->
+    <div id="modal-select-recipient-wa" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-select-recipient-title" class="text-base font-black text-slate-900">Seleccionar Destinatario</h3>
+                <button type="button" onclick="closeModal('modal-select-recipient-wa');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <input type="text" id="quick-recipient-search" oninput="renderQuickRecipientModalList();" placeholder="🔍 Buscar nombre o celular..."
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <div id="quick-recipient-modal-list" class="max-h-72 overflow-y-auto space-y-2"></div>
+        </div>
+    </div>
+
     <!-- Toast Notificaciones -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
@@ -1595,6 +1866,14 @@
         const ADMIN_SPONSOR_CODE = 'RudyG-Ad';
         const ADMIN_WHATSAPP_NUMBER = '+51970425293';
         const ADMIN_DISPLAY_PHONE = '+51 970 425 293';
+
+        // Estructura Oficial Leader Prospect (4 Pasos con Emoticones)
+        const DEFAULT_LEADER_PROSPECT_STEPS = {
+            1: 'Hola que tal {nombre} 👋😊 soy {nombre y apellido del socio o administrador}, sabes queria hacerte uno consulta! 💬✨',
+            2: '{nombre} 👋🌿 Estoy ayudando a todos mis amigos y clientes adarle información para que mejoren su salud y la de su Familia 💪💚, te gustaria recibir información para que tu puedas mejorar y fortalecer la salud de tu familia. ✨\nY Para ello estoy mandando una encuesta para saber cual seria lo prioritario? 📋🔍 te envio la Información sin compromiso para que conozcas una de las mejores opciones en el mercado 🌟, si decides adquirir sera todo un gusto poder atenderte 🤝😊',
+            3: '{Nombre} ⏰😊 Cuéntame a qué hora lo revisarías con calma para conversarlo 📞💬, si no te interesa igual me avisas y no tocaré el tema. 👍✨',
+            4: 'Qué tal {nombre} 👋🚀 te comento que tengo la representación de una marca de bebidas naturales 100% peruana 🇵🇪🌿 que está posicionada en más de 35 países 🌎✨ y además ayudó a personas en enseñarles y que aprendan a vender 10 paquetes por semana 📦 para generarse $600 dólares al mes 💵🔥 para comenzar, y si vendes más o mejor si le enseñamos a 10 amigos tuyos a generar los $600 dólares 🤝, así tú puedes estar generando por encima de los $2000 dólares 💎🏆, Te interesa? 👀💬'
+        };
 
         // Tabla Oficial de los 16 Rangos del Plan PRO-LEV X™
         const FUXION_RANKS_DATA = {
@@ -1764,6 +2043,8 @@
             currentUser: null,
             prospects: [],
             agendaTasks: [],
+            messagingSteps: { ...DEFAULT_LEADER_PROSPECT_STEPS },
+            customTemplates: [],
             stagedImportContacts: [],
             customPresentationMsg: '',
             recBannerPhoto: null,
@@ -1771,7 +2052,9 @@
             registrationMode: 'partner',
             calendarView: 'month',
             calendarCursorDate: new Date(),
-            selectedDateStr: new Date().toISOString().split('T')[0]
+            selectedDateStr: new Date().toISOString().split('T')[0],
+            pendingQuickStep: 1,
+            pendingQuickCustomId: null
         };
 
         if (typeof pdfjsLib !== 'undefined') {
@@ -1814,16 +2097,22 @@
                     const parsed = JSON.parse(raw);
                     appState.prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
                     appState.agendaTasks = Array.isArray(parsed.agendaTasks) ? parsed.agendaTasks : [];
+                    appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS, ...(parsed.messagingSteps || {}) };
+                    appState.customTemplates = Array.isArray(parsed.customTemplates) ? parsed.customTemplates : [];
                     appState.customPresentationMsg = parsed.customPresentationMsg || '';
                 } else {
                     appState.prospects = [];
                     appState.agendaTasks = [];
+                    appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
+                    appState.customTemplates = [];
                     appState.customPresentationMsg = '';
                     saveUserScopedData();
                 }
             } catch (e) {
                 appState.prospects = [];
                 appState.agendaTasks = [];
+                appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
+                appState.customTemplates = [];
                 appState.customPresentationMsg = '';
             }
         }
@@ -1835,6 +2124,8 @@
                 updatedAt: new Date().toISOString(),
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
+                messagingSteps: appState.messagingSteps,
+                customTemplates: appState.customTemplates,
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             localStorage.setItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
@@ -1850,6 +2141,13 @@
         // Inicialización Principal
         document.addEventListener('DOMContentLoaded', () => {
             repairAndSeedMasterRecords();
+
+            // Garantizar que el login inicie sin credenciales precargadas
+            const emailInp = document.getElementById('input-auth-email');
+            const passInp = document.getElementById('input-auth-password');
+            if (emailInp) emailInp.value = '';
+            if (passInp) passInp.value = '';
+
             startCycleCountdownTimer();
             detectUrlReferralParams();
             drawRecognitionCanvas();
@@ -1992,6 +2290,10 @@
             appState.prospects = [];
             appState.agendaTasks = [];
             localStorage.removeItem('lp_active_session');
+            const emailInp = document.getElementById('input-auth-email');
+            const passInp = document.getElementById('input-auth-password');
+            if (emailInp) emailInp.value = '';
+            if (passInp) passInp.value = '';
             const dashEl = document.getElementById('dashboard-screen');
             const authEl = document.getElementById('auth-screen');
             if (dashEl) dashEl.style.display = 'none';
@@ -2022,7 +2324,11 @@
                 else btn.classList.remove('sidebar-nav-active');
             });
 
-            if (tabId === 'prospectos') renderProspectsList();
+            if (tabId === 'prospectos') {
+                populateMessagingRecipientSelect();
+                renderMessagingStepsCards();
+                renderProspectsList();
+            }
             if (tabId === 'agenda') renderAgendaCalendar();
             if (tabId === 'equipo') renderTeamView();
             if (tabId === 'enlaces') updateReferralLinksUI();
@@ -2077,6 +2383,8 @@
                 if (popoverAdminBtn) popoverAdminBtn.classList.add('hidden');
             }
 
+            populateMessagingRecipientSelect();
+            renderMessagingStepsCards();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
             updateReferralLinksUI();
@@ -2238,6 +2546,241 @@
                 : `¡Hola! 👋 Te saluda *${user.name}*. Descubre las bebidas nutracéuticas *FuXion* para potenciar tu salud y energía. Regístrate aquí para asesorarte:\n${link}`;
 
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ==================== ESTRUCTURA LEADER PROSPECT: PLANTILLAS DE MENSAJERÍA (4 PASOS + PERSONALIZADAS) ====================
+        function interpolateLeaderProspectMessage(rawTemplate, prospectFullName) {
+            const senderName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
+            const firstName = prospectFullName
+                ? String(prospectFullName).trim().split(/\s+/)[0]
+                : '[Nombre del Prospecto]';
+
+            return String(rawTemplate || '')
+                .replace(/\{\s*nombre\s*\}/gi, firstName)
+                .replace(/\{\s*(nombre y apellido del socio o administrador|socio|lider)\s*\}/gi, senderName);
+        }
+
+        function populateMessagingRecipientSelect() {
+            const selectEl = document.getElementById('msg-recipient-select');
+            if (!selectEl) return;
+
+            const filterTxt = (document.getElementById('msg-recipient-filter')?.value || '').toLowerCase();
+            const currentVal = selectEl.value;
+
+            const matches = appState.prospects.filter(p =>
+                p.name.toLowerCase().includes(filterTxt) || (p.phone || '').includes(filterTxt)
+            );
+
+            selectEl.innerHTML = [`<option value="">-- Selecciona un prospecto de tu CRM privado (${matches.length}) --</option>`]
+                .concat(matches.map(p => `<option value="${p.id}">${p.flag || '🌎'} ${p.name} — ${p.phone}</option>`))
+                .join('');
+
+            if (currentVal && matches.some(p => p.id === currentVal)) {
+                selectEl.value = currentVal;
+            }
+        }
+
+        function renderMessagingStepsCards() {
+            const selectEl = document.getElementById('msg-recipient-select');
+            const selectedProspect = selectEl && selectEl.value
+                ? appState.prospects.find(p => p.id === selectEl.value)
+                : null;
+            const prospectName = selectedProspect ? selectedProspect.name : '';
+
+            for (let step = 1; step <= 4; step++) {
+                const box = document.getElementById(`msg-step-preview-${step}`);
+                if (box) {
+                    const tpl = appState.messagingSteps[step] || DEFAULT_LEADER_PROSPECT_STEPS[step];
+                    box.textContent = interpolateLeaderProspectMessage(tpl, prospectName);
+                }
+            }
+            renderCustomTemplatesList(prospectName);
+        }
+
+        function renderCustomTemplatesList(prospectName = '') {
+            const listEl = document.getElementById('custom-templates-list');
+            if (!listEl) return;
+
+            if (!Array.isArray(appState.customTemplates) || appState.customTemplates.length === 0) {
+                listEl.innerHTML = `
+                    <div class="md:col-span-2 p-4 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-400">
+                        Aún no has creado mensajes personalizados adicionales. Pulsa <b>"+ Agregar Mensaje Personalizado"</b> para crear tus propios guiones.
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = appState.customTemplates.map(tpl => `
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-3">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-black text-slate-900">${tpl.name}</span>
+                            ${tpl.tag ? `<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold">${tpl.tag}</span>` : ''}
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+                            ${interpolateLeaderProspectMessage(tpl.body, prospectName)}
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="sendCustomTemplateWhatsApp('${tpl.id}');" class="flex-1 py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5">
+                            <i class="fa-brands fa-whatsapp"></i><span>Enviar WhatsApp</span>
+                        </button>
+                        <button type="button" onclick="openEditCustomTemplateModal('${tpl.id}');" class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs">
+                            <i class="fa-solid fa-pen-to-square text-sky-400 mr-1"></i>Editar
+                        </button>
+                        <button type="button" onclick="deleteCustomTemplateItem('${tpl.id}');" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-600 flex items-center justify-center">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEditStepModal(stepNum) {
+            const titles = {
+                1: 'Paso 1: Saludo',
+                2: 'Paso 2: Salud y Familia',
+                3: 'Paso 3: La Encuesta',
+                4: 'Paso 4: Presentación de 1 Minuto'
+            };
+            document.getElementById('edit-step-index').value = stepNum;
+            document.getElementById('modal-edit-step-title').textContent = `Editar ${titles[stepNum]}`;
+            document.getElementById('edit-step-body').value = appState.messagingSteps[stepNum] || DEFAULT_LEADER_PROSPECT_STEPS[stepNum];
+            openModal('modal-edit-msg-step');
+        }
+
+        function saveEditedStepTemplate() {
+            const stepNum = Number(document.getElementById('edit-step-index').value);
+            const updatedBody = document.getElementById('edit-step-body').value.trim();
+            if (!updatedBody) { showToast('El mensaje no puede quedar vacío.'); return; }
+            appState.messagingSteps[stepNum] = updatedBody;
+            saveUserScopedData();
+            renderMessagingStepsCards();
+            closeModal('modal-edit-msg-step');
+            showToast(`Paso ${stepNum} actualizado en tus plantillas.`);
+        }
+
+        function restoreDefaultMessagingSteps() {
+            appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
+            saveUserScopedData();
+            renderMessagingStepsCards();
+            showToast('Se han restaurado los 4 pasos oficiales de Leader Prospect.');
+        }
+
+        function openCustomTemplateModal() {
+            document.getElementById('custom-tpl-id').value = '';
+            document.getElementById('modal-custom-template-title').textContent = 'Agregar Mensaje Personalizado';
+            document.getElementById('custom-tpl-name').value = '';
+            document.getElementById('custom-tpl-tag').value = '';
+            document.getElementById('custom-tpl-body').value = '';
+            openModal('modal-custom-template');
+        }
+
+        function openEditCustomTemplateModal(id) {
+            const item = appState.customTemplates.find(t => t.id === id);
+            if (!item) return;
+            document.getElementById('custom-tpl-id').value = item.id;
+            document.getElementById('modal-custom-template-title').textContent = 'Editar Mensaje Personalizado';
+            document.getElementById('custom-tpl-name').value = item.name;
+            document.getElementById('custom-tpl-tag').value = item.tag || '';
+            document.getElementById('custom-tpl-body').value = item.body;
+            openModal('modal-custom-template');
+        }
+
+        function saveCustomTemplateItem() {
+            const id = document.getElementById('custom-tpl-id').value;
+            const name = document.getElementById('custom-tpl-name').value.trim();
+            const tag = document.getElementById('custom-tpl-tag').value.trim();
+            const body = document.getElementById('custom-tpl-body').value.trim();
+            if (!name || !body) return;
+
+            if (id) {
+                const idx = appState.customTemplates.findIndex(t => t.id === id);
+                if (idx !== -1) appState.customTemplates[idx] = { id, name, tag, body };
+            } else {
+                appState.customTemplates.unshift({ id: 'ctpl_' + Date.now(), name, tag, body });
+            }
+            saveUserScopedData();
+            renderMessagingStepsCards();
+            closeModal('modal-custom-template');
+            showToast('Mensaje personalizado guardado correctamente.');
+        }
+
+        function deleteCustomTemplateItem(id) {
+            appState.customTemplates = appState.customTemplates.filter(t => t.id !== id);
+            saveUserScopedData();
+            renderMessagingStepsCards();
+            showToast('Mensaje personalizado eliminado.');
+        }
+
+        function sendStepWhatsApp(stepNum) {
+            const selectEl = document.getElementById('msg-recipient-select');
+            if (selectEl && selectEl.value) {
+                dispatchStepToProspect(selectEl.value, stepNum);
+            } else {
+                appState.pendingQuickStep = stepNum;
+                appState.pendingQuickCustomId = null;
+                document.getElementById('modal-select-recipient-title').textContent = `Enviar Paso ${stepNum} por WhatsApp`;
+                renderQuickRecipientModalList();
+                openModal('modal-select-recipient-wa');
+            }
+        }
+
+        function sendCustomTemplateWhatsApp(customId) {
+            const selectEl = document.getElementById('msg-recipient-select');
+            if (selectEl && selectEl.value) {
+                dispatchCustomTemplateToProspect(selectEl.value, customId);
+            } else {
+                appState.pendingQuickCustomId = customId;
+                document.getElementById('modal-select-recipient-title').textContent = 'Seleccionar Destinatario';
+                renderQuickRecipientModalList();
+                openModal('modal-select-recipient-wa');
+            }
+        }
+
+        function renderQuickRecipientModalList() {
+            const listEl = document.getElementById('quick-recipient-modal-list');
+            if (!listEl) return;
+            const q = (document.getElementById('quick-recipient-search')?.value || '').toLowerCase();
+            const matches = appState.prospects.filter(p =>
+                p.name.toLowerCase().includes(q) || (p.phone || '').includes(q)
+            );
+
+            if (matches.length === 0) {
+                listEl.innerHTML = `<p class="text-center text-xs text-slate-400 py-6">No tienes prospectos registrados en tu CRM privado.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = matches.map(p => `
+                <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                        <p class="text-xs font-black text-slate-900 truncate">${p.flag || '🌎'} ${p.name}</p>
+                        <p class="text-[11px] font-mono text-slate-500">${p.phone}</p>
+                    </div>
+                    <button type="button" onclick="closeModal('modal-select-recipient-wa'); ${appState.pendingQuickCustomId ? `dispatchCustomTemplateToProspect('${p.id}', '${appState.pendingQuickCustomId}')` : `dispatchStepToProspect('${p.id}', ${appState.pendingQuickStep})`};"
+                        class="py-2 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs shrink-0">
+                        Enviar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function dispatchStepToProspect(prospectId, stepNum) {
+            const p = appState.prospects.find(x => x.id === prospectId);
+            if (!p) return;
+            const rawTpl = appState.messagingSteps[stepNum] || DEFAULT_LEADER_PROSPECT_STEPS[stepNum];
+            const message = interpolateLeaderProspectMessage(rawTpl, p.name);
+            const cleanNum = p.phone.replace(/\D/g, '');
+            window.open(`https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function dispatchCustomTemplateToProspect(prospectId, customId) {
+            const p = appState.prospects.find(x => x.id === prospectId);
+            const tpl = appState.customTemplates.find(t => t.id === customId);
+            if (!p || !tpl) return;
+            const message = interpolateLeaderProspectMessage(tpl.body, p.name);
+            const cleanNum = p.phone.replace(/\D/g, '');
+            window.open(`https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(message)}`, '_blank');
         }
 
         // ==================== HERRAMIENTAS: PDFS DESCARGABLES + VIDEO INTEGRADO ====================
@@ -2843,7 +3386,7 @@
             listEl.innerHTML = itemsHtml;
         }
 
-        // ==================== PROSPECTOS CRM UNIVERSAL (TODO FORMATO + VISTA PREVIA + SELECCIONAR TODO) ====================
+        // ==================== PROSPECTOS CRM UNIVERSAL (TODO FORMATO + VISTA PREVIA + SELECCIONAR TODO + EDICIÓN) ====================
         function normalizePhoneAndFlag(rawPhone) {
             let clean = String(rawPhone || '').replace(/[^\d+]/g, '');
             if (!clean) return null;
@@ -2899,6 +3442,7 @@
                 const lines = card.split(/\r?\n/);
                 let fullName = '';
                 let structuredName = '';
+                let orgNote = '';
                 const phones = [];
 
                 lines.forEach(line => {
@@ -2913,6 +3457,10 @@
                         if (/QUOTED-PRINTABLE/i.test(line.slice(0, idx))) rawN = decodeQuotedPrintable(rawN);
                         const parts = rawN.split(';').map(s => s.trim()).filter(Boolean);
                         if (parts.length > 0) structuredName = parts.reverse().join(' ');
+                    } else if (/^(?:item\d+\.)?ORG(?:;[^:]*)?:/i.test(line)) {
+                        const idx = line.indexOf(':');
+                        const val = line.slice(idx + 1).trim();
+                        if (val && val.toLowerCase() !== 'null') orgNote = val;
                     } else if (/^(?:item\d+\.)?TEL(?:;[^:]*)?:/i.test(line)) {
                         const idx = line.indexOf(':');
                         const val = line.slice(idx + 1).trim();
@@ -2921,7 +3469,12 @@
                 });
 
                 const resolvedName = fullName || structuredName || 'Contacto vCard';
-                phones.forEach(p => results.push({ name: resolvedName, rawPhone: p }));
+                const tags = [];
+                if (/^fx\b/i.test(resolvedName) || /fuxion/i.test(resolvedName)) tags.push('Fx');
+                if (/encuesta/i.test(resolvedName)) tags.push('Encuesta');
+                if (/clnt|cliente/i.test(resolvedName) || /cliente/i.test(orgNote)) tags.push('Cliente');
+
+                phones.forEach(p => results.push({ name: resolvedName, rawPhone: p, tags, note: orgNote }));
             });
             return results;
         }
@@ -2934,7 +3487,6 @@
                 const trimmed = line.replace(/<[^>]+>/g, ' ').trim();
                 if (!trimmed) return;
 
-                // Detectar delimitadores CSV/TSV/Punto y coma/Pipe
                 const parts = trimmed.split(/[,;\t|]/).map(s => s.trim()).filter(Boolean);
                 if (parts.length >= 2) {
                     const phoneIdx = parts.findIndex(col => /\+?\d[\d\s\-().]{6,}\d/.test(col));
@@ -2948,7 +3500,6 @@
                     }
                 }
 
-                // Extracción flexible de línea libre: "Juan Pérez +51 987 654 321" o "+51 987 654 321 Juan Pérez"
                 const phoneMatch = trimmed.match(/(\+?\d[\d\s\-().]{6,}\d)/);
                 if (phoneMatch) {
                     const rawPhone = phoneMatch[1].trim();
@@ -2962,7 +3513,6 @@
         async function extractContactsFromAnyFile(file) {
             const fileName = (file.name || '').toLowerCase();
 
-            // 1. Excel / Hojas de cálculo (.xlsx, .xls, .ods) vía SheetJS
             if (/\.(xlsx|xls|ods|xlsm|xlsb)$/i.test(fileName) && typeof XLSX !== 'undefined') {
                 const buffer = await file.arrayBuffer();
                 const workbook = XLSX.read(buffer, { type: 'array' });
@@ -2983,7 +3533,6 @@
                 return collected;
             }
 
-            // 2. Documentos PDF (.pdf) vía PDF.js
             if (/\.pdf$/i.test(fileName) && typeof pdfjsLib !== 'undefined') {
                 const buffer = await file.arrayBuffer();
                 const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
@@ -2996,7 +3545,6 @@
                 return parseTabularOrFreeText(text);
             }
 
-            // 3. Lectura universal de texto (.vcf, .csv, .txt, .json, .xml, .html, etc.)
             const textContent = await file.text();
             if (/BEGIN:VCARD/i.test(textContent)) {
                 return parseAppleVCard(textContent);
@@ -3031,11 +3579,13 @@
                 const alreadyInCrm = existingPhones.has(norm.e164);
                 staged.push({
                     tempId: 'stg_' + idx + '_' + Math.random().toString(36).slice(2, 6),
-                    selected: !alreadyInCrm, // Selecciona automáticamente todos los nuevos
+                    selected: !alreadyInCrm,
                     name: String(item.name || 'Prospecto').trim(),
                     phone: norm.e164,
                     flag: norm.flag,
                     country: norm.country,
+                    tags: Array.isArray(item.tags) ? item.tags : [],
+                    note: item.note || '',
                     funnel: document.getElementById('import-default-funnel')?.value || 'Sin clasificar',
                     isDuplicate: alreadyInCrm,
                     source: sourceLabel || 'Archivo Importado'
@@ -3181,7 +3731,8 @@
                     country: item.country,
                     funnel: item.funnel || 'Sin clasificar',
                     followUpDate: todayStr,
-                    note: `Importado (${item.source})`
+                    tags: item.tags || [],
+                    note: item.note || `Importado (${item.source})`
                 });
                 added++;
             });
@@ -3189,6 +3740,7 @@
             saveUserScopedData();
             closeModal('modal-import-preview');
             appState.stagedImportContacts = [];
+            populateMessagingRecipientSelect();
             renderProspectsList();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
@@ -3233,10 +3785,13 @@
             const rawPhone = document.getElementById('pros-phone').value.trim();
             const funnel = document.getElementById('pros-funnel').value;
             const followUpDate = document.getElementById('pros-date').value;
+            const tagsRaw = document.getElementById('pros-tags')?.value || '';
             const note = document.getElementById('pros-note').value.trim();
 
             const norm = normalizePhoneAndFlag(rawPhone);
             if (!name || !norm) { showToast('Ingresa un nombre y teléfono válido.'); return; }
+
+            const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
 
             appState.prospects.unshift({
                 id: 'prs_' + Date.now(),
@@ -3246,20 +3801,74 @@
                 country: norm.country,
                 funnel,
                 followUpDate,
+                tags,
                 note: note || 'Seguimiento activo'
             });
 
             saveUserScopedData();
             closeModal('modal-add-prospect');
+            populateMessagingRecipientSelect();
             renderProspectsList();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
             showToast('Prospecto guardado en tu base privada.');
         }
 
+        function openEditProspectModal(id) {
+            const p = appState.prospects.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('edit-pros-id').value = p.id;
+            document.getElementById('edit-pros-name').value = p.name;
+            document.getElementById('edit-pros-phone').value = p.phone;
+            document.getElementById('edit-pros-funnel').value = p.funnel || 'Sin clasificar';
+            document.getElementById('edit-pros-date').value = p.followUpDate || new Date().toISOString().split('T')[0];
+            document.getElementById('edit-pros-tags').value = Array.isArray(p.tags) ? p.tags.join(', ') : '';
+            document.getElementById('edit-pros-note').value = p.note || '';
+            openModal('modal-edit-prospect');
+        }
+
+        function appendTagToEditProspect(tag) {
+            const inp = document.getElementById('edit-pros-tags');
+            if (!inp) return;
+            const current = inp.value.split(',').map(s => s.trim()).filter(Boolean);
+            if (!current.includes(tag)) {
+                current.push(tag);
+                inp.value = current.join(', ');
+            }
+        }
+
+        function saveEditedProspect() {
+            const id = document.getElementById('edit-pros-id').value;
+            const p = appState.prospects.find(x => x.id === id);
+            if (!p) return;
+
+            const name = document.getElementById('edit-pros-name').value.trim();
+            const norm = normalizePhoneAndFlag(document.getElementById('edit-pros-phone').value.trim());
+            if (!name || !norm) { showToast('Ingresa un nombre y teléfono válido.'); return; }
+
+            p.name = name;
+            p.phone = norm.e164;
+            p.flag = norm.flag;
+            p.country = norm.country;
+            p.funnel = document.getElementById('edit-pros-funnel').value;
+            p.followUpDate = document.getElementById('edit-pros-date').value;
+            p.tags = document.getElementById('edit-pros-tags').value.split(',').map(s => s.trim()).filter(Boolean);
+            p.note = document.getElementById('edit-pros-note').value.trim();
+
+            saveUserScopedData();
+            closeModal('modal-edit-prospect');
+            populateMessagingRecipientSelect();
+            renderMessagingStepsCards();
+            renderProspectsList();
+            renderDashboardTodayAgenda();
+            showToast('Detalles y etiquetas del prospecto actualizados.');
+        }
+
         function deleteProspect(id) {
             appState.prospects = appState.prospects.filter(p => p.id !== id);
             saveUserScopedData();
+            populateMessagingRecipientSelect();
+            renderMessagingStepsCards();
             renderProspectsList();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
@@ -3274,7 +3883,8 @@
             const funnelFilter = document.getElementById('crm-filter-funnel')?.value || 'ALL';
 
             const filtered = appState.prospects.filter(p => {
-                const matchesQuery = p.name.toLowerCase().includes(query) || p.phone.includes(query) || (p.country || '').toLowerCase().includes(query);
+                const tagsJoined = Array.isArray(p.tags) ? p.tags.join(' ').toLowerCase() : '';
+                const matchesQuery = p.name.toLowerCase().includes(query) || p.phone.includes(query) || (p.country || '').toLowerCase().includes(query) || tagsJoined.includes(query) || (p.note || '').toLowerCase().includes(query);
                 const matchesFunnel = funnelFilter === 'ALL' || p.funnel === funnelFilter;
                 return matchesQuery && matchesFunnel;
             });
@@ -3286,9 +3896,10 @@
 
             container.innerHTML = filtered.map(p => {
                 const cleanNum = p.phone.replace(/\D/g, '');
-                const waText = p.funnel === 'Salud / Bebidas'
-                    ? `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu asesor'}. Te escribo para compartirte información sobre las bebidas naturales FuXion 🌿✨.`
-                    : `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu socio'}. Me encantaría compartirte cómo estamos posicionando la marca FuXion en expansión 🚀💎.`;
+                const step1Text = interpolateLeaderProspectMessage(appState.messagingSteps[1] || DEFAULT_LEADER_PROSPECT_STEPS[1], p.name);
+                const tagsHtml = (Array.isArray(p.tags) ? p.tags : []).map(tag =>
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200"><i class="fa-solid fa-tag mr-1"></i>${tag}</span>`
+                ).join('');
 
                 return `
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -3298,15 +3909,24 @@
                                 <span class="text-xs font-black text-slate-900">${p.name}</span>
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200/80 text-slate-700">${p.country || 'Internacional'}</span>
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${p.funnel === 'Salud / Bebidas' ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'}">${p.funnel}</span>
+                                ${tagsHtml}
                             </div>
                             <p class="text-xs font-mono text-slate-600">${p.phone} • <span class="font-sans text-slate-400">Seguimiento: ${p.followUpDate || 'Hoy'}</span></p>
                             ${p.note ? `<p class="text-[11px] text-slate-500">${p.note}</p>` : ''}
                         </div>
-                        <div class="flex items-center gap-2">
-                            <a href="https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(waText)}" target="_blank"
-                                class="py-2 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 1);" title="Enviar Paso 1 Saludo" class="py-1.5 px-2.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-extrabold text-[10px]">P1</button>
+                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 2);" title="Enviar Paso 2 Salud" class="py-1.5 px-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-extrabold text-[10px]">P2</button>
+                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 3);" title="Enviar Paso 3 Encuesta" class="py-1.5 px-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-800 font-extrabold text-[10px]">P3</button>
+                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 4);" title="Enviar Paso 4 Presentación 1 Min" class="py-1.5 px-2.5 rounded-xl bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-extrabold text-[10px]">P4</button>
+                            <a href="https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(step1Text)}" target="_blank"
+                                class="py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5">
                                 <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
                             </a>
+                            <button type="button" onclick="openEditProspectModal('${p.id}');" title="Editar detalles o etiquetas"
+                                class="py-2 px-3 rounded-xl bg-white border border-slate-200 hover:border-sky-400 text-slate-700 font-bold text-xs flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square text-sky-600"></i><span>Editar</span>
+                            </button>
                             <button type="button" onclick="deleteProspect('${p.id}');" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-600 flex items-center justify-center">
                                 <i class="fa-solid fa-trash text-xs"></i>
                             </button>
@@ -3647,6 +4267,8 @@
                 ownerId: user.id,
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
+                messagingSteps: appState.messagingSteps,
+                customTemplates: appState.customTemplates,
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(backupPayload))));
@@ -3697,9 +4319,13 @@
                             if (t.id && !existingTaskIds.has(t.id)) appState.agendaTasks.push(t);
                         });
                     }
+                    if (parsed.messagingSteps) appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS, ...parsed.messagingSteps };
+                    if (Array.isArray(parsed.customTemplates)) appState.customTemplates = parsed.customTemplates;
                     if (parsed.customPresentationMsg) appState.customPresentationMsg = parsed.customPresentationMsg;
 
                     saveUserScopedData();
+                    populateMessagingRecipientSelect();
+                    renderMessagingStepsCards();
                     renderProspectsList();
                     updateDashboardKPIs();
                     renderDashboardTodayAgenda();
@@ -3778,6 +4404,7 @@
                     country: norm.country,
                     funnel: interest,
                     followUpDate: new Date().toISOString().split('T')[0],
+                    tags: ['Enlace'],
                     note: `Registrado desde enlace de prospecto (${email})`
                 });
                 localStorage.setItem(targetKey, JSON.stringify(existingDb));
