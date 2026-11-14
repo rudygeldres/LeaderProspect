@@ -107,11 +107,17 @@
             border-left: 3px solid #58B8EE;
             color: #FFFFFF;
         }
-        /* Líneas conectoras del Árbol Genealógico MLM */
+        /* Líneas conectoras del Árbol Genealógico Binario 2 Ramas MLM */
         .mlm-connector-v {
             width: 2px;
-            height: 24px;
+            height: 22px;
             background: linear-gradient(180deg, #0EA5E9, #58B8EE);
+            margin: 0 auto;
+        }
+        .mlm-branch-bridge {
+            width: 54%;
+            height: 2px;
+            background: linear-gradient(90deg, #0EA5E9, #58B8EE, #10B981);
             margin: 0 auto;
         }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -159,7 +165,7 @@
             <p class="text-xs font-semibold tracking-widest uppercase text-sky-300/90">Conecta • Comparte • Crece</p>
         </header>
 
-        <!-- Tarjeta Blanca de Inicio de Sesión (Limpia, sin accesos directos) -->
+        <!-- Tarjeta Blanca de Inicio de Sesión (Limpia, sin auto-login ni accesos directos) -->
         <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-4">
             <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100">
                 <div class="text-center mb-6">
@@ -206,7 +212,7 @@
 
                     <div class="flex items-center justify-between text-xs pt-0.5">
                         <label class="inline-flex items-center gap-2 text-slate-600 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-remember" checked class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+                            <input type="checkbox" id="chk-remember" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
                             <span>Recordar mi acceso</span>
                         </label>
                         <button type="button" onclick="openRecoveryModal();" class="font-bold text-sky-600 hover:text-sky-700">
@@ -440,7 +446,7 @@
                                 Abrir Mi Agenda
                             </button>
                             <button type="button" id="btn-popover-admin-codes" onclick="toggleNotificationsPopover(false); navigateTab('activacion-socios');" class="hidden flex-1 py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-[11px]">
-                                Códigos Socios
+                                Centro Control
                             </button>
                         </div>
                     </div>
@@ -489,11 +495,17 @@
                                 </div>
                             </div>
 
-                            <!-- Reloj Regresivo Oficial Cierre FuXion (Martes 11:59:59 PM) -->
-                            <div class="bg-[#040914]/90 backdrop-blur-md border border-sky-400/30 rounded-2xl p-4 sm:p-5 text-center shrink-0">
-                                <div class="flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-amber-400 mb-1">
-                                    <i class="fa-solid fa-stopwatch"></i>
-                                    <span>CIERRE DE SEMANA FUXION</span>
+                            <!-- Reloj Regresivo Oficial Cierre FuXion (Configurable por el Administrador) -->
+                            <div class="bg-[#040914]/90 backdrop-blur-md border border-sky-400/30 rounded-2xl p-4 sm:p-5 text-center shrink-0 relative">
+                                <div class="flex items-center justify-between gap-2 mb-1">
+                                    <div class="flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-amber-400 mx-auto">
+                                        <i class="fa-solid fa-stopwatch"></i>
+                                        <span id="fuxion-countdown-box-title">CIERRE DE SEMANA FUXION</span>
+                                    </div>
+                                    <button type="button" id="btn-admin-edit-countdown" onclick="openEditCountdownModal();" title="Ajustar Cierre de Semana"
+                                        class="hidden px-2 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 border border-sky-400/40 text-sky-300 text-[10px] font-extrabold flex items-center gap-1 transition-colors">
+                                        <i class="fa-solid fa-sliders"></i><span>Ajustar</span>
+                                    </button>
                                 </div>
                                 <p id="fuxion-cycle-label" class="text-xs font-extrabold text-sky-300 mb-3">Semana 1 • Periodo 1 (Martes 11:59:59 PM)</p>
                                 <div class="grid grid-cols-4 gap-2 text-center">
@@ -599,7 +611,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <h3 class="text-xs font-black uppercase tracking-wider text-amber-900 flex items-center gap-2">
                                 <i class="fa-solid fa-shield-halved text-amber-600"></i>
-                                <span>Auditoría Permanente de Códigos de Activación (Exclusivo Administrador)</span>
+                                <span>Centro de Control: Activaciones y Recuperación de Claves (Exclusivo Administrador)</span>
                             </h3>
                             <button type="button" onclick="navigateTab('activacion-socios');" class="text-xs font-extrabold text-amber-700 hover:underline">
                                 Abrir Bandeja &gt;
@@ -608,15 +620,15 @@
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-white rounded-2xl p-3 border border-amber-200/70">
                                 <span id="admin-total-codes-count" class="block text-xl font-black text-slate-900">0</span>
-                                <span class="text-[11px] font-semibold text-slate-500">Total Históricos</span>
+                                <span class="text-[11px] font-semibold text-slate-500">Códigos Históricos</span>
                             </div>
                             <div class="bg-white rounded-2xl p-3 border border-amber-200/70">
                                 <span id="admin-referral-codes-count" class="block text-xl font-black text-sky-600">0</span>
                                 <span class="text-[11px] font-semibold text-slate-500">Por Enlace Equipo</span>
                             </div>
                             <div class="bg-white rounded-2xl p-3 border border-amber-200/70">
-                                <span id="admin-direct-codes-count" class="block text-xl font-black text-emerald-600">0</span>
-                                <span class="text-[11px] font-semibold text-slate-500">Directos RudyG-Ad</span>
+                                <span id="admin-recovery-requests-count" class="block text-xl font-black text-rose-600">0</span>
+                                <span class="text-[11px] font-semibold text-slate-500">Solicitudes Clave</span>
                             </div>
                         </div>
                     </div>
@@ -978,19 +990,19 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 6: MI EQUIPO MLM (ÁRBOL GENEALÓGICO + TABLA DE DATOS + AUDITORÍA ADMIN) ==================== -->
+                <!-- ==================== SECCIÓN 6: MI EQUIPO MLM (ÁRBOL BINARIO 2 RAMAS + TABLA + ELIMINACIÓN SELECTIVA) ==================== -->
                 <section id="tab-equipo" class="tab-section hidden space-y-6">
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
-                                <h2 class="text-lg font-black text-slate-900">Mi Organización &amp; Equipo MLM</h2>
-                                <p class="text-xs text-slate-500">Visualiza tu red en formato de Árbol Genealógico Network Marketing o en Tabla ejecutiva de datos.</p>
+                                <h2 class="text-lg font-black text-slate-900">Mi Organización &amp; Equipo MLM (2 Ramas)</h2>
+                                <p class="text-xs text-slate-500">Visualiza la distribución de tus nuevos socios en tus 2 ramas principales (Rama Izquierda y Rama Derecha) o en Tabla ejecutiva.</p>
                             </div>
 
-                            <!-- Selector Dual: Árbol Genealógico vs Tabla -->
+                            <!-- Selector Dual: Árbol Genealógico 2 Ramas vs Tabla -->
                             <div class="inline-flex p-1 rounded-2xl bg-slate-100 border border-slate-200 self-start">
                                 <button type="button" id="btn-team-view-tree" onclick="switchTeamViewMode('tree');" class="px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm flex items-center gap-1.5">
-                                    <i class="fa-solid fa-sitemap text-sky-600"></i><span>Árbol Genealógico</span>
+                                    <i class="fa-solid fa-sitemap text-sky-600"></i><span>Árbol 2 Ramas</span>
                                 </button>
                                 <button type="button" id="btn-team-view-table" onclick="switchTeamViewMode('table');" class="px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 flex items-center gap-1.5">
                                     <i class="fa-solid fa-table text-indigo-600"></i><span>Tabla de Datos</span>
@@ -1026,7 +1038,7 @@
                             </div>
                         </div>
 
-                        <!-- MODO A: ÁRBOL GENEALÓGICO NETWORK MARKETING -->
+                        <!-- MODO A: ÁRBOL GENEALÓGICO BINARIO DE 2 RAMAS PRINCIPALES -->
                         <div id="team-tree-container" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 overflow-x-auto">
                             <div id="mlm-genealogy-tree" class="min-w-[320px] flex flex-col items-center"></div>
                         </div>
@@ -1044,9 +1056,9 @@
                                         <tr class="bg-slate-900 text-white uppercase text-[10px] tracking-wider">
                                             <th class="py-3 px-4">Socio / Líder</th>
                                             <th class="py-3 px-4">Código Socio</th>
-                                            <th class="py-3 px-4">Línea / Nivel</th>
+                                            <th class="py-3 px-4">Rama / Nivel</th>
                                             <th class="py-3 px-4">Teléfono</th>
-                                            <th class="admin-only-col hidden py-3 px-4">Correo &amp; Repeticiones</th>
+                                            <th class="admin-only-col hidden py-3 px-4">Correo &amp; Copias</th>
                                             <th class="admin-only-col hidden py-3 px-4">Contraseña</th>
                                             <th class="py-3 px-4">Fecha Registro</th>
                                             <th class="py-3 px-4">Estado</th>
@@ -1395,7 +1407,7 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 10: ACTIVACIÓN SOCIOS (EXCLUSIVO ADMINISTRADOR) ==================== -->
+                <!-- ==================== SECCIÓN 10: ACTIVACIÓN SOCIOS & CENTRO DE CONTROL (EXCLUSIVO ADMINISTRADOR) ==================== -->
                 <section id="tab-activacion-socios" class="tab-section hidden space-y-6">
                     <div class="bg-amber-50 border border-amber-300 rounded-3xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
@@ -1403,8 +1415,8 @@
                                 <i class="fa-solid fa-shield-halved"></i>
                             </div>
                             <div>
-                                <h2 class="text-base font-black text-slate-900">Bandeja de Activación y Validación de Códigos</h2>
-                                <p class="text-xs text-slate-600">Sincronización global multidispositivo en tiempo real + recepción de enlaces externos.</p>
+                                <h2 class="text-base font-black text-slate-900">Centro de Control: Activación Socios &amp; Recuperación de Contraseñas</h2>
+                                <p class="text-xs text-slate-600">Gestiona códigos de 6 dígitos y envía por WhatsApp las contraseñas olvidadas solicitadas por los socios.</p>
                             </div>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
@@ -1416,7 +1428,26 @@
                             </button>
                         </div>
                     </div>
-                    <div id="admin-pending-activations-list" class="space-y-3"></div>
+
+                    <!-- BANDEJA DE SOLICITUDES DE RECUPERACIÓN DE CONTRASEÑA -->
+                    <div class="bg-white rounded-3xl p-6 border border-rose-200 shadow-card-soft space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-unlock-keyhole text-rose-600"></i>
+                                <span>Solicitudes de Recuperación de Contraseña (Enviar por WhatsApp)</span>
+                            </h3>
+                            <span id="admin-recovery-badge-pill" class="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 text-[11px] font-black">0</span>
+                        </div>
+                        <div id="admin-password-recovery-list" class="space-y-3"></div>
+                    </div>
+
+                    <!-- BANDEJA DE CÓDIGOS DE ACTIVACIÓN DE 6 DÍGITOS -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-slate-700 px-1">
+                            <i class="fa-solid fa-key text-amber-600 mr-1.5"></i>Historial de Códigos de Activación (6 Dígitos)
+                        </h3>
+                        <div id="admin-pending-activations-list" class="space-y-3"></div>
+                    </div>
                 </section>
 
                 <!-- ==================== SECCIÓN 11: MI PERFIL & RESPALDO PERSONAL (PDF) ==================== -->
@@ -1581,17 +1612,24 @@
         </div>
     </div>
 
-    <!-- Modal 3: Recuperar Contraseña -->
+    <!-- Modal 3: Recuperar Contraseña (Con Notificación al Centro de Control del Administrador) -->
     <div id="modal-recovery" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
-                <h3 class="text-sm font-black text-slate-900">Recuperar Acceso</h3>
+                <h3 class="text-sm font-black text-slate-900">¿Olvidaste tu Contraseña?</h3>
                 <button type="button" onclick="closeModal('modal-recovery');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <p class="text-xs text-slate-600">Ingresa tu correo electrónico registrado para solicitar restablecimiento.</p>
-            <input type="email" id="recov-email" placeholder="correo@ejemplo.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-            <button type="button" onclick="processPasswordRecovery();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-bold text-xs">
-                Enviar Solicitud de Recuperación
+            <p class="text-xs text-slate-600">Ingresa tu correo electrónico registrado para solicitar que el Administrador te envíe tu contraseña directamente a tu WhatsApp registrado.</p>
+            <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Correo electrónico registrado *</label>
+                <input type="email" id="recov-email" placeholder="correo@ejemplo.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Mensaje de solicitud al Administrador</label>
+                <textarea id="recov-message" rows="2" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">Hola Administrador, olvidé mi contraseña de Leader Prospect. Por favor envíamela a mi WhatsApp registrado.</textarea>
+            </div>
+            <button type="button" onclick="processPasswordRecovery();" class="w-full py-3 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-brands fa-whatsapp text-sm"></i><span>Solicitar Envío de Contraseña por WhatsApp</span>
             </button>
         </div>
     </div>
@@ -1905,23 +1943,34 @@
         </div>
     </div>
 
-    <!-- Modal 11: Confirmación Eliminar Socio (Exclusivo Admin) -->
+    <!-- Modal 11: Selección y Eliminación de Cuenta Individual por Correo (Exclusivo Admin) -->
     <div id="modal-admin-delete-partner" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center">
-            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mx-auto">
-                <i class="fa-solid fa-user-xmark"></i>
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-base">
+                        <i class="fa-solid fa-user-xmark"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-900">Eliminar Cuenta Específica</h3>
+                        <p class="text-[11px] text-slate-500">Correo: <b id="delete-partner-target-email" class="text-slate-800">-</b></p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModal('modal-admin-delete-partner');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <h3 class="text-base font-black text-slate-900">Eliminar Socio Definitivamente</h3>
-            <p class="text-xs text-slate-600">
-                ¿Estás seguro de eliminar a <b id="delete-partner-target-name" class="text-slate-900">este socio</b>? Su cuenta y base de datos privada dejarán de existir en la plataforma y deberá registrarse nuevamente desde cero.
+
+            <p class="text-xs text-slate-600 bg-amber-50 border border-amber-200 p-3 rounded-2xl">
+                Selecciona exactamente qué cuenta asociada a este correo deseas eliminar. Si existen otras copias de cuentas con este mismo correo, <b>permanecerán intactas</b>.
             </p>
-            <input type="hidden" id="delete-partner-target-id">
+
+            <div id="delete-partner-accounts-selector" class="space-y-2 max-h-60 overflow-y-auto"></div>
+
             <div class="grid grid-cols-2 gap-2.5 pt-2">
                 <button type="button" onclick="closeModal('modal-admin-delete-partner');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">
                     Cancelar
                 </button>
                 <button type="button" onclick="confirmAdminDeletePartner();" class="py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs">
-                    Sí, Eliminar Cuenta
+                    Eliminar Solo la Seleccionada
                 </button>
             </div>
         </div>
@@ -1939,6 +1988,56 @@
             <button type="button" onclick="importExternalRegistrationToken();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
                 Incorporar a Mi Bandeja
             </button>
+        </div>
+    </div>
+
+    <!-- Modal 13: Ajustar Cuadro de Cierre de Semana FuXion (Exclusivo Admin) -->
+    <div id="modal-admin-edit-countdown" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900">Ajustar Cuadro de Cierre de Semana</h3>
+                <button type="button" onclick="closeModal('modal-admin-edit-countdown');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveAdminCountdownSettings(); return false;" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Título del Cuadro *</label>
+                    <input type="text" id="cfg-cd-title" required value="CIERRE DE SEMANA FUXION" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Día de Cierre Semanal</label>
+                        <select id="cfg-cd-day" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                            <option value="2">Martes (Oficial FuXion)</option>
+                            <option value="0">Domingo</option>
+                            <option value="1">Lunes</option>
+                            <option value="3">Miércoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sábado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Hora Exacta de Cierre</label>
+                        <input type="time" id="cfg-cd-time" step="1" value="23:59:59" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono font-bold">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Fecha y Hora Específica (Opcional, reemplaza día semanal)</label>
+                    <input type="datetime-local" id="cfg-cd-exact-datetime" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Etiqueta Personalizada de Semana / Periodo (Opcional)</label>
+                    <input type="text" id="cfg-cd-custom-label" placeholder="Ej. Semana 46 • Periodo 12 (Cierre Martes 11:59:59 PM)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <button type="button" onclick="resetAdminCountdownDefault();" class="flex-1 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
+                        Restaurar Oficial
+                    </button>
+                    <button type="submit" class="flex-1 py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -2163,7 +2262,8 @@
             selectedDateStr: new Date().toISOString().split('T')[0],
             carouselIndex: 0,
             carouselTimer: null,
-            lastExternalRegRecord: null
+            lastExternalRegRecord: null,
+            isPublicInviteMode: false
         };
 
         if (typeof pdfjsLib !== 'undefined') {
@@ -2202,6 +2302,7 @@
             if (!localStorage.getItem('lp_registered_users')) localStorage.setItem('lp_registered_users', JSON.stringify([]));
             if (!localStorage.getItem('lp_pending_activations')) localStorage.setItem('lp_pending_activations', JSON.stringify([]));
             if (!localStorage.getItem('lp_admin_activations_db')) localStorage.setItem('lp_admin_activations_db', JSON.stringify([]));
+            if (!localStorage.getItem('lp_password_recovery_requests')) localStorage.setItem('lp_password_recovery_requests', JSON.stringify([]));
         }
 
         function verifyAdminCredentials(pass) {
@@ -2284,12 +2385,14 @@
 
                 const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
                 const localPending = safeParseStorageArray('lp_pending_activations');
+                const localRecovReqs = safeParseStorageArray('lp_password_recovery_requests');
                 let localUsers = safeParseStorageArray('lp_registered_users');
                 const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
 
                 let latestCarousel = null;
                 let latestVideos = null;
                 let latestPdfs = null;
+                let latestCountdownCfg = null;
                 let newEventsCount = 0;
 
                 lines.forEach(line => {
@@ -2322,15 +2425,28 @@
                                 if ((localPending[i].email || '').trim().toLowerCase() === emailLow) localPending.splice(i, 1);
                             }
                             if (!deletedIds.has(u.id)) {
-                                const idxU = localUsers.findIndex(x => x.id === u.id || (x.email || '').toLowerCase() === emailLow);
+                                const idxU = localUsers.findIndex(x => x.id === u.id);
                                 if (idxU === -1) localUsers.push(u);
                                 else localUsers[idxU] = { ...localUsers[idxU], ...u };
                             }
                         } else if (env.type === 'USER_DELETED') {
                             const delId = env.data.id;
-                            const delEmail = (env.data.email || '').trim().toLowerCase();
-                            if (delId) deletedIds.add(delId);
-                            localUsers = localUsers.filter(u => u.id !== delId && (u.email || '').trim().toLowerCase() !== delEmail);
+                            if (delId) {
+                                deletedIds.add(delId);
+                                localUsers = localUsers.filter(u => u.id !== delId);
+                            }
+                        } else if (env.type === 'PASSWORD_RECOVERY_REQUEST') {
+                            const req = env.data;
+                            if (req && req.id && !localRecovReqs.some(x => x.id === req.id)) {
+                                localRecovReqs.unshift(req);
+                                newEventsCount++;
+                            }
+                        } else if (env.type === 'PASSWORD_RECOVERY_RESOLVED') {
+                            const reqId = env.data.id;
+                            const foundR = localRecovReqs.find(x => x.id === reqId);
+                            if (foundR) foundR.status = 'Enviado';
+                        } else if (env.type === 'COUNTDOWN_CONFIG_UPDATE' && env.data) {
+                            latestCountdownCfg = env.data;
                         } else if (env.type === 'PUBLIC_CAROUSEL_UPDATE' && Array.isArray(env.data)) {
                             latestCarousel = env.data;
                         } else if (env.type === 'ADMIN_VIDEOS_UPDATE' && Array.isArray(env.data)) {
@@ -2346,7 +2462,9 @@
                 localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
                 localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
                 localStorage.setItem('lp_registered_users', JSON.stringify(localUsers));
+                localStorage.setItem('lp_password_recovery_requests', JSON.stringify(localRecovReqs));
 
+                if (latestCountdownCfg !== null) localStorage.setItem('lp_countdown_config', JSON.stringify(latestCountdownCfg));
                 if (latestCarousel !== null) localStorage.setItem('lp_public_carousel_slides', JSON.stringify(latestCarousel));
                 if (latestVideos !== null) localStorage.setItem('lp_admin_custom_videos', JSON.stringify(latestVideos));
                 if (latestPdfs !== null) localStorage.setItem('lp_admin_custom_pdfs', JSON.stringify(latestPdfs));
@@ -2387,33 +2505,27 @@
             }, 5000);
         }
 
-        // Inicialización Principal
+        // Inicialización Principal (Siempre arranca en Pantalla de Login limpia; jamás expone el panel de administrador si hay enlace de invitación o al iniciar)
         document.addEventListener('DOMContentLoaded', async () => {
             repairAndSeedMasterRecords();
             startCycleCountdownTimer();
-            detectUrlReferralParams();
             drawRecognitionCanvas();
             renderSelectedRankDetails();
             startBackgroundCloudPolling();
 
-            await syncExternalRegistrationsNow(false);
+            const hasReferralInvite = detectUrlReferralParams();
 
-            const savedSessionRaw = localStorage.getItem('lp_active_session');
-            if (savedSessionRaw) {
-                try {
-                    const sessionUser = JSON.parse(savedSessionRaw);
-                    const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-                    if (sessionUser && sessionUser.id && sessionUser.email && !deletedIds.has(sessionUser.id)) {
-                        appState.currentUser = sessionUser;
-                        loadUserScopedData(sessionUser.id);
-                        showDashboard(sessionUser);
-                    } else {
-                        localStorage.removeItem('lp_active_session');
-                    }
-                } catch (e) {
-                    localStorage.removeItem('lp_active_session');
-                }
+            if (hasReferralInvite) {
+                // Garantizar aislamiento estricto: ningún dato ni panel del administrador queda visible detrás de la ventana de registro
+                appState.currentUser = null;
+                localStorage.removeItem('lp_active_session');
+                const dashEl = document.getElementById('dashboard-screen');
+                const authEl = document.getElementById('auth-screen');
+                if (dashEl) { dashEl.classList.add('hidden'); dashEl.style.display = 'none'; }
+                if (authEl) { authEl.classList.remove('hidden'); authEl.style.display = 'flex'; }
             }
+
+            await syncExternalRegistrationsNow(false);
         });
 
         function togglePasswordVisibility(inputId, iconId) {
@@ -2524,7 +2636,7 @@
             const authEl = document.getElementById('auth-screen');
             const dashEl = document.getElementById('dashboard-screen');
 
-            if (authEl) authEl.style.display = 'none';
+            if (authEl) { authEl.classList.add('hidden'); authEl.style.display = 'none'; }
             if (dashEl) {
                 dashEl.classList.remove('hidden');
                 dashEl.style.display = 'flex';
@@ -2543,8 +2655,8 @@
             localStorage.removeItem('lp_active_session');
             const dashEl = document.getElementById('dashboard-screen');
             const authEl = document.getElementById('auth-screen');
-            if (dashEl) dashEl.style.display = 'none';
-            if (authEl) authEl.style.display = 'flex';
+            if (dashEl) { dashEl.classList.add('hidden'); dashEl.style.display = 'none'; }
+            if (authEl) { authEl.classList.remove('hidden'); authEl.style.display = 'flex'; }
         }
 
         function openMobileDrawer() {
@@ -2626,6 +2738,7 @@
             const adminToolsPdfAction = document.getElementById('admin-tools-pdf-action');
             const adminInlineVideoBar = document.getElementById('admin-inline-video-bar');
             const adminTeamSummaryPanel = document.getElementById('admin-team-summary-panel');
+            const btnAdminEditCountdown = document.getElementById('btn-admin-edit-countdown');
 
             if (user.isAdmin) {
                 if (adminNavDesktop) adminNavDesktop.classList.remove('hidden');
@@ -2636,6 +2749,7 @@
                 if (adminToolsPdfAction) adminToolsPdfAction.classList.remove('hidden');
                 if (adminInlineVideoBar) adminInlineVideoBar.classList.remove('hidden');
                 if (adminTeamSummaryPanel) adminTeamSummaryPanel.classList.remove('hidden');
+                if (btnAdminEditCountdown) btnAdminEditCountdown.classList.remove('hidden');
             } else {
                 if (adminNavDesktop) adminNavDesktop.classList.add('hidden');
                 if (adminNavMobile) adminNavMobile.classList.add('hidden');
@@ -2645,6 +2759,7 @@
                 if (adminToolsPdfAction) adminToolsPdfAction.classList.add('hidden');
                 if (adminInlineVideoBar) adminInlineVideoBar.classList.add('hidden');
                 if (adminTeamSummaryPanel) adminTeamSummaryPanel.classList.add('hidden');
+                if (btnAdminEditCountdown) btnAdminEditCountdown.classList.add('hidden');
             }
 
             updateDashboardKPIs();
@@ -2662,7 +2777,8 @@
             const todayTasks = appState.agendaTasks.filter(t => t.date === todayStr).length;
 
             const user = appState.currentUser;
-            const regUsers = safeParseStorageArray('lp_registered_users');
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const directCount = user ? (user.isAdmin ? regUsers.length : regUsers.filter(u => u.uplineCode === user.sponsorCode).length) : 0;
             const pct = total > 0 ? Math.min(100, Math.round((total / 70) * 100)) : 0;
 
@@ -2673,24 +2789,93 @@
             setText('kpi-compliance-pct', `${pct}%`);
         }
 
-        // ==================== RELOJ DE CIERRE FUXION (MARTES 11:59:59 PM) ====================
+        // ==================== RELOJ DE CIERRE FUXION (EDITABLE POR ADMINISTRADOR) ====================
+        function getCountdownConfig() {
+            try {
+                const raw = localStorage.getItem('lp_countdown_config');
+                if (raw) return JSON.parse(raw);
+            } catch (e) {}
+            return {
+                title: 'CIERRE DE SEMANA FUXION',
+                dayOfWeek: 2,
+                timeStr: '23:59:59',
+                exactDateTime: '',
+                customLabel: ''
+            };
+        }
+
+        function openEditCountdownModal() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const cfg = getCountdownConfig();
+            document.getElementById('cfg-cd-title').value = cfg.title || 'CIERRE DE SEMANA FUXION';
+            document.getElementById('cfg-cd-day').value = String(cfg.dayOfWeek !== undefined ? cfg.dayOfWeek : 2);
+            document.getElementById('cfg-cd-time').value = cfg.timeStr || '23:59:59';
+            document.getElementById('cfg-cd-exact-datetime').value = cfg.exactDateTime || '';
+            document.getElementById('cfg-cd-custom-label').value = cfg.customLabel || '';
+            openModal('modal-admin-edit-countdown');
+        }
+
+        function saveAdminCountdownSettings() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const cfg = {
+                title: document.getElementById('cfg-cd-title').value.trim() || 'CIERRE DE SEMANA FUXION',
+                dayOfWeek: Number(document.getElementById('cfg-cd-day').value),
+                timeStr: document.getElementById('cfg-cd-time').value || '23:59:59',
+                exactDateTime: document.getElementById('cfg-cd-exact-datetime').value || '',
+                customLabel: document.getElementById('cfg-cd-custom-label').value.trim()
+            };
+            localStorage.setItem('lp_countdown_config', JSON.stringify(cfg));
+            publishCloudSyncEvent('COUNTDOWN_CONFIG_UPDATE', cfg);
+            closeModal('modal-admin-edit-countdown');
+            showToast('Cuadro de cierre de semana actualizado para toda la plataforma.');
+        }
+
+        function resetAdminCountdownDefault() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const defaultCfg = {
+                title: 'CIERRE DE SEMANA FUXION',
+                dayOfWeek: 2,
+                timeStr: '23:59:59',
+                exactDateTime: '',
+                customLabel: ''
+            };
+            localStorage.setItem('lp_countdown_config', JSON.stringify(defaultCfg));
+            publishCloudSyncEvent('COUNTDOWN_CONFIG_UPDATE', defaultCfg);
+            closeModal('modal-admin-edit-countdown');
+            showToast('Reloj de cierre restaurado al horario oficial (Martes 11:59:59 PM).');
+        }
+
         function startCycleCountdownTimer() {
+            const daysNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             function updateClock() {
                 const now = new Date();
+                const cfg = getCountdownConfig();
                 const startOfYear = new Date(now.getFullYear(), 0, 1);
                 const pastDays = Math.floor((now - startOfYear) / 86400000);
                 const weekNum = Math.min(52, Math.max(1, Math.ceil((pastDays + startOfYear.getDay() + 1) / 7)));
                 const periodNum = Math.min(13, Math.ceil(weekNum / 4));
 
-                const labelEl = document.getElementById('fuxion-cycle-label');
-                if (labelEl) labelEl.textContent = `Semana ${weekNum} • Periodo ${periodNum} (Cierre Martes 11:59:59 PM)`;
+                const titleEl = document.getElementById('fuxion-countdown-box-title');
+                if (titleEl) titleEl.textContent = cfg.title || 'CIERRE DE SEMANA FUXION';
 
-                const target = new Date(now);
-                const day = now.getDay();
-                const daysUntilTuesday = (2 - day + 7) % 7;
-                target.setDate(now.getDate() + daysUntilTuesday);
-                target.setHours(23, 59, 59, 999);
-                if (target <= now) target.setDate(target.getDate() + 7);
+                let target;
+                let autoSubLabel = '';
+                if (cfg.exactDateTime) {
+                    target = new Date(cfg.exactDateTime);
+                    autoSubLabel = `Semana ${weekNum} • Periodo ${periodNum} (${target.toLocaleString()})`;
+                } else {
+                    const targetDay = cfg.dayOfWeek !== undefined ? Number(cfg.dayOfWeek) : 2;
+                    const [hh = 23, mm = 59, ss = 59] = (cfg.timeStr || '23:59:59').split(':').map(Number);
+                    target = new Date(now);
+                    const daysUntilTarget = (targetDay - now.getDay() + 7) % 7;
+                    target.setDate(now.getDate() + daysUntilTarget);
+                    target.setHours(hh, mm, ss, 999);
+                    if (target <= now) target.setDate(target.getDate() + 7);
+                    autoSubLabel = `Semana ${weekNum} • Periodo ${periodNum} (${daysNames[targetDay]} ${cfg.timeStr || '23:59:59'})`;
+                }
+
+                const labelEl = document.getElementById('fuxion-cycle-label');
+                if (labelEl) labelEl.textContent = cfg.customLabel || autoSubLabel;
 
                 const diff = Math.max(0, target - now);
                 const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -2795,17 +2980,22 @@
                 }
 
                 if (socioParam) {
+                    appState.isPublicInviteMode = true;
                     const sponsorResolved = resolveSponsorFromSlugOrCode(socioParam);
                     const uplineInput = document.getElementById('reg-upline');
                     if (uplineInput) uplineInput.value = sponsorResolved;
                     openRegisterModal('partner');
+                    return true;
                 } else if (clienteParam) {
+                    appState.isPublicInviteMode = true;
                     const sponsorResolved = resolveSponsorFromSlugOrCode(clienteParam);
                     const uplineInput = document.getElementById('reg-upline');
                     if (uplineInput) uplineInput.value = sponsorResolved;
                     openRegisterModal('prospect');
+                    return true;
                 }
             } catch (e) {}
+            return false;
         }
 
         function copyReferralUrl(inputId) {
@@ -2977,7 +3167,6 @@
             const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
             const refLink = `${baseUrl}?socio=${slug}`;
 
-            // Unificado en un solo mensaje continuo para WhatsApp
             const singleUnifiedMessage = `${customMsg} 🎥 Presentación de Negocio: https://youtu.be/BT7YUDaStT8?feature=shared 🚀 Regístrate aquí: ${refLink}`;
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(singleUnifiedMessage)}`, '_blank');
         }
@@ -3332,7 +3521,7 @@
             }
         }
 
-        // ==================== MI EQUIPO DUAL + AUDITORÍA EXCLUSIVA SUPERADMINISTRADOR ====================
+        // ==================== MI EQUIPO DUAL: ÁRBOL BINARIO 2 RAMAS + ELIMINACIÓN SELECTIVA POR CUENTA ====================
         function switchTeamViewMode(mode) {
             const treeBox = document.getElementById('team-tree-container');
             const tableBox = document.getElementById('team-table-container');
@@ -3352,6 +3541,70 @@
             }
         }
 
+        function assignBinaryBranches(partnersList) {
+            const leftBranch = [];
+            const rightBranch = [];
+            partnersList.forEach((p, idx) => {
+                const branch = p.branch === 'right' ? 'right' : (p.branch === 'left' ? 'left' : (idx % 2 === 0 ? 'left' : 'right'));
+                if (branch === 'left') leftBranch.push(p);
+                else rightBranch.push(p);
+            });
+            return { leftBranch, rightBranch };
+        }
+
+        function renderBinaryBranchColumn(branchTitle, badgeColorClass, members, allUsers, isAdmin, emailFrequency) {
+            const cardsHtml = members.length > 0
+                ? members.map((d, levelIdx) => {
+                    const subTeamCount = allUsers.filter(sub => sub.uplineCode === d.sponsorCode).length;
+                    const emLower = (d.email || '').trim().toLowerCase();
+                    const countForEm = emailFrequency[emLower] || 1;
+                    return `
+                        <div class="w-full p-3.5 rounded-2xl bg-white border-2 border-sky-200/90 shadow-sm text-center space-y-1.5 relative">
+                            <div class="flex items-center justify-between text-[9px] font-black uppercase text-slate-400">
+                                <span>Posición #${levelIdx + 1}</span>
+                                <span class="text-sky-600">${d.sponsorCode}</span>
+                            </div>
+                            <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
+                                ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
+                            </div>
+                            <p class="text-xs font-black text-slate-900">${d.name}</p>
+                            <span class="inline-block px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">${subTeamCount} socios en su red</span>
+                            ${isAdmin ? `
+                                <div class="pt-1.5 border-t border-slate-100 space-y-1.5">
+                                    <p class="text-[10px] text-slate-600 truncate">${d.email} <span class="font-bold text-amber-700">(${countForEm} ${countForEm === 1 ? 'cuenta' : 'copias'})</span></p>
+                                    <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                                        <button type="button" id="card-pwd-btn-${d.id}" data-real="${(d.password || '').replace(/"/g, '&quot;')}" data-shown="0" onclick="toggleCardPartnerPassword('${d.id}');"
+                                            class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold">
+                                            <i class="fa-regular fa-eye mr-1"></i>Ver Clave
+                                        </button>
+                                        <button type="button" onclick="promptAdminDeletePartner('${d.id}');"
+                                            class="px-2 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-extrabold">
+                                            <i class="fa-solid fa-trash mr-1"></i>Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('<div class="mlm-connector-v"></div>')
+                : `<div class="w-full p-4 rounded-2xl bg-white border border-dashed border-slate-300 text-center text-[11px] text-slate-400">
+                    Cupo disponible en ${branchTitle}
+                </div>`;
+
+            return `
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="mlm-connector-v"></div>
+                    <span class="px-3.5 py-1 rounded-full ${badgeColorClass} text-[10px] font-black uppercase tracking-wider shadow-sm">
+                        ${branchTitle} (${members.length})
+                    </span>
+                    <div class="mlm-connector-v"></div>
+                    <div class="w-full flex flex-col items-center">
+                        ${cardsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
         function renderTeamView() {
             const user = appState.currentUser;
             if (!user) return;
@@ -3359,7 +3612,6 @@
             const isAdmin = Boolean(user.isAdmin);
             const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
             const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
-            const allActs = safeParseStorageArray('lp_admin_activations_db');
             const myDirects = isAdmin ? regUsers : regUsers.filter(u => u.uplineCode === user.sponsorCode);
 
             const emailFrequency = {};
@@ -3379,58 +3631,30 @@
                 setText('admin-team-dup-accounts', dupAccountsTotal);
             }
 
+            // Árbol Genealógico de 2 Ramas Principales (Rama Izquierda y Rama Derecha) para Admin y Socios
             const treeEl = document.getElementById('mlm-genealogy-tree');
             if (treeEl) {
-                const directsHtml = myDirects.length > 0
-                    ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2 w-full max-w-4xl">
-                        ${myDirects.map(d => {
-                            const subTeamCount = regUsers.filter(sub => sub.uplineCode === d.sponsorCode).length;
-                            const emLower = (d.email || '').trim().toLowerCase();
-                            const countForEm = emailFrequency[emLower] || 1;
-                            return `
-                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 shadow-sm text-center space-y-1.5">
-                                    <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
-                                        ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
-                                    </div>
-                                    <p class="text-xs font-black text-slate-900">${d.name}</p>
-                                    <p class="text-[10px] font-mono font-bold text-sky-600">${d.sponsorCode}</p>
-                                    <span class="inline-block px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">Nivel 1 • ${subTeamCount} directos</span>
-                                    ${isAdmin ? `
-                                        <div class="pt-1.5 border-t border-slate-100 space-y-1.5">
-                                            <p class="text-[10px] text-slate-600 truncate">${d.email} <span class="font-bold text-amber-700">(${countForEm}x)</span></p>
-                                            <div class="flex items-center justify-center gap-1.5 flex-wrap">
-                                                <button type="button" id="card-pwd-btn-${d.id}" data-real="${(d.password || '').replace(/"/g, '&quot;')}" data-shown="0" onclick="toggleCardPartnerPassword('${d.id}');"
-                                                    class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold">
-                                                    <i class="fa-regular fa-eye mr-1"></i>Ver Contraseña
-                                                </button>
-                                                <button type="button" onclick="promptAdminDeletePartner('${d.id}');"
-                                                    class="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-extrabold">
-                                                    <i class="fa-solid fa-trash mr-1"></i>Eliminar Socio
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>`
-                    : `<div class="p-4 rounded-2xl bg-white border border-dashed border-slate-300 text-center text-xs text-slate-500 max-w-md">
-                        Comparte tu enlace corto personalizado para expandir tus primeras líneas frontales aquí.
-                    </div>`;
+                const { leftBranch, rightBranch } = assignBinaryBranches(myDirects);
+                const leftColHtml = renderBinaryBranchColumn('Rama 1 • Izquierda', 'bg-sky-600 text-white', leftBranch, regUsers, isAdmin, emailFrequency);
+                const rightColHtml = renderBinaryBranchColumn('Rama 2 • Derecha', 'bg-emerald-600 text-white', rightBranch, regUsers, isAdmin, emailFrequency);
 
                 treeEl.innerHTML = `
-                    <div class="px-5 py-2.5 rounded-2xl bg-slate-200 text-slate-700 text-center text-xs font-bold">
+                    <div class="px-5 py-2 rounded-2xl bg-slate-200 text-slate-700 text-center text-xs font-bold">
                         <span class="text-[9px] uppercase block text-slate-500">Patrocinador Ascendente</span>
                         <span>${user.uplineCode || ADMIN_SPONSOR_CODE}</span>
                     </div>
                     <div class="mlm-connector-v"></div>
                     <div class="px-6 py-4 rounded-3xl cosmic-hero-bg text-white text-center shadow-lg border-2 border-sky-400">
-                        <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">${isAdmin ? 'SUPERADMINISTRADOR' : 'TÚ • LÍDER PRINCIPAL'}</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">${isAdmin ? 'SUPERADMINISTRADOR • RED BINARIA' : 'TÚ • LÍDER PRINCIPAL'}</span>
                         <p class="text-sm font-black mt-1">${user.name}</p>
-                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${myDirects.length} Socios</p>
+                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${leftBranch.length} Izq / ${rightBranch.length} Der</p>
                     </div>
                     <div class="mlm-connector-v"></div>
-                    ${directsHtml}
+                    <div class="mlm-branch-bridge"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+                        ${leftColHtml}
+                        ${rightColHtml}
+                    </div>
                 `;
             }
 
@@ -3441,6 +3665,9 @@
             const onlyDup = Boolean(isAdmin && document.getElementById('chk-filter-duplicate-emails')?.checked);
 
             if (tbody) {
+                const { leftBranch } = assignBinaryBranches(myDirects);
+                const leftIds = new Set(leftBranch.map(x => x.id));
+
                 const filtered = myDirects.filter(m => {
                     const em = (m.email || '').trim().toLowerCase();
                     const matchesSearch = m.name.toLowerCase().includes(filterTxt) || (m.sponsorCode || '').toLowerCase().includes(filterTxt) || em.includes(filterTxt);
@@ -3454,16 +3681,16 @@
                     tbody.innerHTML = filtered.map(m => {
                         const cleanNum = (m.phone || '').replace(/\D/g, '');
                         const emailLower = (m.email || '').trim().toLowerCase();
-                        const totalWithEmail = Math.max(
-                            emailFrequency[emailLower] || 1,
-                            allActs.filter(a => (a.email || '').trim().toLowerCase() === emailLower).length
-                        );
+                        const totalWithEmail = emailFrequency[emailLower] || 1;
+                        const branchBadge = leftIds.has(m.id)
+                            ? '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold">Rama Izquierda</span>'
+                            : '<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Rama Derecha</span>';
 
                         const adminCols = isAdmin ? `
                             <td class="py-3 px-4">
                                 <div class="font-bold text-slate-800">${m.email || '-'}</div>
                                 <span class="inline-block mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold ${totalWithEmail > 1 ? 'bg-amber-100 text-amber-800' : 'bg-sky-50 text-sky-700'}">
-                                    ${totalWithEmail} ${totalWithEmail === 1 ? 'cuenta registrada' : 'cuentas con este correo'}
+                                    ${totalWithEmail} ${totalWithEmail === 1 ? 'cuenta' : 'copias con este correo'}
                                 </span>
                             </td>
                             <td class="py-3 px-4 whitespace-nowrap">
@@ -3478,7 +3705,7 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-4 font-extrabold text-slate-900">${m.name}</td>
                                 <td class="py-3 px-4 font-mono font-bold text-sky-700">${m.sponsorCode}</td>
-                                <td class="py-3 px-4">${m.uplineCode || ADMIN_SPONSOR_CODE}</td>
+                                <td class="py-3 px-4">${branchBadge}</td>
                                 <td class="py-3 px-4 font-mono">${m.phone || '-'}</td>
                                 ${adminCols}
                                 <td class="py-3 px-4">${m.date || '-'}</td>
@@ -3507,7 +3734,7 @@
             const shown = btn.getAttribute('data-shown') === '1';
             if (shown) {
                 btn.setAttribute('data-shown', '0');
-                btn.innerHTML = '<i class="fa-regular fa-eye mr-1"></i>Ver Contraseña';
+                btn.innerHTML = '<i class="fa-regular fa-eye mr-1"></i>Ver Clave';
             } else {
                 const real = btn.getAttribute('data-real') || '(sin clave)';
                 btn.setAttribute('data-shown', '1');
@@ -3534,44 +3761,65 @@
 
         function promptAdminDeletePartner(partnerId) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
-            const regUsers = safeParseStorageArray('lp_registered_users');
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const target = regUsers.find(u => u.id === partnerId);
             if (!target) return;
-            document.getElementById('delete-partner-target-id').value = partnerId;
-            document.getElementById('delete-partner-target-name').textContent = `${target.name} (${target.email})`;
+
+            const emailLower = (target.email || '').trim().toLowerCase();
+            const sameEmailAccounts = regUsers.filter(u => (u.email || '').trim().toLowerCase() === emailLower);
+
+            document.getElementById('delete-partner-target-email').textContent = target.email;
+            const listBox = document.getElementById('delete-partner-accounts-selector');
+            if (listBox) {
+                listBox.innerHTML = sameEmailAccounts.map((acc, idx) => `
+                    <label class="flex items-center justify-between gap-3 p-3 rounded-2xl border ${acc.id === partnerId ? 'bg-rose-50 border-rose-300' : 'bg-slate-50 border-slate-200'} cursor-pointer">
+                        <div class="flex items-center gap-2.5">
+                            <input type="radio" name="radio_delete_account_id" value="${acc.id}" ${acc.id === partnerId ? 'checked' : ''} class="text-rose-600 focus:ring-rose-500">
+                            <div>
+                                <p class="text-xs font-black text-slate-900">Cuenta #${idx + 1}: ${acc.name}</p>
+                                <p class="text-[11px] font-mono text-slate-600">Código: ${acc.sponsorCode} • Registro: ${acc.date || '-'}</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-[10px] font-bold text-slate-600">ID Único</span>
+                    </label>
+                `).join('');
+            }
             openModal('modal-admin-delete-partner');
         }
 
         function confirmAdminDeletePartner() {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
-            const partnerId = document.getElementById('delete-partner-target-id').value;
+            const selectedRadio = document.querySelector('input[name="radio_delete_account_id"]:checked');
+            const selectedAccountId = selectedRadio ? selectedRadio.value : '';
+            if (!selectedAccountId) {
+                closeModal('modal-admin-delete-partner');
+                return;
+            }
+
             const regUsers = safeParseStorageArray('lp_registered_users');
-            const target = regUsers.find(u => u.id === partnerId);
+            const target = regUsers.find(u => u.id === selectedAccountId);
             if (!target) {
                 closeModal('modal-admin-delete-partner');
                 return;
             }
 
-            const targetEmail = (target.email || '').trim().toLowerCase();
-            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers.filter(u => u.id !== partnerId)));
-            localStorage.setItem('lp_admin_activations_db', JSON.stringify(safeParseStorageArray('lp_admin_activations_db').filter(a => (a.email || '').trim().toLowerCase() !== targetEmail)));
-            localStorage.setItem('lp_pending_activations', JSON.stringify(safeParseStorageArray('lp_pending_activations').filter(p => (p.email || '').trim().toLowerCase() !== targetEmail)));
-            localStorage.removeItem(getUserDbKey(partnerId));
+            // Elimina ÚNICAMENTE la cuenta seleccionada por su ID único, conservando cualquier otra copia del mismo correo
+            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers.filter(u => u.id !== selectedAccountId)));
+            localStorage.removeItem(getUserDbKey(selectedAccountId));
 
             const deletedIds = safeParseStorageArray('lp_deleted_user_ids');
-            if (!deletedIds.includes(partnerId)) {
-                deletedIds.push(partnerId);
+            if (!deletedIds.includes(selectedAccountId)) {
+                deletedIds.push(selectedAccountId);
                 localStorage.setItem('lp_deleted_user_ids', JSON.stringify(deletedIds));
             }
 
-            publishCloudSyncEvent('USER_DELETED', { id: partnerId, email: targetEmail });
+            publishCloudSyncEvent('USER_DELETED', { id: selectedAccountId });
 
             closeModal('modal-admin-delete-partner');
             renderTeamView();
-            renderAdminActivationPanel();
             updateDashboardKPIs();
-            updateBellRemindersBadge();
-            showToast(`Socio ${target.name} eliminado definitivamente.`);
+            showToast(`Cuenta seleccionada (${target.name} • ${target.sponsorCode}) eliminada. Las demás copias permanecen intactas.`);
         }
 
         // ==================== MI AGENDA & CALENDARIO (DÍA, SEMANA, MES, AÑO + CAMPANA) ====================
@@ -3855,18 +4103,21 @@
             if (!user) return;
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
+            const recovReqs = safeParseStorageArray('lp_password_recovery_requests');
             const pendingCodesCount = user.isAdmin ? adminActivationsDb.filter(c => c.status !== 'Activado').length : 0;
+            const pendingRecovCount = user.isAdmin ? recovReqs.filter(r => r.status !== 'Enviado').length : 0;
+            const totalAdminAlerts = pendingCodesCount + pendingRecovCount;
 
             if (user.isAdmin) {
                 const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
                 setText('admin-total-codes-count', adminActivationsDb.length);
                 setText('admin-referral-codes-count', adminActivationsDb.filter(c => c.uplineCode && c.uplineCode !== 'Directo Empresa').length);
-                setText('admin-direct-codes-count', adminActivationsDb.filter(c => c.uplineCode === ADMIN_SPONSOR_CODE).length);
-                setText('desktop-admin-badge-count', pendingCodesCount);
-                setText('mobile-admin-badge-count', pendingCodesCount);
+                setText('admin-recovery-requests-count', recovReqs.length);
+                setText('desktop-admin-badge-count', totalAdminAlerts);
+                setText('mobile-admin-badge-count', totalAdminAlerts);
             }
 
-            const totalReminders = appState.agendaTasks.length + pendingCodesCount;
+            const totalReminders = appState.agendaTasks.length + totalAdminAlerts;
             const badge = document.getElementById('header-bell-badge');
             if (badge) {
                 if (totalReminders > 0) {
@@ -3881,6 +4132,14 @@
             if (!listEl) return;
 
             let itemsHtml = '';
+            if (user.isAdmin && pendingRecovCount > 0) {
+                itemsHtml += `
+                    <div onclick="toggleNotificationsPopover(false); navigateTab('activacion-socios');" class="cursor-pointer p-3 rounded-2xl bg-rose-50 border border-rose-200 hover:bg-rose-100">
+                        <p class="font-black text-rose-900"><i class="fa-solid fa-unlock-keyhole mr-1"></i>${pendingRecovCount} Solicitud(es) de Contraseña Olvidada</p>
+                        <p class="text-[11px] text-rose-700">Toca para enviar su contraseña por WhatsApp.</p>
+                    </div>
+                `;
+            }
             if (user.isAdmin && pendingCodesCount > 0) {
                 itemsHtml += `
                     <div onclick="toggleNotificationsPopover(false); navigateTab('activacion-socios');" class="cursor-pointer p-3 rounded-2xl bg-amber-50 border border-amber-200 hover:bg-amber-100">
@@ -4969,7 +5228,7 @@
             event.target.value = '';
         }
 
-        // ==================== REGISTRO Y ACTIVACIÓN MULTI-DISPOSITIVO ====================
+        // ==================== REGISTRO, ACTIVACIÓN Y RECUPERACIÓN DE CONTRASEÑA ====================
         function openModal(id) {
             const el = document.getElementById(id);
             if (el) { el.classList.remove('hidden'); el.classList.add('flex'); }
@@ -4977,6 +5236,12 @@
         function closeModal(id) {
             const el = document.getElementById(id);
             if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+            if (id === 'modal-register' && !appState.currentUser) {
+                const dashEl = document.getElementById('dashboard-screen');
+                const authEl = document.getElementById('auth-screen');
+                if (dashEl) { dashEl.classList.add('hidden'); dashEl.style.display = 'none'; }
+                if (authEl) { authEl.classList.remove('hidden'); authEl.style.display = 'flex'; }
+            }
         }
 
         function openRegisterModal(mode = 'partner') {
@@ -5007,7 +5272,12 @@
         }
 
         function openActivationCodeModal() { openModal('modal-activation-code'); }
-        function openRecoveryModal() { openModal('modal-recovery'); }
+        function openRecoveryModal() {
+            const loginEmail = (document.getElementById('input-auth-email')?.value || '').trim();
+            const recovEmail = document.getElementById('recov-email');
+            if (recovEmail && loginEmail) recovEmail.value = loginEmail;
+            openModal('modal-recovery');
+        }
 
         function submitUserRegistration() {
             const name = document.getElementById('reg-name').value.trim();
@@ -5054,6 +5324,10 @@
             const nowStr = new Date().toLocaleString();
             const sponsorCode = name.split(' ')[0].replace(/[^a-zA-Z]/g, '').slice(0, 5) + '-' + Math.floor(10 + Math.random() * 89);
 
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const sameSponsorCount = regUsers.filter(u => u.uplineCode === uplineCode).length;
+            const assignedBranch = sameSponsorCount % 2 === 0 ? 'left' : 'right';
+
             const newRecord = {
                 id: recordId,
                 name,
@@ -5062,6 +5336,7 @@
                 password,
                 uplineCode,
                 sponsorCode,
+                branch: assignedBranch,
                 code,
                 date: nowStr,
                 status: 'Pendiente de Activación'
@@ -5077,7 +5352,6 @@
             adminActivationsDb.unshift(newRecord);
             localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
 
-            // Sincronización automática hacia la bandeja del Administrador en tiempo real
             publishCloudSyncEvent('NEW_ACTIVATION_REQUEST', newRecord);
 
             closeModal('modal-register');
@@ -5157,14 +5431,16 @@
             }
 
             const regUsers = safeParseStorageArray('lp_registered_users');
+            const sameUplineCount = regUsers.filter(u => u.uplineCode === pendingUser.uplineCode).length;
             const activeUser = {
-                id: 'usr_' + Date.now(),
+                id: 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
                 name: pendingUser.name,
                 email: pendingUser.email,
                 phone: pendingUser.phone,
                 password: pendingUser.password,
                 sponsorCode: pendingUser.sponsorCode,
                 uplineCode: pendingUser.uplineCode,
+                branch: pendingUser.branch || (sameUplineCount % 2 === 0 ? 'left' : 'right'),
                 date: new Date().toLocaleDateString(),
                 role: 'Líder de Red',
                 isAdmin: false
@@ -5182,15 +5458,104 @@
             showToast('¡Cuenta activada con éxito! Bienvenido a Leader Prospect.');
         }
 
-        function processPasswordRecovery() {
-            const email = document.getElementById('recov-email').value.trim().toLowerCase();
-            if (!email) return;
+        async function processPasswordRecovery() {
+            const email = (document.getElementById('recov-email')?.value || '').trim().toLowerCase();
+            const userMsg = (document.getElementById('recov-message')?.value || '').trim();
+            if (!email) {
+                showToast('Ingresa tu correo electrónico registrado.');
+                return;
+            }
+
+            await syncExternalRegistrationsNow(false);
+
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
+            const matchingAccounts = regUsers.filter(u => (u.email || '').trim().toLowerCase() === email);
+
+            const pendingActs = safeParseStorageArray('lp_pending_activations').filter(p => (p.email || '').trim().toLowerCase() === email);
+            const fallbackUser = matchingAccounts[matchingAccounts.length - 1] || pendingActs[0] || null;
+
+            const recoveryRecord = {
+                id: 'recov_' + Date.now(),
+                email,
+                name: fallbackUser ? fallbackUser.name : 'Socio Registrado',
+                phone: fallbackUser ? fallbackUser.phone : 'No encontrado',
+                password: fallbackUser ? fallbackUser.password : 'No registrada',
+                accountsSummary: matchingAccounts.length > 0
+                    ? matchingAccounts.map(a => `${a.name} (${a.sponsorCode}): ${a.password}`).join(' | ')
+                    : (fallbackUser ? `${fallbackUser.name}: ${fallbackUser.password}` : 'Cuenta no encontrada'),
+                message: userMsg || 'Solicito envío de mi contraseña por WhatsApp.',
+                date: new Date().toLocaleString(),
+                status: 'Pendiente'
+            };
+
+            const recovList = safeParseStorageArray('lp_password_recovery_requests');
+            recovList.unshift(recoveryRecord);
+            localStorage.setItem('lp_password_recovery_requests', JSON.stringify(recovList));
+
+            await publishCloudSyncEvent('PASSWORD_RECOVERY_REQUEST', recoveryRecord);
+
             closeModal('modal-recovery');
-            showToast(`Instrucciones de recuperación enviadas a ${email}.`);
+            showToast(`Solicitud notificada al Centro de Control del Administrador para ${email}.`);
+        }
+
+        function markPasswordRecoveryResolved(reqId) {
+            const list = safeParseStorageArray('lp_password_recovery_requests');
+            const item = list.find(r => r.id === reqId);
+            if (item) {
+                item.status = 'Enviado';
+                localStorage.setItem('lp_password_recovery_requests', JSON.stringify(list));
+                publishCloudSyncEvent('PASSWORD_RECOVERY_RESOLVED', { id: reqId });
+                renderAdminActivationPanel();
+                updateBellRemindersBadge();
+            }
         }
 
         function renderAdminActivationPanel() {
             const container = document.getElementById('admin-pending-activations-list');
+            const recovContainer = document.getElementById('admin-password-recovery-list');
+            const recovBadge = document.getElementById('admin-recovery-badge-pill');
+
+            const recovList = safeParseStorageArray('lp_password_recovery_requests');
+            if (recovBadge) recovBadge.textContent = recovList.length;
+
+            if (recovContainer) {
+                if (recovList.length === 0) {
+                    recovContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-4 bg-slate-50 rounded-2xl">No hay solicitudes de recuperación de contraseña pendientes.</p>`;
+                } else {
+                    recovContainer.innerHTML = recovList.map(r => {
+                        const cleanPhone = (r.phone || '').replace(/\D/g, '');
+                        const isSent = r.status === 'Enviado';
+                        const waPassMsg = `¡Hola ${r.name}! 👋💎 Desde el Centro de Control de *LEADER PROSPECT* atendemos tu solicitud de contraseña.\n\n• *Correo:* ${r.email}\n• *Credenciales registradas:* ${r.accountsSummary}\n\nIngresa aquí: ${getBaseAppUrl()}`;
+
+                        return `
+                            <div class="p-4 rounded-2xl border ${isSent ? 'bg-slate-50 border-slate-200' : 'bg-rose-50/70 border-rose-200'} flex flex-col md:flex-row md:items-center justify-between gap-3">
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs font-black text-slate-900">${r.name}</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isSent ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${r.status}</span>
+                                        <span class="text-[11px] text-slate-400">${r.date}</span>
+                                    </div>
+                                    <p class="text-xs text-slate-700"><b>Correo:</b> ${r.email} • <b>WhatsApp:</b> ${r.phone}</p>
+                                    <p class="text-[11px] font-mono font-bold text-indigo-800 bg-white px-2.5 py-1 rounded-lg border border-slate-200 inline-block">
+                                        Clave(s): ${r.accountsSummary}
+                                    </p>
+                                    <p class="text-[11px] text-slate-500 italic">"${r.message}"</p>
+                                </div>
+
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <a href="https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(waPassMsg)}" target="_blank"
+                                        onclick="markPasswordRecoveryResolved('${r.id}');"
+                                        class="py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar Contraseña por WhatsApp</span>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
             if (!container) return;
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
