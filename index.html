@@ -531,23 +531,23 @@
                     </div>
 
                     <!-- CARRUSEL PÚBLICO DE IMÁGENES / COMUNICADOS (GESTIONADO POR ADMINISTRADOR, VISIBLE PARA TODOS) -->
-                    <div id="public-home-carousel-wrapper" class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
+                    <div id="public-home-carousel-wrapper" class="hidden bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             <div class="flex items-center gap-2">
                                 <span class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-sm">
                                     <i class="fa-solid fa-bullhorn"></i>
                                 </span>
                                 <div>
-                                    <h3 class="text-sm font-black text-slate-900">Comunicados y Promociones Oficiales</h3>
-                                    <p class="text-[11px] text-slate-500">Mural público sincronizado para todos los líderes de Leader Prospect</p>
+                                    <h3 class="text-sm font-black text-slate-900">Mural Oficial y Comunicados</h3>
+                                    <p class="text-[11px] text-slate-500">Información pública compartida por la dirección de Leader Prospect</p>
                                 </div>
                             </div>
 
                             <!-- Controles Exclusivos del Superadministrador -->
-                            <div id="admin-carousel-controls" class="admin-only-wall-control hidden flex flex-wrap items-center gap-2">
+                            <div id="admin-carousel-controls" class="hidden flex flex-wrap items-center gap-2">
                                 <label class="cursor-pointer py-2 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
                                     <i class="fa-solid fa-image"></i>
-                                    <span>Subir Imagen(es) al Muro</span>
+                                    <span>Subir Imagen al Mural / Carrusel</span>
                                     <input type="file" accept="image/*" multiple onchange="handleAdminPublicCarouselUpload(event);" class="hidden">
                                 </label>
                                 <button type="button" id="btn-delete-current-slide" onclick="deleteCurrentCarouselSlide();" class="hidden py-2 px-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5">
@@ -556,7 +556,7 @@
                             </div>
                         </div>
 
-                        <div id="public-carousel-viewport" class="relative w-full overflow-hidden rounded-2xl bg-slate-950 border border-slate-200">
+                        <div id="public-carousel-viewport" class="hidden relative w-full overflow-hidden rounded-2xl bg-slate-950 border border-slate-200">
                             <div id="public-carousel-track" class="flex transition-transform duration-500 ease-out"></div>
                             <button type="button" id="carousel-prev-btn" onclick="stepPublicCarousel(-1);" aria-label="Anterior"
                                 class="hidden absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/85 hover:bg-sky-600 text-white border border-sky-400/50 flex items-center justify-center shadow-lg transition-colors">
@@ -1584,7 +1584,7 @@
                     <input type="text" id="reg-upline" value="RudyG-Ad" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono font-bold">
                 </div>
                 <button type="submit" id="btn-submit-register" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] text-white font-extrabold text-xs shadow-glow-btn">
-                    Crear Cuenta Vitalicia e Ingresar
+                    Solicitar Activación y Generar Código
                 </button>
             </form>
         </div>
@@ -2052,7 +2052,7 @@
         const ADMIN_SPONSOR_CODE = 'RudyG-Ad';
         const ADMIN_WHATSAPP_NUMBER = '+51970425293';
         const ADMIN_DISPLAY_PHONE = '+51 970 425 293';
-        const NTFY_GLOBAL_CHANNEL = 'leader_prospect_global_sync_2026_v3';
+        const NTFY_GLOBAL_CHANNEL = 'leaderprospect-rudyg-ad-sync-2026';
         const NTFY_BASE_URL = `https://ntfy.sh/${NTFY_GLOBAL_CHANNEL}`;
 
         // Plantillas Oficiales Estructura Leader Prospect (4 Pasos con Emoticones)
@@ -2280,89 +2280,87 @@
             }
         }
 
-        function getMasterRegisteredUsers() {
-            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-            const byId = new Map();
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl border border-sky-500/30 flex items-center gap-2.5';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-sky-400"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3400);
+        }
 
-            const ingestList = (arr) => {
-                if (!Array.isArray(arr)) return;
-                arr.forEach(u => {
-                    if (!u || !u.id || deletedIds.has(u.id)) return;
-                    const normalizedEmail = String(u.email || '').trim().toLowerCase();
-                    if (!normalizedEmail) return;
-                    const cleanUser = {
-                        ...u,
-                        email: normalizedEmail,
-                        password: String(u.password || '').trim(),
-                        lifetimeAccess: true
-                    };
-                    const prev = byId.get(u.id);
-                    if (!prev || (!prev.password && cleanUser.password)) {
-                        byId.set(u.id, { ...(prev || {}), ...cleanUser });
-                    }
-                });
-            };
+        function getUserDbKey(userId) {
+            return `lp_user_db_${userId}`;
+        }
 
+        function repairAndSeedMasterRecords() {
+            if (!localStorage.getItem('lp_registered_users')) localStorage.setItem('lp_registered_users', JSON.stringify([]));
+            if (!localStorage.getItem('lp_pending_activations')) localStorage.setItem('lp_pending_activations', JSON.stringify([]));
+            if (!localStorage.getItem('lp_admin_activations_db')) localStorage.setItem('lp_admin_activations_db', JSON.stringify([]));
+            if (!localStorage.getItem('lp_password_recovery_requests')) localStorage.setItem('lp_password_recovery_requests', JSON.stringify([]));
+        }
+
+        function verifyAdminCredentials(pass) {
+            const savedPass = localStorage.getItem('lp_admin_pass') || ADMIN_DEFAULT_PASS;
+            return pass === savedPass || pass === ADMIN_DEFAULT_PASS;
+        }
+
+        function loadUserScopedData(userId) {
             try {
-                ingestList(JSON.parse(sessionStorage.getItem('lp_registered_users_backup') || '[]'));
-            } catch (e) {}
-            ingestList(safeParseStorageArray('lp_registered_users'));
-
-            // Recuperar también cualquier cuenta ya activada desde el historial permanente del administrador
-            const adminActs = safeParseStorageArray('lp_admin_activations_db');
-            adminActs.forEach(a => {
-                if (a && a.status === 'Activado' && a.email && a.password) {
-                    const em = String(a.email).trim().toLowerCase();
-                    const pw = String(a.password).trim();
-                    const sc = String(a.sponsorCode || '').trim();
-                    const alreadyPresent = Array.from(byId.values()).some(u =>
-                        u.email === em && (u.sponsorCode === sc || u.password === pw)
-                    );
-                    if (!alreadyPresent) {
-                        const fallbackId = a.activatedUserId || ('usr_act_' + a.id);
-                        if (!deletedIds.has(fallbackId)) {
-                            byId.set(fallbackId, {
-                                id: fallbackId,
-                                name: a.name,
-                                email: em,
-                                phone: a.phone,
-                                password: pw,
-                                sponsorCode: a.sponsorCode,
-                                uplineCode: a.uplineCode,
-                                branch: a.branch || 'left',
-                                date: a.date || new Date().toLocaleDateString(),
-                                role: 'Líder de Red',
-                                lifetimeAccess: true,
-                                isAdmin: false
-                            });
-                        }
-                    }
+                const raw = localStorage.getItem(getUserDbKey(userId));
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    appState.prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
+                    appState.agendaTasks = Array.isArray(parsed.agendaTasks) ? parsed.agendaTasks : [];
+                    appState.customPresentationMsg = parsed.customPresentationMsg || '';
+                    appState.messageTemplates = Array.isArray(parsed.messageTemplates) && parsed.messageTemplates.length > 0
+                        ? parsed.messageTemplates
+                        : JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
+                } else {
+                    appState.prospects = [];
+                    appState.agendaTasks = [];
+                    appState.customPresentationMsg = '';
+                    appState.messageTemplates = JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
+                    saveUserScopedData();
                 }
-            });
-
-            return Array.from(byId.values());
+            } catch (e) {
+                appState.prospects = [];
+                appState.agendaTasks = [];
+                appState.customPresentationMsg = '';
+                appState.messageTemplates = JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
+            }
         }
 
-        function persistMasterRegisteredUsers(usersList) {
-            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-            const sanitized = (Array.isArray(usersList) ? usersList : [])
-                .filter(u => u && u.id && !deletedIds.has(u.id))
-                .map(u => ({
-                    ...u,
-                    email: String(u.email || '').trim().toLowerCase(),
-                    password: String(u.password || '').trim(),
-                    lifetimeAccess: true
-                }));
-            const serialized = JSON.stringify(sanitized);
-            try { localStorage.setItem('lp_registered_users', serialized); } catch (e) {}
-            try { sessionStorage.setItem('lp_registered_users_backup', serialized); } catch (e) {}
-            return sanitized;
+        function saveUserScopedData() {
+            if (!appState.currentUser || !appState.currentUser.id) return;
+            const payload = {
+                ownerId: appState.currentUser.id,
+                updatedAt: new Date().toISOString(),
+                prospects: appState.prospects,
+                agendaTasks: appState.agendaTasks,
+                messageTemplates: appState.messageTemplates,
+                customPresentationMsg: appState.customPresentationMsg || ''
+            };
+            localStorage.setItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
         }
-        // ==================== BUS DE SINCRONIZACIÓN BIDIRECCIONAL EN LA NUBE EN TIEMPO REAL ====================
+
+        function saveCustomPresentationMsg() {
+            const el = document.getElementById('business-pres-custom-msg');
+            if (!el) return;
+            appState.customPresentationMsg = el.value;
+            saveUserScopedData();
+        }
+
+        // ==================== BUS DE SINCRONIZACIÓN EN LA NUBE EN TIEMPO REAL ====================
         async function publishCloudSyncEvent(eventType, dataObj) {
             try {
                 const envelope = {
-                    v: 3,
+                    v: 1,
                     type: eventType,
                     ts: Date.now(),
                     data: dataObj
@@ -2372,173 +2370,6 @@
                     headers: { 'Title': `LP_${eventType}` },
                     body: JSON.stringify(envelope)
                 });
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
-
-        async function syncGlobalStateFromCloud(manualFeedback = false) {
-            try {
-                const res = await fetch(`${NTFY_BASE_URL}/json?poll=1&since=all`);
-                if (!res.ok) return false;
-                const rawText = await res.text();
-                const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
-
-                const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
-                const localPending = safeParseStorageArray('lp_pending_activations');
-                const localRecovReqs = safeParseStorageArray('lp_password_recovery_requests');
-                let localUsers = getMasterRegisteredUsers();
-                const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-
-                let latestCarousel = null;
-                let latestVideos = null;
-                let latestPdfs = null;
-                let latestCountdownCfg = null;
-                let newEventsCount = 0;
-
-                lines.forEach(line => {
-                    try {
-                        const ntfyPacket = JSON.parse(line);
-                        if (!ntfyPacket || !ntfyPacket.message) return;
-                        const env = JSON.parse(ntfyPacket.message);
-                        if (!env || !env.type || !env.data) return;
-
-                        if (env.type === 'NEW_ACTIVATION_REQUEST') {
-                            const r = env.data;
-                            if (!r || !r.email || !r.code) return;
-                            const existsAdmin = localAdminActs.some(x => (x.email === r.email && x.code === r.code) || x.id === r.id);
-                            if (!existsAdmin) {
-                                localAdminActs.unshift(r);
-                                newEventsCount++;
-                            }
-                            if (r.status !== 'Activado') {
-                                const existsPend = localPending.some(x => (x.email === r.email && x.code === r.code) || x.id === r.id);
-                                if (!existsPend) localPending.unshift(r);
-                            }
-                        } else if (env.type === 'USER_ACTIVATED') {
-                            const u = env.data;
-                            if (!u || !u.email) return;
-                            const emailLow = String(u.email).trim().toLowerCase();
-                            const cleanPass = String(u.password || '').trim();
-                            localAdminActs.forEach(a => {
-                                if (String(a.email || '').trim().toLowerCase() === emailLow && (!u.sponsorCode || a.sponsorCode === u.sponsorCode)) {
-                                    a.status = 'Activado';
-                                    if (cleanPass) a.password = cleanPass;
-                                    a.activatedUserId = u.id;
-                                }
-                            });
-                            for (let i = localPending.length - 1; i >= 0; i--) {
-                                if (String(localPending[i].email || '').trim().toLowerCase() === emailLow && (!u.sponsorCode || localPending[i].sponsorCode === u.sponsorCode)) {
-                                    localPending.splice(i, 1);
-                                }
-                            }
-                            if (!deletedIds.has(u.id)) {
-                                const normalizedUser = { ...u, email: emailLow, password: cleanPass, lifetimeAccess: true };
-                                const idxU = localUsers.findIndex(x => x.id === u.id);
-                                if (idxU === -1) localUsers.push(normalizedUser);
-                                else localUsers[idxU] = { ...localUsers[idxU], ...normalizedUser, password: cleanPass || localUsers[idxU].password };
-                            }
-                        } else if (env.type === 'USER_DELETED') {
-                            const delId = env.data.id;
-                            if (delId) {
-                                deletedIds.add(delId);
-                                localUsers = localUsers.filter(u => u.id !== delId);
-                            }
-                        } else if (env.type === 'PASSWORD_RECOVERY_REQUEST') {
-                            const req = env.data;
-                            if (req && req.id && !localRecovReqs.some(x => x.id === req.id)) {
-                                localRecovReqs.unshift(req);
-                                newEventsCount++;
-                            }
-                        } else if (env.type === 'PASSWORD_RECOVERY_RESOLVED') {
-                            const reqId = env.data.id;
-                            const foundR = localRecovReqs.find(x => x.id === reqId);
-                            if (foundR) foundR.status = 'Enviado';
-                        } else if (env.type === 'COUNTDOWN_CONFIG_UPDATE' && env.data) {
-                            latestCountdownCfg = env.data;
-                        } else if (env.type === 'PUBLIC_CAROUSEL_UPDATE' && Array.isArray(env.data)) {
-                            latestCarousel = env.data;
-                        } else if (env.type === 'ADMIN_VIDEOS_UPDATE' && Array.isArray(env.data)) {
-                            latestVideos = env.data;
-                        } else if (env.type === 'ADMIN_PDFS_UPDATE' && Array.isArray(env.data)) {
-                            latestPdfs = env.data;
-                        }
-                    } catch (innerErr) {}
-                });
-
-                localUsers = localUsers.filter(u => !deletedIds.has(u.id));
-                localStorage.setItem('lp_deleted_user_ids', JSON.stringify(Array.from(deletedIds)));
-                localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
-                localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
-                persistMasterRegisteredUsers(localUsers);
-                localStorage.setItem('lp_password_recovery_requests', JSON.stringify(localRecovReqs));
-
-                if (latestCountdownCfg !== null) localStorage.setItem('lp_countdown_config', JSON.stringify(latestCountdownCfg));
-                if (latestCarousel !== null) savePublicCarouselSlides(latestCarousel);
-                if (latestVideos !== null) localStorage.setItem('lp_admin_custom_videos', JSON.stringify(latestVideos));
-                if (latestPdfs !== null) localStorage.setItem('lp_admin_custom_pdfs', JSON.stringify(latestPdfs));
-
-                if (appState.currentUser) {
-                    if (!appState.currentUser.isAdmin && deletedIds.has(appState.currentUser.id)) {
-                        logoutUser();
-                        return true;
-                    }
-                    updateBellRemindersBadge();
-                    renderPublicHomeCarousel();
-                    renderCustomAdminTools();
-                    if (!document.getElementById('tab-activacion-socios')?.classList.contains('hidden')) {
-                        renderAdminActivationPanel();
-                    }
-                    if (!document.getElementById('tab-equipo')?.classList.contains('hidden')) {
-                        renderTeamView();
-                    }
-                }
-
-                if (manualFeedback) {
-                    showToast(newEventsCount > 0
-                        ? `Sincronización completada: ${newEventsCount} nueva(s) solicitud(es) incorporada(s).`
-                        : 'Bandeja Cloud sincronizada y al día.');
-                }
-                return true;
-            } catch (e) {
-                if (manualFeedback) showToast('No se pudo conectar al bus de sincronización en este momento.');
-                return false;
-            }
-        }
-
-        const syncExternalRegistrationsNow = syncGlobalStateFromCloud;
-
-        function startBackgroundCloudPolling() {
-            setInterval(() => {
-                if (appState.currentUser) {
-                    syncGlobalStateFromCloud(false);
-                }
-            }, 5000);
-        }
-
-        // Inicialización Principal (Siempre arranca en Pantalla de Login limpia; jamás expone el panel de administrador si hay enlace de invitación o al iniciar)
-        document.addEventListener('DOMContentLoaded', async () => {
-            repairAndSeedMasterRecords();
-            startCycleCountdownTimer();
-            drawRecognitionCanvas();
-            renderSelectedRankDetails();
-            startBackgroundCloudPolling();
-
-            const hasReferralInvite = detectUrlReferralParams();
-
-            if (hasReferralInvite) {
-                // Garantizar aislamiento estricto: ningún dato ni panel del administrador queda visible detrás de la ventana de registro
-                appState.currentUser = null;
-                localStorage.removeItem('lp_active_session');
-                const dashEl = document.getElementById('dashboard-screen');
-                const authEl = document.getElementById('auth-screen');
-                if (dashEl) { dashEl.classList.add('hidden'); dashEl.style.display = 'none'; }
-                if (authEl) { authEl.classList.remove('hidden'); authEl.style.display = 'flex'; }
-            }
-
-            await syncGlobalStateFromCloud(false);
-        });
                 return true;
             } catch (e) {
                 return false;
@@ -2555,7 +2386,7 @@
                 const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
                 const localPending = safeParseStorageArray('lp_pending_activations');
                 const localRecovReqs = safeParseStorageArray('lp_password_recovery_requests');
-                let localUsers = getMasterRegisteredUsers();
+                let localUsers = safeParseStorageArray('lp_registered_users');
                 const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
 
                 let latestCarousel = null;
@@ -2586,25 +2417,17 @@
                         } else if (env.type === 'USER_ACTIVATED') {
                             const u = env.data;
                             if (!u || !u.email) return;
-                            const emailLow = String(u.email).trim().toLowerCase();
-                            const cleanPass = String(u.password || '').trim();
+                            const emailLow = u.email.trim().toLowerCase();
                             localAdminActs.forEach(a => {
-                                if (String(a.email || '').trim().toLowerCase() === emailLow && (!u.sponsorCode || a.sponsorCode === u.sponsorCode)) {
-                                    a.status = 'Activado';
-                                    if (cleanPass) a.password = cleanPass;
-                                    a.activatedUserId = u.id;
-                                }
+                                if ((a.email || '').trim().toLowerCase() === emailLow) a.status = 'Activado';
                             });
                             for (let i = localPending.length - 1; i >= 0; i--) {
-                                if (String(localPending[i].email || '').trim().toLowerCase() === emailLow && (!u.sponsorCode || localPending[i].sponsorCode === u.sponsorCode)) {
-                                    localPending.splice(i, 1);
-                                }
+                                if ((localPending[i].email || '').trim().toLowerCase() === emailLow) localPending.splice(i, 1);
                             }
                             if (!deletedIds.has(u.id)) {
-                                const normalizedUser = { ...u, email: emailLow, password: cleanPass };
                                 const idxU = localUsers.findIndex(x => x.id === u.id);
-                                if (idxU === -1) localUsers.push(normalizedUser);
-                                else localUsers[idxU] = { ...localUsers[idxU], ...normalizedUser, password: cleanPass || localUsers[idxU].password };
+                                if (idxU === -1) localUsers.push(u);
+                                else localUsers[idxU] = { ...localUsers[idxU], ...u };
                             }
                         } else if (env.type === 'USER_DELETED') {
                             const delId = env.data.id;
@@ -2638,7 +2461,7 @@
                 localStorage.setItem('lp_deleted_user_ids', JSON.stringify(Array.from(deletedIds)));
                 localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
                 localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
-                persistMasterRegisteredUsers(localUsers);
+                localStorage.setItem('lp_registered_users', JSON.stringify(localUsers));
                 localStorage.setItem('lp_password_recovery_requests', JSON.stringify(localRecovReqs));
 
                 if (latestCountdownCfg !== null) localStorage.setItem('lp_countdown_config', JSON.stringify(latestCountdownCfg));
@@ -2735,15 +2558,15 @@
             }
         }
 
-        async function handleLogin() {
+        function handleLogin() {
             repairAndSeedMasterRecords();
             const emailInput = document.getElementById('input-auth-email');
             const passInput = document.getElementById('input-auth-password');
             const errBox = document.getElementById('login-error-box');
             if (!emailInput || !passInput) return;
 
-            const email = String(emailInput.value || '').trim().toLowerCase();
-            const pass = String(passInput.value || '').trim();
+            const email = emailInput.value.trim().toLowerCase();
+            const pass = passInput.value.trim();
 
             if (!email || !pass) {
                 showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
@@ -2778,31 +2601,19 @@
                 }
             }
 
-            let registeredUsers = getMasterRegisteredUsers();
-            let sameEmailAccounts = registeredUsers.filter(u => String(u.email || '').trim().toLowerCase() === email);
-
-            // Si el correo no existe en localStorage o ninguna coincidencia valida la contraseña, sincronizar con la nube antes de evaluar
-            if (sameEmailAccounts.length === 0 || !sameEmailAccounts.some(u => String(u.password || '').trim() === pass)) {
-                await syncGlobalStateFromCloud(false);
-                registeredUsers = getMasterRegisteredUsers();
-                sameEmailAccounts = registeredUsers.filter(u => String(u.email || '').trim().toLowerCase() === email);
-            }
-
-            if (sameEmailAccounts.length > 0) {
-                // Comprobar TODAS las cuentas asociadas a ese correo (de la más reciente a la más antigua)
-                const matchedAccount = [...sameEmailAccounts].reverse().find(u => String(u.password || '').trim() === pass);
-                if (matchedAccount) {
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const registeredUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
+            const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email);
+            if (foundUser) {
+                if (foundUser.password === pass) {
                     if (errBox) errBox.classList.add('hidden');
-                    matchedAccount.role = 'Líder de Red';
-                    matchedAccount.isAdmin = false;
-                    matchedAccount.lifetimeAccess = true;
-                    matchedAccount.email = email;
-                    matchedAccount.password = pass;
-                    persistMasterRegisteredUsers(registeredUsers);
-                    appState.currentUser = matchedAccount;
-                    localStorage.setItem('lp_active_session', JSON.stringify(matchedAccount));
-                    loadUserScopedData(matchedAccount.id);
-                    showDashboard(matchedAccount);
+                    foundUser.role = 'Líder de Red';
+                    foundUser.isAdmin = false;
+                    appState.currentUser = foundUser;
+                    localStorage.setItem('lp_active_session', JSON.stringify(foundUser));
+                    loadUserScopedData(foundUser.id);
+                    showDashboard(foundUser);
+                    syncExternalRegistrationsNow(false);
                     return;
                 } else {
                     showLoginError('Contraseña incorrecta para este socio.');
@@ -2811,7 +2622,7 @@
             }
 
             const pendingList = safeParseStorageArray('lp_pending_activations');
-            const isPending = pendingList.find(p => p && p.email && String(p.email).trim().toLowerCase() === email);
+            const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
             if (isPending) {
                 showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
                 return;
@@ -2966,7 +2777,8 @@
             const todayTasks = appState.agendaTasks.filter(t => t.date === todayStr).length;
 
             const user = appState.currentUser;
-            const regUsers = getMasterRegisteredUsers();
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const directCount = user ? (user.isAdmin ? regUsers.length : regUsers.filter(u => u.uplineCode === user.sponsorCode).length) : 0;
             const pct = total > 0 ? Math.min(100, Math.round((total / 70) * 100)) : 0;
 
@@ -3187,70 +2999,43 @@
         }
 
         function copyReferralUrl(inputId) {
-        // ==================== MURAL / CARRUSEL PÚBLICO EN INICIO (VISIBLE PARA TODOS, CONTROLES SOLO ADMIN) ====================
-        function getDefaultPublicWallSlide() {
-            return {
-                id: 'sld_default_welcome',
-                isDefault: true,
-                imageUrl: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
-                        <defs>
-                            <radialGradient id="gBg" cx="50%" cy="25%" r="75%">
-                                <stop offset="0%" stop-color="#0E3A66"/>
-                                <stop offset="55%" stop-color="#07152B"/>
-                                <stop offset="100%" stop-color="#040914"/>
-                            </radialGradient>
-                        </defs>
-                        <rect width="1200" height="420" fill="url(#gBg)"/>
-                        <rect x="20" y="20" width="1160" height="380" rx="28" fill="none" stroke="#58B8EE" stroke-opacity="0.35" stroke-width="2"/>
-                        <g transform="translate(120, 95)">
-                            <polygon points="82,12 188,12 225,52 135,140 45,52" fill="#58B8EE" fill-opacity="0.28" stroke="#58B8EE" stroke-width="6" stroke-linejoin="round"/>
-                            <line x1="45" y1="52" x2="225" y2="52" stroke="#FFFFFF" stroke-width="4"/>
-                            <polyline points="82,12 102,52 135,140 168,52 188,12" fill="none" stroke="#58B8EE" stroke-width="4.5"/>
-                        </g>
-                        <text x="410" y="145" fill="#7DD3FC" font-family="Arial, sans-serif" font-weight="800" font-size="18" letter-spacing="4">COMUNIDAD OFICIAL • FUXION</text>
-                        <text x="410" y="205" fill="#FFFFFF" font-family="Arial, sans-serif" font-weight="900" font-size="44">BIENVENIDO A LEADER PROSPECT</text>
-                        <text x="410" y="255" fill="#CBD5E1" font-family="Arial, sans-serif" font-weight="600" font-size="22">Conecta • Comparte • Crece con tu organización de líderes</text>
-                        <rect x="410" y="290" width="340" height="44" rx="14" fill="#0EA5E9"/>
-                        <text x="580" y="318" text-anchor="middle" fill="#040914" font-family="Arial, sans-serif" font-weight="900" font-size="16" letter-spacing="1">NETWORK MARKETING SUCCESS ↗</text>
-                    </svg>
-                `),
-                createdAt: 'Oficial'
-            };
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            inp.select();
+            inp.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            showToast('Enlace corto personalizado copiado al portapapeles.');
         }
 
-        function getPublicCarouselSlides() {
-            const primary = safeParseStorageArray('lp_public_wall_images');
-            if (primary.length > 0) return primary;
-            const legacy = safeParseStorageArray('lp_public_carousel_slides');
-            if (legacy.length > 0) return legacy;
-            try {
-                const backup = JSON.parse(sessionStorage.getItem('lp_public_wall_images_backup') || '[]');
-                if (Array.isArray(backup) && backup.length > 0) return backup;
-            } catch (e) {}
-            return [];
+        function shareReferralWhatsApp(type) {
+            const user = appState.currentUser;
+            if (!user) return;
+            updateReferralLinksUI();
+            const link = type === 'partner'
+                ? document.getElementById('input-link-partner').value
+                : document.getElementById('input-link-prospect').value;
+
+            const text = type === 'partner'
+                ? `¡Hola! 👋 Te saluda *${user.name}*. Te invito a formar parte de mi equipo en *LEADER PROSPECT — FuXion*. Regístrate con mi enlace oficial aquí:\n${link}`
+                : `¡Hola! 👋 Te saluda *${user.name}*. Descubre las bebidas nutracéuticas *FuXion* para potenciar tu salud y energía. Regístrate aquí para asesorarte:\n${link}`;
+
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        function savePublicCarouselSlides(slides) {
-            const serialized = JSON.stringify(slides);
-            try { localStorage.setItem('lp_public_wall_images', serialized); } catch (e) {}
-            try { localStorage.setItem('lp_public_carousel_slides', serialized); } catch (e) {}
-            try { sessionStorage.setItem('lp_public_wall_images_backup', serialized); } catch (e) {}
-        }
-
+        // ==================== MURAL / CARRUSEL PÚBLICO EN INICIO (EXCLUSIVO ADMIN SUBE/ELIMINA) ====================
         function handleAdminPublicCarouselUpload(event) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const files = Array.from(event.target.files || []);
             if (files.length === 0) return;
 
             let processed = 0;
-            const slides = getPublicCarouselSlides();
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
 
             files.forEach(file => {
                 const objUrl = URL.createObjectURL(file);
                 const img = new Image();
                 img.onload = function() {
-                    const maxW = 960;
+                    const maxW = 1200;
                     const scale = img.width > maxW ? maxW / img.width : 1;
                     const canvas = document.createElement('canvas');
                     canvas.width = Math.round(img.width * scale);
@@ -3260,16 +3045,16 @@
 
                     slides.push({
                         id: 'sld_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-                        imageUrl: canvas.toDataURL('image/jpeg', 0.78),
+                        imageUrl: canvas.toDataURL('image/jpeg', 0.85),
                         createdAt: new Date().toLocaleDateString()
                     });
                     processed++;
                     if (processed === files.length) {
-                        savePublicCarouselSlides(slides);
+                        localStorage.setItem('lp_public_carousel_slides', JSON.stringify(slides));
                         publishCloudSyncEvent('PUBLIC_CAROUSEL_UPDATE', slides);
                         appState.carouselIndex = slides.length - 1;
                         renderPublicHomeCarousel();
-                        showToast(`${processed} imagen(es) publicada(s) en el mural público para todos.`);
+                        showToast(`${processed} imagen(es) publicada(s) en el mural público.`);
                     }
                 };
                 img.src = objUrl;
@@ -3279,10 +3064,10 @@
 
         function deleteCurrentCarouselSlide() {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
-            const slides = getPublicCarouselSlides();
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
             if (slides.length === 0) return;
             slides.splice(appState.carouselIndex, 1);
-            savePublicCarouselSlides(slides);
+            localStorage.setItem('lp_public_carousel_slides', JSON.stringify(slides));
             publishCloudSyncEvent('PUBLIC_CAROUSEL_UPDATE', slides);
             appState.carouselIndex = Math.max(0, Math.min(appState.carouselIndex, slides.length - 1));
             renderPublicHomeCarousel();
@@ -3290,8 +3075,7 @@
         }
 
         function stepPublicCarousel(dir) {
-            const customSlides = getPublicCarouselSlides();
-            const slides = customSlides.length > 0 ? customSlides : [getDefaultPublicWallSlide()];
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
             if (slides.length <= 1) return;
             appState.carouselIndex = (appState.carouselIndex + dir + slides.length) % slides.length;
             updatePublicCarouselTransform();
@@ -3320,20 +3104,26 @@
             const prevBtn = document.getElementById('carousel-prev-btn');
             const nextBtn = document.getElementById('carousel-next-btn');
             const delBtn = document.getElementById('btn-delete-current-slide');
-            const adminControls = document.getElementById('admin-carousel-controls');
 
             if (!wrapper || !track) return;
-            const customSlides = getPublicCarouselSlides();
-            const slides = customSlides.length > 0 ? customSlides : [getDefaultPublicWallSlide()];
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
             const isAdmin = Boolean(appState.currentUser && appState.currentUser.isAdmin);
 
-            // Visible para TODOS los usuarios; controles de subida/eliminación estrictamente solo para el administrador
-            wrapper.classList.remove('hidden');
-            if (adminControls) {
-                adminControls.classList.toggle('hidden', !isAdmin);
+            if (slides.length === 0 && !isAdmin) {
+                wrapper.classList.add('hidden');
+                return;
             }
+            wrapper.classList.remove('hidden');
+
+            if (slides.length === 0) {
+                if (viewport) viewport.classList.add('hidden');
+                if (dotsBox) dotsBox.innerHTML = '';
+                if (delBtn) delBtn.classList.add('hidden');
+                return;
+            }
+
             if (viewport) viewport.classList.remove('hidden');
-            if (delBtn) delBtn.classList.toggle('hidden', !(isAdmin && customSlides.length > 0));
+            if (isAdmin && delBtn) delBtn.classList.remove('hidden');
 
             if (appState.carouselIndex >= slides.length) appState.carouselIndex = 0;
 
@@ -3820,7 +3610,8 @@
             if (!user) return;
 
             const isAdmin = Boolean(user.isAdmin);
-            const regUsers = getMasterRegisteredUsers();
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const myDirects = isAdmin ? regUsers : regUsers.filter(u => u.uplineCode === user.sponsorCode);
 
             const emailFrequency = {};
@@ -3970,7 +3761,8 @@
 
         function promptAdminDeletePartner(partnerId) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
-            const regUsers = getMasterRegisteredUsers();
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const target = regUsers.find(u => u.id === partnerId);
             if (!target) return;
 
@@ -4013,7 +3805,7 @@
             }
 
             // Elimina ÚNICAMENTE la cuenta seleccionada por su ID único, conservando cualquier otra copia del mismo correo
-            persistMasterRegisteredUsers(regUsers.filter(u => u.id !== selectedAccountId));
+            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers.filter(u => u.id !== selectedAccountId)));
             localStorage.removeItem(getUserDbKey(selectedAccountId));
 
             const deletedIds = safeParseStorageArray('lp_deleted_user_ids');
@@ -5315,14 +5107,13 @@
 
             localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
             if (!appState.currentUser.isAdmin) {
-                const users = getMasterRegisteredUsers();
+                const users = safeParseStorageArray('lp_registered_users');
                 const idx = users.findIndex(u => u.id === appState.currentUser.id);
                 if (idx !== -1) {
                     users[idx].name = appState.currentUser.name;
                     users[idx].phone = appState.currentUser.phone;
-                    if (newPass) users[idx].password = newPass.trim();
-                    persistMasterRegisteredUsers(users);
-                    publishCloudSyncEvent('USER_ACTIVATED', users[idx]);
+                    if (newPass) users[idx].password = newPass;
+                    localStorage.setItem('lp_registered_users', JSON.stringify(users));
                 }
             }
             renderDashboardUI();
@@ -5471,119 +5262,21 @@
                 if (btnSub) btnSub.textContent = 'Enviar Mis Datos a Mi Asesor';
             } else {
                 if (titleEl) titleEl.textContent = 'Registro de Nuevo Socio Líder';
-                if (subEl) subEl.textContent = 'Crea tu cuenta con acceso vitalicio inmediato a Leader Prospect.';
+                if (subEl) subEl.textContent = 'Completa tus datos para generar tu código de activación.';
                 if (passWrap) passWrap.classList.remove('hidden');
                 if (passInp) passInp.required = true;
                 if (intWrap) intWrap.classList.add('hidden');
-                if (btnSub) btnSub.textContent = 'Crear Cuenta Vitalicia e Ingresar';
+                if (btnSub) btnSub.textContent = 'Solicitar Activación y Generar Código';
             }
             openModal('modal-register');
         }
-        async function submitUserRegistration() {
-            const name = document.getElementById('reg-name').value.trim();
-            const email = String(document.getElementById('reg-email').value || '').trim().toLowerCase();
-            const phone = document.getElementById('reg-phone').value.trim();
-            const password = String(document.getElementById('reg-password').value || '').trim();
-            const uplineCode = document.getElementById('reg-upline').value.trim() || ADMIN_SPONSOR_CODE;
 
-            if (appState.registrationMode === 'prospect') {
-                const norm = normalizePhoneAndFlag(phone);
-                if (!name || !norm) { showToast('Ingresa tu nombre y número de WhatsApp válido.'); return; }
-                const interest = document.getElementById('reg-interest').value;
-                const allUsers = getMasterRegisteredUsers();
-                const sponsorObj = allUsers.find(u => u.sponsorCode === uplineCode);
-                const targetOwnerId = sponsorObj ? sponsorObj.id : 'usr_admin_rudy';
-
-                const targetKey = getUserDbKey(targetOwnerId);
-                const existingDb = JSON.parse(localStorage.getItem(targetKey) || '{"prospects":[],"agendaTasks":[]}');
-                existingDb.prospects = Array.isArray(existingDb.prospects) ? existingDb.prospects : [];
-                existingDb.prospects.unshift({
-                    id: 'prs_' + Date.now(),
-                    name,
-                    phone: norm.e164,
-                    flag: norm.flag,
-                    country: norm.country,
-                    funnel: interest,
-                    followUpDate: new Date().toISOString().split('T')[0],
-                    tags: 'Web',
-                    note: `Registrado desde enlace de prospecto (${email})`
-                });
-                localStorage.setItem(targetKey, JSON.stringify(existingDb));
-                closeModal('modal-register');
-                showToast('¡Datos enviados! Tu asesor FuXion se pondrá en contacto contigo.');
-                return;
-            }
-
-            if (!name || !email || !phone || password.length < 4) {
-                showToast('Completa todos los campos correctamente.');
-                return;
-            }
-
-            const code = Math.floor(100000 + Math.random() * 900000).toString();
-            const recordId = 'act_' + Date.now();
-            const activeUserId = 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-            const nowStr = new Date().toLocaleString();
-            const todayDateStr = new Date().toLocaleDateString();
-            const sponsorCode = name.split(' ')[0].replace(/[^a-zA-Z]/g, '').slice(0, 5) + '-' + Math.floor(10 + Math.random() * 89);
-
-            const regUsers = getMasterRegisteredUsers();
-            const sameSponsorCount = regUsers.filter(u => u.uplineCode === uplineCode).length;
-            const assignedBranch = sameSponsorCount % 2 === 0 ? 'left' : 'right';
-
-            // 1. Crear y activar cuenta vitalicia inmediata en lp_registered_users
-            const activeUser = {
-                id: activeUserId,
-                name,
-                email,
-                phone,
-                password,
-                sponsorCode,
-                uplineCode,
-                branch: assignedBranch,
-                date: todayDateStr,
-                role: 'Líder de Red',
-                lifetimeAccess: true,
-                isAdmin: false
-            };
-
-            regUsers.push(activeUser);
-            persistMasterRegisteredUsers(regUsers);
-
-            // 2. Registrar también en la auditoría permanente del administrador (lp_admin_activations_db)
-            const auditRecord = {
-                id: recordId,
-                activatedUserId: activeUserId,
-                name,
-                email,
-                phone,
-                password,
-                uplineCode,
-                sponsorCode,
-                branch: assignedBranch,
-                code,
-                date: nowStr,
-                status: 'Activado',
-                lifetimeAccess: true
-            };
-
-            appState.lastExternalRegRecord = auditRecord;
-
-            const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
-            adminActivationsDb.unshift(auditRecord);
-            localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
-
-            // 3. Sincronizar inmediatamente hacia la nube bidireccional para cualquier dispositivo
-            await Promise.all([
-                publishCloudSyncEvent('USER_ACTIVATED', activeUser),
-                publishCloudSyncEvent('NEW_ACTIVATION_REQUEST', auditRecord)
-            ]);
-
-            closeModal('modal-register');
-            appState.currentUser = activeUser;
-            localStorage.setItem('lp_active_session', JSON.stringify(activeUser));
-            loadUserScopedData(activeUser.id);
-            showDashboard(activeUser);
-            showToast('¡Registro exitoso! Tu acceso vitalicio a Leader Prospect está activo.');
+        function openActivationCodeModal() { openModal('modal-activation-code'); }
+        function openRecoveryModal() {
+            const loginEmail = (document.getElementById('input-auth-email')?.value || '').trim();
+            const recovEmail = document.getElementById('recov-email');
+            if (recovEmail && loginEmail) recovEmail.value = loginEmail;
+            openModal('modal-recovery');
         }
 
         function submitUserRegistration() {
@@ -5716,13 +5409,13 @@
         }
 
         async function verifyAndActivateUser() {
-            const email = String(document.getElementById('act-email').value || '').trim().toLowerCase();
-            const code = String(document.getElementById('act-code').value || '').trim();
+            const email = document.getElementById('act-email').value.trim().toLowerCase();
+            const code = document.getElementById('act-code').value.trim();
 
             await syncExternalRegistrationsNow(false);
 
             const pendingList = safeParseStorageArray('lp_pending_activations');
-            const idx = pendingList.findIndex(p => String(p.email || '').trim().toLowerCase() === email && String(p.code || '').trim() === code);
+            const idx = pendingList.findIndex(p => p.email === email && p.code === code);
 
             if (idx === -1) { showToast('Código de 6 dígitos o correo inválido.'); return; }
 
@@ -5730,26 +5423,21 @@
             pendingList.splice(idx, 1);
             localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
 
-            const cleanPassword = String(pendingUser.password || '').trim();
-            const activeUserId = 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
-
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
-            const dbIdx = adminActivationsDb.findIndex(c => c.id === pendingUser.id || (String(c.email || '').trim().toLowerCase() === email && String(c.code || '').trim() === code));
+            const dbIdx = adminActivationsDb.findIndex(c => c.id === pendingUser.id || (c.email === email && c.code === code));
             if (dbIdx !== -1) {
                 adminActivationsDb[dbIdx].status = 'Activado';
-                adminActivationsDb[dbIdx].password = cleanPassword;
-                adminActivationsDb[dbIdx].activatedUserId = activeUserId;
                 localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
             }
 
-            const regUsers = getMasterRegisteredUsers();
+            const regUsers = safeParseStorageArray('lp_registered_users');
             const sameUplineCount = regUsers.filter(u => u.uplineCode === pendingUser.uplineCode).length;
             const activeUser = {
-                id: activeUserId,
+                id: 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
                 name: pendingUser.name,
-                email,
+                email: pendingUser.email,
                 phone: pendingUser.phone,
-                password: cleanPassword,
+                password: pendingUser.password,
                 sponsorCode: pendingUser.sponsorCode,
                 uplineCode: pendingUser.uplineCode,
                 branch: pendingUser.branch || (sameUplineCount % 2 === 0 ? 'left' : 'right'),
@@ -5758,7 +5446,7 @@
                 isAdmin: false
             };
             regUsers.push(activeUser);
-            persistMasterRegisteredUsers(regUsers);
+            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
 
             await publishCloudSyncEvent('USER_ACTIVATED', activeUser);
 
@@ -5767,7 +5455,7 @@
             localStorage.setItem('lp_active_session', JSON.stringify(activeUser));
             loadUserScopedData(activeUser.id);
             showDashboard(activeUser);
-            showToast('¡Cuenta activada con éxito! Tu acceso vitalicio está listo.');
+            showToast('¡Cuenta activada con éxito! Bienvenido a Leader Prospect.');
         }
 
         async function processPasswordRecovery() {
@@ -5778,10 +5466,10 @@
                 return;
             }
 
-            await syncGlobalStateFromCloud(false);
+            await syncExternalRegistrationsNow(false);
 
             const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-            const regUsers = getMasterRegisteredUsers().filter(u => !deletedIds.has(u.id));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const matchingAccounts = regUsers.filter(u => (u.email || '').trim().toLowerCase() === email);
 
             const pendingActs = safeParseStorageArray('lp_pending_activations').filter(p => (p.email || '').trim().toLowerCase() === email);
