@@ -19,42 +19,86 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
-                    },
-                    colors: {
-                        cosmic: {
-                            950: '#040914',
-                            900: '#060D1A',
-                            800: '#0B172A',
-                            700: '#132440',
-                            cyan: '#58B8EE',
-                            sky: '#0EA5E9'
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                        },
+                        colors: {
+                            cosmic: {
+                                950: '#040914',
+                                900: '#060D1A',
+                                800: '#0B172A',
+                                700: '#132440',
+                                cyan: '#58B8EE',
+                                sky: '#0EA5E9'
+                            }
+                        },
+                        boxShadow: {
+                            'card-soft': '0 10px 30px -5px rgba(15, 23, 42, 0.06)',
+                            'glow-cyan': '0 0 25px rgba(88, 184, 238, 0.35)',
+                            'glow-btn': '0 8px 20px -4px rgba(14, 165, 233, 0.45)'
                         }
-                    },
-                    boxShadow: {
-                        'card-soft': '0 10px 30px -5px rgba(15, 23, 42, 0.06)',
-                        'glow-cyan': '0 0 25px rgba(88, 184, 238, 0.35)',
-                        'glow-btn': '0 8px 20px -4px rgba(14, 165, 233, 0.45)'
                     }
                 }
-            }
-        };
+            };
+        }
     </script>
 
+    <!-- CSS Crítico Embebido de Respaldo para Garantizar Diseño Visual Digital Instantáneo -->
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
         html, body {
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #F1F5F9;
+            color: #1E293B;
             overflow-x: hidden;
             max-width: 100vw;
         }
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .min-h-screen { min-height: 100vh; }
+        .w-full { width: 100%; }
+        .max-w-md { max-width: 28rem; }
+        .max-w-5xl { max-width: 64rem; }
+        .max-w-6xl { max-width: 72rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-30 { z-index: 30; }
+        .z-40 { z-index: 40; }
+        .z-50 { z-index: 50; }
+        .bg-white { background-color: #FFFFFF; }
+        .text-white { color: #FFFFFF; }
+        .text-slate-900 { color: #0F172A; }
+        .text-slate-600 { color: #475569; }
+        .text-sky-600 { color: #0284C7; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-3xl { border-radius: 1.5rem; }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); }
+        .shadow-card-soft { box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08); }
+        .border { border-width: 1px; border-style: solid; border-color: #E2E8F0; }
+        input, select, textarea, button { font-family: inherit; }
+        button { cursor: pointer; }
+
         /* Fondo cósmico azul noche con rayos de luz */
         .cosmic-hero-bg {
-            background:
+            background-color: #060D1A;
+            background-image:
                 radial-gradient(circle at 50% 15%, rgba(88, 184, 238, 0.28) 0%, rgba(14, 165, 233, 0.1) 35%, transparent 68%),
                 linear-gradient(180deg, #030712 0%, #071326 48%, #0C2342 84%, #050B16 100%);
         }
@@ -99,21 +143,15 @@
                             <stop offset="100%" stop-color="#0284C7" stop-opacity="0.45"/>
                         </linearGradient>
                     </defs>
-                    <!-- Silueta principal diamante facetado -->
                     <polygon points="112,22 268,22 325,80 190,210 55,80" fill="url(#diamBodyAuth)" stroke="#070D17" stroke-width="9" stroke-linejoin="round"/>
-                    <!-- Facetas internas -->
                     <line x1="55" y1="80" x2="325" y2="80" stroke="#070D17" stroke-width="6.5"/>
                     <polyline points="112,22 142,80 190,210 238,80 268,22" stroke="#070D17" stroke-width="6.5" stroke-linejoin="round"/>
                     <polyline points="142,80 190,22 238,80" stroke="#070D17" stroke-width="6.5" stroke-linejoin="round"/>
                     <line x1="98" y1="80" x2="190" y2="210" stroke="#070D17" stroke-width="4.5" stroke-opacity="0.7"/>
                     <line x1="282" y1="80" x2="190" y2="210" stroke="#070D17" stroke-width="4.5" stroke-opacity="0.7"/>
-                    <!-- Tipografía LEADER (Blanco con relieve) -->
                     <text x="190" y="112" text-anchor="middle" fill="#FFFFFF" font-family="Plus Jakarta Sans, Inter, sans-serif" font-weight="900" font-size="44" letter-spacing="2" stroke="#070D17" stroke-width="5" paint-order="stroke">LEADER</text>
-                    <!-- Tipografía PROSPECT (Celeste #58B8EE con relieve) -->
                     <text x="190" y="148" text-anchor="middle" fill="#58B8EE" font-family="Plus Jakarta Sans, Inter, sans-serif" font-weight="900" font-size="36" letter-spacing="2.5" stroke="#070D17" stroke-width="4.5" paint-order="stroke">PROSPECT</text>
-                    <!-- Línea blanca inferior -->
                     <line x1="68" y1="160" x2="292" y2="160" stroke="#FFFFFF" stroke-width="2.2" stroke-opacity="0.9"/>
-                    <!-- Subtítulo NETWORK MARKETING SUCCESS + Flecha ascendente blanca -->
                     <text x="180" y="177" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="12" letter-spacing="1.5">NETWORK MARKETING SUCCESS</text>
                     <path d="M298 177 L312 163 M302 163 L312 163 L312 173" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -121,7 +159,7 @@
             <p class="text-xs font-semibold tracking-widest uppercase text-sky-300/90">Conecta • Comparte • Crece</p>
         </header>
 
-        <!-- Tarjeta Blanca de Inicio de Sesión (Limpia, sin credenciales precargadas ni accesos directos admin) -->
+        <!-- Tarjeta Blanca de Inicio de Sesión (Limpia, sin accesos directos) -->
         <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-4">
             <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100">
                 <div class="text-center mb-6">
@@ -140,14 +178,14 @@
                     </button>
                 </div>
 
-                <form id="login-form" autocomplete="off" onsubmit="event.preventDefault(); handleLogin(); return false;" class="space-y-4">
+                <form id="login-form" onsubmit="event.preventDefault(); handleLogin(); return false;" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Correo electrónico</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
                                 <i class="fa-regular fa-envelope"></i>
                             </span>
-                            <input type="email" id="input-auth-email" required value="" autocomplete="off" placeholder="ejemplo@correo.com"
+                            <input type="email" id="input-auth-email" required autocomplete="off" placeholder="ejemplo@correo.com"
                                 class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
                         </div>
                     </div>
@@ -158,7 +196,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
                                 <i class="fa-solid fa-lock"></i>
                             </span>
-                            <input type="password" id="input-auth-password" required value="" autocomplete="new-password" placeholder="••••••••"
+                            <input type="password" id="input-auth-password" required autocomplete="new-password" placeholder="••••••••"
                                 class="w-full pl-10 pr-11 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
                             <button type="button" onclick="togglePasswordVisibility('input-auth-password', 'eye-login');" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
                                 <i id="eye-login" class="fa-regular fa-eye"></i>
@@ -168,7 +206,7 @@
 
                     <div class="flex items-center justify-between text-xs pt-0.5">
                         <label class="inline-flex items-center gap-2 text-slate-600 cursor-pointer select-none">
-                            <input type="checkbox" id="chk-remember" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+                            <input type="checkbox" id="chk-remember" checked class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
                             <span>Recordar mi acceso</span>
                         </label>
                         <button type="button" onclick="openRecoveryModal();" class="font-bold text-sky-600 hover:text-sky-700">
@@ -480,6 +518,47 @@
                         </div>
                     </div>
 
+                    <!-- CARRUSEL PÚBLICO DE IMÁGENES / COMUNICADOS (GESTIONADO POR ADMINISTRADOR, VISIBLE PARA TODOS) -->
+                    <div id="public-home-carousel-wrapper" class="hidden bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-bullhorn"></i>
+                                </span>
+                                <div>
+                                    <h3 class="text-sm font-black text-slate-900">Mural Oficial y Comunicados</h3>
+                                    <p class="text-[11px] text-slate-500">Información pública compartida por la dirección de Leader Prospect</p>
+                                </div>
+                            </div>
+
+                            <!-- Controles Exclusivos del Superadministrador -->
+                            <div id="admin-carousel-controls" class="hidden flex flex-wrap items-center gap-2">
+                                <label class="cursor-pointer py-2 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+                                    <i class="fa-solid fa-image"></i>
+                                    <span>Subir Imagen al Mural / Carrusel</span>
+                                    <input type="file" accept="image/*" multiple onchange="handleAdminPublicCarouselUpload(event);" class="hidden">
+                                </label>
+                                <button type="button" id="btn-delete-current-slide" onclick="deleteCurrentCarouselSlide();" class="hidden py-2 px-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-trash"></i><span>Quitar Imagen Actual</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="public-carousel-viewport" class="hidden relative w-full overflow-hidden rounded-2xl bg-slate-950 border border-slate-200">
+                            <div id="public-carousel-track" class="flex transition-transform duration-500 ease-out"></div>
+                            <button type="button" id="carousel-prev-btn" onclick="stepPublicCarousel(-1);" aria-label="Anterior"
+                                class="hidden absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/85 hover:bg-sky-600 text-white border border-sky-400/50 flex items-center justify-center shadow-lg transition-colors">
+                                <i class="fa-solid fa-chevron-left text-xs"></i>
+                            </button>
+                            <button type="button" id="carousel-next-btn" onclick="stepPublicCarousel(1);" aria-label="Siguiente"
+                                class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/85 hover:bg-sky-600 text-white border border-sky-400/50 flex items-center justify-center shadow-lg transition-colors">
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div id="public-carousel-dots" class="flex items-center justify-center gap-2"></div>
+                    </div>
+
                     <!-- Tarjetas KPI Principales -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         <div onclick="navigateTab('prospectos');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-sky-300 transition-all">
@@ -740,146 +819,8 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO + ESTRUCTURA LEADER PROSPECT (4 PASOS) ==================== -->
+                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO (IMPORTACIÓN UNIVERSAL + ESTRUCTURA 4 PASOS) ==================== -->
                 <section id="tab-prospectos" class="tab-section hidden space-y-6">
-
-                    <!-- BLOQUE A: ESTRUCTURA LEADER PROSPECT — PLANTILLAS DE MENSAJERÍA (4 PASOS + PERSONALIZADAS) -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-                            <div>
-                                <span class="px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase">
-                                    Estructura Leader Prospect • Administrador &amp; Usuarios Socios
-                                </span>
-                                <h2 class="text-lg font-black text-slate-900 mt-1">Plantillas de Mensajería — 4 Pasos</h2>
-                                <p class="text-xs text-slate-500">
-                                    Selecciona un prospecto destinatario para reemplazar automáticamente <code class="px-1.5 py-0.5 rounded bg-slate-100 text-sky-700 font-bold">{nombre}</code> y <code class="px-1.5 py-0.5 rounded bg-slate-100 text-sky-700 font-bold">{nombre y apellido del socio o administrador}</code>.
-                                </p>
-                            </div>
-                            <div class="flex flex-wrap items-center gap-2">
-                                <button type="button" onclick="openCustomTemplateModal();" class="py-2.5 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
-                                    <i class="fa-solid fa-plus"></i><span>Agregar Mensaje Personalizado</span>
-                                </button>
-                                <button type="button" onclick="restoreDefaultMessagingSteps();" class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
-                                    Restaurar 4 Pasos
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Selector de Prospecto Destinatario Activo -->
-                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="flex items-center gap-2.5 shrink-0">
-                                <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </div>
-                                <div>
-                                    <span class="block text-[10px] font-black uppercase text-slate-500">Prospecto Destinatario</span>
-                                    <span class="text-xs font-extrabold text-slate-800">Vista previa dinámica en tiempo real</span>
-                                </div>
-                            </div>
-                            <div class="flex-1 flex flex-col sm:flex-row gap-2 max-w-2xl">
-                                <input type="text" id="msg-recipient-filter" oninput="populateMessagingRecipientSelect();" placeholder="🔍 Filtrar contacto..."
-                                    class="sm:w-44 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                <select id="msg-recipient-select" onchange="renderMessagingStepsCards();"
-                                    class="flex-1 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                    <option value="">-- Selecciona un prospecto de tu CRM privado --</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Grid de los 4 Pasos Separados (Cada uno con botón Enviar y botón Editar Mensaje) -->
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <!-- PASO 1 -->
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-sky-300 transition-all">
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-black uppercase">Paso 1 • Saludo</span>
-                                        <span class="text-[10px] font-bold text-slate-400">Primer Contacto</span>
-                                    </div>
-                                    <div id="msg-step-preview-1" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
-                                </div>
-                                <div class="flex items-center gap-2 pt-1">
-                                    <button type="button" onclick="sendStepWhatsApp(1);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
-                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
-                                    </button>
-                                    <button type="button" onclick="openEditStepModal(1);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
-                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- PASO 2 -->
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-emerald-300 transition-all">
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase">Paso 2 • Salud y Familia</span>
-                                        <span class="text-[10px] font-bold text-slate-400">Propuesta de Valor</span>
-                                    </div>
-                                    <div id="msg-step-preview-2" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
-                                </div>
-                                <div class="flex items-center gap-2 pt-1">
-                                    <button type="button" onclick="sendStepWhatsApp(2);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
-                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
-                                    </button>
-                                    <button type="button" onclick="openEditStepModal(2);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
-                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- PASO 3 -->
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-amber-300 transition-all">
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-black uppercase">Paso 3 • La Encuesta</span>
-                                        <span class="text-[10px] font-bold text-slate-400">Cierre de Horario</span>
-                                    </div>
-                                    <div id="msg-step-preview-3" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
-                                </div>
-                                <div class="flex items-center gap-2 pt-1">
-                                    <button type="button" onclick="sendStepWhatsApp(3);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
-                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
-                                    </button>
-                                    <button type="button" onclick="openEditStepModal(3);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
-                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- PASO 4 -->
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col justify-between gap-3 hover:border-indigo-300 transition-all">
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-black uppercase">Paso 4 • Presentación de 1 Minuto</span>
-                                        <span class="text-[10px] font-bold text-slate-400">Visión de Negocio</span>
-                                    </div>
-                                    <div id="msg-step-preview-4" class="p-3.5 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line min-h-[96px]"></div>
-                                </div>
-                                <div class="flex items-center gap-2 pt-1">
-                                    <button type="button" onclick="sendStepWhatsApp(4);" class="flex-1 py-2.5 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
-                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
-                                    </button>
-                                    <button type="button" onclick="openEditStepModal(4);" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
-                                        <i class="fa-solid fa-pen-to-square text-sky-400"></i><span>Editar Mensaje</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lista de Mensajes Personalizados Adicionales -->
-                        <div class="pt-3 border-t border-slate-100 space-y-3">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-700">
-                                    <i class="fa-solid fa-comment-dots text-sky-600 mr-1.5"></i>Mis Mensajes Personalizados
-                                </h3>
-                                <button type="button" onclick="openCustomTemplateModal();" class="text-xs font-extrabold text-sky-600 hover:underline">
-                                    + Nuevo Mensaje Personalizado
-                                </button>
-                            </div>
-                            <div id="custom-templates-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-                        </div>
-                    </div>
-
-                    <!-- BLOQUE B: CARTERA PRIVADA DE PROSPECTOS CRM -->
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
@@ -890,7 +831,7 @@
                                     </span>
                                 </div>
                                 <p class="text-xs text-slate-500 mt-0.5">
-                                    Tus contactos están aislados en tu cuenta personal. Soporta todo tipo de archivo, edita detalles o etiquetas y coloca la bandera de cada país.
+                                    Tus contactos están aislados en tu cuenta personal. Soporta todo tipo de archivo y coloca la bandera de cada país.
                                 </p>
                             </div>
 
@@ -907,7 +848,7 @@
                             </div>
                         </div>
 
-                        <!-- Importador Universal Sin Restricción de Formato (accept="*/*" + multiple) -->
+                        <!-- Importador Universal Sin Restricción de Formato -->
                         <div class="relative rounded-2xl border-2 border-dashed border-sky-400 bg-sky-50/60 hover:bg-sky-50 p-5 text-center transition-all">
                             <input type="file" id="universal-contacts-file-input" accept="*/*" multiple onchange="handleUniversalContactsFileImport(event);"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
@@ -939,7 +880,7 @@
                         <div class="flex flex-col sm:flex-row gap-3">
                             <div class="relative flex-1">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="crm-search-input" oninput="renderProspectsList();" placeholder="Buscar por nombre, teléfono, etiqueta o detalle..."
+                                <input type="text" id="crm-search-input" oninput="renderProspectsList();" placeholder="Buscar por nombre, teléfono, etiqueta o país..."
                                     class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
                             </div>
                             <select id="crm-filter-funnel" onchange="renderProspectsList();" class="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700">
@@ -951,6 +892,38 @@
                         </div>
 
                         <div id="crm-prospects-container" class="space-y-2.5"></div>
+                    </div>
+
+                    <!-- ESTRUCTURA LEADER PROSPECT — PLANTILLAS DE MENSAJERÍA (4 PASOS + PERSONALIZADAS) -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                            <div>
+                                <span class="text-[10px] font-black uppercase tracking-widest text-sky-600">Sistema Oficial de Prospección</span>
+                                <h3 class="text-base sm:text-lg font-black text-slate-900">Estructura Leader Prospect — Mensajería en 4 Pasos</h3>
+                                <p class="text-xs text-slate-500">Selecciona un prospecto para reemplazar automáticamente <b>{nombre}</b> y tu nombre completo antes de enviar por WhatsApp.</p>
+                            </div>
+                            <button type="button" onclick="openCustomTemplateModal();" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-sky-600 text-white font-extrabold text-xs flex items-center gap-1.5 self-start transition-colors">
+                                <i class="fa-solid fa-plus"></i><span>Agregar Mensaje Personalizado</span>
+                            </button>
+                        </div>
+
+                        <!-- Selector de Prospecto Destinatario -->
+                        <div class="p-4 rounded-2xl bg-sky-50/70 border border-sky-200 grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                            <div>
+                                <label class="block text-[11px] font-black text-sky-900 mb-1">1. Filtra o busca tu prospecto:</label>
+                                <input type="text" id="tpl-prospect-search" oninput="populateTemplateProspectSelector();" placeholder="Escribe nombre o número..."
+                                    class="w-full px-3 py-2 rounded-xl bg-white border border-sky-200 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-black text-sky-900 mb-1">2. Destinatario activo para los 4 pasos:</label>
+                                <select id="tpl-active-prospect-select" onchange="renderMessageTemplatesGrid();"
+                                    class="w-full px-3 py-2 rounded-xl bg-white border border-sky-300 text-xs font-extrabold text-slate-900">
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Contenedor de los 4 Pasos + Mensajes Personalizados -->
+                        <div id="lp-message-templates-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     </div>
                 </section>
 
@@ -1005,7 +978,7 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 6: MI EQUIPO MLM (ÁRBOL GENEALÓGICO + TABLA DE DATOS) ==================== -->
+                <!-- ==================== SECCIÓN 6: MI EQUIPO MLM (ÁRBOL GENEALÓGICO + TABLA DE DATOS + AUDITORÍA ADMIN) ==================== -->
                 <section id="tab-equipo" class="tab-section hidden space-y-6">
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -1025,6 +998,34 @@
                             </div>
                         </div>
 
+                        <!-- RESUMEN AUDITORÍA EXCLUSIVO SUPERADMINISTRADOR -->
+                        <div id="admin-team-summary-panel" class="hidden p-4 rounded-2xl bg-amber-50/90 border border-amber-200 space-y-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-xs font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-user-shield text-amber-600"></i>
+                                    <span>Control Total de Socios (Exclusivo Superadministrador)</span>
+                                </span>
+                                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-amber-300 text-amber-900 text-xs font-extrabold cursor-pointer">
+                                    <input type="checkbox" id="chk-filter-duplicate-emails" onchange="renderTeamView();" class="rounded text-amber-600">
+                                    <span>Filtrar correos duplicados (<span id="admin-duplicate-email-count">0</span>)</span>
+                                </label>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div class="bg-white rounded-xl p-3 border border-amber-200/70">
+                                    <span id="admin-team-total-accounts" class="block text-xl font-black text-slate-900">0</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">Total Cuentas Activas</span>
+                                </div>
+                                <div class="bg-white rounded-xl p-3 border border-amber-200/70">
+                                    <span id="admin-team-unique-emails" class="block text-xl font-black text-sky-600">0</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">Correos Únicos</span>
+                                </div>
+                                <div class="bg-white rounded-xl p-3 border border-amber-200/70">
+                                    <span id="admin-team-dup-accounts" class="block text-xl font-black text-amber-600">0</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">Cuentas con Correo Repetido</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- MODO A: ÁRBOL GENEALÓGICO NETWORK MARKETING -->
                         <div id="team-tree-container" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 overflow-x-auto">
                             <div id="mlm-genealogy-tree" class="min-w-[320px] flex flex-col items-center"></div>
@@ -1034,7 +1035,7 @@
                         <div id="team-table-container" class="hidden space-y-3">
                             <div class="relative max-w-sm">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="team-table-search" oninput="renderTeamView();" placeholder="Filtrar socio por nombre o código..."
+                                <input type="text" id="team-table-search" oninput="renderTeamView();" placeholder="Filtrar socio por nombre, correo o código..."
                                     class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                             </div>
                             <div class="overflow-x-auto rounded-2xl border border-slate-200">
@@ -1045,9 +1046,11 @@
                                             <th class="py-3 px-4">Código Socio</th>
                                             <th class="py-3 px-4">Línea / Nivel</th>
                                             <th class="py-3 px-4">Teléfono</th>
+                                            <th class="admin-only-col hidden py-3 px-4">Correo &amp; Repeticiones</th>
+                                            <th class="admin-only-col hidden py-3 px-4">Contraseña</th>
                                             <th class="py-3 px-4">Fecha Registro</th>
                                             <th class="py-3 px-4">Estado</th>
-                                            <th class="py-3 px-4 text-right">Acción</th>
+                                            <th class="py-3 px-4 text-right">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody id="team-data-table-body" class="divide-y divide-slate-200 bg-white"></tbody>
@@ -1080,7 +1083,6 @@
 
                         <!-- SUBTAB 1: ESCALERA OFICIAL DE 16 RANGOS PRO-LEV X -->
                         <div id="sim-panel-rangos" class="space-y-6">
-                            <!-- Selector de Rango Objetivo -->
                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-end bg-slate-50 p-4 rounded-2xl border border-slate-200">
                                 <div class="lg:col-span-2">
                                     <label class="block text-xs font-black text-slate-800 mb-1.5">Selecciona el Rango FuXion que deseas consultar o simular:</label>
@@ -1109,7 +1111,6 @@
                                 </div>
                             </div>
 
-                            <!-- Ficha Detallada de Requisitos Oficiales del Rango Seleccionado -->
                             <div class="cosmic-hero-bg rounded-3xl p-6 text-white space-y-5 border border-sky-500/30">
                                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
                                     <div>
@@ -1141,7 +1142,6 @@
                                 <p id="rank-detail-strategy" class="text-xs text-slate-200 bg-slate-950/50 p-3.5 rounded-2xl border border-white/10 leading-relaxed"></p>
                             </div>
 
-                            <!-- Calculadora Interactiva de Avance Personal hacia el Rango -->
                             <div class="p-5 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
                                 <h4 class="text-xs font-black uppercase tracking-wider text-slate-800">Simulador de Tu Producción Actual vs Meta del Rango</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1162,7 +1162,7 @@
                             </div>
                         </div>
 
-                        <!-- SUBTAB 2: PLAN DE ACCIÓN OFICIAL (LOS 10 PASOS PARA EL ÉXITO + PRO 1/2/3) -->
+                        <!-- SUBTAB 2: PLAN DE ACCIÓN OFICIAL -->
                         <div id="sim-panel-accion" class="hidden space-y-4">
                             <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200 text-xs text-sky-900">
                                 <b>Plan de Acción FuXion — Los 10 Pasos para el Éxito:</b> Marca tu progreso en las primeras ganancias (Afiliación, Venta y Bono Pro 1) y construye tu lista de inauguración de 70 personas.
@@ -1187,7 +1187,7 @@
                             </div>
                         </div>
 
-                        <!-- SUBTAB 3: BONO FAST TRACK V.3 (PRIMERAS 12 SEMANAS) -->
+                        <!-- SUBTAB 3: BONO FAST TRACK V.3 -->
                         <div id="sim-panel-fasttrack" class="hidden space-y-4">
                             <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950">
                                 <b>Bono Temporal Fast Track V.3:</b> Disponible durante tus primeras <b>12 Semanas FuXion</b> (manteniendo 100 PV4). El patrocinador gana un <b>25% de emparejamiento</b> por cada nivel alcanzado por su directo.
@@ -1221,7 +1221,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Enlace 1: Patrocinio Nuevos Socios Líderes -->
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft flex flex-col items-center text-center space-y-4">
                             <span class="px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase">1. Enlace Corto de Patrocinio (Socios Líderes)</span>
                             <h3 class="text-base font-black text-slate-900">Invita Líderes a tu Equipo</h3>
@@ -1238,7 +1237,6 @@
                             </div>
                         </div>
 
-                        <!-- Enlace 2: Prospectos / Clientes -->
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft flex flex-col items-center text-center space-y-4">
                             <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase">2. Enlace Corto de Prospectos (Clientes)</span>
                             <h3 class="text-base font-black text-slate-900">Captura Clientes Salud &amp; Negocio</h3>
@@ -1261,13 +1259,19 @@
                 <section id="tab-herramientas" class="tab-section hidden space-y-6">
                     <!-- Biblioteca Oficial Descargable en PDF -->
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4">
-                        <div>
-                            <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Material Oficial FuXion Descargable</span>
-                            <h2 class="text-lg font-black text-slate-900">Guías Ejecutivas y Planes en PDF</h2>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Material Oficial FuXion Descargable</span>
+                                <h2 class="text-lg font-black text-slate-900">Guías Ejecutivas y Planes en PDF</h2>
+                            </div>
+                            <div id="admin-tools-pdf-action" class="hidden">
+                                <button type="button" onclick="openModal('modal-admin-add-pdf');" class="py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-file-circle-plus"></i><span>+ Agregar Nuevo PDF</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- PDF 1: PLAN DE ACCIÓN -->
                             <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-4">
                                 <div class="space-y-1.5">
                                     <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg">
@@ -1281,7 +1285,6 @@
                                 </button>
                             </div>
 
-                            <!-- PDF 2: FAST TRACK -->
                             <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-4">
                                 <div class="space-y-1.5">
                                     <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg">
@@ -1295,7 +1298,6 @@
                                 </button>
                             </div>
 
-                            <!-- PDF 3: PLAN PRO-LEV -->
                             <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-4">
                                 <div class="space-y-1.5">
                                     <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg">
@@ -1309,6 +1311,9 @@
                                 </button>
                             </div>
                         </div>
+
+                        <!-- PDFs Adicionales Agregados por el Administrador -->
+                        <div id="custom-admin-pdfs-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
                     </div>
 
                     <!-- PRESENTACIÓN DE NEGOCIO CON VISTA PREVIA Y REPRODUCCIÓN INTEGRADA -->
@@ -1323,9 +1328,36 @@
                                     <h2 class="text-lg font-black text-slate-900">PRESENTACIÓN DE NEGOCIO</h2>
                                 </div>
                             </div>
-                            <a href="https://youtu.be/BT7YUDaStT8?feature=shared" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-600 hover:underline">
-                                Abrir en YouTube <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                            </a>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <a href="https://youtu.be/BT7YUDaStT8?feature=shared" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-600 hover:underline">
+                                    Abrir en YouTube <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- BARRA EXCLUSIVA SUPERADMINISTRADOR: AGREGAR LINK DE VIDEO CON NOMBRE IDENTIFICADOR -->
+                        <div id="admin-inline-video-bar" class="hidden p-4 rounded-2xl bg-rose-50/80 border border-rose-200 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-black uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved text-rose-600"></i>
+                                    <span>Publicar Nuevo Video en Herramientas (Solo Administrador)</span>
+                                </span>
+                            </div>
+                            <form onsubmit="event.preventDefault(); submitInlineAdminVideo(); return false;" class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-center">
+                                <div class="md:col-span-5">
+                                    <input type="text" id="inline-admin-video-name" required placeholder="Nombre / Tema del video (ej. Plan de Pagos PRO-LEV X)"
+                                        class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-500">
+                                </div>
+                                <div class="md:col-span-4">
+                                    <input type="url" id="inline-admin-video-url" required placeholder="Pega el link del video (https://youtu.be/...)"
+                                        class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-200 text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-rose-500">
+                                </div>
+                                <div class="md:col-span-3">
+                                    <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+                                        <i class="fa-solid fa-plus"></i><span>Agregar Link de Video</span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
 
                         <!-- Vista Previa + Reproductor Embebido en la Plataforma -->
@@ -1349,7 +1381,7 @@
 
                         <!-- Mensaje Personalizado por Usuario -->
                         <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-700">Personaliza tu mensaje de invitación (se adjunta automáticamente tu link corto):</label>
+                            <label class="block text-xs font-bold text-slate-700">Personaliza tu mensaje de invitación (se unifica en un solo mensaje con el video y tu link corto):</label>
                             <textarea id="business-pres-custom-msg" oninput="saveCustomPresentationMsg();" rows="3" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
                         </div>
 
@@ -1357,18 +1389,31 @@
                             <i class="fa-brands fa-whatsapp text-base"></i>
                             <span>Enviar Presentación de Negocio por WhatsApp</span>
                         </button>
+
+                        <!-- Videos Adicionales Subidos por el Administrador -->
+                        <div id="custom-admin-videos-list" class="space-y-4 pt-2"></div>
                     </div>
                 </section>
 
                 <!-- ==================== SECCIÓN 10: ACTIVACIÓN SOCIOS (EXCLUSIVO ADMINISTRADOR) ==================== -->
                 <section id="tab-activacion-socios" class="tab-section hidden space-y-6">
-                    <div class="bg-amber-50 border border-amber-300 rounded-3xl p-5 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shrink-0">
-                            <i class="fa-solid fa-shield-halved"></i>
+                    <div class="bg-amber-50 border border-amber-300 rounded-3xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-black text-slate-900">Bandeja de Activación y Validación de Códigos</h2>
+                                <p class="text-xs text-slate-600">Sincronización global multidispositivo en tiempo real + recepción de enlaces externos.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="text-base font-black text-slate-900">Bandeja de Activación y Validación de Códigos</h2>
-                            <p class="text-xs text-slate-600">Almacenamiento permanente en la base de datos exclusiva del Administrador.</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button type="button" onclick="syncExternalRegistrationsNow(true);" class="py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-arrows-rotate"></i><span>Sincronizar Registros Externos</span>
+                            </button>
+                            <button type="button" onclick="openModal('modal-import-external-reg');" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs">
+                                Pegar Enlace de Solicitud
+                            </button>
                         </div>
                     </div>
                     <div id="admin-pending-activations-list" class="space-y-3"></div>
@@ -1521,12 +1566,18 @@
                 <span class="text-xs font-black uppercase text-amber-600">Activación de Cuenta</span>
                 <button type="button" onclick="closeModal('modal-activation-code');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <p class="text-xs text-slate-600">Ingresa tu correo registrado y el <b>código de 6 dígitos</b> enviado por el Administrador.</p>
-            <input type="email" id="act-email" placeholder="Tu correo registrado" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-            <input type="text" id="act-code" maxlength="6" placeholder="000000" class="w-full px-3.5 py-3 rounded-xl bg-slate-900 text-amber-400 font-mono text-xl font-black tracking-[0.4em] text-center">
-            <button type="button" onclick="verifyAndActivateUser();" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs">
-                Activar mi Cuenta Ahora
+            <p class="text-xs text-slate-600">Tu solicitud se sincronizó con la bandeja del Administrador. También puedes enviar tu solicitud directa por WhatsApp para recibir tu código de 6 dígitos:</p>
+            <button type="button" onclick="notifyAdminExternalRegistrationWhatsApp();" class="w-full py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar Solicitud de Código por WhatsApp al Administrador (+51 970 425 293)</span>
             </button>
+            <div class="border-t border-slate-100 pt-3 space-y-2.5">
+                <p class="text-[11px] font-bold text-slate-700">Ingresa tu correo registrado y el <b>código de 6 dígitos</b>:</p>
+                <input type="email" id="act-email" placeholder="Tu correo registrado" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                <input type="text" id="act-code" maxlength="6" placeholder="000000" class="w-full px-3.5 py-3 rounded-xl bg-slate-900 text-amber-400 font-mono text-xl font-black tracking-[0.4em] text-center">
+                <button type="button" onclick="verifyAndActivateUser();" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs">
+                    Activar mi Cuenta Ahora
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1572,19 +1623,93 @@
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Fecha Seguimiento</label>
-                        <input type="date" id="pros-date" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <input type="date" id="pros-date" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Etiquetas (separadas por coma)</label>
-                    <input type="text" id="pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nota / Detalle</label>
-                    <input type="text" id="pros-note" placeholder="Ej. Interesada en Prunex / Termo T3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <label class="block font-bold text-slate-700 mb-1">Etiqueta / Nota / Interés</label>
+                    <input type="text" id="pros-note" placeholder="Ej. Fx • Interesada en Prunex / Termo T3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
                 <button type="submit" class="w-full py-3.5 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
                     Guardar en mi Base Privada
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 4B: Editar Prospecto (Etiquetas, Embudo, Notas y Teléfono) -->
+    <div id="modal-edit-prospect" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900">Editar Detalles y Etiquetas del Prospecto</h3>
+                <button type="button" onclick="closeModal('modal-edit-prospect');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveEditedProspect(); return false;" class="space-y-3 text-xs">
+                <input type="hidden" id="edit-pros-id">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nombre y Apellidos *</label>
+                    <input type="text" id="edit-pros-name" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Teléfono / WhatsApp (E.164) *</label>
+                    <input type="tel" id="edit-pros-phone" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Embudo FuXion</label>
+                        <select id="edit-pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                            <option value="Salud / Bebidas">Salud / Bebidas</option>
+                            <option value="Negocio / Multinivel">Negocio / Multinivel</option>
+                            <option value="Sin clasificar">Sin clasificar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Próximo Seguimiento</label>
+                        <input type="date" id="edit-pros-date" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Etiquetas Rápidas</label>
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <button type="button" onclick="appendTagToEditProspect('Fx');" class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 font-bold text-[11px]">+ Fx</button>
+                        <button type="button" onclick="appendTagToEditProspect('Encuesta');" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 font-bold text-[11px]">+ Encuesta</button>
+                        <button type="button" onclick="appendTagToEditProspect('Cliente');" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-[11px]">+ Cliente</button>
+                        <button type="button" onclick="appendTagToEditProspect('Socio');" class="px-2.5 py-1 rounded-lg bg-purple-100 text-purple-800 font-bold text-[11px]">+ Socio</button>
+                        <button type="button" onclick="appendTagToEditProspect('VIP');" class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 font-bold text-[11px]">+ VIP</button>
+                    </div>
+                    <input type="text" id="edit-pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Notas / Detalles Privados</label>
+                    <textarea id="edit-pros-note" rows="2" class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+                    Guardar Cambios del Prospecto
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 4C: Editar / Crear Mensaje de la Estructura Leader Prospect -->
+    <div id="modal-edit-message-template" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-tpl-title" class="text-base font-black text-slate-900">Editar Plantilla de Mensaje</h3>
+                <button type="button" onclick="closeModal('modal-edit-message-template');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveMessageTemplateForm(); return false;" class="space-y-3 text-xs">
+                <input type="hidden" id="tpl-edit-id">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Título / Etiqueta del Paso *</label>
+                    <input type="text" id="tpl-edit-label" required placeholder="Ej. Paso 5: Seguimiento Post-Video" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Contenido del Mensaje *</label>
+                    <textarea id="tpl-edit-body" rows="5" required class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 leading-relaxed"></textarea>
+                    <p class="text-[11px] text-slate-500 mt-1">Variables disponibles: <code>{nombre}</code> y <code>{socio}</code>.</p>
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+                    Guardar Plantilla Privada
                 </button>
             </form>
         </div>
@@ -1669,7 +1794,6 @@
     <!-- Modal 8: Vista Previa y Selección Masiva ("SELECCIONAR TODO") antes de Importar al CRM -->
     <div id="modal-import-preview" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4">
         <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
-            <!-- Cabecera del Modal -->
             <div class="p-5 bg-[#060D1A] text-white flex items-center justify-between gap-3">
                 <div>
                     <span class="text-[10px] font-black uppercase tracking-widest text-sky-400">Importación Universal Multiformato</span>
@@ -1678,7 +1802,6 @@
                 <button type="button" onclick="closeModal('modal-import-preview');" class="w-9 h-9 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center">✕</button>
             </div>
 
-            <!-- Barra de Acciones: Botón SELECCIONAR TODO + Filtros + Embudo por Defecto -->
             <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-2">
                     <button type="button" id="btn-toggle-select-all-import" onclick="toggleSelectAllImportPreview();"
@@ -1705,10 +1828,8 @@
                 </div>
             </div>
 
-            <!-- Lista Scrolleable de Contactos Detectados -->
             <div id="import-preview-list" class="flex-1 overflow-y-auto p-4 space-y-2 bg-white"></div>
 
-            <!-- Pie de Confirmación -->
             <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-[11px] text-slate-500">
                     <i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i>Se guardarán exclusivamente en tu base de datos privada.
@@ -1726,132 +1847,98 @@
         </div>
     </div>
 
-    <!-- Modal 9: Editar Mensaje de Paso (Estructura Leader Prospect 1-4) -->
-    <div id="modal-edit-msg-step" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
+    <!-- Modal 9: Admin Agregar Video a Herramientas -->
+    <div id="modal-admin-add-video" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
-                <div>
-                    <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Estructura Leader Prospect</span>
-                    <h3 id="modal-edit-step-title" class="text-base font-black text-slate-900">Editar Mensaje de Paso</h3>
-                </div>
-                <button type="button" onclick="closeModal('modal-edit-msg-step');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+                <h3 class="text-base font-black text-slate-900">Agregar Nuevo Link de Video</h3>
+                <button type="button" onclick="closeModal('modal-admin-add-video');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <input type="hidden" id="edit-step-index">
-            <p class="text-[11px] text-slate-500">
-                Variables automáticas disponibles: <b class="text-sky-700">{nombre}</b> (prospecto) y <b class="text-sky-700">{nombre y apellido del socio o administrador}</b>.
+            <form onsubmit="event.preventDefault(); submitAdminNewVideo(); return false;" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Título del Video *</label>
+                    <input type="text" id="admin-video-title" required placeholder="Ej. Capacitación Plan de Pagos PRO-LEV X" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Link de YouTube / Video *</label>
+                    <input type="url" id="admin-video-url" required placeholder="https://youtu.be/..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Descripción / Mensaje sugerido</label>
+                    <textarea id="admin-video-desc" rows="2" placeholder="Video oficial de entrenamiento para el equipo..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs">
+                    Publicar Video en Herramientas
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 10: Admin Agregar PDF a Herramientas -->
+    <div id="modal-admin-add-pdf" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900">Agregar Nuevo PDF Descargable</h3>
+                <button type="button" onclick="closeModal('modal-admin-add-pdf');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); submitAdminNewPdf(); return false;" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Título del Documento PDF *</label>
+                    <input type="text" id="admin-pdf-title" required placeholder="Ej. Catálogo Productos FuXion 2026" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Descripción breve</label>
+                    <input type="text" id="admin-pdf-desc" placeholder="Guía oficial descargable para socios..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Subir Archivo PDF desde tu dispositivo</label>
+                    <input type="file" id="admin-pdf-file" accept=".pdf,application/pdf" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">O Enlace Directo al PDF (opcional)</label>
+                    <input type="url" id="admin-pdf-url" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+                    Publicar PDF para Todos los Usuarios
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 11: Confirmación Eliminar Socio (Exclusivo Admin) -->
+    <div id="modal-admin-delete-partner" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mx-auto">
+                <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <h3 class="text-base font-black text-slate-900">Eliminar Socio Definitivamente</h3>
+            <p class="text-xs text-slate-600">
+                ¿Estás seguro de eliminar a <b id="delete-partner-target-name" class="text-slate-900">este socio</b>? Su cuenta y base de datos privada dejarán de existir en la plataforma y deberá registrarse nuevamente desde cero.
             </p>
-            <textarea id="edit-step-body" rows="6" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 leading-relaxed focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
-            <div class="flex justify-end gap-2">
-                <button type="button" onclick="closeModal('modal-edit-msg-step');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
-                <button type="button" onclick="saveEditedStepTemplate();" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
-                    Guardar Mensaje
+            <input type="hidden" id="delete-partner-target-id">
+            <div class="grid grid-cols-2 gap-2.5 pt-2">
+                <button type="button" onclick="closeModal('modal-admin-delete-partner');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">
+                    Cancelar
+                </button>
+                <button type="button" onclick="confirmAdminDeletePartner();" class="py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs">
+                    Sí, Eliminar Cuenta
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal 10: Agregar / Editar Mensaje Personalizado -->
-    <div id="modal-custom-template" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between">
-                <h3 id="modal-custom-template-title" class="text-base font-black text-slate-900">Agregar Mensaje Personalizado</h3>
-                <button type="button" onclick="closeModal('modal-custom-template');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
-            </div>
-            <form onsubmit="event.preventDefault(); saveCustomTemplateItem(); return false;" class="space-y-3 text-xs">
-                <input type="hidden" id="custom-tpl-id">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-bold text-slate-700 mb-1">Título de la Plantilla *</label>
-                        <input type="text" id="custom-tpl-name" required placeholder="Ej. Seguimiento Prunex 1" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    </div>
-                    <div>
-                        <label class="block font-bold text-slate-700 mb-1">Categoría / Etiqueta</label>
-                        <input type="text" id="custom-tpl-tag" placeholder="Ej. Salud / Cierre" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    </div>
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Mensaje * (usa {nombre} y {nombre y apellido del socio o administrador})</label>
-                    <textarea id="custom-tpl-body" rows="5" required placeholder="Hola {nombre} 😊 soy {nombre y apellido del socio o administrador}..." class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 leading-relaxed"></textarea>
-                </div>
-                <div class="flex justify-end gap-2">
-                    <button type="button" onclick="closeModal('modal-custom-template');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
-                    <button type="submit" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
-                        Guardar Plantilla
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal 11: Editar Prospecto CRM (Detalles, Etiquetas, Embudo y Seguimiento) -->
-    <div id="modal-edit-prospect" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <!-- Modal 12: Importar Enlace Externo (Respaldo Manual WhatsApp) -->
+    <div id="modal-import-external-reg" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
-                <div>
-                    <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">CRM Privado</span>
-                    <h3 class="text-base font-black text-slate-900">Editar Prospecto, Etiquetas y Detalles</h3>
-                </div>
-                <button type="button" onclick="closeModal('modal-edit-prospect');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+                <h3 class="text-base font-black text-slate-900">Incorporar Solicitud de Registro Externo</h3>
+                <button type="button" onclick="closeModal('modal-import-external-reg');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <form onsubmit="event.preventDefault(); saveEditedProspect(); return false;" class="space-y-3 text-xs">
-                <input type="hidden" id="edit-pros-id">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nombre y Apellidos *</label>
-                    <input type="text" id="edit-pros-name" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Teléfono / WhatsApp (E.164) *</label>
-                    <input type="tel" id="edit-pros-phone" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-bold text-slate-700 mb-1">Embudo FuXion</label>
-                        <select id="edit-pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
-                            <option value="Salud / Bebidas">Salud / Bebidas</option>
-                            <option value="Negocio / Multinivel">Negocio / Multinivel</option>
-                            <option value="Sin clasificar">Sin clasificar</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-bold text-slate-700 mb-1">Fecha Seguimiento</label>
-                        <input type="date" id="edit-pros-date" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    </div>
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Etiquetas Rápidas (Pulsa para agregar)</label>
-                    <div class="flex flex-wrap gap-1.5 mb-2">
-                        <button type="button" onclick="appendTagToEditProspect('Fx');" class="px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 font-bold text-[10px]">+ Fx</button>
-                        <button type="button" onclick="appendTagToEditProspect('Encuesta');" class="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-bold text-[10px]">+ Encuesta</button>
-                        <button type="button" onclick="appendTagToEditProspect('Cliente');" class="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[10px]">+ Cliente</button>
-                        <button type="button" onclick="appendTagToEditProspect('Socio');" class="px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold text-[10px]">+ Socio</button>
-                        <button type="button" onclick="appendTagToEditProspect('VIP');" class="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-bold text-[10px]">+ VIP</button>
-                    </div>
-                    <input type="text" id="edit-pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Detalles / Notas Privadas</label>
-                    <textarea id="edit-pros-note" rows="3" placeholder="Escribe detalles de interés, producto o recordatorio..." class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200"></textarea>
-                </div>
-                <div class="flex justify-end gap-2 pt-1">
-                    <button type="button" onclick="closeModal('modal-edit-prospect');" class="py-2.5 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancelar</button>
-                    <button type="submit" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
-                        Guardar Cambios
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal 12: Selector Rápido de Destinatario al pulsar Enviar WhatsApp sin prospecto seleccionado -->
-    <div id="modal-select-recipient-wa" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between">
-                <h3 id="modal-select-recipient-title" class="text-base font-black text-slate-900">Seleccionar Destinatario</h3>
-                <button type="button" onclick="closeModal('modal-select-recipient-wa');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
-            </div>
-            <input type="text" id="quick-recipient-search" oninput="renderQuickRecipientModalList();" placeholder="🔍 Buscar nombre o celular..."
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-            <div id="quick-recipient-modal-list" class="max-h-72 overflow-y-auto space-y-2"></div>
+            <p class="text-xs text-slate-500">Si un socio te envió su enlace de solicitud con <code>?sync_reg=...</code> por WhatsApp, pégalo aquí para registrarlo al instante en tu bandeja:</p>
+            <textarea id="external-reg-token-input" rows="3" placeholder="Pega el enlace recibido..." class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono"></textarea>
+            <button type="button" onclick="importExternalRegistrationToken();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
+                Incorporar a Mi Bandeja
+            </button>
         </div>
     </div>
 
@@ -1866,14 +1953,36 @@
         const ADMIN_SPONSOR_CODE = 'RudyG-Ad';
         const ADMIN_WHATSAPP_NUMBER = '+51970425293';
         const ADMIN_DISPLAY_PHONE = '+51 970 425 293';
+        const NTFY_GLOBAL_CHANNEL = 'leaderprospect-rudyg-ad-sync-2026';
+        const NTFY_BASE_URL = `https://ntfy.sh/${NTFY_GLOBAL_CHANNEL}`;
 
-        // Estructura Oficial Leader Prospect (4 Pasos con Emoticones)
-        const DEFAULT_LEADER_PROSPECT_STEPS = {
-            1: 'Hola que tal {nombre} 👋😊 soy {nombre y apellido del socio o administrador}, sabes queria hacerte uno consulta! 💬✨',
-            2: '{nombre} 👋🌿 Estoy ayudando a todos mis amigos y clientes adarle información para que mejoren su salud y la de su Familia 💪💚, te gustaria recibir información para que tu puedas mejorar y fortalecer la salud de tu familia. ✨\nY Para ello estoy mandando una encuesta para saber cual seria lo prioritario? 📋🔍 te envio la Información sin compromiso para que conozcas una de las mejores opciones en el mercado 🌟, si decides adquirir sera todo un gusto poder atenderte 🤝😊',
-            3: '{Nombre} ⏰😊 Cuéntame a qué hora lo revisarías con calma para conversarlo 📞💬, si no te interesa igual me avisas y no tocaré el tema. 👍✨',
-            4: 'Qué tal {nombre} 👋🚀 te comento que tengo la representación de una marca de bebidas naturales 100% peruana 🇵🇪🌿 que está posicionada en más de 35 países 🌎✨ y además ayudó a personas en enseñarles y que aprendan a vender 10 paquetes por semana 📦 para generarse $600 dólares al mes 💵🔥 para comenzar, y si vendes más o mejor si le enseñamos a 10 amigos tuyos a generar los $600 dólares 🤝, así tú puedes estar generando por encima de los $2000 dólares 💎🏆, Te interesa? 👀💬'
-        };
+        // Plantillas Oficiales Estructura Leader Prospect (4 Pasos con Emoticones)
+        const DEFAULT_LP_MESSAGE_TEMPLATES = [
+            {
+                id: 'lp_step_1',
+                label: 'Paso 1: Saludo 👋',
+                isDefault: true,
+                body: 'Hola que tal {nombre} 👋 soy {socio}, sabes queria hacerte una consulta! 😊✨'
+            },
+            {
+                id: 'lp_step_2',
+                label: 'Paso 2: Encuesta Salud 🌿',
+                isDefault: true,
+                body: '{nombre} Estoy ayudando a todos mis amigos y clientes a darle información para que mejoren su salud y la de su Familia 🌿💚, ¿te gustaría recibir información para que tú puedas mejorar y fortalecer la salud de tu familia? 💪✨ Y para ello estoy mandando una encuesta para saber cuál sería lo prioritario 📋. Te envío la información sin compromiso para que conozcas una de las mejores opciones en el mercado; si decides adquirir será todo un gusto poder atenderte 🤝😊.'
+            },
+            {
+                id: 'lp_step_3',
+                label: 'Paso 3: La Encuesta ⏰',
+                isDefault: true,
+                body: '{nombre} Cuéntame a qué hora lo revisarías con calma para conversarlo ⏰💬, si no te interesa igual me avisas y no tocaré el tema 🤝😊.'
+            },
+            {
+                id: 'lp_step_4',
+                label: 'Paso 4: Presentación de 1 Minuto 🚀',
+                isDefault: true,
+                body: 'Qué tal {nombre} 👋 te comento que tengo la representación de una marca de bebidas naturales 100% peruana 🇵🇪🌿 que está posicionada en más de 35 países 🌎 y además ayudo a personas en enseñarles y que aprendan a vender 10 paquetes por semana para generarse $600 dólares al mes para comenzar 💵🚀, y si vendes más o mejor si le enseñamos a 10 amigos tuyos a generar los $600 dólares, así tú puedes estar generando por encima de los $2000 dólares 💎🔥. ¿Te interesa? 👀✨'
+            }
+        ];
 
         // Tabla Oficial de los 16 Rangos del Plan PRO-LEV X™
         const FUXION_RANKS_DATA = {
@@ -2043,8 +2152,7 @@
             currentUser: null,
             prospects: [],
             agendaTasks: [],
-            messagingSteps: { ...DEFAULT_LEADER_PROSPECT_STEPS },
-            customTemplates: [],
+            messageTemplates: [],
             stagedImportContacts: [],
             customPresentationMsg: '',
             recBannerPhoto: null,
@@ -2053,12 +2161,23 @@
             calendarView: 'month',
             calendarCursorDate: new Date(),
             selectedDateStr: new Date().toISOString().split('T')[0],
-            pendingQuickStep: 1,
-            pendingQuickCustomId: null
+            carouselIndex: 0,
+            carouselTimer: null,
+            lastExternalRegRecord: null
         };
 
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        function safeParseStorageArray(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
         }
 
         function showToast(message) {
@@ -2097,23 +2216,22 @@
                     const parsed = JSON.parse(raw);
                     appState.prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
                     appState.agendaTasks = Array.isArray(parsed.agendaTasks) ? parsed.agendaTasks : [];
-                    appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS, ...(parsed.messagingSteps || {}) };
-                    appState.customTemplates = Array.isArray(parsed.customTemplates) ? parsed.customTemplates : [];
                     appState.customPresentationMsg = parsed.customPresentationMsg || '';
+                    appState.messageTemplates = Array.isArray(parsed.messageTemplates) && parsed.messageTemplates.length > 0
+                        ? parsed.messageTemplates
+                        : JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
                 } else {
                     appState.prospects = [];
                     appState.agendaTasks = [];
-                    appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
-                    appState.customTemplates = [];
                     appState.customPresentationMsg = '';
+                    appState.messageTemplates = JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
                     saveUserScopedData();
                 }
             } catch (e) {
                 appState.prospects = [];
                 appState.agendaTasks = [];
-                appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
-                appState.customTemplates = [];
                 appState.customPresentationMsg = '';
+                appState.messageTemplates = JSON.parse(JSON.stringify(DEFAULT_LP_MESSAGE_TEMPLATES));
             }
         }
 
@@ -2124,8 +2242,7 @@
                 updatedAt: new Date().toISOString(),
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
-                messagingSteps: appState.messagingSteps,
-                customTemplates: appState.customTemplates,
+                messageTemplates: appState.messageTemplates,
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             localStorage.setItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
@@ -2138,29 +2255,160 @@
             saveUserScopedData();
         }
 
+        // ==================== BUS DE SINCRONIZACIÓN EN LA NUBE EN TIEMPO REAL ====================
+        async function publishCloudSyncEvent(eventType, dataObj) {
+            try {
+                const envelope = {
+                    v: 1,
+                    type: eventType,
+                    ts: Date.now(),
+                    data: dataObj
+                };
+                await fetch(NTFY_BASE_URL, {
+                    method: 'POST',
+                    headers: { 'Title': `LP_${eventType}` },
+                    body: JSON.stringify(envelope)
+                });
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        async function syncExternalRegistrationsNow(manualFeedback = false) {
+            try {
+                const res = await fetch(`${NTFY_BASE_URL}/json?poll=1&since=all`);
+                if (!res.ok) return false;
+                const rawText = await res.text();
+                const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+
+                const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
+                const localPending = safeParseStorageArray('lp_pending_activations');
+                let localUsers = safeParseStorageArray('lp_registered_users');
+                const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+
+                let latestCarousel = null;
+                let latestVideos = null;
+                let latestPdfs = null;
+                let newEventsCount = 0;
+
+                lines.forEach(line => {
+                    try {
+                        const ntfyPacket = JSON.parse(line);
+                        if (!ntfyPacket || !ntfyPacket.message) return;
+                        const env = JSON.parse(ntfyPacket.message);
+                        if (!env || !env.type || !env.data) return;
+
+                        if (env.type === 'NEW_ACTIVATION_REQUEST') {
+                            const r = env.data;
+                            if (!r || !r.email || !r.code) return;
+                            const existsAdmin = localAdminActs.some(x => (x.email === r.email && x.code === r.code) || x.id === r.id);
+                            if (!existsAdmin) {
+                                localAdminActs.unshift(r);
+                                newEventsCount++;
+                            }
+                            if (r.status !== 'Activado') {
+                                const existsPend = localPending.some(x => (x.email === r.email && x.code === r.code) || x.id === r.id);
+                                if (!existsPend) localPending.unshift(r);
+                            }
+                        } else if (env.type === 'USER_ACTIVATED') {
+                            const u = env.data;
+                            if (!u || !u.email) return;
+                            const emailLow = u.email.trim().toLowerCase();
+                            localAdminActs.forEach(a => {
+                                if ((a.email || '').trim().toLowerCase() === emailLow) a.status = 'Activado';
+                            });
+                            for (let i = localPending.length - 1; i >= 0; i--) {
+                                if ((localPending[i].email || '').trim().toLowerCase() === emailLow) localPending.splice(i, 1);
+                            }
+                            if (!deletedIds.has(u.id)) {
+                                const idxU = localUsers.findIndex(x => x.id === u.id || (x.email || '').toLowerCase() === emailLow);
+                                if (idxU === -1) localUsers.push(u);
+                                else localUsers[idxU] = { ...localUsers[idxU], ...u };
+                            }
+                        } else if (env.type === 'USER_DELETED') {
+                            const delId = env.data.id;
+                            const delEmail = (env.data.email || '').trim().toLowerCase();
+                            if (delId) deletedIds.add(delId);
+                            localUsers = localUsers.filter(u => u.id !== delId && (u.email || '').trim().toLowerCase() !== delEmail);
+                        } else if (env.type === 'PUBLIC_CAROUSEL_UPDATE' && Array.isArray(env.data)) {
+                            latestCarousel = env.data;
+                        } else if (env.type === 'ADMIN_VIDEOS_UPDATE' && Array.isArray(env.data)) {
+                            latestVideos = env.data;
+                        } else if (env.type === 'ADMIN_PDFS_UPDATE' && Array.isArray(env.data)) {
+                            latestPdfs = env.data;
+                        }
+                    } catch (innerErr) {}
+                });
+
+                localUsers = localUsers.filter(u => !deletedIds.has(u.id));
+                localStorage.setItem('lp_deleted_user_ids', JSON.stringify(Array.from(deletedIds)));
+                localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
+                localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
+                localStorage.setItem('lp_registered_users', JSON.stringify(localUsers));
+
+                if (latestCarousel !== null) localStorage.setItem('lp_public_carousel_slides', JSON.stringify(latestCarousel));
+                if (latestVideos !== null) localStorage.setItem('lp_admin_custom_videos', JSON.stringify(latestVideos));
+                if (latestPdfs !== null) localStorage.setItem('lp_admin_custom_pdfs', JSON.stringify(latestPdfs));
+
+                if (appState.currentUser) {
+                    if (!appState.currentUser.isAdmin && deletedIds.has(appState.currentUser.id)) {
+                        logoutUser();
+                        return true;
+                    }
+                    updateBellRemindersBadge();
+                    renderPublicHomeCarousel();
+                    renderCustomAdminTools();
+                    if (!document.getElementById('tab-activacion-socios')?.classList.contains('hidden')) {
+                        renderAdminActivationPanel();
+                    }
+                    if (!document.getElementById('tab-equipo')?.classList.contains('hidden')) {
+                        renderTeamView();
+                    }
+                }
+
+                if (manualFeedback) {
+                    showToast(newEventsCount > 0
+                        ? `Sincronización completada: ${newEventsCount} nueva(s) solicitud(es) incorporada(s).`
+                        : 'Bandeja Cloud sincronizada y al día.');
+                }
+                return true;
+            } catch (e) {
+                if (manualFeedback) showToast('No se pudo conectar al bus de sincronización en este momento.');
+                return false;
+            }
+        }
+
+        function startBackgroundCloudPolling() {
+            setInterval(() => {
+                if (appState.currentUser) {
+                    syncExternalRegistrationsNow(false);
+                }
+            }, 5000);
+        }
+
         // Inicialización Principal
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             repairAndSeedMasterRecords();
-
-            // Garantizar que el login inicie sin credenciales precargadas
-            const emailInp = document.getElementById('input-auth-email');
-            const passInp = document.getElementById('input-auth-password');
-            if (emailInp) emailInp.value = '';
-            if (passInp) passInp.value = '';
-
             startCycleCountdownTimer();
             detectUrlReferralParams();
             drawRecognitionCanvas();
             renderSelectedRankDetails();
+            startBackgroundCloudPolling();
+
+            await syncExternalRegistrationsNow(false);
 
             const savedSessionRaw = localStorage.getItem('lp_active_session');
             if (savedSessionRaw) {
                 try {
                     const sessionUser = JSON.parse(savedSessionRaw);
-                    if (sessionUser && sessionUser.id && sessionUser.email) {
+                    const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+                    if (sessionUser && sessionUser.id && sessionUser.email && !deletedIds.has(sessionUser.id)) {
                         appState.currentUser = sessionUser;
                         loadUserScopedData(sessionUser.id);
                         showDashboard(sessionUser);
+                    } else {
+                        localStorage.removeItem('lp_active_session');
                     }
                 } catch (e) {
                     localStorage.removeItem('lp_active_session');
@@ -2233,6 +2481,7 @@
                     localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
                     loadUserScopedData(adminUser.id);
                     showDashboard(adminUser);
+                    syncExternalRegistrationsNow(false);
                     return;
                 } else {
                     showLoginError('Contraseña de Superadministrador incorrecta.');
@@ -2240,7 +2489,8 @@
                 }
             }
 
-            const registeredUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const registeredUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
             const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email);
             if (foundUser) {
                 if (foundUser.password === pass) {
@@ -2251,6 +2501,7 @@
                     localStorage.setItem('lp_active_session', JSON.stringify(foundUser));
                     loadUserScopedData(foundUser.id);
                     showDashboard(foundUser);
+                    syncExternalRegistrationsNow(false);
                     return;
                 } else {
                     showLoginError('Contraseña incorrecta para este socio.');
@@ -2258,7 +2509,7 @@
                 }
             }
 
-            const pendingList = JSON.parse(localStorage.getItem('lp_pending_activations') || '[]');
+            const pendingList = safeParseStorageArray('lp_pending_activations');
             const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
             if (isPending) {
                 showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
@@ -2290,10 +2541,6 @@
             appState.prospects = [];
             appState.agendaTasks = [];
             localStorage.removeItem('lp_active_session');
-            const emailInp = document.getElementById('input-auth-email');
-            const passInp = document.getElementById('input-auth-password');
-            if (emailInp) emailInp.value = '';
-            if (passInp) passInp.value = '';
             const dashEl = document.getElementById('dashboard-screen');
             const authEl = document.getElementById('auth-screen');
             if (dashEl) dashEl.style.display = 'none';
@@ -2324,15 +2571,20 @@
                 else btn.classList.remove('sidebar-nav-active');
             });
 
+            if (tabId === 'inicio') renderPublicHomeCarousel();
             if (tabId === 'prospectos') {
-                populateMessagingRecipientSelect();
-                renderMessagingStepsCards();
                 renderProspectsList();
+                populateTemplateProspectSelector();
+                renderMessageTemplatesGrid();
             }
             if (tabId === 'agenda') renderAgendaCalendar();
             if (tabId === 'equipo') renderTeamView();
             if (tabId === 'enlaces') updateReferralLinksUI();
-            if (tabId === 'activacion-socios') renderAdminActivationPanel();
+            if (tabId === 'herramientas') renderCustomAdminTools();
+            if (tabId === 'activacion-socios') {
+                renderAdminActivationPanel();
+                syncExternalRegistrationsNow(false);
+            }
         }
 
         function renderDashboardUI() {
@@ -2370,25 +2622,37 @@
             const adminNavMobile = document.getElementById('mobile-admin-activation-nav');
             const adminKpiRow = document.getElementById('admin-kpi-row');
             const popoverAdminBtn = document.getElementById('btn-popover-admin-codes');
+            const adminCarouselControls = document.getElementById('admin-carousel-controls');
+            const adminToolsPdfAction = document.getElementById('admin-tools-pdf-action');
+            const adminInlineVideoBar = document.getElementById('admin-inline-video-bar');
+            const adminTeamSummaryPanel = document.getElementById('admin-team-summary-panel');
 
             if (user.isAdmin) {
                 if (adminNavDesktop) adminNavDesktop.classList.remove('hidden');
                 if (adminNavMobile) adminNavMobile.classList.remove('hidden');
                 if (adminKpiRow) adminKpiRow.classList.remove('hidden');
                 if (popoverAdminBtn) popoverAdminBtn.classList.remove('hidden');
+                if (adminCarouselControls) adminCarouselControls.classList.remove('hidden');
+                if (adminToolsPdfAction) adminToolsPdfAction.classList.remove('hidden');
+                if (adminInlineVideoBar) adminInlineVideoBar.classList.remove('hidden');
+                if (adminTeamSummaryPanel) adminTeamSummaryPanel.classList.remove('hidden');
             } else {
                 if (adminNavDesktop) adminNavDesktop.classList.add('hidden');
                 if (adminNavMobile) adminNavMobile.classList.add('hidden');
                 if (adminKpiRow) adminKpiRow.classList.add('hidden');
                 if (popoverAdminBtn) popoverAdminBtn.classList.add('hidden');
+                if (adminCarouselControls) adminCarouselControls.classList.add('hidden');
+                if (adminToolsPdfAction) adminToolsPdfAction.classList.add('hidden');
+                if (adminInlineVideoBar) adminInlineVideoBar.classList.add('hidden');
+                if (adminTeamSummaryPanel) adminTeamSummaryPanel.classList.add('hidden');
             }
 
-            populateMessagingRecipientSelect();
-            renderMessagingStepsCards();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
             updateReferralLinksUI();
             updateBellRemindersBadge();
+            renderPublicHomeCarousel();
+            renderCustomAdminTools();
         }
 
         function updateDashboardKPIs() {
@@ -2398,8 +2662,8 @@
             const todayTasks = appState.agendaTasks.filter(t => t.date === todayStr).length;
 
             const user = appState.currentUser;
-            const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
-            const directCount = user ? regUsers.filter(u => u.uplineCode === user.sponsorCode).length : 0;
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const directCount = user ? (user.isAdmin ? regUsers.length : regUsers.filter(u => u.uplineCode === user.sponsorCode).length) : 0;
             const pct = total > 0 ? Math.min(100, Math.round((total / 70) * 100)) : 0;
 
             const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
@@ -2496,7 +2760,7 @@
                 return ADMIN_SPONSOR_CODE;
             }
 
-            const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+            const regUsers = safeParseStorageArray('lp_registered_users');
             const matched = regUsers.find(u =>
                 buildUserSlug(u.name).toLowerCase() === cleanParam.toLowerCase() ||
                 (u.sponsorCode && u.sponsorCode.toLowerCase() === cleanParam.toLowerCase())
@@ -2509,6 +2773,26 @@
                 const params = new URLSearchParams(window.location.search);
                 const socioParam = params.get('socio') || params.get('ref');
                 const clienteParam = params.get('cliente');
+                const syncRegToken = params.get('sync_reg') || params.get('sync_code');
+
+                if (syncRegToken) {
+                    try {
+                        const decoded = JSON.parse(decodeURIComponent(escape(atob(syncRegToken))));
+                        if (decoded && decoded.email && decoded.code) {
+                            const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
+                            const localPending = safeParseStorageArray('lp_pending_activations');
+                            if (!localAdminActs.some(x => x.email === decoded.email && x.code === decoded.code)) {
+                                localAdminActs.unshift(decoded);
+                                localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
+                            }
+                            if (decoded.status !== 'Activado' && !localPending.some(x => x.email === decoded.email && x.code === decoded.code)) {
+                                localPending.unshift(decoded);
+                                localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
+                            }
+                            showToast(`Solicitud de ${decoded.name} (${decoded.code}) incorporada en la bandeja.`);
+                        }
+                    } catch (e) {}
+                }
 
                 if (socioParam) {
                     const sponsorResolved = resolveSponsorFromSlugOrCode(socioParam);
@@ -2548,242 +2832,135 @@
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // ==================== ESTRUCTURA LEADER PROSPECT: PLANTILLAS DE MENSAJERÍA (4 PASOS + PERSONALIZADAS) ====================
-        function interpolateLeaderProspectMessage(rawTemplate, prospectFullName) {
-            const senderName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const firstName = prospectFullName
-                ? String(prospectFullName).trim().split(/\s+/)[0]
-                : '[Nombre del Prospecto]';
+        // ==================== MURAL / CARRUSEL PÚBLICO EN INICIO (EXCLUSIVO ADMIN SUBE/ELIMINA) ====================
+        function handleAdminPublicCarouselUpload(event) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const files = Array.from(event.target.files || []);
+            if (files.length === 0) return;
 
-            return String(rawTemplate || '')
-                .replace(/\{\s*nombre\s*\}/gi, firstName)
-                .replace(/\{\s*(nombre y apellido del socio o administrador|socio|lider)\s*\}/gi, senderName);
+            let processed = 0;
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
+
+            files.forEach(file => {
+                const objUrl = URL.createObjectURL(file);
+                const img = new Image();
+                img.onload = function() {
+                    const maxW = 1200;
+                    const scale = img.width > maxW ? maxW / img.width : 1;
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    URL.revokeObjectURL(objUrl);
+
+                    slides.push({
+                        id: 'sld_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+                        imageUrl: canvas.toDataURL('image/jpeg', 0.85),
+                        createdAt: new Date().toLocaleDateString()
+                    });
+                    processed++;
+                    if (processed === files.length) {
+                        localStorage.setItem('lp_public_carousel_slides', JSON.stringify(slides));
+                        publishCloudSyncEvent('PUBLIC_CAROUSEL_UPDATE', slides);
+                        appState.carouselIndex = slides.length - 1;
+                        renderPublicHomeCarousel();
+                        showToast(`${processed} imagen(es) publicada(s) en el mural público.`);
+                    }
+                };
+                img.src = objUrl;
+            });
+            event.target.value = '';
         }
 
-        function populateMessagingRecipientSelect() {
-            const selectEl = document.getElementById('msg-recipient-select');
-            if (!selectEl) return;
+        function deleteCurrentCarouselSlide() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
+            if (slides.length === 0) return;
+            slides.splice(appState.carouselIndex, 1);
+            localStorage.setItem('lp_public_carousel_slides', JSON.stringify(slides));
+            publishCloudSyncEvent('PUBLIC_CAROUSEL_UPDATE', slides);
+            appState.carouselIndex = Math.max(0, Math.min(appState.carouselIndex, slides.length - 1));
+            renderPublicHomeCarousel();
+            showToast('Imagen eliminada del carrusel público.');
+        }
 
-            const filterTxt = (document.getElementById('msg-recipient-filter')?.value || '').toLowerCase();
-            const currentVal = selectEl.value;
+        function stepPublicCarousel(dir) {
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
+            if (slides.length <= 1) return;
+            appState.carouselIndex = (appState.carouselIndex + dir + slides.length) % slides.length;
+            updatePublicCarouselTransform();
+        }
 
-            const matches = appState.prospects.filter(p =>
-                p.name.toLowerCase().includes(filterTxt) || (p.phone || '').includes(filterTxt)
-            );
+        function goToPublicCarouselSlide(idx) {
+            appState.carouselIndex = idx;
+            updatePublicCarouselTransform();
+        }
 
-            selectEl.innerHTML = [`<option value="">-- Selecciona un prospecto de tu CRM privado (${matches.length}) --</option>`]
-                .concat(matches.map(p => `<option value="${p.id}">${p.flag || '🌎'} ${p.name} — ${p.phone}</option>`))
-                .join('');
+        function updatePublicCarouselTransform() {
+            const track = document.getElementById('public-carousel-track');
+            if (track) track.style.transform = `translateX(-${appState.carouselIndex * 100}%)`;
+            document.querySelectorAll('.lp-carousel-dot').forEach((dot, i) => {
+                dot.className = i === appState.carouselIndex
+                    ? 'lp-carousel-dot w-6 h-2 rounded-full bg-sky-600 transition-all'
+                    : 'lp-carousel-dot w-2 h-2 rounded-full bg-slate-300 transition-all';
+            });
+        }
 
-            if (currentVal && matches.some(p => p.id === currentVal)) {
-                selectEl.value = currentVal;
+        function renderPublicHomeCarousel() {
+            const wrapper = document.getElementById('public-home-carousel-wrapper');
+            const viewport = document.getElementById('public-carousel-viewport');
+            const track = document.getElementById('public-carousel-track');
+            const dotsBox = document.getElementById('public-carousel-dots');
+            const prevBtn = document.getElementById('carousel-prev-btn');
+            const nextBtn = document.getElementById('carousel-next-btn');
+            const delBtn = document.getElementById('btn-delete-current-slide');
+
+            if (!wrapper || !track) return;
+            const slides = safeParseStorageArray('lp_public_carousel_slides');
+            const isAdmin = Boolean(appState.currentUser && appState.currentUser.isAdmin);
+
+            if (slides.length === 0 && !isAdmin) {
+                wrapper.classList.add('hidden');
+                return;
             }
-        }
+            wrapper.classList.remove('hidden');
 
-        function renderMessagingStepsCards() {
-            const selectEl = document.getElementById('msg-recipient-select');
-            const selectedProspect = selectEl && selectEl.value
-                ? appState.prospects.find(p => p.id === selectEl.value)
-                : null;
-            const prospectName = selectedProspect ? selectedProspect.name : '';
-
-            for (let step = 1; step <= 4; step++) {
-                const box = document.getElementById(`msg-step-preview-${step}`);
-                if (box) {
-                    const tpl = appState.messagingSteps[step] || DEFAULT_LEADER_PROSPECT_STEPS[step];
-                    box.textContent = interpolateLeaderProspectMessage(tpl, prospectName);
-                }
-            }
-            renderCustomTemplatesList(prospectName);
-        }
-
-        function renderCustomTemplatesList(prospectName = '') {
-            const listEl = document.getElementById('custom-templates-list');
-            if (!listEl) return;
-
-            if (!Array.isArray(appState.customTemplates) || appState.customTemplates.length === 0) {
-                listEl.innerHTML = `
-                    <div class="md:col-span-2 p-4 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-400">
-                        Aún no has creado mensajes personalizados adicionales. Pulsa <b>"+ Agregar Mensaje Personalizado"</b> para crear tus propios guiones.
-                    </div>
-                `;
+            if (slides.length === 0) {
+                if (viewport) viewport.classList.add('hidden');
+                if (dotsBox) dotsBox.innerHTML = '';
+                if (delBtn) delBtn.classList.add('hidden');
                 return;
             }
 
-            listEl.innerHTML = appState.customTemplates.map(tpl => `
-                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-3">
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between gap-2">
-                            <span class="text-xs font-black text-slate-900">${tpl.name}</span>
-                            ${tpl.tag ? `<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold">${tpl.tag}</span>` : ''}
-                        </div>
-                        <div class="p-3 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-700 leading-relaxed whitespace-pre-line">
-                            ${interpolateLeaderProspectMessage(tpl.body, prospectName)}
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button type="button" onclick="sendCustomTemplateWhatsApp('${tpl.id}');" class="flex-1 py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5">
-                            <i class="fa-brands fa-whatsapp"></i><span>Enviar WhatsApp</span>
-                        </button>
-                        <button type="button" onclick="openEditCustomTemplateModal('${tpl.id}');" class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs">
-                            <i class="fa-solid fa-pen-to-square text-sky-400 mr-1"></i>Editar
-                        </button>
-                        <button type="button" onclick="deleteCustomTemplateItem('${tpl.id}');" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-600 flex items-center justify-center">
-                            <i class="fa-solid fa-trash text-xs"></i>
-                        </button>
-                    </div>
+            if (viewport) viewport.classList.remove('hidden');
+            if (isAdmin && delBtn) delBtn.classList.remove('hidden');
+
+            if (appState.carouselIndex >= slides.length) appState.carouselIndex = 0;
+
+            track.innerHTML = slides.map(s => `
+                <div class="w-full shrink-0 flex items-center justify-center bg-slate-950">
+                    <img src="${s.imageUrl}" alt="Mural Oficial Leader Prospect" class="w-full max-h-[420px] object-contain">
                 </div>
             `).join('');
-        }
 
-        function openEditStepModal(stepNum) {
-            const titles = {
-                1: 'Paso 1: Saludo',
-                2: 'Paso 2: Salud y Familia',
-                3: 'Paso 3: La Encuesta',
-                4: 'Paso 4: Presentación de 1 Minuto'
-            };
-            document.getElementById('edit-step-index').value = stepNum;
-            document.getElementById('modal-edit-step-title').textContent = `Editar ${titles[stepNum]}`;
-            document.getElementById('edit-step-body').value = appState.messagingSteps[stepNum] || DEFAULT_LEADER_PROSPECT_STEPS[stepNum];
-            openModal('modal-edit-msg-step');
-        }
+            const isMulti = slides.length > 1;
+            if (prevBtn) prevBtn.classList.toggle('hidden', !isMulti);
+            if (nextBtn) nextBtn.classList.toggle('hidden', !isMulti);
 
-        function saveEditedStepTemplate() {
-            const stepNum = Number(document.getElementById('edit-step-index').value);
-            const updatedBody = document.getElementById('edit-step-body').value.trim();
-            if (!updatedBody) { showToast('El mensaje no puede quedar vacío.'); return; }
-            appState.messagingSteps[stepNum] = updatedBody;
-            saveUserScopedData();
-            renderMessagingStepsCards();
-            closeModal('modal-edit-msg-step');
-            showToast(`Paso ${stepNum} actualizado en tus plantillas.`);
-        }
-
-        function restoreDefaultMessagingSteps() {
-            appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS };
-            saveUserScopedData();
-            renderMessagingStepsCards();
-            showToast('Se han restaurado los 4 pasos oficiales de Leader Prospect.');
-        }
-
-        function openCustomTemplateModal() {
-            document.getElementById('custom-tpl-id').value = '';
-            document.getElementById('modal-custom-template-title').textContent = 'Agregar Mensaje Personalizado';
-            document.getElementById('custom-tpl-name').value = '';
-            document.getElementById('custom-tpl-tag').value = '';
-            document.getElementById('custom-tpl-body').value = '';
-            openModal('modal-custom-template');
-        }
-
-        function openEditCustomTemplateModal(id) {
-            const item = appState.customTemplates.find(t => t.id === id);
-            if (!item) return;
-            document.getElementById('custom-tpl-id').value = item.id;
-            document.getElementById('modal-custom-template-title').textContent = 'Editar Mensaje Personalizado';
-            document.getElementById('custom-tpl-name').value = item.name;
-            document.getElementById('custom-tpl-tag').value = item.tag || '';
-            document.getElementById('custom-tpl-body').value = item.body;
-            openModal('modal-custom-template');
-        }
-
-        function saveCustomTemplateItem() {
-            const id = document.getElementById('custom-tpl-id').value;
-            const name = document.getElementById('custom-tpl-name').value.trim();
-            const tag = document.getElementById('custom-tpl-tag').value.trim();
-            const body = document.getElementById('custom-tpl-body').value.trim();
-            if (!name || !body) return;
-
-            if (id) {
-                const idx = appState.customTemplates.findIndex(t => t.id === id);
-                if (idx !== -1) appState.customTemplates[idx] = { id, name, tag, body };
-            } else {
-                appState.customTemplates.unshift({ id: 'ctpl_' + Date.now(), name, tag, body });
+            if (dotsBox) {
+                dotsBox.innerHTML = isMulti
+                    ? slides.map((_, idx) => `<button type="button" onclick="goToPublicCarouselSlide(${idx});" class="lp-carousel-dot ${idx === appState.carouselIndex ? 'w-6 h-2 bg-sky-600' : 'w-2 h-2 bg-slate-300'} rounded-full transition-all"></button>`).join('')
+                    : '';
             }
-            saveUserScopedData();
-            renderMessagingStepsCards();
-            closeModal('modal-custom-template');
-            showToast('Mensaje personalizado guardado correctamente.');
-        }
 
-        function deleteCustomTemplateItem(id) {
-            appState.customTemplates = appState.customTemplates.filter(t => t.id !== id);
-            saveUserScopedData();
-            renderMessagingStepsCards();
-            showToast('Mensaje personalizado eliminado.');
-        }
-
-        function sendStepWhatsApp(stepNum) {
-            const selectEl = document.getElementById('msg-recipient-select');
-            if (selectEl && selectEl.value) {
-                dispatchStepToProspect(selectEl.value, stepNum);
-            } else {
-                appState.pendingQuickStep = stepNum;
-                appState.pendingQuickCustomId = null;
-                document.getElementById('modal-select-recipient-title').textContent = `Enviar Paso ${stepNum} por WhatsApp`;
-                renderQuickRecipientModalList();
-                openModal('modal-select-recipient-wa');
+            updatePublicCarouselTransform();
+            if (appState.carouselTimer) clearInterval(appState.carouselTimer);
+            if (isMulti) {
+                appState.carouselTimer = setInterval(() => stepPublicCarousel(1), 5500);
             }
         }
 
-        function sendCustomTemplateWhatsApp(customId) {
-            const selectEl = document.getElementById('msg-recipient-select');
-            if (selectEl && selectEl.value) {
-                dispatchCustomTemplateToProspect(selectEl.value, customId);
-            } else {
-                appState.pendingQuickCustomId = customId;
-                document.getElementById('modal-select-recipient-title').textContent = 'Seleccionar Destinatario';
-                renderQuickRecipientModalList();
-                openModal('modal-select-recipient-wa');
-            }
-        }
-
-        function renderQuickRecipientModalList() {
-            const listEl = document.getElementById('quick-recipient-modal-list');
-            if (!listEl) return;
-            const q = (document.getElementById('quick-recipient-search')?.value || '').toLowerCase();
-            const matches = appState.prospects.filter(p =>
-                p.name.toLowerCase().includes(q) || (p.phone || '').includes(q)
-            );
-
-            if (matches.length === 0) {
-                listEl.innerHTML = `<p class="text-center text-xs text-slate-400 py-6">No tienes prospectos registrados en tu CRM privado.</p>`;
-                return;
-            }
-
-            listEl.innerHTML = matches.map(p => `
-                <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2">
-                    <div class="min-w-0">
-                        <p class="text-xs font-black text-slate-900 truncate">${p.flag || '🌎'} ${p.name}</p>
-                        <p class="text-[11px] font-mono text-slate-500">${p.phone}</p>
-                    </div>
-                    <button type="button" onclick="closeModal('modal-select-recipient-wa'); ${appState.pendingQuickCustomId ? `dispatchCustomTemplateToProspect('${p.id}', '${appState.pendingQuickCustomId}')` : `dispatchStepToProspect('${p.id}', ${appState.pendingQuickStep})`};"
-                        class="py-2 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs shrink-0">
-                        Enviar
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function dispatchStepToProspect(prospectId, stepNum) {
-            const p = appState.prospects.find(x => x.id === prospectId);
-            if (!p) return;
-            const rawTpl = appState.messagingSteps[stepNum] || DEFAULT_LEADER_PROSPECT_STEPS[stepNum];
-            const message = interpolateLeaderProspectMessage(rawTpl, p.name);
-            const cleanNum = p.phone.replace(/\D/g, '');
-            window.open(`https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        function dispatchCustomTemplateToProspect(prospectId, customId) {
-            const p = appState.prospects.find(x => x.id === prospectId);
-            const tpl = appState.customTemplates.find(t => t.id === customId);
-            if (!p || !tpl) return;
-            const message = interpolateLeaderProspectMessage(tpl.body, p.name);
-            const cleanNum = p.phone.replace(/\D/g, '');
-            window.open(`https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        // ==================== HERRAMIENTAS: PDFS DESCARGABLES + VIDEO INTEGRADO ====================
+        // ==================== HERRAMIENTAS: PDFS DESCARGABLES + VIDEO INTEGRADO + ADMIN VIDEOS/PDFS ====================
         function playEmbeddedPresentationVideo() {
             const cover = document.getElementById('video-preview-cover');
             const box = document.getElementById('video-iframe-container');
@@ -2795,13 +2972,209 @@
 
         function shareBusinessPresentationWhatsApp() {
             const user = appState.currentUser;
-            const customMsg = document.getElementById('business-pres-custom-msg').value.trim();
+            const customMsg = (document.getElementById('business-pres-custom-msg')?.value || '').replace(/\r?\n+/g, ' ').trim();
             const baseUrl = getBaseAppUrl();
             const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
             const refLink = `${baseUrl}?socio=${slug}`;
 
-            const fullMsg = `${customMsg}\n\n🎥 *Ver Presentación:* https://youtu.be/BT7YUDaStT8?feature=shared\n\n🚀 *Regístrate en mi equipo:* ${refLink}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(fullMsg)}`, '_blank');
+            // Unificado en un solo mensaje continuo para WhatsApp
+            const singleUnifiedMessage = `${customMsg} 🎥 Presentación de Negocio: https://youtu.be/BT7YUDaStT8?feature=shared 🚀 Regístrate aquí: ${refLink}`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(singleUnifiedMessage)}`, '_blank');
+        }
+
+        function extractYouTubeId(url) {
+            const match = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+            return match ? match[1] : null;
+        }
+
+        function submitInlineAdminVideo() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const nameInput = document.getElementById('inline-admin-video-name');
+            const urlInput = document.getElementById('inline-admin-video-url');
+            if (!nameInput || !urlInput) return;
+
+            const title = nameInput.value.trim();
+            const url = urlInput.value.trim();
+            if (!title || !url) return;
+
+            const videos = safeParseStorageArray('lp_admin_custom_videos');
+            videos.unshift({
+                id: 'vid_' + Date.now(),
+                title,
+                url,
+                desc: '',
+                youtubeId: extractYouTubeId(url)
+            });
+            localStorage.setItem('lp_admin_custom_videos', JSON.stringify(videos));
+            publishCloudSyncEvent('ADMIN_VIDEOS_UPDATE', videos);
+
+            nameInput.value = '';
+            urlInput.value = '';
+            renderCustomAdminTools();
+            showToast(`Video "${title}" publicado para todo el equipo.`);
+        }
+
+        function submitAdminNewVideo() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const title = document.getElementById('admin-video-title').value.trim();
+            const url = document.getElementById('admin-video-url').value.trim();
+            const desc = document.getElementById('admin-video-desc').value.trim();
+            if (!title || !url) return;
+
+            const videos = safeParseStorageArray('lp_admin_custom_videos');
+            videos.unshift({
+                id: 'vid_' + Date.now(),
+                title,
+                url,
+                desc,
+                youtubeId: extractYouTubeId(url)
+            });
+            localStorage.setItem('lp_admin_custom_videos', JSON.stringify(videos));
+            publishCloudSyncEvent('ADMIN_VIDEOS_UPDATE', videos);
+
+            closeModal('modal-admin-add-video');
+            document.getElementById('admin-video-title').value = '';
+            document.getElementById('admin-video-url').value = '';
+            document.getElementById('admin-video-desc').value = '';
+            renderCustomAdminTools();
+            showToast('Nuevo video publicado en Herramientas.');
+        }
+
+        function deleteAdminCustomVideo(videoId) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const updated = safeParseStorageArray('lp_admin_custom_videos').filter(v => v.id !== videoId);
+            localStorage.setItem('lp_admin_custom_videos', JSON.stringify(updated));
+            publishCloudSyncEvent('ADMIN_VIDEOS_UPDATE', updated);
+            renderCustomAdminTools();
+            showToast('Video eliminado.');
+        }
+
+        function shareCustomAdminVideoWhatsApp(videoId) {
+            const video = safeParseStorageArray('lp_admin_custom_videos').find(v => v.id === videoId);
+            if (!video) return;
+            const user = appState.currentUser;
+            const baseUrl = getBaseAppUrl();
+            const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
+            const refLink = `${baseUrl}?socio=${slug}`;
+            const intro = video.desc ? video.desc.replace(/\r?\n+/g, ' ').trim() : `Te comparto este material oficial de ${video.title}:`;
+            const singleMsg = `${intro} 🎥 ${video.title}: ${video.url} 🚀 Regístrate aquí: ${refLink}`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(singleMsg)}`, '_blank');
+        }
+
+        async function submitAdminNewPdf() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const title = document.getElementById('admin-pdf-title').value.trim();
+            const desc = document.getElementById('admin-pdf-desc').value.trim();
+            const fileInput = document.getElementById('admin-pdf-file');
+            const urlInput = document.getElementById('admin-pdf-url').value.trim();
+
+            if (!title) return;
+            let dataUrl = '';
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                dataUrl = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve(e.target.result);
+                    reader.onerror = () => resolve('');
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            if (!dataUrl && !urlInput) {
+                showToast('Sube un archivo PDF o ingresa un enlace directo.');
+                return;
+            }
+
+            const pdfs = safeParseStorageArray('lp_admin_custom_pdfs');
+            pdfs.unshift({
+                id: 'pdf_' + Date.now(),
+                title,
+                desc: desc || 'Documento oficial compartido por el Administrador.',
+                dataUrl,
+                url: urlInput
+            });
+            localStorage.setItem('lp_admin_custom_pdfs', JSON.stringify(pdfs));
+            publishCloudSyncEvent('ADMIN_PDFS_UPDATE', pdfs);
+
+            closeModal('modal-admin-add-pdf');
+            document.getElementById('admin-pdf-title').value = '';
+            document.getElementById('admin-pdf-desc').value = '';
+            document.getElementById('admin-pdf-url').value = '';
+            if (fileInput) fileInput.value = '';
+            renderCustomAdminTools();
+            showToast('Nuevo PDF agregado a Herramientas.');
+        }
+
+        function deleteAdminCustomPdf(pdfId) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const updated = safeParseStorageArray('lp_admin_custom_pdfs').filter(p => p.id !== pdfId);
+            localStorage.setItem('lp_admin_custom_pdfs', JSON.stringify(updated));
+            publishCloudSyncEvent('ADMIN_PDFS_UPDATE', updated);
+            renderCustomAdminTools();
+            showToast('PDF eliminado.');
+        }
+
+        function renderCustomAdminTools() {
+            const pdfGrid = document.getElementById('custom-admin-pdfs-grid');
+            const videoList = document.getElementById('custom-admin-videos-list');
+            const isAdmin = Boolean(appState.currentUser && appState.currentUser.isAdmin);
+
+            if (pdfGrid) {
+                const pdfs = safeParseStorageArray('lp_admin_custom_pdfs');
+                pdfGrid.innerHTML = pdfs.map(p => {
+                    const href = p.dataUrl || p.url || '#';
+                    const downloadAttr = p.dataUrl ? `download="${buildUserSlug(p.title)}.pdf"` : 'target="_blank" rel="noopener noreferrer"';
+                    return `
+                        <div class="p-5 rounded-2xl bg-sky-50/70 border border-sky-200 flex flex-col justify-between gap-4">
+                            <div class="space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center text-lg">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                    </div>
+                                    ${isAdmin ? `<button type="button" onclick="deleteAdminCustomPdf('${p.id}');" class="text-xs font-bold text-rose-600 hover:underline">Eliminar</button>` : ''}
+                                </div>
+                                <h3 class="text-sm font-black text-slate-900">${p.title}</h3>
+                                <p class="text-[11px] text-slate-600">${p.desc}</p>
+                            </div>
+                            <a href="${href}" ${downloadAttr} class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-download"></i><span>Descargar PDF</span>
+                            </a>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (videoList) {
+                const videos = safeParseStorageArray('lp_admin_custom_videos');
+                videoList.innerHTML = videos.map(v => {
+                    const embedHtml = v.youtubeId
+                        ? `<div class="aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+                               <iframe class="w-full h-full" src="https://www.youtube.com/embed/${v.youtubeId}?rel=0" title="${v.title}" frameborder="0" allowfullscreen></iframe>
+                           </div>`
+                        : `<a href="${v.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-sky-600 underline">${v.url}</a>`;
+
+                    const deleteBtnHtml = isAdmin
+                        ? `<button type="button" onclick="deleteAdminCustomVideo('${v.id}');" class="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-[11px] font-bold">Eliminar Video</button>`
+                        : '';
+
+                    return `
+                        <div class="p-5 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[10px] font-black uppercase">Video</span>
+                                    <h3 class="text-sm font-black text-slate-900">${v.title}</h3>
+                                </div>
+                                ${deleteBtnHtml}
+                            </div>
+                            ${v.desc ? `<p class="text-xs text-slate-600">${v.desc}</p>` : ''}
+                            ${embedHtml}
+                            <button type="button" onclick="shareCustomAdminVideoWhatsApp('${v.id}');" class="py-2.5 px-5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs inline-flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp"></i><span>Enviar Video por WhatsApp</span>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
         }
 
         function downloadOfficialFuxionPDF(docType) {
@@ -2959,7 +3332,7 @@
             }
         }
 
-        // ==================== MI EQUIPO DUAL (ÁRBOL GENEALÓGICO + TABLA DE DATOS) ====================
+        // ==================== MI EQUIPO DUAL + AUDITORÍA EXCLUSIVA SUPERADMINISTRADOR ====================
         function switchTeamViewMode(mode) {
             const treeBox = document.getElementById('team-tree-container');
             const tableBox = document.getElementById('team-table-container');
@@ -2983,8 +3356,28 @@
             const user = appState.currentUser;
             if (!user) return;
 
-            const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
-            const myDirects = regUsers.filter(u => u.uplineCode === user.sponsorCode);
+            const isAdmin = Boolean(user.isAdmin);
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !deletedIds.has(u.id));
+            const allActs = safeParseStorageArray('lp_admin_activations_db');
+            const myDirects = isAdmin ? regUsers : regUsers.filter(u => u.uplineCode === user.sponsorCode);
+
+            const emailFrequency = {};
+            regUsers.forEach(u => {
+                const em = (u.email || '').trim().toLowerCase();
+                if (em) emailFrequency[em] = (emailFrequency[em] || 0) + 1;
+            });
+            const uniqueEmailsCount = Object.keys(emailFrequency).length;
+            const dupEmailsCount = Object.values(emailFrequency).filter(c => c > 1).length;
+            const dupAccountsTotal = Object.values(emailFrequency).filter(c => c > 1).reduce((acc, c) => acc + c, 0);
+
+            if (isAdmin) {
+                const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+                setText('admin-duplicate-email-count', dupEmailsCount);
+                setText('admin-team-total-accounts', regUsers.length);
+                setText('admin-team-unique-emails', uniqueEmailsCount);
+                setText('admin-team-dup-accounts', dupAccountsTotal);
+            }
 
             const treeEl = document.getElementById('mlm-genealogy-tree');
             if (treeEl) {
@@ -2992,14 +3385,31 @@
                     ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2 w-full max-w-4xl">
                         ${myDirects.map(d => {
                             const subTeamCount = regUsers.filter(sub => sub.uplineCode === d.sponsorCode).length;
+                            const emLower = (d.email || '').trim().toLowerCase();
+                            const countForEm = emailFrequency[emLower] || 1;
                             return `
-                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 shadow-sm text-center space-y-1">
+                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 shadow-sm text-center space-y-1.5">
                                     <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
                                         ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
                                     </div>
                                     <p class="text-xs font-black text-slate-900">${d.name}</p>
                                     <p class="text-[10px] font-mono font-bold text-sky-600">${d.sponsorCode}</p>
                                     <span class="inline-block px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">Nivel 1 • ${subTeamCount} directos</span>
+                                    ${isAdmin ? `
+                                        <div class="pt-1.5 border-t border-slate-100 space-y-1.5">
+                                            <p class="text-[10px] text-slate-600 truncate">${d.email} <span class="font-bold text-amber-700">(${countForEm}x)</span></p>
+                                            <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                                                <button type="button" id="card-pwd-btn-${d.id}" data-real="${(d.password || '').replace(/"/g, '&quot;')}" data-shown="0" onclick="toggleCardPartnerPassword('${d.id}');"
+                                                    class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold">
+                                                    <i class="fa-regular fa-eye mr-1"></i>Ver Contraseña
+                                                </button>
+                                                <button type="button" onclick="promptAdminDeletePartner('${d.id}');"
+                                                    class="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-extrabold">
+                                                    <i class="fa-solid fa-trash mr-1"></i>Eliminar Socio
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ` : ''}
                                 </div>
                             `;
                         }).join('')}
@@ -3015,44 +3425,153 @@
                     </div>
                     <div class="mlm-connector-v"></div>
                     <div class="px-6 py-4 rounded-3xl cosmic-hero-bg text-white text-center shadow-lg border-2 border-sky-400">
-                        <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">TÚ • LÍDER PRINCIPAL</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">${isAdmin ? 'SUPERADMINISTRADOR' : 'TÚ • LÍDER PRINCIPAL'}</span>
                         <p class="text-sm font-black mt-1">${user.name}</p>
-                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${myDirects.length} Líneas Directas</p>
+                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${myDirects.length} Socios</p>
                     </div>
                     <div class="mlm-connector-v"></div>
                     ${directsHtml}
                 `;
             }
 
+            document.querySelectorAll('.admin-only-col').forEach(col => col.classList.toggle('hidden', !isAdmin));
+
             const tbody = document.getElementById('team-data-table-body');
             const filterTxt = (document.getElementById('team-table-search')?.value || '').toLowerCase();
+            const onlyDup = Boolean(isAdmin && document.getElementById('chk-filter-duplicate-emails')?.checked);
+
             if (tbody) {
-                const filtered = myDirects.filter(m =>
-                    m.name.toLowerCase().includes(filterTxt) || (m.sponsorCode || '').toLowerCase().includes(filterTxt)
-                );
+                const filtered = myDirects.filter(m => {
+                    const em = (m.email || '').trim().toLowerCase();
+                    const matchesSearch = m.name.toLowerCase().includes(filterTxt) || (m.sponsorCode || '').toLowerCase().includes(filterTxt) || em.includes(filterTxt);
+                    const matchesDup = !onlyDup || (emailFrequency[em] || 0) > 1;
+                    return matchesSearch && matchesDup;
+                });
+
                 if (filtered.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">No hay socios registrados bajo tu código todavía.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="${isAdmin ? 9 : 7}" class="py-6 text-center text-slate-400">No hay socios registrados para mostrar.</td></tr>`;
                 } else {
                     tbody.innerHTML = filtered.map(m => {
                         const cleanNum = (m.phone || '').replace(/\D/g, '');
+                        const emailLower = (m.email || '').trim().toLowerCase();
+                        const totalWithEmail = Math.max(
+                            emailFrequency[emailLower] || 1,
+                            allActs.filter(a => (a.email || '').trim().toLowerCase() === emailLower).length
+                        );
+
+                        const adminCols = isAdmin ? `
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800">${m.email || '-'}</div>
+                                <span class="inline-block mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold ${totalWithEmail > 1 ? 'bg-amber-100 text-amber-800' : 'bg-sky-50 text-sky-700'}">
+                                    ${totalWithEmail} ${totalWithEmail === 1 ? 'cuenta registrada' : 'cuentas con este correo'}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 whitespace-nowrap">
+                                <span id="pwd-mask-${m.id}" data-real="${(m.password || '').replace(/"/g, '&quot;')}" data-shown="0" class="font-mono font-bold text-slate-800">••••••••</span>
+                                <button type="button" id="pwd-eye-${m.id}" onclick="toggleAdminPartnerPassword('${m.id}');" class="ml-1.5 px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold">
+                                    <i class="fa-regular fa-eye mr-0.5"></i>Ver Contraseña
+                                </button>
+                            </td>
+                        ` : '';
+
                         return `
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-4 font-extrabold text-slate-900">${m.name}</td>
                                 <td class="py-3 px-4 font-mono font-bold text-sky-700">${m.sponsorCode}</td>
-                                <td class="py-3 px-4">Frontal Directo (L1)</td>
+                                <td class="py-3 px-4">${m.uplineCode || ADMIN_SPONSOR_CODE}</td>
                                 <td class="py-3 px-4 font-mono">${m.phone || '-'}</td>
+                                ${adminCols}
                                 <td class="py-3 px-4">${m.date || '-'}</td>
                                 <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Activo</span></td>
-                                <td class="py-3 px-4 text-right">
+                                <td class="py-3 px-4 text-right whitespace-nowrap">
                                     <a href="https://api.whatsapp.com/send?phone=${cleanNum}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#00B074] text-white font-bold text-[11px]">
                                         <i class="fa-brands fa-whatsapp"></i>Chat
                                     </a>
+                                    ${isAdmin ? `
+                                        <button type="button" onclick="promptAdminDeletePartner('${m.id}');" class="ml-1.5 inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-[11px]">
+                                            <i class="fa-solid fa-trash"></i>Eliminar Socio
+                                        </button>
+                                    ` : ''}
                                 </td>
                             </tr>
                         `;
                     }).join('');
                 }
             }
+        }
+
+        function toggleCardPartnerPassword(partnerId) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const btn = document.getElementById(`card-pwd-btn-${partnerId}`);
+            if (!btn) return;
+            const shown = btn.getAttribute('data-shown') === '1';
+            if (shown) {
+                btn.setAttribute('data-shown', '0');
+                btn.innerHTML = '<i class="fa-regular fa-eye mr-1"></i>Ver Contraseña';
+            } else {
+                const real = btn.getAttribute('data-real') || '(sin clave)';
+                btn.setAttribute('data-shown', '1');
+                btn.innerHTML = `<i class="fa-solid fa-lock-open mr-1 text-amber-600"></i><span class="font-mono">${real}</span>`;
+            }
+        }
+
+        function toggleAdminPartnerPassword(partnerId) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const span = document.getElementById(`pwd-mask-${partnerId}`);
+            const btn = document.getElementById(`pwd-eye-${partnerId}`);
+            if (!span || !btn) return;
+            const shown = span.getAttribute('data-shown') === '1';
+            if (shown) {
+                span.textContent = '••••••••';
+                span.setAttribute('data-shown', '0');
+                btn.innerHTML = '<i class="fa-regular fa-eye mr-0.5"></i>Ver Contraseña';
+            } else {
+                span.textContent = span.getAttribute('data-real') || '(sin clave)';
+                span.setAttribute('data-shown', '1');
+                btn.innerHTML = '<i class="fa-regular fa-eye-slash mr-0.5"></i>Ocultar';
+            }
+        }
+
+        function promptAdminDeletePartner(partnerId) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const target = regUsers.find(u => u.id === partnerId);
+            if (!target) return;
+            document.getElementById('delete-partner-target-id').value = partnerId;
+            document.getElementById('delete-partner-target-name').textContent = `${target.name} (${target.email})`;
+            openModal('modal-admin-delete-partner');
+        }
+
+        function confirmAdminDeletePartner() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const partnerId = document.getElementById('delete-partner-target-id').value;
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const target = regUsers.find(u => u.id === partnerId);
+            if (!target) {
+                closeModal('modal-admin-delete-partner');
+                return;
+            }
+
+            const targetEmail = (target.email || '').trim().toLowerCase();
+            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers.filter(u => u.id !== partnerId)));
+            localStorage.setItem('lp_admin_activations_db', JSON.stringify(safeParseStorageArray('lp_admin_activations_db').filter(a => (a.email || '').trim().toLowerCase() !== targetEmail)));
+            localStorage.setItem('lp_pending_activations', JSON.stringify(safeParseStorageArray('lp_pending_activations').filter(p => (p.email || '').trim().toLowerCase() !== targetEmail)));
+            localStorage.removeItem(getUserDbKey(partnerId));
+
+            const deletedIds = safeParseStorageArray('lp_deleted_user_ids');
+            if (!deletedIds.includes(partnerId)) {
+                deletedIds.push(partnerId);
+                localStorage.setItem('lp_deleted_user_ids', JSON.stringify(deletedIds));
+            }
+
+            publishCloudSyncEvent('USER_DELETED', { id: partnerId, email: targetEmail });
+
+            closeModal('modal-admin-delete-partner');
+            renderTeamView();
+            renderAdminActivationPanel();
+            updateDashboardKPIs();
+            updateBellRemindersBadge();
+            showToast(`Socio ${target.name} eliminado definitivamente.`);
         }
 
         // ==================== MI AGENDA & CALENDARIO (DÍA, SEMANA, MES, AÑO + CAMPANA) ====================
@@ -3335,7 +3854,7 @@
             const user = appState.currentUser;
             if (!user) return;
 
-            const adminActivationsDb = JSON.parse(localStorage.getItem('lp_admin_activations_db') || '[]');
+            const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             const pendingCodesCount = user.isAdmin ? adminActivationsDb.filter(c => c.status !== 'Activado').length : 0;
 
             if (user.isAdmin) {
@@ -3386,7 +3905,7 @@
             listEl.innerHTML = itemsHtml;
         }
 
-        // ==================== PROSPECTOS CRM UNIVERSAL (TODO FORMATO + VISTA PREVIA + SELECCIONAR TODO + EDICIÓN) ====================
+        // ==================== PROSPECTOS CRM UNIVERSAL + ESTRUCTURA 4 PASOS + EDICIÓN ====================
         function normalizePhoneAndFlag(rawPhone) {
             let clean = String(rawPhone || '').replace(/[^\d+]/g, '');
             if (!clean) return null;
@@ -3442,7 +3961,6 @@
                 const lines = card.split(/\r?\n/);
                 let fullName = '';
                 let structuredName = '';
-                let orgNote = '';
                 const phones = [];
 
                 lines.forEach(line => {
@@ -3457,10 +3975,6 @@
                         if (/QUOTED-PRINTABLE/i.test(line.slice(0, idx))) rawN = decodeQuotedPrintable(rawN);
                         const parts = rawN.split(';').map(s => s.trim()).filter(Boolean);
                         if (parts.length > 0) structuredName = parts.reverse().join(' ');
-                    } else if (/^(?:item\d+\.)?ORG(?:;[^:]*)?:/i.test(line)) {
-                        const idx = line.indexOf(':');
-                        const val = line.slice(idx + 1).trim();
-                        if (val && val.toLowerCase() !== 'null') orgNote = val;
                     } else if (/^(?:item\d+\.)?TEL(?:;[^:]*)?:/i.test(line)) {
                         const idx = line.indexOf(':');
                         const val = line.slice(idx + 1).trim();
@@ -3469,12 +3983,7 @@
                 });
 
                 const resolvedName = fullName || structuredName || 'Contacto vCard';
-                const tags = [];
-                if (/^fx\b/i.test(resolvedName) || /fuxion/i.test(resolvedName)) tags.push('Fx');
-                if (/encuesta/i.test(resolvedName)) tags.push('Encuesta');
-                if (/clnt|cliente/i.test(resolvedName) || /cliente/i.test(orgNote)) tags.push('Cliente');
-
-                phones.forEach(p => results.push({ name: resolvedName, rawPhone: p, tags, note: orgNote }));
+                phones.forEach(p => results.push({ name: resolvedName, rawPhone: p }));
             });
             return results;
         }
@@ -3584,8 +4093,6 @@
                     phone: norm.e164,
                     flag: norm.flag,
                     country: norm.country,
-                    tags: Array.isArray(item.tags) ? item.tags : [],
-                    note: item.note || '',
                     funnel: document.getElementById('import-default-funnel')?.value || 'Sin clasificar',
                     isDuplicate: alreadyInCrm,
                     source: sourceLabel || 'Archivo Importado'
@@ -3611,9 +4118,7 @@
                 try {
                     const items = await extractContactsFromAnyFile(file);
                     allExtracted = allExtracted.concat(items);
-                } catch (err) {
-                    console.warn('Error leyendo archivo:', file.name, err);
-                }
+                } catch (err) {}
             }
 
             event.target.value = '';
@@ -3731,8 +4236,8 @@
                     country: item.country,
                     funnel: item.funnel || 'Sin clasificar',
                     followUpDate: todayStr,
-                    tags: item.tags || [],
-                    note: item.note || `Importado (${item.source})`
+                    tags: '',
+                    note: `Importado (${item.source})`
                 });
                 added++;
             });
@@ -3740,8 +4245,9 @@
             saveUserScopedData();
             closeModal('modal-import-preview');
             appState.stagedImportContacts = [];
-            populateMessagingRecipientSelect();
             renderProspectsList();
+            populateTemplateProspectSelector();
+            renderMessageTemplatesGrid();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
 
@@ -3785,13 +4291,10 @@
             const rawPhone = document.getElementById('pros-phone').value.trim();
             const funnel = document.getElementById('pros-funnel').value;
             const followUpDate = document.getElementById('pros-date').value;
-            const tagsRaw = document.getElementById('pros-tags')?.value || '';
             const note = document.getElementById('pros-note').value.trim();
 
             const norm = normalizePhoneAndFlag(rawPhone);
             if (!name || !norm) { showToast('Ingresa un nombre y teléfono válido.'); return; }
-
-            const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
 
             appState.prospects.unshift({
                 id: 'prs_' + Date.now(),
@@ -3801,28 +4304,29 @@
                 country: norm.country,
                 funnel,
                 followUpDate,
-                tags,
+                tags: '',
                 note: note || 'Seguimiento activo'
             });
 
             saveUserScopedData();
             closeModal('modal-add-prospect');
-            populateMessagingRecipientSelect();
             renderProspectsList();
+            populateTemplateProspectSelector();
+            renderMessageTemplatesGrid();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
             showToast('Prospecto guardado en tu base privada.');
         }
 
         function openEditProspectModal(id) {
-            const p = appState.prospects.find(x => x.id === id);
+            const p = appState.prospects.find(item => item.id === id);
             if (!p) return;
             document.getElementById('edit-pros-id').value = p.id;
-            document.getElementById('edit-pros-name').value = p.name;
-            document.getElementById('edit-pros-phone').value = p.phone;
+            document.getElementById('edit-pros-name').value = p.name || '';
+            document.getElementById('edit-pros-phone').value = p.phone || '';
             document.getElementById('edit-pros-funnel').value = p.funnel || 'Sin clasificar';
-            document.getElementById('edit-pros-date').value = p.followUpDate || new Date().toISOString().split('T')[0];
-            document.getElementById('edit-pros-tags').value = Array.isArray(p.tags) ? p.tags.join(', ') : '';
+            document.getElementById('edit-pros-date').value = p.followUpDate || '';
+            document.getElementById('edit-pros-tags').value = p.tags || '';
             document.getElementById('edit-pros-note').value = p.note || '';
             openModal('modal-edit-prospect');
         }
@@ -3830,36 +4334,41 @@
         function appendTagToEditProspect(tag) {
             const inp = document.getElementById('edit-pros-tags');
             if (!inp) return;
-            const current = inp.value.split(',').map(s => s.trim()).filter(Boolean);
-            if (!current.includes(tag)) {
-                current.push(tag);
-                inp.value = current.join(', ');
-            }
+            const parts = inp.value.split(',').map(s => s.trim()).filter(Boolean);
+            if (!parts.includes(tag)) parts.push(tag);
+            inp.value = parts.join(', ');
         }
 
         function saveEditedProspect() {
             const id = document.getElementById('edit-pros-id').value;
-            const p = appState.prospects.find(x => x.id === id);
-            if (!p) return;
+            const idx = appState.prospects.findIndex(p => p.id === id);
+            if (idx === -1) return;
 
             const name = document.getElementById('edit-pros-name').value.trim();
-            const norm = normalizePhoneAndFlag(document.getElementById('edit-pros-phone').value.trim());
-            if (!name || !norm) { showToast('Ingresa un nombre y teléfono válido.'); return; }
+            const rawPhone = document.getElementById('edit-pros-phone').value.trim();
+            const norm = normalizePhoneAndFlag(rawPhone);
+            if (!name || !norm) {
+                showToast('Ingresa un nombre y teléfono válido.');
+                return;
+            }
 
-            p.name = name;
-            p.phone = norm.e164;
-            p.flag = norm.flag;
-            p.country = norm.country;
-            p.funnel = document.getElementById('edit-pros-funnel').value;
-            p.followUpDate = document.getElementById('edit-pros-date').value;
-            p.tags = document.getElementById('edit-pros-tags').value.split(',').map(s => s.trim()).filter(Boolean);
-            p.note = document.getElementById('edit-pros-note').value.trim();
+            appState.prospects[idx] = {
+                ...appState.prospects[idx],
+                name,
+                phone: norm.e164,
+                flag: norm.flag,
+                country: norm.country,
+                funnel: document.getElementById('edit-pros-funnel').value,
+                followUpDate: document.getElementById('edit-pros-date').value,
+                tags: document.getElementById('edit-pros-tags').value.trim(),
+                note: document.getElementById('edit-pros-note').value.trim()
+            };
 
             saveUserScopedData();
             closeModal('modal-edit-prospect');
-            populateMessagingRecipientSelect();
-            renderMessagingStepsCards();
             renderProspectsList();
+            populateTemplateProspectSelector();
+            renderMessageTemplatesGrid();
             renderDashboardTodayAgenda();
             showToast('Detalles y etiquetas del prospecto actualizados.');
         }
@@ -3867,12 +4376,21 @@
         function deleteProspect(id) {
             appState.prospects = appState.prospects.filter(p => p.id !== id);
             saveUserScopedData();
-            populateMessagingRecipientSelect();
-            renderMessagingStepsCards();
             renderProspectsList();
+            populateTemplateProspectSelector();
+            renderMessageTemplatesGrid();
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
             showToast('Prospecto eliminado.');
+        }
+
+        function selectProspectForTemplates(id) {
+            const sel = document.getElementById('tpl-active-prospect-select');
+            if (sel) {
+                sel.value = id;
+                renderMessageTemplatesGrid();
+                sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function renderProspectsList() {
@@ -3883,8 +4401,11 @@
             const funnelFilter = document.getElementById('crm-filter-funnel')?.value || 'ALL';
 
             const filtered = appState.prospects.filter(p => {
-                const tagsJoined = Array.isArray(p.tags) ? p.tags.join(' ').toLowerCase() : '';
-                const matchesQuery = p.name.toLowerCase().includes(query) || p.phone.includes(query) || (p.country || '').toLowerCase().includes(query) || tagsJoined.includes(query) || (p.note || '').toLowerCase().includes(query);
+                const matchesQuery = p.name.toLowerCase().includes(query) ||
+                    p.phone.includes(query) ||
+                    (p.country || '').toLowerCase().includes(query) ||
+                    (p.tags || '').toLowerCase().includes(query) ||
+                    (p.note || '').toLowerCase().includes(query);
                 const matchesFunnel = funnelFilter === 'ALL' || p.funnel === funnelFilter;
                 return matchesQuery && matchesFunnel;
             });
@@ -3896,9 +4417,12 @@
 
             container.innerHTML = filtered.map(p => {
                 const cleanNum = p.phone.replace(/\D/g, '');
-                const step1Text = interpolateLeaderProspectMessage(appState.messagingSteps[1] || DEFAULT_LEADER_PROSPECT_STEPS[1], p.name);
-                const tagsHtml = (Array.isArray(p.tags) ? p.tags : []).map(tag =>
-                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200"><i class="fa-solid fa-tag mr-1"></i>${tag}</span>`
+                const waText = p.funnel === 'Salud / Bebidas'
+                    ? `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu asesor'}. Te escribo para compartirte información sobre las bebidas naturales FuXion 🌿✨.`
+                    : `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu socio'}. Me encantaría compartirte cómo estamos posicionando la marca FuXion en expansión 🚀💎.`;
+
+                const tagsBadges = (p.tags || '').split(',').map(t => t.trim()).filter(Boolean).map(t =>
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-100 text-indigo-800">#${t}</span>`
                 ).join('');
 
                 return `
@@ -3909,31 +4433,143 @@
                                 <span class="text-xs font-black text-slate-900">${p.name}</span>
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200/80 text-slate-700">${p.country || 'Internacional'}</span>
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${p.funnel === 'Salud / Bebidas' ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'}">${p.funnel}</span>
-                                ${tagsHtml}
+                                ${tagsBadges}
                             </div>
                             <p class="text-xs font-mono text-slate-600">${p.phone} • <span class="font-sans text-slate-400">Seguimiento: ${p.followUpDate || 'Hoy'}</span></p>
                             ${p.note ? `<p class="text-[11px] text-slate-500">${p.note}</p>` : ''}
                         </div>
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 1);" title="Enviar Paso 1 Saludo" class="py-1.5 px-2.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-extrabold text-[10px]">P1</button>
-                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 2);" title="Enviar Paso 2 Salud" class="py-1.5 px-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-extrabold text-[10px]">P2</button>
-                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 3);" title="Enviar Paso 3 Encuesta" class="py-1.5 px-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-800 font-extrabold text-[10px]">P3</button>
-                            <button type="button" onclick="dispatchStepToProspect('${p.id}', 4);" title="Enviar Paso 4 Presentación 1 Min" class="py-1.5 px-2.5 rounded-xl bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-extrabold text-[10px]">P4</button>
-                            <a href="https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(step1Text)}" target="_blank"
-                                class="py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button type="button" onclick="selectProspectForTemplates('${p.id}');" title="Usar en 4 Pasos" class="py-2 px-3 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold text-xs">
+                                4 Pasos
+                            </button>
+                            <a href="https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(waText)}" target="_blank"
+                                class="py-2 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5">
                                 <i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span>
                             </a>
-                            <button type="button" onclick="openEditProspectModal('${p.id}');" title="Editar detalles o etiquetas"
-                                class="py-2 px-3 rounded-xl bg-white border border-slate-200 hover:border-sky-400 text-slate-700 font-bold text-xs flex items-center gap-1">
-                                <i class="fa-solid fa-pen-to-square text-sky-600"></i><span>Editar</span>
+                            <button type="button" onclick="openEditProspectModal('${p.id}');" title="Editar prospecto" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-sky-600 flex items-center justify-center">
+                                <i class="fa-solid fa-pen text-xs"></i>
                             </button>
-                            <button type="button" onclick="deleteProspect('${p.id}');" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-600 flex items-center justify-center">
+                            <button type="button" onclick="deleteProspect('${p.id}');" title="Eliminar prospecto" class="w-8 h-8 rounded-xl bg-white border border-slate-200 text-slate-400 hover:text-rose-600 flex items-center justify-center">
                                 <i class="fa-solid fa-trash text-xs"></i>
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
+        }
+
+        // ==================== ESTRUCTURA LEADER PROSPECT — PLANTILLAS EN 4 PASOS ====================
+        function populateTemplateProspectSelector() {
+            const sel = document.getElementById('tpl-active-prospect-select');
+            if (!sel) return;
+            const prevVal = sel.value;
+            const q = (document.getElementById('tpl-prospect-search')?.value || '').toLowerCase();
+            const list = appState.prospects.filter(p => p.name.toLowerCase().includes(q) || p.phone.includes(q));
+
+            if (list.length === 0) {
+                sel.innerHTML = `<option value="">-- Prospecto de Ejemplo (Amigo/a) --</option>`;
+            } else {
+                sel.innerHTML = list.map(p => `<option value="${p.id}">${p.flag || '🌎'} ${p.name} (${p.phone})</option>`).join('');
+                if (prevVal && list.some(p => p.id === prevVal)) sel.value = prevVal;
+            }
+        }
+
+        function resolveTemplateVariables(rawBody, targetProspect) {
+            const userFullName = appState.currentUser?.name || ADMIN_FULL_NAME;
+            const targetFirstName = targetProspect ? targetProspect.name.split(' ')[0] : 'Amigo(a)';
+            return String(rawBody || '')
+                .replace(/\{nombre\}/gi, targetFirstName)
+                .replace(/\{nombre y apellido del socio o administrador\}/gi, userFullName)
+                .replace(/\{socio\}/gi, userFullName);
+        }
+
+        function renderMessageTemplatesGrid() {
+            const grid = document.getElementById('lp-message-templates-grid');
+            if (!grid) return;
+
+            const sel = document.getElementById('tpl-active-prospect-select');
+            const selectedProspect = sel && sel.value ? appState.prospects.find(p => p.id === sel.value) : appState.prospects[0] || null;
+            const templates = appState.messageTemplates.length > 0 ? appState.messageTemplates : DEFAULT_LP_MESSAGE_TEMPLATES;
+
+            grid.innerHTML = templates.map(tpl => {
+                const resolvedText = resolveTemplateVariables(tpl.body, selectedProspect);
+                const cleanPhone = selectedProspect ? selectedProspect.phone.replace(/\D/g, '') : '';
+                const waUrl = cleanPhone
+                    ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(resolvedText)}`
+                    : `https://api.whatsapp.com/send?text=${encodeURIComponent(resolvedText)}`;
+
+                return `
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-black">${tpl.label}</span>
+                                ${!tpl.isDefault ? `<button type="button" onclick="deleteCustomMessageTemplate('${tpl.id}');" class="text-[11px] font-bold text-rose-600 hover:underline">Eliminar</button>` : ''}
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed bg-white p-3.5 rounded-xl border border-slate-200/80 whitespace-pre-line">${resolvedText}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="${waUrl}" target="_blank" class="flex-1 py-2.5 px-4 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                                <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar WhatsApp</span>
+                            </a>
+                            <button type="button" onclick="openEditMessageTemplateModal('${tpl.id}');" class="py-2.5 px-3.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-bold text-xs flex items-center gap-1.5">
+                                <i class="fa-solid fa-pen"></i><span>Editar</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openEditMessageTemplateModal(tplId) {
+            const tpl = appState.messageTemplates.find(t => t.id === tplId);
+            if (!tpl) return;
+            document.getElementById('modal-tpl-title').textContent = 'Editar Mensaje de Plantilla';
+            document.getElementById('tpl-edit-id').value = tpl.id;
+            document.getElementById('tpl-edit-label').value = tpl.label;
+            document.getElementById('tpl-edit-body').value = tpl.body;
+            openModal('modal-edit-message-template');
+        }
+
+        function openCustomTemplateModal() {
+            document.getElementById('modal-tpl-title').textContent = 'Agregar Nuevo Mensaje Personalizado';
+            document.getElementById('tpl-edit-id').value = '';
+            document.getElementById('tpl-edit-label').value = `Mensaje Personalizado #${appState.messageTemplates.length + 1} 💬`;
+            document.getElementById('tpl-edit-body').value = 'Hola {nombre} 👋 te saluda {socio}, quería compartirte... ✨';
+            openModal('modal-edit-message-template');
+        }
+
+        function saveMessageTemplateForm() {
+            const id = document.getElementById('tpl-edit-id').value;
+            const label = document.getElementById('tpl-edit-label').value.trim();
+            const body = document.getElementById('tpl-edit-body').value.trim();
+            if (!label || !body) return;
+
+            if (id) {
+                const idx = appState.messageTemplates.findIndex(t => t.id === id);
+                if (idx !== -1) {
+                    appState.messageTemplates[idx].label = label;
+                    appState.messageTemplates[idx].body = body;
+                }
+            } else {
+                appState.messageTemplates.push({
+                    id: 'tpl_custom_' + Date.now(),
+                    label,
+                    body,
+                    isDefault: false
+                });
+            }
+
+            saveUserScopedData();
+            closeModal('modal-edit-message-template');
+            renderMessageTemplatesGrid();
+            showToast('Plantilla de mensajería guardada en tu cuenta.');
+        }
+
+        function deleteCustomMessageTemplate(tplId) {
+            appState.messageTemplates = appState.messageTemplates.filter(t => t.id !== tplId);
+            saveUserScopedData();
+            renderMessageTemplatesGrid();
+            showToast('Mensaje personalizado eliminado.');
         }
 
         // ==================== GRUPO LEADER & RECONOCIMIENTOS ====================
@@ -4135,7 +4771,7 @@
             if (appState.currentUser.isAdmin) {
                 localStorage.setItem('lp_admin_photo_avatar', dataUrl);
             } else {
-                const users = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                const users = safeParseStorageArray('lp_registered_users');
                 const idx = users.findIndex(u => u.id === appState.currentUser.id);
                 if (idx !== -1) {
                     users[idx].avatarUrl = dataUrl;
@@ -4212,7 +4848,7 @@
 
             localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
             if (!appState.currentUser.isAdmin) {
-                const users = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                const users = safeParseStorageArray('lp_registered_users');
                 const idx = users.findIndex(u => u.id === appState.currentUser.id);
                 if (idx !== -1) {
                     users[idx].name = appState.currentUser.name;
@@ -4267,8 +4903,7 @@
                 ownerId: user.id,
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
-                messagingSteps: appState.messagingSteps,
-                customTemplates: appState.customTemplates,
+                messageTemplates: appState.messageTemplates,
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(backupPayload))));
@@ -4319,13 +4954,9 @@
                             if (t.id && !existingTaskIds.has(t.id)) appState.agendaTasks.push(t);
                         });
                     }
-                    if (parsed.messagingSteps) appState.messagingSteps = { ...DEFAULT_LEADER_PROSPECT_STEPS, ...parsed.messagingSteps };
-                    if (Array.isArray(parsed.customTemplates)) appState.customTemplates = parsed.customTemplates;
                     if (parsed.customPresentationMsg) appState.customPresentationMsg = parsed.customPresentationMsg;
 
                     saveUserScopedData();
-                    populateMessagingRecipientSelect();
-                    renderMessagingStepsCards();
                     renderProspectsList();
                     updateDashboardKPIs();
                     renderDashboardTodayAgenda();
@@ -4338,7 +4969,7 @@
             event.target.value = '';
         }
 
-        // ==================== REGISTRO Y ACTIVACIÓN ====================
+        // ==================== REGISTRO Y ACTIVACIÓN MULTI-DISPOSITIVO ====================
         function openModal(id) {
             const el = document.getElementById(id);
             if (el) { el.classList.remove('hidden'); el.classList.add('flex'); }
@@ -4389,7 +5020,7 @@
                 const norm = normalizePhoneAndFlag(phone);
                 if (!name || !norm) { showToast('Ingresa tu nombre y número de WhatsApp válido.'); return; }
                 const interest = document.getElementById('reg-interest').value;
-                const allUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+                const allUsers = safeParseStorageArray('lp_registered_users');
                 const sponsorObj = allUsers.find(u => u.sponsorCode === uplineCode);
                 const targetOwnerId = sponsorObj ? sponsorObj.id : 'usr_admin_rudy';
 
@@ -4404,7 +5035,7 @@
                     country: norm.country,
                     funnel: interest,
                     followUpDate: new Date().toISOString().split('T')[0],
-                    tags: ['Enlace'],
+                    tags: 'Web',
                     note: `Registrado desde enlace de prospecto (${email})`
                 });
                 localStorage.setItem(targetKey, JSON.stringify(existingDb));
@@ -4436,25 +5067,80 @@
                 status: 'Pendiente de Activación'
             };
 
-            const pendingList = JSON.parse(localStorage.getItem('lp_pending_activations') || '[]');
+            appState.lastExternalRegRecord = newRecord;
+
+            const pendingList = safeParseStorageArray('lp_pending_activations');
             pendingList.unshift(newRecord);
             localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
 
-            const adminActivationsDb = JSON.parse(localStorage.getItem('lp_admin_activations_db') || '[]');
+            const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             adminActivationsDb.unshift(newRecord);
             localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
+
+            // Sincronización automática hacia la bandeja del Administrador en tiempo real
+            publishCloudSyncEvent('NEW_ACTIVATION_REQUEST', newRecord);
 
             closeModal('modal-register');
             document.getElementById('act-email').value = email;
             openActivationCodeModal();
-            showToast('Solicitud enviada. Código de 6 dígitos almacenado en la bandeja del Administrador.');
+            showToast('Solicitud enviada a la bandeja del Administrador en tiempo real.');
         }
 
-        function verifyAndActivateUser() {
+        function notifyAdminExternalRegistrationWhatsApp() {
+            const email = (document.getElementById('act-email')?.value || '').trim().toLowerCase();
+            const pendingList = safeParseStorageArray('lp_pending_activations');
+            const rec = appState.lastExternalRegRecord || pendingList.find(p => p.email === email);
+            if (!rec) {
+                showToast('Ingresa tu correo registrado para notificar al Administrador.');
+                return;
+            }
+
+            const token = btoa(unescape(encodeURIComponent(JSON.stringify(rec))));
+            const syncUrl = `${getBaseAppUrl()}?sync_reg=${encodeURIComponent(token)}`;
+            const cleanAdminPhone = ADMIN_WHATSAPP_NUMBER.replace(/\D/g, '');
+            const msg = `¡Hola Administrador! 👋💎 Acabo de registrarme en *LEADER PROSPECT* desde mi dispositivo:\n\n• *Nombre:* ${rec.name}\n• *Correo:* ${rec.email}\n• *WhatsApp:* ${rec.phone}\n• *Patrocinador:* ${rec.uplineCode}\n\n🔗 Enlace mágico de sincronización:\n${syncUrl}`;
+            window.open(`https://api.whatsapp.com/send?phone=${cleanAdminPhone}&text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function importExternalRegistrationToken() {
+            const raw = (document.getElementById('external-reg-token-input')?.value || '').trim();
+            if (!raw) return;
+            try {
+                let tokenPart = raw;
+                if (raw.includes('sync_reg=')) tokenPart = decodeURIComponent(raw.split('sync_reg=')[1].split('&')[0]);
+                else if (raw.includes('sync_code=')) tokenPart = decodeURIComponent(raw.split('sync_code=')[1].split('&')[0]);
+
+                const decoded = JSON.parse(decodeURIComponent(escape(atob(tokenPart))));
+                if (decoded && decoded.email && decoded.code) {
+                    const localAdminActs = safeParseStorageArray('lp_admin_activations_db');
+                    const localPending = safeParseStorageArray('lp_pending_activations');
+                    if (!localAdminActs.some(x => x.email === decoded.email && x.code === decoded.code)) {
+                        localAdminActs.unshift(decoded);
+                        localStorage.setItem('lp_admin_activations_db', JSON.stringify(localAdminActs));
+                    }
+                    if (!localPending.some(x => x.email === decoded.email && x.code === decoded.code)) {
+                        localPending.unshift(decoded);
+                        localStorage.setItem('lp_pending_activations', JSON.stringify(localPending));
+                    }
+                    publishCloudSyncEvent('NEW_ACTIVATION_REQUEST', decoded);
+                    closeModal('modal-import-external-reg');
+                    document.getElementById('external-reg-token-input').value = '';
+                    renderAdminActivationPanel();
+                    updateBellRemindersBadge();
+                    showToast(`Solicitud de ${decoded.name} (${decoded.code}) incorporada correctamente.`);
+                }
+            } catch (e) {
+                showToast('El enlace o código pegado no es válido.');
+            }
+        }
+
+        async function verifyAndActivateUser() {
             const email = document.getElementById('act-email').value.trim().toLowerCase();
             const code = document.getElementById('act-code').value.trim();
 
-            const pendingList = JSON.parse(localStorage.getItem('lp_pending_activations') || '[]');
+            await syncExternalRegistrationsNow(false);
+
+            const pendingList = safeParseStorageArray('lp_pending_activations');
             const idx = pendingList.findIndex(p => p.email === email && p.code === code);
 
             if (idx === -1) { showToast('Código de 6 dígitos o correo inválido.'); return; }
@@ -4463,14 +5149,14 @@
             pendingList.splice(idx, 1);
             localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
 
-            const adminActivationsDb = JSON.parse(localStorage.getItem('lp_admin_activations_db') || '[]');
-            const dbIdx = adminActivationsDb.findIndex(c => c.id === pendingUser.id);
+            const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
+            const dbIdx = adminActivationsDb.findIndex(c => c.id === pendingUser.id || (c.email === email && c.code === code));
             if (dbIdx !== -1) {
                 adminActivationsDb[dbIdx].status = 'Activado';
                 localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
             }
 
-            const regUsers = JSON.parse(localStorage.getItem('lp_registered_users') || '[]');
+            const regUsers = safeParseStorageArray('lp_registered_users');
             const activeUser = {
                 id: 'usr_' + Date.now(),
                 name: pendingUser.name,
@@ -4485,6 +5171,8 @@
             };
             regUsers.push(activeUser);
             localStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
+
+            await publishCloudSyncEvent('USER_ACTIVATED', activeUser);
 
             closeModal('modal-activation-code');
             appState.currentUser = activeUser;
@@ -4505,7 +5193,7 @@
             const container = document.getElementById('admin-pending-activations-list');
             if (!container) return;
 
-            const adminActivationsDb = JSON.parse(localStorage.getItem('lp_admin_activations_db') || '[]');
+            const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             if (adminActivationsDb.length === 0) {
                 container.innerHTML = `<div class="bg-white p-8 rounded-3xl border border-slate-200 text-center text-xs text-slate-500">Aún no hay registros de activación en la base del Administrador.</div>`;
                 return;
