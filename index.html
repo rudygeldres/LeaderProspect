@@ -127,7 +127,7 @@
         button { cursor: pointer; font-family: inherit; }
         input, select, textarea { font-family: inherit; }
 
-        /* Adaptación exacta del Mural sin espacios blancos laterales/superiores */
+        /* Adaptación exacta del Mural sin espacios en blanco laterales ni superiores */
         .adaptive-wall-frame {
             width: 100%;
             display: flex;
@@ -137,7 +137,7 @@
             border-radius: 1.5rem;
             line-height: 0;
         }
-        .adaptive-wall-media {
+        .adaptive-wall-media-vertical {
             display: block;
             width: auto;
             height: auto;
@@ -147,12 +147,25 @@
             object-fit: cover;
         }
         .adaptive-wall-media-landscape {
+            display: block;
             width: 100%;
             height: auto;
             max-height: 75vh;
-            display: block;
             border-radius: 1.5rem;
             object-fit: cover;
+        }
+
+        /* Animación de onda de grabación en vivo */
+        @keyframes lpPulseBar {
+            0%, 100% { transform: scaleY(0.35); }
+            50% { transform: scaleY(1); }
+        }
+        .rec-wave-bar {
+            width: 3px;
+            height: 16px;
+            background-color: #E11D48;
+            border-radius: 9999px;
+            animation: lpPulseBar 0.7s infinite ease-in-out;
         }
 
         /* Líneas Conectoras Árbol Binario MLM */
@@ -587,7 +600,7 @@
                                     <input type="file" accept="image/*,video/*" multiple onchange="handleAdminCarouselUpload(event);" class="hidden">
                                 </label>
                                 <button type="button" id="btn-remove-current-slide" onclick="removeCurrentCarouselSlide();" class="hidden py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 font-bold text-xs">
-                                    <i class="fa-solid fa-trash mr-1"></i>Quitar Elemento
+                                    <i class="fa-solid fa-trash mr-1"></i>Eliminar del Muro
                                 </button>
                             </div>
                         </div>
@@ -1002,8 +1015,13 @@
                                             <input type="file" id="crm-audio-file-input" accept="audio/*,video/*" onchange="handleCrmAudioFileUpload(event);" class="hidden">
                                         </label>
 
-                                        <span id="crm-audio-rec-timer" class="hidden px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-mono font-black text-xs">
-                                            ● 00:00
+                                        <span id="crm-audio-rec-timer" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-mono font-black text-xs">
+                                            <span class="inline-flex items-center gap-0.5 mr-1">
+                                                <span class="rec-wave-bar" style="animation-delay:0s"></span>
+                                                <span class="rec-wave-bar" style="animation-delay:0.2s"></span>
+                                                <span class="rec-wave-bar" style="animation-delay:0.4s"></span>
+                                            </span>
+                                            <span id="crm-audio-rec-clock">00:00</span>
                                         </span>
                                     </div>
 
@@ -1411,7 +1429,7 @@
                         <div id="dynamic-admin-pdfs-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"></div>
                     </div>
 
-                    <!-- Galería de Videos y Archivos Multimedia Subidos por el Administrador (Previsualización HD + Editar Mensaje + WhatsApp a Prospectos + Eliminar Admin) -->
+                    <!-- Galería de Videos y Archivos Multimedia Subidos por el Administrador -->
                     <div id="dynamic-admin-videos-section" class="hidden bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Multimedia &amp; Capacitaciones del Equipo</span>
@@ -2060,7 +2078,7 @@
                 stepLabel: 'Paso 1 • Saludo',
                 title: 'Saludo Inicial',
                 isDefault: true,
-                body: '¡Hola! ¿Qué tal {nombre}? 👋 Soy {socio}, ¿sabes? ¡Quería hacerte una consulta! 😊✨'
+                body: '¡Hola! ¿Qué tal {nombre}? 👋 Soy {socio}, ¿sabes? ¡Quería hacerte una consulta! 😀✨'
             },
             {
                 id: 'step_2',
@@ -2729,7 +2747,7 @@
             if (w >= h) {
                 el.className = 'adaptive-wall-media-landscape';
             } else {
-                el.className = 'adaptive-wall-media';
+                el.className = 'adaptive-wall-media-vertical';
             }
         }
 
@@ -2791,14 +2809,14 @@
             if (current.kind === 'video') {
                 stage.innerHTML = `
                     <div class="adaptive-wall-frame">
-                        <video src="${mediaSrc}" autoplay muted loop playsinline controls onloadedmetadata="adjustCarouselMediaAspect(this);" class="adaptive-wall-media"></video>
+                        <video src="${mediaSrc}" autoplay muted loop playsinline controls onloadedmetadata="adjustCarouselMediaAspect(this);" class="adaptive-wall-media-vertical"></video>
                     </div>
                     ${dotsHtml}
                 `;
             } else {
                 stage.innerHTML = `
                     <div class="adaptive-wall-frame">
-                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" onload="adjustCarouselMediaAspect(this);" class="adaptive-wall-media">
+                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" onload="adjustCarouselMediaAspect(this);" class="adaptive-wall-media-vertical">
                     </div>
                     ${dotsHtml}
                 `;
@@ -4309,6 +4327,7 @@
         async function toggleCrmAudioRecording() {
             const label = document.getElementById('label-crm-record-audio');
             const timerEl = document.getElementById('crm-audio-rec-timer');
+            const clockEl = document.getElementById('crm-audio-rec-clock');
 
             if (appState.isRecordingAudio && appState.mediaRecorder) {
                 appState.mediaRecorder.stop();
@@ -4327,22 +4346,23 @@
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 appState.audioChunks = [];
-                const recorder = new MediaRecorder(stream);
+                const preferredMime = MediaRecorder.isTypeSupported('audio/mp4')
+                    ? 'audio/mp4'
+                    : (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus') ? 'audio/ogg;codecs=opus' : 'audio/webm');
+                const recorder = new MediaRecorder(stream, { mimeType: preferredMime });
                 appState.mediaRecorder = recorder;
                 appState.isRecordingAudio = true;
                 appState.audioRecSeconds = 0;
 
                 if (label) label.textContent = 'Detener Grabación';
-                if (timerEl) {
-                    timerEl.textContent = '● 00:00';
-                    timerEl.classList.remove('hidden');
-                }
+                if (clockEl) clockEl.textContent = '00:00';
+                if (timerEl) timerEl.classList.remove('hidden');
 
                 appState.audioRecTimerInterval = setInterval(() => {
                     appState.audioRecSeconds++;
                     const mm = String(Math.floor(appState.audioRecSeconds / 60)).padStart(2, '0');
                     const ss = String(appState.audioRecSeconds % 60).padStart(2, '0');
-                    if (timerEl) timerEl.textContent = `● ${mm}:${ss}`;
+                    if (clockEl) clockEl.textContent = `${mm}:${ss}`;
                 }, 1000);
 
                 recorder.ondataavailable = (e) => {
@@ -4351,7 +4371,7 @@
 
                 recorder.onstop = () => {
                     stream.getTracks().forEach(track => track.stop());
-                    const blob = new Blob(appState.audioChunks, { type: recorder.mimeType || 'audio/webm' });
+                    const blob = new Blob(appState.audioChunks, { type: recorder.mimeType || 'audio/mp4' });
                     appState.draftAudioBlob = blob;
                     appState.draftAudioUrl = URL.createObjectURL(blob);
 
@@ -4363,7 +4383,7 @@
                 };
 
                 recorder.start();
-                showToast('Micrófono conectado. Grabando audio en tiempo real...');
+                showToast('Micrófono conectado. Grabando nota de voz en tiempo real...');
             } catch (err) {
                 showToast('Permiso de micrófono denegado o no disponible en el navegador.');
             }
@@ -4395,10 +4415,11 @@
             }
             const title = document.getElementById('crm-audio-title').value.trim() || `Nota de Voz ${appState.customAudioMessages.length + 1}`;
             const audioId = 'aud_' + Date.now();
-            const ext = (appState.draftAudioBlob.type || '').includes('mp4') ? 'm4a' : ((appState.draftAudioBlob.type || '').includes('mpeg') ? 'mp3' : 'webm');
+            const mime = appState.draftAudioBlob.type || 'audio/mp4';
+            const ext = mime.includes('mp4') ? 'm4a' : (mime.includes('ogg') ? 'ogg' : (mime.includes('mpeg') ? 'mp3' : 'm4a'));
 
             await saveMediaBlobToIndexedDB(audioId, appState.draftAudioBlob, {
-                mimeType: appState.draftAudioBlob.type || 'audio/webm',
+                mimeType: mime,
                 fileName: `${buildUserSlug(title)}.${ext}`
             });
 
@@ -4432,12 +4453,12 @@
             const selProsId = document.getElementById('template-prospect-select')?.value || '';
             const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
             const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const msg = `¡Hola ${selectedPros ? selectedPros.name : ''}! 👋 Te saluda *${sponsorName}*. Te comparto este audio: *${item.title}* 🎧✨`;
+            const msg = `¡Hola ${selectedPros ? selectedPros.name : ''}! 👋 Te saluda *${sponsorName}*. Te comparto este mensaje de voz: *${item.title}* 🎧✨`;
 
             const rec = await getMediaBlobFromIndexedDB(audioId);
             if (rec && rec.blob && navigator.canShare) {
                 try {
-                    const file = new File([rec.blob], item.fileName || 'audio-leader-prospect.webm', { type: rec.mimeType || 'audio/webm' });
+                    const file = new File([rec.blob], item.fileName || 'nota-voz-leader-prospect.m4a', { type: rec.mimeType || 'audio/mp4' });
                     if (navigator.canShare({ files: [file] })) {
                         await navigator.share({ files: [file], text: msg });
                         return;
@@ -4449,7 +4470,7 @@
                 const url = URL.createObjectURL(rec.blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = item.fileName || 'audio.webm';
+                a.download = item.fileName || 'nota-voz.m4a';
                 a.click();
             }
 
@@ -4571,6 +4592,13 @@
                         return;
                     }
                 } catch (e) {}
+            }
+
+            if (item.imageUrl) {
+                const a = document.createElement('a');
+                a.href = item.imageUrl;
+                a.download = `${buildUserSlug(item.title)}.png`;
+                a.click();
             }
 
             if (selectedPros) {
