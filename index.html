@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-    <!-- CSS INTEGRAL AUTÓNOMO (GARANTIZA DISEÑO VISUAL COMPLETO SIN FALLOS DE TEXTO) -->
+    <!-- CSS INTEGRAL AUTÓNOMO (GARANTIZA DISEÑO VISUAL COMPLETO EN CUALQUIER ENTORNO) -->
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html, body {
@@ -33,7 +33,7 @@
         a { text-decoration: none; color: inherit; }
         img, svg, canvas { display: block; max-width: 100%; }
 
-        /* Utilidades de Visualización y Posición */
+        /* Utilidades de Visualización y Layout */
         .hidden { display: none !important; }
         .block { display: block; }
         .inline-block { display: inline-block; }
@@ -68,18 +68,22 @@
         .top-3 { top: 0.75rem; }
         .top-12 { top: 3rem; }
         .right-0 { right: 0; }
+        .right-3 { right: 0.75rem; }
         .right-5 { right: 1.25rem; }
         .bottom-0 { bottom: 0; }
+        .bottom-3 { bottom: 0.75rem; }
         .bottom-5 { bottom: 1.25rem; }
         .left-0 { left: 0; }
+        .left-3 { left: 0.75rem; }
         .left-3\.5 { left: 0.875rem; }
         .left-1\/2 { left: 50%; }
+        .top-1\/2 { top: 50%; }
         .-top-1 { top: -0.25rem; }
         .-right-1 { right: -0.25rem; }
         .-bottom-2 { bottom: -0.5rem; }
         .-right-2 { right: -0.5rem; }
-        .-top-28 { top: -7rem; }
         .-translate-x-1\/2 { transform: translateX(-50%); }
+        .-translate-y-1\/2 { transform: translateY(-50%); }
         .-translate-x-full { transform: translateX(-100%); }
         .z-10 { z-index: 10; }
         .z-20 { z-index: 20; }
@@ -123,6 +127,7 @@
         .max-w-5xl { max-width: 64rem; }
         .max-w-6xl { max-width: 72rem; }
         .max-w-\[130px\] { max-width: 130px; }
+        .max-w-\[320px\] { max-width: 320px; }
         .h-full { height: 100%; }
         .h-auto { height: auto; }
         .h-2 { height: 0.5rem; }
@@ -139,12 +144,15 @@
         .min-h-screen { min-height: 100vh; }
         .min-h-\[210px\] { min-height: 210px; }
         .max-h-52 { max-height: 13rem; }
+        .max-h-60 { max-height: 15rem; }
         .max-h-72 { max-height: 18rem; }
         .max-h-80 { max-height: 20rem; }
         .max-h-\[90vh\] { max-height: 90vh; }
         .aspect-video { aspect-ratio: 16 / 9; }
+        .aspect-9-16 { aspect-ratio: 9 / 16; }
 
         .mx-auto { margin-left: auto; margin-right: auto; }
+        .my-auto { margin-top: auto; margin-bottom: auto; }
         .mt-0\.5 { margin-top: 0.125rem; }
         .mt-1 { margin-top: 0.25rem; }
         .mt-1\.5 { margin-top: 0.375rem; }
@@ -191,6 +199,7 @@
         .pt-0\.5 { padding-top: 0.125rem; }
         .pt-1 { padding-top: 0.25rem; }
         .pt-2 { padding-top: 0.5rem; }
+        .pt-3 { padding-top: 0.75rem; }
         .pt-3\.5 { padding-top: 0.875rem; }
         .pt-4 { padding-top: 1rem; }
         .pt-8 { padding-top: 2rem; }
@@ -256,7 +265,7 @@
         .text-left { text-align: left; }
         .text-right { text-align: right; }
 
-        /* Paleta Oficial Cósmica y Corporativa */
+        /* Paleta Oficial Cósmica y Corporativa FORMATO LP */
         .bg-\[\#060D1A\] { background-color: #060D1A; }
         .bg-\[\#040914\]\/90 { background-color: rgba(4, 9, 20, 0.92); }
         .bg-\[\#040914\]\/95 { background-color: rgba(4, 9, 20, 0.96); }
@@ -270,6 +279,7 @@
         .bg-slate-200 { background-color: #E2E8F0; }
         .bg-slate-800 { background-color: #1E293B; }
         .bg-slate-900 { background-color: #0F172A; }
+        .bg-slate-900\/80 { background-color: rgba(15, 23, 42, 0.85); }
         .bg-slate-950 { background-color: #020617; }
         .bg-slate-950\/75 { background-color: rgba(2, 6, 23, 0.78); }
         .bg-slate-950\/80 { background-color: rgba(2, 6, 23, 0.84); }
@@ -279,7 +289,9 @@
         .bg-sky-100 { background-color: #E0F2FE; }
         .bg-sky-500 { background-color: #0EA5E9; }
         .bg-sky-500\/15 { background-color: rgba(14, 165, 233, 0.16); }
+        .bg-sky-500\/20 { background-color: rgba(14, 165, 233, 0.22); }
         .bg-sky-600 { background-color: #0284C7; }
+        .bg-indigo-50\/70 { background-color: rgba(238, 242, 255, 0.8); }
         .bg-indigo-600 { background-color: #4F46E5; }
         .bg-amber-50 { background-color: #FFFBEB; }
         .bg-amber-50\/80 { background-color: rgba(255, 251, 235, 0.88); }
@@ -297,6 +309,7 @@
         .bg-rose-500\/15 { background-color: rgba(244, 63, 94, 0.16); }
         .bg-rose-600 { background-color: #E11D48; }
         .bg-purple-50 { background-color: #FAF5FF; }
+        .bg-purple-100 { background-color: #F3E8FF; }
 
         .bg-gradient-to-r.from-\[\#0EA5E9\].to-\[\#2563EB\] {
             background: linear-gradient(90deg, #0EA5E9 0%, #2563EB 100%);
@@ -323,6 +336,7 @@
         .text-sky-700 { color: #0369A1; }
         .text-sky-800 { color: #075985; }
         .text-sky-900 { color: #0C4A6E; }
+        .text-sky-950 { color: #082F49; }
         .text-\[\#58B8EE\] { color: #58B8EE; }
         .text-\[\#0EA5E9\] { color: #0EA5E9; }
         .text-amber-300 { color: #FCD34D; }
@@ -341,13 +355,17 @@
         .text-rose-400 { color: #FB7185; }
         .text-rose-600 { color: #E11D48; }
         .text-rose-700 { color: #BE123C; }
+        .text-rose-900 { color: #881337; }
         .text-indigo-400 { color: #818CF8; }
         .text-indigo-600 { color: #4F46E5; }
         .text-indigo-700 { color: #4338CA; }
+        .text-indigo-900 { color: #312E81; }
         .text-teal-400 { color: #2DD4BF; }
         .text-cyan-400 { color: #22D3EE; }
         .text-orange-400 { color: #FB923C; }
         .text-purple-600 { color: #9333EA; }
+        .text-purple-700 { color: #7E22CE; }
+        .text-purple-800 { color: #6B21A8; }
 
         /* Bordes y Radios */
         .border { border-width: 1px; border-style: solid; border-color: #E2E8F0; }
@@ -365,14 +383,18 @@
         .border-sky-300 { border-color: #7DD3FC; }
         .border-sky-400 { border-color: #38BDF8; }
         .border-sky-400\/30 { border-color: rgba(56, 189, 248, 0.32); }
+        .border-sky-400\/40 { border-color: rgba(56, 189, 248, 0.45); }
         .border-sky-500\/20 { border-color: rgba(14, 165, 233, 0.25); }
         .border-sky-500\/30 { border-color: rgba(14, 165, 233, 0.35); }
+        .border-indigo-300 { border-color: #A5B4FC; }
         .border-amber-200 { border-color: #FDE68A; }
         .border-amber-300 { border-color: #FCD34D; }
         .border-emerald-200 { border-color: #A7F3D0; }
         .border-rose-200 { border-color: #FECDD3; }
+        .border-purple-200 { border-color: #E9D5FF; }
         .border-white\/15 { border-color: rgba(255, 255, 255, 0.16); }
 
+        .rounded-lg { border-radius: 0.5rem; }
         .rounded-md { border-radius: 0.375rem; }
         .rounded-xl { border-radius: 0.75rem; }
         .rounded-2xl { border-radius: 1rem; }
@@ -436,6 +458,8 @@
             .sm\:w-64 { width: 16rem; }
             .sm\:w-96 { width: 24rem; }
             .sm\:w-auto { width: auto; }
+            .sm\:max-w-\[360px\] { max-width: 360px; }
+            .sm\:p-5 { padding: 1.25rem; }
             .sm\:p-6 { padding: 1.5rem; }
             .sm\:p-8 { padding: 2rem; }
             .sm\:text-sm { font-size: 0.875rem; }
@@ -448,6 +472,7 @@
             .md\:items-center { align-items: center; }
             .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:col-span-2 { grid-column: span 2 / span 2; }
         }
         @media (min-width: 1024px) {
             .lg\:hidden { display: none !important; }
@@ -473,7 +498,6 @@
 
     <!-- ==================== 1. PANTALLA DE AUTENTICACIÓN ==================== -->
     <div id="auth-screen" class="min-h-screen w-full cosmic-hero-bg flex flex-col justify-between relative overflow-hidden">
-        <!-- Rayos de luz cósmicos y siluetas de montañas -->
         <div class="pointer-events-none absolute inset-0 overflow-hidden">
             <svg class="absolute bottom-0 left-0 w-full h-48" style="opacity:0.35;" viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path fill="#0EA5E9" fill-opacity="0.28" d="M0,260L160,210L340,265L540,165L760,245L980,145L1220,235L1440,180L1440,320L0,320Z"></path>
@@ -505,7 +529,7 @@
                     <path d="M298 177 L312 163 M302 163 L312 163 L312 173" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <p class="text-xs font-semibold tracking-widest uppercase text-sky-300">Conecta • Comparte • Crece</p>
+            <p class="text-xs font-semibold tracking-widest uppercase text-sky-300/90">Conecta • Comparte • Crece</p>
         </header>
 
         <!-- Tarjeta Blanca de Inicio de Sesión -->
@@ -516,7 +540,7 @@
                     <p class="text-xs sm:text-sm text-slate-500 mt-1">Ingresa a tu espacio privado de oportunidades FuXion</p>
                 </div>
 
-                <!-- Alerta de Error o Cuenta Pendiente -->
+                <!-- Alerta de Error de Acceso -->
                 <div id="login-error-box" class="hidden mb-4 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex flex-col gap-2">
                     <div class="flex items-start gap-2">
                         <i class="fa-solid fa-circle-exclamation mt-0.5 text-rose-600"></i>
@@ -598,7 +622,7 @@
         </footer>
     </div>
 
-    <!-- ==================== 2. PANEL DE CONTROL PRINCIPAL (MULTI-TENANT) ==================== -->
+    <!-- ==================== 2. PANEL DE CONTROL PRINCIPAL (FORMATO LP) ==================== -->
     <div id="dashboard-screen" class="hidden min-h-screen w-full flex bg-[#F1F5F9]">
 
         <!-- Backdrop Oscuro para Drawer Móvil -->
@@ -749,7 +773,6 @@
                         <i class="fa-solid fa-bars text-base"></i>
                     </button>
 
-                    <!-- Logo Compacto Oficial en Cabecera -->
                     <div class="flex items-center gap-2.5">
                         <div class="w-10 h-10 rounded-xl bg-[#060D1A] p-1 flex items-center justify-center shadow-sm">
                             <svg viewBox="0 0 120 95" class="w-full h-full" fill="none">
@@ -836,7 +859,7 @@
                                 </div>
                             </div>
 
-                            <!-- Reloj Regresivo Oficial Cierre FuXion -->
+                            <!-- Reloj Regresivo Oficial Cierre FuXion Configurable -->
                             <div class="bg-[#040914]/90 backdrop-blur-md border border-sky-400/30 rounded-2xl p-4 sm:p-5 text-center shrink-0 relative">
                                 <div class="flex items-center justify-between gap-2 mb-1">
                                     <div class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-amber-400">
@@ -870,16 +893,16 @@
                         </div>
                     </div>
 
-                    <!-- MURAL / CARRUSEL PÚBLICO DE COMUNICADOS -->
+                    <!-- MURAL / CARRUSEL PÚBLICO DE COMUNICADOS (FORMATO OFICIAL 9:16) -->
                     <div id="public-carousel-wrapper" class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
-                                <span class="text-[10px] font-black uppercase tracking-widest text-sky-600">Mural Oficial del Equipo</span>
+                                <span class="text-[10px] font-black uppercase tracking-widest text-sky-600">Mural Oficial del Equipo • Formato 9:16</span>
                                 <h3 class="text-base font-black text-slate-900">Anuncios y Novedades Leader Prospect</h3>
                             </div>
                             <div id="admin-carousel-controls" class="hidden flex flex-wrap items-center gap-2">
                                 <label class="py-2 px-3.5 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer">
-                                    <i class="fa-solid fa-image"></i><span>Subir Imagen al Mural</span>
+                                    <i class="fa-solid fa-image"></i><span>Subir Imagen 9:16 al Mural</span>
                                     <input type="file" accept="image/*" multiple onchange="handleAdminCarouselUpload(event);" class="hidden">
                                 </label>
                                 <button type="button" id="btn-remove-current-slide" onclick="removeCurrentCarouselSlide();" class="hidden py-2 px-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-bold text-xs">
@@ -888,7 +911,7 @@
                             </div>
                         </div>
 
-                        <div id="public-carousel-stage" class="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 flex items-center justify-center min-h-[210px]"></div>
+                        <div id="public-carousel-stage" class="relative rounded-3xl overflow-hidden cosmic-hero-bg border border-sky-500/20 flex items-center justify-center p-4 sm:p-6"></div>
                     </div>
 
                     <!-- Tarjetas KPI Principales -->
@@ -1152,7 +1175,6 @@
 
                 <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO + ESTRUCTURA 4 PASOS ==================== -->
                 <section id="tab-prospectos" class="tab-section hidden space-y-6">
-                    <!-- Sub-tabs CRM -->
                     <div class="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-card-soft flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
                             <h2 class="text-base sm:text-lg font-black text-slate-900">Centro de Prospección &amp; Mensajería</h2>
@@ -1348,7 +1370,12 @@
                                     <input type="text" id="team-table-search" oninput="renderTeamView();" placeholder="Filtrar socio por nombre, correo o código..."
                                         class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                                 </div>
-                                <div id="admin-team-audit-badge" class="hidden px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] font-bold text-amber-900"></div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button" id="btn-admin-filter-dup-emails" onclick="toggleDuplicateEmailFilter();" class="hidden px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-extrabold">
+                                        <i class="fa-solid fa-clone mr-1"></i>Ver Correos Repetidos
+                                    </button>
+                                    <div id="admin-team-audit-badge" class="hidden px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] font-bold text-amber-900"></div>
+                                </div>
                             </div>
                             <div class="overflow-x-auto rounded-2xl border border-slate-200">
                                 <table class="w-full text-left border-collapse text-xs">
@@ -1563,7 +1590,6 @@
 
                 <!-- ==================== SECCIÓN 9: HERRAMIENTAS ==================== -->
                 <section id="tab-herramientas" class="tab-section hidden space-y-6">
-                    <!-- Biblioteca Oficial Descargable en PDF -->
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
@@ -1636,13 +1662,13 @@
                             </a>
                         </div>
 
-                        <!-- BARRA EXCLUSIVA DEL ADMINISTRADOR PARA AGREGAR LINKS DE VIDEO CON NOMBRE IDENTIFICADOR -->
-                        <div id="admin-inline-video-bar" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-2.5">
+                        <!-- BARRA EXCLUSIVA DEL ADMINISTRADOR PARA AGREGAR LINKS DE VIDEO O SUBIR ARCHIVOS HASTA 400 MB -->
+                        <div id="admin-inline-video-bar" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-3">
                             <span class="text-[10px] font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
-                                <i class="fa-solid fa-shield-halved text-amber-600"></i>Panel Exclusivo Administrador — Publicar Nuevo Video para el Equipo
+                                <i class="fa-solid fa-shield-halved text-amber-600"></i>Panel Exclusivo Administrador — Publicar Videos o Archivos (Hasta 400 MB en Alta Calidad)
                             </span>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-                                <input type="text" id="inline-admin-video-title" placeholder="Nombre o tema del video (Ej. Plan de Pagos)"
+                                <input type="text" id="inline-admin-video-title" placeholder="Nombre o tema del video/archivo (Ej. Plan de Pagos)"
                                     class="px-3.5 py-2.5 rounded-xl bg-white border border-amber-300 text-xs font-bold text-slate-900">
                                 <input type="url" id="inline-admin-video-url" placeholder="Link del video (https://youtu.be/...)"
                                     class="px-3.5 py-2.5 rounded-xl bg-white border border-amber-300 text-xs font-mono text-slate-900">
@@ -1650,6 +1676,16 @@
                                     class="py-2.5 px-4 rounded-xl bg-slate-900 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
                                     <i class="fa-solid fa-video text-amber-400"></i><span>+ Agregar Link de Video</span>
                                 </button>
+                            </div>
+                            <div class="pt-2 border-t border-amber-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                                <p class="text-[11px] font-semibold text-amber-900">
+                                    <i class="fa-solid fa-film mr-1"></i>Sube videos (.MP4, .MOV, .WEBM) o cualquier archivo de hasta <b>400 MB</b> en HD para vista previa y envío por WhatsApp:
+                                </p>
+                                <label class="py-2.5 px-4 rounded-xl bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer shrink-0">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <span>Subir Archivo / Video (Hasta 400MB)</span>
+                                    <input type="file" id="admin-universal-tool-file-input" accept="*/*" onchange="handleAdminUniversalToolFileUpload(event);" class="hidden">
+                                </label>
                             </div>
                         </div>
 
@@ -1670,20 +1706,29 @@
                             </div>
                         </div>
 
-                        <!-- Mensaje Personalizado Unificado -->
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold text-slate-700">Personaliza tu mensaje de invitación (se envía unido en un solo mensaje con el video y tu link corto):</label>
-                            <textarea id="business-pres-custom-msg" oninput="saveCustomPresentationMsg();" rows="3" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800"></textarea>
+                        <div class="space-y-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-xs font-black text-slate-800">Mensaje Personalizado (Presentación de Negocio):</label>
+                                <button type="button" onclick="toggleMainPresentationMessageEditor();" class="px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold text-[11px] flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-pen text-sky-600"></i><span>Editar Mensaje Personalizado</span>
+                                </button>
+                            </div>
+                            <p id="business-pres-msg-preview" class="text-xs text-slate-700 bg-white p-3 rounded-xl border border-slate-200 leading-relaxed" style="white-space:pre-line;"></p>
+                            <textarea id="business-pres-custom-msg" oninput="saveCustomPresentationMsg();" rows="3" class="hidden w-full p-3.5 rounded-2xl bg-white border border-sky-400 text-xs text-slate-800"></textarea>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                                <select id="main-pres-prospect-select" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs font-bold text-slate-800">
+                                    <option value="">— Seleccionar Prospecto del CRM (o envío libre) —</option>
+                                </select>
+                                <button type="button" onclick="shareBusinessPresentationWhatsApp();" class="py-3 px-4 rounded-xl bg-[#00B074] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
+                                    <i class="fa-brands fa-whatsapp text-base"></i>
+                                    <span>Enviar por WhatsApp</span>
+                                </button>
+                            </div>
                         </div>
 
-                        <button type="button" onclick="shareBusinessPresentationWhatsApp();" class="w-full sm:w-auto py-3.5 px-6 rounded-2xl bg-[#00B074] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
-                            <i class="fa-brands fa-whatsapp text-base"></i>
-                            <span>Enviar Presentación de Negocio por WhatsApp (Mensaje Unificado)</span>
-                        </button>
-
-                        <!-- Videos Adicionales Publicados por el Administrador -->
                         <div id="dynamic-admin-videos-section" class="hidden pt-4 border-t border-slate-100 space-y-4">
-                            <h3 class="text-sm font-black text-slate-900">Capacitaciones y Videos Adicionales del Equipo</h3>
+                            <h3 class="text-sm font-black text-slate-900">Videos, Capacitaciones y Archivos Multimedia del Equipo</h3>
                             <div id="dynamic-admin-videos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                         </div>
                     </div>
@@ -1962,7 +2007,7 @@
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Embudo</label>
-                        <select id="edit-pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                        <select id="edit-pros-funnel" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                             <option value="Salud / Bebidas">Salud / Bebidas</option>
                             <option value="Negocio / Multinivel">Negocio / Multinivel</option>
                             <option value="Sin clasificar">Sin clasificar</option>
@@ -1976,6 +2021,7 @@
                         <button type="button" onclick="appendTagToEditProspect('Cliente');" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-[10px]">+ Cliente</button>
                         <button type="button" onclick="appendTagToEditProspect('Encuesta');" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 font-bold text-[10px]">+ Encuesta</button>
                         <button type="button" onclick="appendTagToEditProspect('Socio Ldr');" class="px-2.5 py-1 rounded-lg bg-purple-100 text-purple-800 font-bold text-[10px]">+ Socio Ldr</button>
+                        <button type="button" onclick="appendTagToEditProspect('VIP');" class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 font-bold text-[10px]">+ VIP</button>
                     </div>
                     <input type="text" id="edit-pros-tags" placeholder="Ej. Fx, Cliente, Encuesta" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
@@ -2228,10 +2274,29 @@
         </div>
     </div>
 
-    <!-- Toast Notificaciones -->
+    <!-- Modal 12: Editar Mensaje Personalizado de Video/Recurso (Todos los Usuarios) -->
+    <div id="modal-edit-video-message" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900">Editar Mensaje Personalizado</h3>
+                <button type="button" onclick="closeModal('modal-edit-video-message');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <input type="hidden" id="edit-vid-msg-id">
+            <div class="space-y-3 text-xs">
+                <p id="edit-vid-msg-topic" class="font-bold text-sky-700"></p>
+                <textarea id="edit-vid-msg-textarea" rows="5" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 leading-relaxed"></textarea>
+                <p class="text-[10px] text-slate-500">Variables automáticas disponibles: <b>{nombre}</b> (nombre del prospecto) y <b>{socio}</b> (tu nombre).</p>
+                <button type="button" onclick="saveEditedVideoCustomMessage();" class="w-full py-3.5 rounded-2xl bg-sky-600 text-white font-extrabold text-xs shadow-glow-btn">
+                    Guardar Mi Mensaje Personalizado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de Notificaciones Toast -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
+    <!-- ==================== LÓGICA JAVASCRIPT INTEGRAL (FORMATO LP) ==================== -->
     <script>
         const ADMIN_FULL_NAME = 'Rudy Bryan Geldres Reategui';
         const ADMIN_OFFICIAL_EMAIL = 'corporativogeldres@gmail.com';
@@ -2243,48 +2308,192 @@
 
         const DEFAULT_4_STEPS_TEMPLATES = [
             {
-                id: 'step_1',
+                id: 'tpl_step_1',
                 stepLabel: 'Paso 1 • Saludo',
-                title: 'Saludo Inicial de Apertura',
-                body: '¡Hola qué tal {nombre}! 👋 Soy {socio}, ¿sabes? ¡Quería hacerte una consulta! 😊✨'
+                title: 'Paso 1: Saludo Inicial de Conexión',
+                body: 'Hola qué tal {nombre} 👋😊 soy {socio}, ¡sabes quería hacerte una consulta! 💬✨'
             },
             {
-                id: 'step_2',
+                id: 'tpl_step_2',
                 stepLabel: 'Paso 2 • Propuesta Salud',
-                title: 'Información para Mejorar Salud',
-                body: '{nombre} 🌿 Estoy ayudando a todos mis amigos y clientes a darle información para que mejoren su salud y la de su familia 💚. ¿Te gustaría recibir información para que tú puedas mejorar y fortalecer la salud de tu familia? 👨‍👩‍👧‍👦✨\nY para ello estoy mandando una encuesta 📋 para saber cuál sería lo prioritario. Te envío la información sin compromiso para que conozcas una de las mejores opciones en el mercado; si decides adquirir será todo un gusto poder atenderte 🤝😊.'
+                title: 'Paso 2: Información de Salud y Bienestar',
+                body: '{nombre} 🌿✨ Estoy ayudando a todos mis amigos y clientes a darle información para que mejoren su salud y la de su familia 👨‍👩‍👧‍👦💚. ¿Te gustaría recibir información para que tú puedas mejorar y fortalecer la salud de tu familia? 💪🥤\n\nY para ello estoy mandando una encuesta 📋 para saber cuál sería lo prioritario. Te envío la información sin compromiso para que conozcas una de las mejores opciones en el mercado 🌟; si decides adquirir será todo un gusto poder atenderte 🤝😊.'
             },
             {
-                id: 'step_3',
+                id: 'tpl_step_3',
                 stepLabel: 'Paso 3 • La Encuesta',
-                title: 'Cierre de Horario de Revisión',
-                body: '{nombre} ⏰ Cuéntame a qué hora lo revisarías con calma para conversarlo 📞💬; si no te interesa igual me avisas y no tocaré el tema 🙏😊.'
+                title: 'Paso 3: Filtro de Horario y Compromiso',
+                body: '{nombre} ⏰📋 Cuéntame a qué hora lo revisarías con calma para conversarlo 📞💬; si no te interesa igual me avisas y no tocaré el tema 🤝😊.'
             },
             {
-                id: 'step_4',
+                id: 'tpl_step_4',
                 stepLabel: 'Paso 4 • Presentación 1 Minuto',
-                title: 'Oportunidad de Negocio & Expansión',
-                body: '¿Qué tal {nombre}? 🚀 Te comento que tengo la representación de una marca de bebidas naturales 100% peruana 🇵🇪🌿 que está posicionada en más de 35 países 🌎, y además ayudo a personas enseñándoles a vender 10 paquetes por semana para generarse $600 dólares al mes para comenzar 💵🔥. Y si vendes más, o mejor, si le enseñamos a 10 amigos tuyos a generar los $600 dólares, así tú puedes estar generando por encima de los $2,000 dólares 💰💎. ¿Te interesa? 😉📲'
+                title: 'Paso 4: Presentación de Negocio en 1 Minuto',
+                body: 'Qué tal {nombre} 🚀💎 te comento que tengo la representación de una marca de bebidas naturales 100% peruana 🇵🇪🌿 que está posicionada en más de 35 países 🌎 y además ayudo a personas en enseñarles y que aprendan a vender 10 paquetes por semana 📦 para generarse $600 dólares al mes 💵 para comenzar, y si vendes más o mejor si le enseñamos a 10 amigos tuyos 👥 a generar los $600 dólares, así tú puedes estar generando por encima de los $2000 dólares 💰🔥. ¿Te interesa? 👀✨'
             }
         ];
 
         const FUXION_RANKS_DATA = {
-            entrepreneur: { title: 'ENTREPRENEUR (ACTIVO)', income: '$50 - $150 USD', pv4: 40, dv4: 0, maxLine: 'Sin tope', lines: 'Emprendedor Activo (40 PV4)', bonuses: ['Descuento 20% a 50%', 'Bono Pack Profesional 25%'], strategy: 'Mantén tu activación de 40 PV4 cada 4 semanas para conservar el arrastre de puntos en tus brazos de balance.' },
-            executive: { title: 'EXECUTIVE ENTREPRENEUR', income: '$175 USD / mes', pv4: 100, dv4: 500, maxLine: '300 QV', lines: 'Mínimo 2 líneas activas', bonuses: ['Bono Familia Nivel 1-2', 'Bono Pro 1'], strategy: 'Alcanza 100 PV4 personales y 500 DV4 grupales con un máximo de 300 QV por línea.' },
-            senior_ent: { title: 'SENIOR ENTREPRENEUR', income: '$480 USD / mes', pv4: 100, dv4: 1000, maxLine: '600 QV', lines: 'Mínimo 2 líneas activas', bonuses: ['Bono Familia Nivel 1-3'], strategy: 'Duplica el volumen de Executive Entrepreneur a 1,000 DV4 con tope de 600 QV por línea.' },
-            team_builder: { title: 'TEAM BUILDER', income: '$680 USD / mes', pv4: 150, dv4: 2000, maxLine: '1,200 QV', lines: 'Estructura balanceada (Máx. 1,200/línea)', bonuses: ['Bono Familia Nivel 1-4', 'Escalera Plata'], strategy: 'Sube tu producción personal a 150 PV4 y consolida 2,000 DV4 en 4 semanas.' },
-            senior_tb: { title: 'SENIOR TEAM BUILDER', income: '$960 USD / mes', pv4: 150, dv4: 4000, maxLine: '2,400 QV', lines: '1 Línea 1K (1,000 DV4)', bonuses: ['Bono Familia Nivel 1-5'], strategy: 'Desarrolla al menos 1 Línea 1K (1,000 puntos grupales en una rama) y alcanza 4,000 DV4.' },
-            leader_x: { title: 'LEADER X', income: '$1,300 USD / mes', pv4: 200, dv4: 6000, maxLine: '3,600 QV', lines: '2 Líneas 1K', bonuses: ['Bono Balance 5%', 'Bono Legado G0-G1', 'Bono Viaje', 'Fondo Liderazgo País'], strategy: 'Rango clave de liderazgo: 200 PV4, 6,000 DV4 y 2 Líneas 1K. Desbloquea Bono Balance, Bono Viaje y Fondo País.' },
-            premier: { title: 'PREMIER LEADER', income: '$2,500 USD / mes', pv4: 200, dv4: 15000, maxLine: '9,000 QV', lines: '2 Líneas 1K + 1 Leader X', bonuses: ['Bono Balance (tope 600 pts/sem)', 'Fondo País (2 opciones)', 'Bono Viaje'], strategy: 'Forma tu primer Leader X en una línea y mantén 2 Líneas 1K adicionales para alcanzar 15,000 DV4.' },
-            elite: { title: 'ELITE LEADER', income: '$7,300 USD / mes', pv4: 200, dv4: 30000, maxLine: '18,000 QV', lines: '1 Línea 1K + 2 Leader X', bonuses: ['Bono Estilo de Vida / Auto (PEN 1,260)', 'Fondo País (3 opciones)', 'Bono Viaje'], strategy: 'Desarrolla 2 Leader X en líneas distintas y 1 Línea 1K para desbloquear el Bono Auto Estilo de Vida.' },
-            diamond: { title: 'DIAMOND', income: '$9,550 USD / mes', pv4: 200, dv4: 60000, maxLine: '30,000 QV', lines: '4 Leader X en líneas distintas', bonuses: ['Fondo Liderazgo Global (1%)', 'Leadership Retreat Deluxe', 'Bono Auto (PEN 1,800)'], strategy: 'Consolida 4 líneas con rango Leader X o superior y 60,000 DV4 para entrar al Fondo Global.' },
-            blue_diamond: { title: 'BLUE DIAMOND', income: '$18,750 USD / mes', pv4: 200, dv4: 100000, maxLine: '50,000 QV', lines: '4 Premier Leader', bonuses: ['Bono Auto (PEN 2,720)', 'Fondo Global (1.5 opciones)', 'Retreat Deluxe'], strategy: 'Eleva tus 4 líneas principales al rango Premier Leader con un volumen grupal de 100K DV4.' },
-            double_blue: { title: 'DOUBLE BLUE DIAMOND', income: '$23,480 USD / mes', pv4: 200, dv4: 200000, maxLine: '100,000 QV', lines: '4 Elite Leader', bonuses: ['Bono Auto (PEN 3,600)', 'Fondo Global (2 opciones)'], strategy: 'Ayuda a 4 líderes de línea a calificar como Elite Leader y alcanza 200K DV4.' },
-            black_diamond: { title: 'BLACK DIAMOND', income: '$38,550 USD / mes', pv4: 200, dv4: 400000, maxLine: '200,000 QV', lines: '4 Diamond', bonuses: ['Bono Auto (PEN 4,000)', 'Fondo Global (2.5 opciones)', 'Legado hasta G6'], strategy: 'Forma 4 Diamantes en organizaciones independientes y supera los 400K DV4.' },
-            double_black: { title: 'DOUBLE BLACK DIAMOND', income: '$51,450 USD / mes', pv4: 200, dv4: 800000, maxLine: '400,000 QV', lines: '4 Blue Diamond', bonuses: ['Bono Auto (PEN 4,400)', 'Fondo Global (3 opciones)'], strategy: 'Consolida 4 líneas Blue Diamond y 800K DV4 en ciclo continuo.' },
-            ambassador: { title: 'AMBASSADOR', income: '$100,000 USD / mes', pv4: 200, dv4: 1500000, maxLine: '500,000 QV', lines: '4 Double Blue Diamond', bonuses: ['Bono Auto (PEN 4,720)', 'Fondo Global (4 opciones)'], strategy: 'Alcanza 1.5 millones de DV4 con 4 líneas Double Blue Diamond.' },
-            global_amb: { title: 'GLOBAL AMBASSADOR', income: '$250,000 USD / mes', pv4: 200, dv4: 2500000, maxLine: '800,000 QV', lines: '5 Double Blue Diamond', bonuses: ['Bono Auto (PEN 5,440)', 'Fondo Global Top'], strategy: 'Expansión internacional con 5 líneas Double Blue Diamond y 2.5MM DV4.' },
-            ambassador_x: { title: 'AMBASSADOR X', income: '$500,000 USD / mes', pv4: 200, dv4: 4000000, maxLine: '1,000,000 QV', lines: '5 Black Diamond', bonuses: ['Bono Auto Máximo (PEN 7,200)', 'Cúspide Plan PRO-LEV X™'], strategy: 'El rango más alto de la compañía: 5 líneas Black Diamond y 4MM DV4.' }
+            entrepreneur: {
+                title: 'ENTREPRENEUR (ACTIVO)',
+                income: '$50 - $150 USD',
+                pv4: 40,
+                dv4: 0,
+                maxLine: 'Sin tope',
+                lines: 'Emprendedor Activo (40 PV4)',
+                bonuses: ['Descuento 20% a 50%', 'Bono Pack Profesional 25%'],
+                strategy: 'Mantén tu activación de 40 PV4 cada 4 semanas para conservar el arrastre de puntos en tus brazos de balance.'
+            },
+            executive: {
+                title: 'EXECUTIVE ENTREPRENEUR',
+                income: '$175 USD / mes',
+                pv4: 100,
+                dv4: 500,
+                maxLine: '300 QV',
+                lines: 'Mínimo 2 líneas activas',
+                bonuses: ['Bono Familia Nivel 1-2', 'Bono Pro 1'],
+                strategy: 'Alcanza 100 PV4 personales y 500 DV4 grupales con un máximo de 300 QV por línea.'
+            },
+            senior_ent: {
+                title: 'SENIOR ENTREPRENEUR',
+                income: '$480 USD / mes',
+                pv4: 100,
+                dv4: 1000,
+                maxLine: '600 QV',
+                lines: 'Mínimo 2 líneas activas',
+                bonuses: ['Bono Familia Nivel 1-3'],
+                strategy: 'Duplica el volumen de Executive Entrepreneur a 1,000 DV4 con tope de 600 QV por línea.'
+            },
+            team_builder: {
+                title: 'TEAM BUILDER',
+                income: '$680 USD / mes',
+                pv4: 150,
+                dv4: 2000,
+                maxLine: '1,200 QV',
+                lines: 'Estructura balanceada (Máx. 1,200/línea)',
+                bonuses: ['Bono Familia Nivel 1-4', 'Escalera Plata'],
+                strategy: 'Sube tu producción personal a 150 PV4 y consolida 2,000 DV4 en 4 semanas.'
+            },
+            senior_tb: {
+                title: 'SENIOR TEAM BUILDER',
+                income: '$960 USD / mes',
+                pv4: 150,
+                dv4: 4000,
+                maxLine: '2,400 QV',
+                lines: '1 Línea 1K (1,000 DV4)',
+                bonuses: ['Bono Familia Nivel 1-5'],
+                strategy: 'Desarrolla al menos 1 Línea 1K (1,000 puntos grupales en una rama) y alcanza 4,000 DV4.'
+            },
+            leader_x: {
+                title: 'LEADER X',
+                income: '$1,300 USD / mes',
+                pv4: 200,
+                dv4: 6000,
+                maxLine: '3,600 QV',
+                lines: '2 Líneas 1K',
+                bonuses: ['Bono Balance 5%', 'Bono Legado G0-G1', 'Bono Viaje', 'Fondo Liderazgo País'],
+                strategy: 'Rango clave de liderazgo: 200 PV4, 6,000 DV4 y 2 Líneas 1K. Desbloquea Bono Balance, Bono Viaje y Fondo País.'
+            },
+            premier: {
+                title: 'PREMIER LEADER',
+                income: '$2,500 USD / mes',
+                pv4: 200,
+                dv4: 15000,
+                maxLine: '9,000 QV',
+                lines: '2 Líneas 1K + 1 Leader X',
+                bonuses: ['Bono Balance (tope 600 pts/sem)', 'Fondo País (2 opciones)', 'Bono Viaje'],
+                strategy: 'Forma tu primer Leader X en una línea y mantén 2 Líneas 1K adicionales para alcanzar 15,000 DV4.'
+            },
+            elite: {
+                title: 'ELITE LEADER',
+                income: '$7,300 USD / mes',
+                pv4: 200,
+                dv4: 30000,
+                maxLine: '18,000 QV',
+                lines: '1 Línea 1K + 2 Leader X',
+                bonuses: ['Bono Estilo de Vida / Auto (PEN 1,260)', 'Fondo País (3 opciones)', 'Bono Viaje'],
+                strategy: 'Desarrolla 2 Leader X en líneas distintas y 1 Línea 1K para desbloquear el Bono Auto Estilo de Vida.'
+            },
+            diamond: {
+                title: 'DIAMOND',
+                income: '$9,550 USD / mes',
+                pv4: 200,
+                dv4: 60000,
+                maxLine: '30,000 QV',
+                lines: '4 Leader X en líneas distintas',
+                bonuses: ['Fondo Liderazgo Global (1%)', 'Leadership Retreat Deluxe', 'Bono Auto (PEN 1,800)'],
+                strategy: 'Consolida 4 líneas con rango Leader X o superior y 60,000 DV4 para entrar al Fondo Global.'
+            },
+            blue_diamond: {
+                title: 'BLUE DIAMOND',
+                income: '$18,750 USD / mes',
+                pv4: 200,
+                dv4: 100000,
+                maxLine: '50,000 QV',
+                lines: '4 Premier Leader',
+                bonuses: ['Bono Auto (PEN 2,720)', 'Fondo Global (1.5 opciones)', 'Retreat Deluxe'],
+                strategy: 'Eleva tus 4 líneas principales al rango Premier Leader con un volumen grupal de 100K DV4.'
+            },
+            double_blue: {
+                title: 'DOUBLE BLUE DIAMOND',
+                income: '$23,480 USD / mes',
+                pv4: 200,
+                dv4: 200000,
+                maxLine: '100,000 QV',
+                lines: '4 Elite Leader',
+                bonuses: ['Bono Auto (PEN 3,600)', 'Fondo Global (2 opciones)'],
+                strategy: 'Ayuda a 4 líderes de línea a calificar como Elite Leader y alcanza 200K DV4.'
+            },
+            black_diamond: {
+                title: 'BLACK DIAMOND',
+                income: '$38,550 USD / mes',
+                pv4: 200,
+                dv4: 400000,
+                maxLine: '200,000 QV',
+                lines: '4 Diamond',
+                bonuses: ['Bono Auto (PEN 4,000)', 'Fondo Global (2.5 opciones)', 'Legado hasta G6'],
+                strategy: 'Forma 4 Diamantes en organizaciones independientes y supera los 400K DV4.'
+            },
+            double_black: {
+                title: 'DOUBLE BLACK DIAMOND',
+                income: '$51,450 USD / mes',
+                pv4: 200,
+                dv4: 800000,
+                maxLine: '400,000 QV',
+                lines: '4 Blue Diamond',
+                bonuses: ['Bono Auto (PEN 4,400)', 'Fondo Global (3 opciones)'],
+                strategy: 'Consolida 4 líneas Blue Diamond y 800K DV4 en ciclo continuo.'
+            },
+            ambassador: {
+                title: 'AMBASSADOR',
+                income: '$100,000 USD / mes',
+                pv4: 200,
+                dv4: 1500000,
+                maxLine: '500,000 QV',
+                lines: '4 Double Blue Diamond',
+                bonuses: ['Bono Auto (PEN 4,720)', 'Fondo Global (4 opciones)'],
+                strategy: 'Alcanza 1.5 millones de DV4 con 4 líneas Double Blue Diamond.'
+            },
+            global_amb: {
+                title: 'GLOBAL AMBASSADOR',
+                income: '$250,000 USD / mes',
+                pv4: 200,
+                dv4: 2500000,
+                maxLine: '800,000 QV',
+                lines: '5 Double Blue Diamond',
+                bonuses: ['Bono Auto (PEN 5,440)', 'Fondo Global Top'],
+                strategy: 'Expansión internacional con 5 líneas Double Blue Diamond y 2.5MM DV4.'
+            },
+            ambassador_x: {
+                title: 'AMBASSADOR X',
+                income: '$500,000 USD / mes',
+                pv4: 200,
+                dv4: 4000000,
+                maxLine: '1,000,000 QV',
+                lines: '5 Black Diamond',
+                bonuses: ['Bono Auto Máximo (PEN 7,200)', 'Cúspide Plan PRO-LEV X™'],
+                strategy: 'El rango más alto de la compañía: 5 líneas Black Diamond y 4MM DV4.'
+            }
         };
 
         const memoryStorageFallback = {};
@@ -2292,12 +2501,17 @@
             try { return localStorage.getItem(key); } catch (e) { return memoryStorageFallback[key] || null; }
         }
         function safeSetItem(key, val) {
-            memoryStorageFallback[key] = val;
-            try { localStorage.setItem(key, val); } catch (e) {}
+            try { localStorage.setItem(key, val); } catch (e) { memoryStorageFallback[key] = val; }
         }
         function safeRemoveItem(key) {
-            delete memoryStorageFallback[key];
-            try { localStorage.removeItem(key); } catch (e) {}
+            try { localStorage.removeItem(key); } catch (e) { delete memoryStorageFallback[key]; }
+        }
+        function safeParseStorageArray(key) {
+            try {
+                const raw = safeGetItem(key);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) { return []; }
         }
 
         const appState = {
@@ -2305,6 +2519,7 @@
             prospects: [],
             agendaTasks: [],
             customTemplates: [],
+            userVideoMessages: {},
             stagedImportContacts: [],
             customPresentationMsg: '',
             recBannerPhoto: null,
@@ -2312,7 +2527,10 @@
             registrationMode: 'partner',
             lastExternalRegRecord: null,
             revealedPasswordIds: {},
+            filterOnlyDuplicateEmails: false,
             carouselIndex: 0,
+            carouselTimerId: null,
+            mediaObjectUrlCache: {},
             calendarView: 'month',
             calendarCursorDate: new Date(),
             selectedDateStr: new Date().toISOString().split('T')[0]
@@ -2340,43 +2558,30 @@
             return `lp_user_db_${userId}`;
         }
 
-        function safeParseStorageArray(key) {
-            try {
-                const raw = safeGetItem(key);
-                if (!raw) return [];
-                const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [];
-            } catch (e) {
-                return [];
-            }
-        }
-
         function getMasterRegisteredUsers() {
             const primary = safeParseStorageArray('lp_registered_users');
-            const mirror = safeParseStorageArray('lp_registered_users_v2_mirror');
-            const map = new Map();
-            [...primary, ...mirror].forEach(u => {
-                if (u && u.email) {
-                    const key = u.id || `${String(u.email).trim().toLowerCase()}_${u.sponsorCode || ''}`;
-                    map.set(key, u);
-                }
+            const backup = safeParseStorageArray('lp_master_users_lifetime_backup');
+            const merged = [...primary];
+            backup.forEach(b => {
+                if (b && b.id && !merged.some(m => m.id === b.id)) merged.push(b);
             });
-            return Array.from(map.values());
+            return merged;
         }
 
-        function persistMasterRegisteredUsers(usersArray) {
-            const serialized = JSON.stringify(usersArray);
-            safeSetItem('lp_registered_users', serialized);
-            safeSetItem('lp_registered_users_v2_mirror', serialized);
+        function persistMasterRegisteredUsers(usersList) {
+            safeSetItem('lp_registered_users', JSON.stringify(usersList));
+            safeSetItem('lp_master_users_lifetime_backup', JSON.stringify(usersList));
         }
 
         function repairAndSeedMasterRecords() {
-            if (!safeGetItem('lp_registered_users')) persistMasterRegisteredUsers([]);
+            if (!safeGetItem('lp_registered_users')) safeSetItem('lp_registered_users', JSON.stringify([]));
+            if (!safeGetItem('lp_master_users_lifetime_backup')) safeSetItem('lp_master_users_lifetime_backup', safeGetItem('lp_registered_users') || '[]');
             if (!safeGetItem('lp_pending_activations')) safeSetItem('lp_pending_activations', JSON.stringify([]));
             if (!safeGetItem('lp_admin_activations_db')) safeSetItem('lp_admin_activations_db', JSON.stringify([]));
+            if (!safeGetItem('lp_admin_public_carousel')) safeSetItem('lp_admin_public_carousel', JSON.stringify([]));
             if (!safeGetItem('lp_admin_public_videos')) safeSetItem('lp_admin_public_videos', JSON.stringify([]));
             if (!safeGetItem('lp_admin_public_pdfs')) safeSetItem('lp_admin_public_pdfs', JSON.stringify([]));
-            if (!safeGetItem('lp_admin_public_carousel')) safeSetItem('lp_admin_public_carousel', JSON.stringify([]));
+            if (!safeGetItem('lp_password_recovery_requests')) safeSetItem('lp_password_recovery_requests', JSON.stringify([]));
         }
 
         function verifyAdminCredentials(pass) {
@@ -2394,11 +2599,13 @@
                     appState.customTemplates = Array.isArray(parsed.customTemplates) && parsed.customTemplates.length > 0
                         ? parsed.customTemplates
                         : JSON.parse(JSON.stringify(DEFAULT_4_STEPS_TEMPLATES));
+                    appState.userVideoMessages = parsed.userVideoMessages && typeof parsed.userVideoMessages === 'object' ? parsed.userVideoMessages : {};
                     appState.customPresentationMsg = parsed.customPresentationMsg || '';
                 } else {
                     appState.prospects = [];
                     appState.agendaTasks = [];
                     appState.customTemplates = JSON.parse(JSON.stringify(DEFAULT_4_STEPS_TEMPLATES));
+                    appState.userVideoMessages = {};
                     appState.customPresentationMsg = '';
                     saveUserScopedData();
                 }
@@ -2406,6 +2613,7 @@
                 appState.prospects = [];
                 appState.agendaTasks = [];
                 appState.customTemplates = JSON.parse(JSON.stringify(DEFAULT_4_STEPS_TEMPLATES));
+                appState.userVideoMessages = {};
                 appState.customPresentationMsg = '';
             }
         }
@@ -2418,6 +2626,7 @@
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
                 customTemplates: appState.customTemplates,
+                userVideoMessages: appState.userVideoMessages || {},
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             safeSetItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
@@ -2425,21 +2634,75 @@
 
         function saveCustomPresentationMsg() {
             const el = document.getElementById('business-pres-custom-msg');
+            const prev = document.getElementById('business-pres-msg-preview');
             if (!el) return;
             appState.customPresentationMsg = el.value;
+            if (prev) prev.textContent = el.value;
             saveUserScopedData();
         }
 
-        // ==================== SINCRONIZACIÓN EN LA NUBE ENTRE DISPOSITIVOS ====================
-        async function publishCloudSyncEvent(eventType, payloadObj) {
+        function toggleMainPresentationMessageEditor() {
+            const ta = document.getElementById('business-pres-custom-msg');
+            if (!ta) return;
+            ta.classList.toggle('hidden');
+            if (!ta.classList.contains('hidden')) ta.focus();
+        }
+
+        // ==================== INDEXEDDB PARA ARCHIVOS/VIDEOS HASTA 400 MB ====================
+        function openLeaderMediaDB() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) { reject(new Error('IndexedDB no soportado')); return; }
+                const req = indexedDB.open('LeaderProspectMediaDB_v1', 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('mediaFiles')) {
+                        db.createObjectStore('mediaFiles', { keyPath: 'id' });
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function saveMediaBlobToIndexedDB(id, fileBlob, fileName, mimeType) {
+            const db = await openLeaderMediaDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('mediaFiles', 'readwrite');
+                tx.objectStore('mediaFiles').put({ id, blob: fileBlob, fileName, mimeType, savedAt: Date.now() });
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function getMediaBlobFromIndexedDB(id) {
             try {
-                const envelope = JSON.stringify({
-                    type: eventType,
-                    ts: Date.now(),
-                    data: payloadObj
+                const db = await openLeaderMediaDB();
+                return await new Promise((resolve) => {
+                    const tx = db.transaction('mediaFiles', 'readonly');
+                    const req = tx.objectStore('mediaFiles').get(id);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
                 });
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function deleteMediaBlobFromIndexedDB(id) {
+            try {
+                const db = await openLeaderMediaDB();
+                const tx = db.transaction('mediaFiles', 'readwrite');
+                tx.objectStore('mediaFiles').delete(id);
+            } catch (e) {}
+        }
+
+        // ==================== SINCRONIZACIÓN MULTI-DISPOSITIVO EN LA NUBE ====================
+        async function publishCloudSyncEvent(type, data) {
+            try {
+                const envelope = JSON.stringify({ type, data, ts: Date.now() });
                 await fetch(CLOUD_SYNC_URL, {
                     method: 'POST',
+                    headers: { 'Title': `LP_${type}` },
                     body: envelope
                 });
             } catch (e) {}
@@ -2447,95 +2710,93 @@
 
         async function syncCloudEventsNow(manualNotify = false) {
             try {
-                const resp = await fetch(`${CLOUD_SYNC_URL}/json?poll=1&since=24h`, { cache: 'no-store' });
-                if (!resp.ok) return;
-                const text = await resp.text();
-                const lines = text.split('\n').filter(Boolean);
-                let changedActivations = false;
-                let changedUsers = false;
+                const res = await fetch(`${CLOUD_SYNC_URL}/json?poll=1&since=all`);
+                if (!res.ok) return;
+                const rawText = await res.text();
+                const lines = rawText.split('\n').filter(Boolean);
+                let changed = false;
 
-                const adminDb = safeParseStorageArray('lp_admin_activations_db');
-                const pendingDb = safeParseStorageArray('lp_pending_activations');
+                const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
+                const pendingList = safeParseStorageArray('lp_pending_activations');
                 const regUsers = getMasterRegisteredUsers();
+                const recovList = safeParseStorageArray('lp_password_recovery_requests');
 
                 lines.forEach(line => {
                     try {
-                        const wrapper = JSON.parse(line);
-                        if (!wrapper || !wrapper.message) return;
-                        const evt = JSON.parse(wrapper.message);
+                        const msgObj = JSON.parse(line);
+                        if (!msgObj || !msgObj.message) return;
+                        const evt = JSON.parse(msgObj.message);
                         if (!evt || !evt.type || !evt.data) return;
 
                         if (evt.type === 'NEW_ACTIVATION_REQUEST') {
                             const rec = evt.data;
-                            if (rec.id && !adminDb.some(x => x.id === rec.id)) {
-                                adminDb.unshift(rec);
-                                changedActivations = true;
+                            if (rec.id && !adminActivationsDb.some(a => a.id === rec.id)) {
+                                adminActivationsDb.unshift(rec);
+                                changed = true;
                             }
-                            if (rec.id && rec.status !== 'Activado' && !pendingDb.some(x => x.id === rec.id)) {
-                                pendingDb.unshift(rec);
-                                changedActivations = true;
+                            if (rec.id && !pendingList.some(p => p.id === rec.id) && !regUsers.some(u => u.sponsorCode === rec.sponsorCode)) {
+                                pendingList.unshift(rec);
+                                changed = true;
                             }
                         } else if (evt.type === 'USER_ACTIVATED') {
-                            const u = evt.data;
-                            if (u.email && !regUsers.some(x => x.id === u.id || (String(x.email).toLowerCase() === String(u.email).toLowerCase() && x.sponsorCode === u.sponsorCode))) {
-                                regUsers.push(u);
-                                changedUsers = true;
+                            const usr = evt.data;
+                            if (usr.id && !regUsers.some(u => u.id === usr.id || (u.email === usr.email && u.sponsorCode === usr.sponsorCode))) {
+                                regUsers.push(usr);
+                                changed = true;
                             }
-                            const adbIdx = adminDb.findIndex(x => String(x.email).toLowerCase() === String(u.email).toLowerCase() && x.sponsorCode === u.sponsorCode);
-                            if (adbIdx !== -1 && adminDb[adbIdx].status !== 'Activado') {
-                                adminDb[adbIdx].status = 'Activado';
-                                changedActivations = true;
+                            const dbIdx = adminActivationsDb.findIndex(a => a.sponsorCode === usr.sponsorCode || a.email === usr.email);
+                            if (dbIdx !== -1 && adminActivationsDb[dbIdx].status !== 'Activado') {
+                                adminActivationsDb[dbIdx].status = 'Activado';
+                                changed = true;
                             }
                         } else if (evt.type === 'USER_DELETED') {
                             const delId = evt.data.id;
                             const beforeLen = regUsers.length;
-                            const filtered = regUsers.filter(x => x.id !== delId);
+                            const filtered = regUsers.filter(u => u.id !== delId);
                             if (filtered.length !== beforeLen) {
                                 regUsers.length = 0;
-                                filtered.forEach(x => regUsers.push(x));
-                                changedUsers = true;
+                                regUsers.push(...filtered);
+                                changed = true;
                             }
                         } else if (evt.type === 'PASSWORD_RECOVERY_REQ') {
-                            const r = evt.data;
-                            const recovList = safeParseStorageArray('lp_password_recovery_requests');
-                            if (r.id && !recovList.some(x => x.id === r.id)) {
-                                recovList.unshift(r);
-                                safeSetItem('lp_password_recovery_requests', JSON.stringify(recovList));
+                            const rq = evt.data;
+                            if (rq.id && !recovList.some(r => r.id === rq.id)) {
+                                recovList.unshift(rq);
+                                changed = true;
                             }
+                        } else if (evt.type === 'PUBLIC_CAROUSEL_UPDATED' && Array.isArray(evt.data)) {
+                            safeSetItem('lp_admin_public_carousel', JSON.stringify(evt.data));
+                            changed = true;
                         } else if (evt.type === 'PUBLIC_VIDEO_ADDED') {
-                            const v = evt.data;
                             const vids = safeParseStorageArray('lp_admin_public_videos');
-                            if (v.id && !vids.some(x => x.id === v.id)) {
-                                vids.unshift(v);
+                            if (evt.data.id && !vids.some(v => v.id === evt.data.id)) {
+                                vids.unshift(evt.data);
                                 safeSetItem('lp_admin_public_videos', JSON.stringify(vids));
-                            }
-                        } else if (evt.type === 'PUBLIC_CAROUSEL_UPDATED') {
-                            if (Array.isArray(evt.data)) {
-                                safeSetItem('lp_admin_public_carousel', JSON.stringify(evt.data));
-                                renderPublicCarousel();
+                                changed = true;
                             }
                         }
-                    } catch (innerErr) {}
+                    } catch (err) {}
                 });
 
-                if (changedActivations) {
-                    safeSetItem('lp_admin_activations_db', JSON.stringify(adminDb));
-                    safeSetItem('lp_pending_activations', JSON.stringify(pendingDb));
-                }
-                if (changedUsers) {
+                if (changed) {
+                    safeSetItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
+                    safeSetItem('lp_pending_activations', JSON.stringify(pendingList));
                     persistMasterRegisteredUsers(regUsers);
+                    safeSetItem('lp_password_recovery_requests', JSON.stringify(recovList));
+
+                    if (appState.currentUser) {
+                        updateBellRemindersBadge();
+                        renderPublicCarousel();
+                        renderDynamicToolsSection();
+                        if (appState.currentUser.isAdmin) {
+                            renderAdminActivationPanel();
+                            renderTeamView();
+                        }
+                    }
                 }
-                if ((changedActivations || changedUsers) && appState.currentUser && appState.currentUser.isAdmin) {
-                    updateBellRemindersBadge();
-                    renderAdminActivationPanel();
-                    renderTeamView();
-                }
-                if (manualNotify) {
-                    renderAdminActivationPanel();
-                    showToast('Bandeja de Activación Socios sincronizada.');
-                }
+                if (manualNotify) showToast('Sincronización completada correctamente.');
             } catch (e) {
-                if (manualNotify) showToast('Bandeja local actualizada.');
+                if (manualNotify) showToast('Sincronización local verificada.');
             }
         }
 
@@ -2547,16 +2808,17 @@
             renderSelectedRankDetails();
             syncCloudEventsNow(false);
             setInterval(() => syncCloudEventsNow(false), 6000);
+            startAutoPublicCarouselTimer();
 
-            const authEmail = document.getElementById('input-auth-email');
-            const authPass = document.getElementById('input-auth-password');
-            if (authEmail) authEmail.value = '';
-            if (authPass) authPass.value = '';
+            const emailInp = document.getElementById('input-auth-email');
+            const passInp = document.getElementById('input-auth-password');
+            if (emailInp) emailInp.value = '';
+            if (passInp) passInp.value = '';
 
-            const isExternalReferral = detectUrlReferralParams();
-            if (isExternalReferral) {
-                const dashEl = document.getElementById('dashboard-screen');
+            const hasExternalInvite = detectUrlReferralParams();
+            if (hasExternalInvite) {
                 const authEl = document.getElementById('auth-screen');
+                const dashEl = document.getElementById('dashboard-screen');
                 if (dashEl) dashEl.style.display = 'none';
                 if (authEl) authEl.style.display = 'flex';
                 return;
@@ -2567,14 +2829,6 @@
                 try {
                     const sessionUser = JSON.parse(savedSessionRaw);
                     if (sessionUser && sessionUser.id && sessionUser.email) {
-                        if (!sessionUser.isAdmin) {
-                            const regUsers = getMasterRegisteredUsers();
-                            const stillExists = regUsers.find(u => u.id === sessionUser.id || String(u.email).toLowerCase() === String(sessionUser.email).toLowerCase());
-                            if (!stillExists && regUsers.length > 0) {
-                                safeRemoveItem('lp_active_session');
-                                return;
-                            }
-                        }
                         appState.currentUser = sessionUser;
                         loadUserScopedData(sessionUser.id);
                         showDashboard(sessionUser);
@@ -2622,8 +2876,8 @@
             const errBox = document.getElementById('login-error-box');
             if (!emailInput || !passInput) return;
 
-            const email = emailInput.value.trim().toLowerCase();
-            const pass = passInput.value.trim();
+            const email = String(emailInput.value || '').trim().toLowerCase();
+            const pass = String(passInput.value || '').trim();
 
             if (!email || !pass) {
                 showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
@@ -2650,7 +2904,6 @@
                     safeSetItem('lp_active_session', JSON.stringify(adminUser));
                     loadUserScopedData(adminUser.id);
                     showDashboard(adminUser);
-                    syncCloudEventsNow(false);
                     return;
                 } else {
                     showLoginError('Contraseña de Superadministrador incorrecta.');
@@ -2658,25 +2911,21 @@
                 }
             }
 
-            let registeredUsers = getMasterRegisteredUsers();
-            let matchingAccounts = registeredUsers.filter(u => u && u.email && String(u.email).trim().toLowerCase() === email);
+            await syncCloudEventsNow(false);
 
-            if (matchingAccounts.length === 0) {
-                await syncCloudEventsNow(false);
-                registeredUsers = getMasterRegisteredUsers();
-                matchingAccounts = registeredUsers.filter(u => u && u.email && String(u.email).trim().toLowerCase() === email);
-            }
+            const registeredUsers = getMasterRegisteredUsers();
+            const matchingByEmail = registeredUsers.filter(u => u && u.email && String(u.email).trim().toLowerCase() === email);
 
-            if (matchingAccounts.length > 0) {
-                const matchedWithPass = matchingAccounts.find(u => String(u.password || '').trim() === pass);
-                if (matchedWithPass) {
+            if (matchingByEmail.length > 0) {
+                const exactMatch = matchingByEmail.find(u => String(u.password || '').trim() === pass);
+                if (exactMatch) {
                     if (errBox) errBox.classList.add('hidden');
-                    matchedWithPass.role = 'Líder de Red';
-                    matchedWithPass.isAdmin = false;
-                    appState.currentUser = matchedWithPass;
-                    safeSetItem('lp_active_session', JSON.stringify(matchedWithPass));
-                    loadUserScopedData(matchedWithPass.id);
-                    showDashboard(matchedWithPass);
+                    exactMatch.role = 'Líder de Red';
+                    exactMatch.isAdmin = false;
+                    appState.currentUser = exactMatch;
+                    safeSetItem('lp_active_session', JSON.stringify(exactMatch));
+                    loadUserScopedData(exactMatch.id);
+                    showDashboard(exactMatch);
                     return;
                 } else {
                     showLoginError('Contraseña incorrecta para este socio.');
@@ -2687,7 +2936,7 @@
             const pendingList = safeParseStorageArray('lp_pending_activations');
             const isPending = pendingList.find(p => p && p.email && String(p.email).trim().toLowerCase() === email);
             if (isPending) {
-                showLoginError('Tu cuenta está pendiente de activación. Ingresa el código de 6 dígitos enviado por el Administrador a tu WhatsApp.', isPending);
+                showLoginError('Tu cuenta está en espera de activación. Ingresa el código de 6 dígitos que te envió el Administrador por WhatsApp.', isPending);
                 return;
             }
 
@@ -2718,10 +2967,10 @@
             safeRemoveItem('lp_active_session');
             const dashEl = document.getElementById('dashboard-screen');
             const authEl = document.getElementById('auth-screen');
-            const authEmail = document.getElementById('input-auth-email');
-            const authPass = document.getElementById('input-auth-password');
-            if (authEmail) authEmail.value = '';
-            if (authPass) authPass.value = '';
+            const emailInp = document.getElementById('input-auth-email');
+            const passInp = document.getElementById('input-auth-password');
+            if (emailInp) emailInp.value = '';
+            if (passInp) passInp.value = '';
             if (dashEl) dashEl.style.display = 'none';
             if (authEl) authEl.style.display = 'flex';
         }
@@ -2789,10 +3038,12 @@
             setVal('profile-input-email', user.email || '');
             setVal('profile-input-whatsapp', user.phone || '');
 
+            const defaultPresText = `¡Hola {nombre}! 👋 Te saluda *${user.name}*. Quiero compartir contigo esta presentación oficial de *FuXion* sobre cómo emprender y generar ingresos distribuyendo bebidas nutracéuticas líderes en salud 🚀💎.`;
+            const activePresText = appState.customPresentationMsg || defaultPresText;
             const presInput = document.getElementById('business-pres-custom-msg');
-            if (presInput) {
-                presInput.value = appState.customPresentationMsg || `¡Hola! 👋 Te saluda *${user.name}*. Quiero compartir contigo esta presentación oficial de *FuXion* sobre cómo emprender y generar ingresos distribuyendo bebidas nutracéuticas líderes en salud 🚀💎.`;
-            }
+            const presPreview = document.getElementById('business-pres-msg-preview');
+            if (presInput) presInput.value = activePresText;
+            if (presPreview) presPreview.textContent = activePresText;
 
             const adminOnlyIds = [
                 'admin-activation-nav-item',
@@ -2804,7 +3055,8 @@
                 'admin-carousel-controls',
                 'btn-admin-edit-cycle',
                 'th-admin-password',
-                'admin-team-audit-badge'
+                'admin-team-audit-badge',
+                'btn-admin-filter-dup-emails'
             ];
 
             adminOnlyIds.forEach(id => {
@@ -2829,9 +3081,7 @@
 
             const user = appState.currentUser;
             const regUsers = getMasterRegisteredUsers();
-            const directCount = user
-                ? (user.isAdmin ? regUsers.length : regUsers.filter(u => u.uplineCode === user.sponsorCode).length)
-                : 0;
+            const directCount = user ? (user.isAdmin ? regUsers.length : regUsers.filter(u => u.uplineCode === user.sponsorCode).length) : 0;
             const pct = total > 0 ? Math.min(100, Math.round((total / 70) * 100)) : 0;
 
             const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
@@ -2841,31 +3091,65 @@
             setText('kpi-compliance-pct', `${pct}%`);
         }
 
-        // ==================== CARRUSEL PÚBLICO DE IMÁGENES ====================
+        // ==================== CARRUSEL PÚBLICO OFICIAL 9:16 (AUTOMÁTICO CADA 7 SEGUNDOS, SIN FLECHAS) ====================
+        function startAutoPublicCarouselTimer() {
+            if (appState.carouselTimerId) clearInterval(appState.carouselTimerId);
+            appState.carouselTimerId = setInterval(() => {
+                const slides = safeParseStorageArray('lp_admin_public_carousel');
+                if (slides.length > 1) {
+                    appState.carouselIndex = (appState.carouselIndex + 1) % slides.length;
+                    renderPublicCarousel();
+                }
+            }, 7000);
+        }
+
         function handleAdminCarouselUpload(event) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const files = Array.from(event.target.files || []);
             if (files.length === 0) return;
 
+            const maxBytes = 400 * 1024 * 1024;
             const slides = safeParseStorageArray('lp_admin_public_carousel');
             let processed = 0;
 
             files.forEach(file => {
+                if (file.size > maxBytes) {
+                    showToast(`El archivo ${file.name} supera el límite de 400 MB.`);
+                    processed++;
+                    return;
+                }
                 const objUrl = URL.createObjectURL(file);
                 const img = new Image();
                 img.onload = function() {
-                    const maxW = 1280;
-                    const scale = img.width > maxW ? maxW / img.width : 1;
+                    // Normalización oficial a lienzo vertical 9:16 (1080 x 1920) sin recortar bordes
+                    const targetW = 1080;
+                    const targetH = 1920;
                     const canvas = document.createElement('canvas');
-                    canvas.width = Math.round(img.width * scale);
-                    canvas.height = Math.round(img.height * scale);
-                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.width = targetW;
+                    canvas.height = targetH;
+                    const ctx = canvas.getContext('2d');
+
+                    const grad = ctx.createLinearGradient(0, 0, 0, targetH);
+                    grad.addColorStop(0, '#030712');
+                    grad.addColorStop(0.5, '#071326');
+                    grad.addColorStop(1, '#050B16');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, targetW, targetH);
+
+                    const scale = Math.min(targetW / img.width, targetH / img.height);
+                    const drawW = Math.round(img.width * scale);
+                    const drawH = Math.round(img.height * scale);
+                    const offsetX = Math.round((targetW - drawW) / 2);
+                    const offsetY = Math.round((targetH - drawH) / 2);
+                    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+
                     URL.revokeObjectURL(objUrl);
 
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.90);
                     slides.push({
                         id: 'sld_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
                         imageUrl: dataUrl,
+                        aspectFormat: '9:16',
                         uploadedAt: new Date().toLocaleDateString()
                     });
                     processed++;
@@ -2873,8 +3157,9 @@
                         safeSetItem('lp_admin_public_carousel', JSON.stringify(slides));
                         appState.carouselIndex = slides.length - 1;
                         renderPublicCarousel();
+                        startAutoPublicCarouselTimer();
                         publishCloudSyncEvent('PUBLIC_CAROUSEL_UPDATED', slides);
-                        showToast(`${processed} imagen(es) publicadas en el mural de todos los usuarios.`);
+                        showToast('Imagen(es) en formato oficial 9:16 publicadas para todos los usuarios.');
                     }
                 };
                 img.src = objUrl;
@@ -2894,13 +3179,6 @@
             showToast('Imagen eliminada del mural.');
         }
 
-        function movePublicCarousel(delta) {
-            const slides = safeParseStorageArray('lp_admin_public_carousel');
-            if (slides.length <= 1) return;
-            appState.carouselIndex = (appState.carouselIndex + delta + slides.length) % slides.length;
-            renderPublicCarousel();
-        }
-
         function renderPublicCarousel() {
             const wrapper = document.getElementById('public-carousel-wrapper');
             const stage = document.getElementById('public-carousel-stage');
@@ -2915,14 +3193,20 @@
             if (slides.length === 0) {
                 if (btnRemove) btnRemove.classList.add('hidden');
                 stage.innerHTML = `
-                    <div class="w-full p-6 sm:p-8 cosmic-hero-bg text-center text-white space-y-2">
+                    <div class="w-full mx-auto rounded-3xl cosmic-hero-bg border-2 border-sky-400/40 shadow-2xl p-6 flex flex-col items-center justify-between text-center text-white aspect-9-16" style="max-width:340px; aspect-ratio:9/16;">
                         <span class="px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 text-[10px] font-black uppercase tracking-widest">
-                            Comunidad Oficial Leader Prospect • FuXion
+                            Oficial 9:16 • FuXion
                         </span>
-                        <h4 class="text-lg sm:text-xl font-black text-white">¡Enfocados en el Siguiente Nivel de Liderazgo!</h4>
-                        <p class="text-xs text-slate-300 max-w-xl mx-auto">
-                            Mantente conectado a las metas de la semana, utiliza tus plantillas de 4 pasos y duplica tu equipo con tu enlace personalizado.
-                        </p>
+                        <div class="space-y-3 my-auto">
+                            <div class="w-14 h-14 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center mx-auto text-sky-300 text-2xl">
+                                <i class="fa-solid fa-gem"></i>
+                            </div>
+                            <h4 class="text-lg sm:text-xl font-black text-white leading-tight">¡Enfocados en el Siguiente Nivel de Liderazgo!</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Mantente conectado a las metas de la semana, utiliza tus plantillas de 4 pasos y duplica tu equipo con tu enlace personalizado.
+                            </p>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-sky-300">LEADER PROSPECT ↗</span>
                     </div>
                 `;
                 return;
@@ -2936,72 +3220,84 @@
             if (appState.carouselIndex >= slides.length) appState.carouselIndex = 0;
             const activeSlide = slides[appState.carouselIndex];
 
-            const navArrows = slides.length > 1
-                ? `<button type="button" onclick="movePublicCarousel(-1);" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 text-white flex items-center justify-center shadow-lg">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                   </button>
-                   <button type="button" onclick="movePublicCarousel(1);" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 text-white flex items-center justify-center shadow-lg">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                   </button>
-                   <div class="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-900/80 text-white text-[10px] font-black">
-                        ${appState.carouselIndex + 1} / ${slides.length}
+            const dotsIndicator = slides.length > 1
+                ? `<div class="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-900/80 text-white text-[10px] font-black flex items-center gap-1.5 z-10">
+                        ${slides.map((_, idx) => `<span style="width:7px;height:7px;border-radius:9999px;background:${idx === appState.carouselIndex ? '#38BDF8' : 'rgba(255,255,255,0.35)'};display:inline-block;"></span>`).join('')}
                    </div>`
                 : '';
 
             stage.innerHTML = `
-                <img src="${activeSlide.imageUrl}" alt="Comunicado Oficial" class="w-full max-h-80" style="object-fit:contain;">
-                ${navArrows}
+                <div class="relative w-full mx-auto rounded-3xl overflow-hidden bg-slate-950 border-2 border-sky-400/40 shadow-2xl flex items-center justify-center aspect-9-16" style="max-width:340px; aspect-ratio:9/16;">
+                    <img src="${activeSlide.imageUrl}" alt="Comunicado Oficial 9:16" class="w-full h-full transition-all" style="object-fit:cover; width:100%; height:100%;">
+                    ${dotsIndicator}
+                </div>
             `;
         }
 
-        // ==================== RELOJ DE CIERRE FUXION EDITABLE ====================
+        // ==================== RELOJ DE CIERRE FUXION CONFIGURABLE ====================
+        function getCycleConfig() {
+            try {
+                const raw = safeGetItem('lp_admin_cycle_config');
+                if (raw) return JSON.parse(raw);
+            } catch (e) {}
+            return {
+                heading: 'CIERRE DE SEMANA FUXION',
+                customLabel: '',
+                targetDay: 2,
+                targetHour: 23,
+                targetMinute: 59
+            };
+        }
+
         function openCycleSettingsModal() {
-            const cfg = JSON.parse(safeGetItem('lp_admin_cycle_config') || '{}');
-            if (cfg.heading) document.getElementById('cycle-cfg-heading').value = cfg.heading;
-            if (cfg.customLabel) document.getElementById('cycle-cfg-label').value = cfg.customLabel;
-            if (typeof cfg.targetDay === 'number') document.getElementById('cycle-cfg-day').value = String(cfg.targetDay);
-            if (cfg.targetTime) document.getElementById('cycle-cfg-time').value = cfg.targetTime;
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const cfg = getCycleConfig();
+            document.getElementById('cycle-cfg-heading').value = cfg.heading || 'CIERRE DE SEMANA FUXION';
+            document.getElementById('cycle-cfg-label').value = cfg.customLabel || '';
+            document.getElementById('cycle-cfg-day').value = String(cfg.targetDay ?? 2);
+            document.getElementById('cycle-cfg-time').value = `${String(cfg.targetHour ?? 23).padStart(2, '0')}:${String(cfg.targetMinute ?? 59).padStart(2, '0')}`;
             openModal('modal-admin-cycle-settings');
         }
 
         function saveAdminCycleSettings() {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const heading = document.getElementById('cycle-cfg-heading').value.trim() || 'CIERRE DE SEMANA FUXION';
             const customLabel = document.getElementById('cycle-cfg-label').value.trim();
             const targetDay = parseInt(document.getElementById('cycle-cfg-day').value, 10);
-            const targetTime = document.getElementById('cycle-cfg-time').value || '23:59';
+            const timeParts = (document.getElementById('cycle-cfg-time').value || '23:59').split(':');
+            const targetHour = parseInt(timeParts[0] || '23', 10);
+            const targetMinute = parseInt(timeParts[1] || '59', 10);
 
-            safeSetItem('lp_admin_cycle_config', JSON.stringify({ heading, customLabel, targetDay, targetTime }));
+            const cfg = { heading, customLabel, targetDay, targetHour, targetMinute };
+            safeSetItem('lp_admin_cycle_config', JSON.stringify(cfg));
             closeModal('modal-admin-cycle-settings');
-            showToast('Cuadro de cierre de semana actualizado.');
+            showToast('Cuadro de cierre semanal actualizado.');
         }
 
         function startCycleCountdownTimer() {
             function updateClock() {
                 const now = new Date();
-                const cfg = JSON.parse(safeGetItem('lp_admin_cycle_config') || '{}');
-                const targetDay = typeof cfg.targetDay === 'number' ? cfg.targetDay : 2;
-                const timeParts = (cfg.targetTime || '23:59').split(':');
-                const targetHour = parseInt(timeParts[0] || '23', 10);
-                const targetMin = parseInt(timeParts[1] || '59', 10);
-
-                const headingEl = document.getElementById('fuxion-cycle-heading');
-                if (headingEl) headingEl.textContent = cfg.heading || 'CIERRE DE SEMANA FUXION';
-
+                const cfg = getCycleConfig();
                 const startOfYear = new Date(now.getFullYear(), 0, 1);
                 const pastDays = Math.floor((now - startOfYear) / 86400000);
                 const weekNum = Math.min(52, Math.max(1, Math.ceil((pastDays + startOfYear.getDay() + 1) / 7)));
                 const periodNum = Math.min(13, Math.ceil(weekNum / 4));
 
+                const headEl = document.getElementById('fuxion-cycle-heading');
                 const labelEl = document.getElementById('fuxion-cycle-label');
+                if (headEl) headEl.textContent = cfg.heading || 'CIERRE DE SEMANA FUXION';
                 if (labelEl) {
-                    labelEl.textContent = cfg.customLabel || `Semana ${weekNum} • Periodo ${periodNum} (Cierre Martes 11:59:59 PM)`;
+                    labelEl.textContent = cfg.customLabel
+                        ? cfg.customLabel
+                        : `Semana ${weekNum} • Periodo ${periodNum} (Cierre Martes 11:59:59 PM)`;
                 }
 
                 const target = new Date(now);
                 const day = now.getDay();
-                const daysUntilTarget = (targetDay - day + 7) % 7;
+                const desiredDay = Number.isInteger(cfg.targetDay) ? cfg.targetDay : 2;
+                const daysUntilTarget = (desiredDay - day + 7) % 7;
                 target.setDate(now.getDate() + daysUntilTarget);
-                target.setHours(targetHour, targetMin, 59, 999);
+                target.setHours(cfg.targetHour ?? 23, cfg.targetMinute ?? 59, 59, 999);
                 if (target <= now) target.setDate(target.getDate() + 7);
 
                 const diff = Math.max(0, target - now);
@@ -3021,7 +3317,7 @@
             setInterval(updateClock, 1000);
         }
 
-        // ==================== ENLACES CORTOS PERSONALIZADOS & AISLAMIENTO DE REGISTRO ====================
+        // ==================== ENLACES CORTOS PERSONALIZADOS Y QR REALES ====================
         function buildUserSlug(fullName) {
             return String(fullName || 'Lider-FuXion')
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -3083,38 +3379,39 @@
         function detectUrlReferralParams() {
             try {
                 const params = new URLSearchParams(window.location.search);
-                const socioParam = params.get('socio') || params.get('ref');
-                const clienteParam = params.get('cliente');
                 const syncRegToken = params.get('sync_reg');
-
                 if (syncRegToken) {
-                    const decoded = JSON.parse(decodeURIComponent(escape(atob(syncRegToken))));
-                    if (decoded && decoded.id && decoded.code) {
-                        const adminDb = safeParseStorageArray('lp_admin_activations_db');
-                        if (!adminDb.some(x => x.id === decoded.id)) {
-                            adminDb.unshift(decoded);
-                            safeSetItem('lp_admin_activations_db', JSON.stringify(adminDb));
+                    try {
+                        const decodedRec = JSON.parse(decodeURIComponent(escape(atob(syncRegToken))));
+                        if (decodedRec && decodedRec.id) {
+                            const adminDb = safeParseStorageArray('lp_admin_activations_db');
+                            if (!adminDb.some(a => a.id === decodedRec.id)) {
+                                adminDb.unshift(decodedRec);
+                                safeSetItem('lp_admin_activations_db', JSON.stringify(adminDb));
+                            }
+                            const pendingList = safeParseStorageArray('lp_pending_activations');
+                            if (!pendingList.some(p => p.id === decodedRec.id)) {
+                                pendingList.unshift(decodedRec);
+                                safeSetItem('lp_pending_activations', JSON.stringify(pendingList));
+                            }
                         }
-                        const pendingDb = safeParseStorageArray('lp_pending_activations');
-                        if (!pendingDb.some(x => x.id === decoded.id)) {
-                            pendingDb.unshift(decoded);
-                            safeSetItem('lp_pending_activations', JSON.stringify(pendingDb));
-                        }
-                    }
-                    return false;
+                    } catch (e) {}
                 }
 
+                const socioParam = params.get('socio') || params.get('ref');
+                const clienteParam = params.get('cliente');
+
                 if (socioParam) {
-                    appState.currentUser = null;
                     safeRemoveItem('lp_active_session');
+                    appState.currentUser = null;
                     const sponsorResolved = resolveSponsorFromSlugOrCode(socioParam);
                     const uplineInput = document.getElementById('reg-upline');
                     if (uplineInput) uplineInput.value = sponsorResolved;
                     openRegisterModal('partner');
                     return true;
                 } else if (clienteParam) {
-                    appState.currentUser = null;
                     safeRemoveItem('lp_active_session');
+                    appState.currentUser = null;
                     const sponsorResolved = resolveSponsorFromSlugOrCode(clienteParam);
                     const uplineInput = document.getElementById('reg-upline');
                     if (uplineInput) uplineInput.value = sponsorResolved;
@@ -3149,12 +3446,10 @@
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // ==================== HERRAMIENTAS ====================
-        function extractYouTubeEmbedUrl(rawUrl) {
-            const url = String(rawUrl || '').trim();
-            const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-            const match = url.match(regExp);
-            return match && match[1] ? `https://www.youtube.com/embed/${match[1]}?rel=0` : url;
+        // ==================== HERRAMIENTAS: PDFS + VIDEOS + ARCHIVOS HASTA 400 MB ====================
+        function extractYouTubeEmbedUrl(url) {
+            const m = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+            return m ? `https://www.youtube.com/embed/${m[1]}?rel=0` : url;
         }
 
         function playEmbeddedPresentationVideo() {
@@ -3168,13 +3463,25 @@
 
         function shareBusinessPresentationWhatsApp() {
             const user = appState.currentUser;
-            const customMsg = document.getElementById('business-pres-custom-msg').value.trim();
+            const rawMsg = document.getElementById('business-pres-custom-msg').value.trim();
+            const selProspectId = document.getElementById('main-pres-prospect-select')?.value || '';
+            const targetProspect = appState.prospects.find(p => p.id === selProspectId) || null;
+
+            const personalizedText = interpolateTemplateMessage(rawMsg, targetProspect);
             const baseUrl = getBaseAppUrl();
             const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
             const refLink = `${baseUrl}?socio=${slug}`;
 
-            const unifiedMsg = `${customMsg}\n\n🎥 *Presentación Oficial de Negocio:* https://youtu.be/BT7YUDaStT8?feature=shared\n🚀 *Regístrate aquí en mi equipo:* ${refLink}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(unifiedMsg)}`, '_blank');
+            const unifiedMsg = `${personalizedText}\n\n🎥 *Presentación Oficial de Negocio:* https://youtu.be/BT7YUDaStT8?feature=shared\n🚀 *Regístrate aquí en mi equipo:* ${refLink}`;
+            const cleanPhone = targetProspect ? targetProspect.phone.replace(/\D/g, '') : '';
+            const waUrl = cleanPhone
+                ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(unifiedMsg)}`
+                : `https://api.whatsapp.com/send?text=${encodeURIComponent(unifiedMsg)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function buildThematicDefaultMessage(title, isFile = false) {
+            return `¡Hola {nombre}! 👋 Te saluda *{socio}*. Quiero compartir contigo este material clave sobre *${title}* 🚀💎 para que conozcas cómo estamos desarrollando nuestro proyecto FuXion con resultados reales ${isFile ? '🎬📄' : '🎥✨'}.`;
         }
 
         function submitInlineAdminVideo() {
@@ -3188,9 +3495,11 @@
             const videos = safeParseStorageArray('lp_admin_public_videos');
             const newVid = {
                 id: 'vid_' + Date.now(),
+                kind: 'link',
                 title,
                 url,
-                embedUrl: extractYouTubeEmbedUrl(url)
+                embedUrl: extractYouTubeEmbedUrl(url),
+                defaultMessage: buildThematicDefaultMessage(title, false)
             };
             videos.unshift(newVid);
             safeSetItem('lp_admin_public_videos', JSON.stringify(videos));
@@ -3201,59 +3510,164 @@
             showToast('Nuevo video publicado para todo el equipo.');
         }
 
-        function deleteAdminVideo(id) {
+        async function handleAdminUniversalToolFileUpload(event) {
+            if (!appState.currentUser || !appState.currentUser.isAdmin) return;
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const maxBytes = 400 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                showToast('El archivo supera el límite máximo permitido de 400 MB.');
+                event.target.value = '';
+                return;
+            }
+
+            const titleInput = document.getElementById('inline-admin-video-title');
+            const customTitle = (titleInput?.value || '').trim() || file.name.replace(/\.[^/.]+$/, '');
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            const itemId = 'media_' + Date.now();
+
+            try {
+                await saveMediaBlobToIndexedDB(itemId, file, file.name, file.type || 'application/octet-stream');
+                const videos = safeParseStorageArray('lp_admin_public_videos');
+                videos.unshift({
+                    id: itemId,
+                    kind: 'file',
+                    title: customTitle,
+                    fileName: file.name,
+                    mimeType: file.type || 'application/octet-stream',
+                    sizeMB,
+                    defaultMessage: buildThematicDefaultMessage(customTitle, true)
+                });
+                safeSetItem('lp_admin_public_videos', JSON.stringify(videos));
+                if (titleInput) titleInput.value = '';
+                renderDynamicToolsSection();
+                showToast(`Archivo "${customTitle}" (${sizeMB} MB) subido en alta calidad.`);
+            } catch (err) {
+                showToast('Error al almacenar el archivo multimedia.');
+            }
+            event.target.value = '';
+        }
+
+        async function deleteAdminVideo(id) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const videos = safeParseStorageArray('lp_admin_public_videos').filter(v => v.id !== id);
             safeSetItem('lp_admin_public_videos', JSON.stringify(videos));
+            await deleteMediaBlobFromIndexedDB(id);
             renderDynamicToolsSection();
-            showToast('Video eliminado.');
+            showToast('Recurso multimedia eliminado.');
         }
 
-        function shareCustomVideoWhatsApp(title, url) {
+        function getEffectiveVideoMessage(item) {
+            if (appState.userVideoMessages && appState.userVideoMessages[item.id]) {
+                return appState.userVideoMessages[item.id];
+            }
+            return item.defaultMessage || buildThematicDefaultMessage(item.title, item.kind === 'file');
+        }
+
+        function openEditVideoCustomMessageModal(itemId) {
+            const videos = safeParseStorageArray('lp_admin_public_videos');
+            const item = videos.find(v => v.id === itemId);
+            if (!item) return;
+            document.getElementById('edit-vid-msg-id').value = item.id;
+            document.getElementById('edit-vid-msg-topic').textContent = `Tema: ${item.title}`;
+            document.getElementById('edit-vid-msg-textarea').value = getEffectiveVideoMessage(item);
+            openModal('modal-edit-video-message');
+        }
+
+        function saveEditedVideoCustomMessage() {
+            const itemId = document.getElementById('edit-vid-msg-id').value;
+            const newText = document.getElementById('edit-vid-msg-textarea').value.trim();
+            if (!itemId || !newText) { showToast('Escribe un mensaje válido.'); return; }
+
+            appState.userVideoMessages[itemId] = newText;
+            saveUserScopedData();
+            closeModal('modal-edit-video-message');
+            renderDynamicToolsSection();
+            showToast('Mensaje personalizado guardado en tu perfil.');
+        }
+
+        async function shareToolItemToProspectWhatsApp(itemId) {
+            const videos = safeParseStorageArray('lp_admin_public_videos');
+            const item = videos.find(v => v.id === itemId);
+            if (!item) return;
+
             const user = appState.currentUser;
+            const selEl = document.getElementById(`tool-prospect-sel-${itemId}`);
+            const targetProspectId = selEl ? selEl.value : '';
+            const targetProspect = appState.prospects.find(p => p.id === targetProspectId) || null;
+
+            const rawTemplate = getEffectiveVideoMessage(item);
+            const personalizedText = interpolateTemplateMessage(rawTemplate, targetProspect);
             const baseUrl = getBaseAppUrl();
             const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
             const refLink = `${baseUrl}?socio=${slug}`;
-            const msg = `¡Hola! 👋 Te saluda *${user ? user.name : ADMIN_FULL_NAME}*. Mira este video de nuestro equipo: *${title}*\n\n🎥 *Ver Video:* ${url}\n🚀 *Únete a mi organización:* ${refLink}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+
+            if (item.kind === 'file') {
+                const mediaRec = await getMediaBlobFromIndexedDB(item.id);
+                const fullText = `${personalizedText}\n\n🎬 *Material:* ${item.title}\n🚀 *Únete a mi organización:* ${refLink}`;
+
+                if (mediaRec && mediaRec.blob && navigator.canShare) {
+                    try {
+                        const fileObj = new File([mediaRec.blob], mediaRec.fileName || `${buildUserSlug(item.title)}.mp4`, { type: mediaRec.mimeType || 'video/mp4' });
+                        if (navigator.canShare({ files: [fileObj] })) {
+                            await navigator.share({ files: [fileObj], text: fullText });
+                            return;
+                        }
+                    } catch (e) {}
+                }
+
+                const cleanPhone = targetProspect ? targetProspect.phone.replace(/\D/g, '') : '';
+                const waUrl = cleanPhone
+                    ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(fullText)}`
+                    : `https://api.whatsapp.com/send?text=${encodeURIComponent(fullText)}`;
+                window.open(waUrl, '_blank');
+                return;
+            }
+
+            const fullMsg = `${personalizedText}\n\n🎥 *Ver Video:* ${item.url}\n🚀 *Únete a mi organización:* ${refLink}`;
+            const cleanPhone = targetProspect ? targetProspect.phone.replace(/\D/g, '') : '';
+            const waUrl = cleanPhone
+                ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(fullMsg)}`
+                : `https://api.whatsapp.com/send?text=${encodeURIComponent(fullMsg)}`;
+            window.open(waUrl, '_blank');
         }
 
         function submitAdminNewPdf() {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const title = document.getElementById('admin-pdf-title').value.trim();
-            const desc = document.getElementById('admin-pdf-desc').value.trim() || 'Documento oficial compartido por el Administrador.';
-            const urlInput = document.getElementById('admin-pdf-url').value.trim();
+            const desc = document.getElementById('admin-pdf-desc').value.trim() || 'Material oficial publicado por el Administrador.';
+            const url = document.getElementById('admin-pdf-url').value.trim();
             const fileInput = document.getElementById('admin-pdf-file');
-            const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+            const file = fileInput.files && fileInput.files[0];
 
-            if (!title) { showToast('Ingresa un título para el PDF.'); return; }
+            if (!title || (!url && !file)) { showToast('Ingresa el título y selecciona un PDF o pega su link.'); return; }
 
-            const savePdfRecord = (dataOrUrl, fileName) => {
+            const saveRecord = (hrefVal, fileNameVal) => {
                 const pdfs = safeParseStorageArray('lp_admin_public_pdfs');
                 pdfs.unshift({
                     id: 'pdf_' + Date.now(),
                     title,
                     desc,
-                    href: dataOrUrl,
-                    fileName: fileName || `${buildUserSlug(title)}.pdf`
+                    href: hrefVal,
+                    fileName: fileNameVal || `${buildUserSlug(title)}.pdf`
                 });
                 safeSetItem('lp_admin_public_pdfs', JSON.stringify(pdfs));
-                closeModal('modal-admin-add-pdf');
                 document.getElementById('admin-pdf-title').value = '';
                 document.getElementById('admin-pdf-desc').value = '';
                 document.getElementById('admin-pdf-url').value = '';
+                fileInput.value = '';
+                closeModal('modal-admin-add-pdf');
                 renderDynamicToolsSection();
-                showToast('Documento PDF publicado en Herramientas.');
+                showToast('Documento PDF agregado a Herramientas.');
             };
 
             if (file) {
                 const reader = new FileReader();
-                reader.onload = e => savePdfRecord(e.target.result, file.name);
+                reader.onload = (e) => saveRecord(e.target.result, file.name);
                 reader.readAsDataURL(file);
-            } else if (urlInput) {
-                savePdfRecord(urlInput, `${buildUserSlug(title)}.pdf`);
             } else {
-                showToast('Selecciona un archivo PDF o pega un enlace.');
+                saveRecord(url, `${buildUserSlug(title)}.pdf`);
             }
         }
 
@@ -3262,14 +3676,24 @@
             const pdfs = safeParseStorageArray('lp_admin_public_pdfs').filter(p => p.id !== id);
             safeSetItem('lp_admin_public_pdfs', JSON.stringify(pdfs));
             renderDynamicToolsSection();
-            showToast('Documento PDF eliminado.');
+            showToast('PDF eliminado.');
         }
 
-        function renderDynamicToolsSection() {
+        async function renderDynamicToolsSection() {
             const pdfGrid = document.getElementById('dynamic-admin-pdfs-grid');
             const vidSection = document.getElementById('dynamic-admin-videos-section');
             const vidGrid = document.getElementById('dynamic-admin-videos-grid');
+            const mainProsSel = document.getElementById('main-pres-prospect-select');
             const isAdmin = appState.currentUser && appState.currentUser.isAdmin;
+
+            const prospectOptionsHtml = `<option value="">— Seleccionar Prospecto del CRM (o envío libre) —</option>` +
+                appState.prospects.map(p => `<option value="${p.id}">${p.flag || '🌎'} ${p.name} (${p.phone})</option>`).join('');
+
+            if (mainProsSel) {
+                const prev = mainProsSel.value;
+                mainProsSel.innerHTML = prospectOptionsHtml;
+                if (prev) mainProsSel.value = prev;
+            }
 
             const pdfs = safeParseStorageArray('lp_admin_public_pdfs');
             if (pdfGrid) {
@@ -3299,21 +3723,93 @@
                     vidSection.classList.add('hidden');
                 } else {
                     vidSection.classList.remove('hidden');
-                    vidGrid.innerHTML = videos.map(v => `
-                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                            <div class="flex items-center justify-between gap-2">
-                                <h4 class="text-xs font-black text-slate-900">${v.title}</h4>
-                                ${isAdmin ? `<button type="button" onclick="deleteAdminVideo('${v.id}');" class="text-[11px] text-rose-600 font-bold">Eliminar Video</button>` : ''}
+                    const cardsHtml = await Promise.all(videos.map(async v => {
+                        const effectiveMsg = getEffectiveVideoMessage(v);
+                        const previewText = interpolateTemplateMessage(effectiveMsg, null);
+                        let mediaPreviewHtml = '';
+
+                        if (v.kind === 'file') {
+                            let objUrl = appState.mediaObjectUrlCache[v.id];
+                            if (!objUrl) {
+                                const rec = await getMediaBlobFromIndexedDB(v.id);
+                                if (rec && rec.blob) {
+                                    objUrl = URL.createObjectURL(rec.blob);
+                                    appState.mediaObjectUrlCache[v.id] = objUrl;
+                                }
+                            }
+                            if (objUrl && (v.mimeType || '').startsWith('video/')) {
+                                mediaPreviewHtml = `
+                                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                        <video controls preload="metadata" playsinline class="w-full h-full" style="object-fit:contain;" src="${objUrl}"></video>
+                                    </div>
+                                `;
+                            } else if (objUrl && (v.mimeType || '').startsWith('image/')) {
+                                mediaPreviewHtml = `
+                                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center">
+                                        <img src="${objUrl}" alt="${v.title}" class="max-h-full" style="object-fit:contain;">
+                                    </div>
+                                `;
+                            } else if (objUrl) {
+                                mediaPreviewHtml = `
+                                    <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between gap-2 text-xs">
+                                        <span class="truncate"><i class="fa-solid fa-file-arrow-down text-sky-400 mr-1.5"></i>${v.fileName || v.title} (${v.sizeMB || ''} MB)</span>
+                                        <a href="${objUrl}" download="${v.fileName || v.title}" class="px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold text-[11px] shrink-0">Descargar</a>
+                                    </div>
+                                `;
+                            } else {
+                                mediaPreviewHtml = `
+                                    <div class="p-4 rounded-xl bg-slate-900 text-slate-300 text-xs text-center">
+                                        <i class="fa-solid fa-film text-sky-400 mr-1"></i>Archivo multimedia: <b>${v.fileName || v.title}</b> (${v.sizeMB || ''} MB)
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            mediaPreviewHtml = `
+                                <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-900">
+                                    <iframe class="w-full h-full" src="${v.embedUrl}" title="${v.title}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            `;
+                        }
+
+                        return `
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-3">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="flex items-center gap-2 min-w-0">
+                                            <span class="px-2 py-0.5 rounded-md ${v.kind === 'file' ? 'bg-sky-100 text-sky-800' : 'bg-rose-100 text-rose-800'} text-[10px] font-black uppercase shrink-0">
+                                                ${v.kind === 'file' ? 'Archivo HD' : 'Video'}
+                                            </span>
+                                            <h4 class="text-xs font-black text-slate-900 truncate">${v.title}</h4>
+                                        </div>
+                                        ${isAdmin ? `<button type="button" onclick="deleteAdminVideo('${v.id}');" class="text-[11px] text-rose-600 font-bold shrink-0">Eliminar</button>` : ''}
+                                    </div>
+
+                                    ${mediaPreviewHtml}
+
+                                    <div class="p-3 rounded-xl bg-white border border-slate-200 space-y-1.5">
+                                        <div class="flex items-center justify-between gap-2">
+                                            <span class="text-[10px] font-black uppercase text-sky-700">Mensaje Temático:</span>
+                                            <button type="button" onclick="openEditVideoCustomMessageModal('${v.id}');" class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-bold text-[10px] flex items-center gap-1">
+                                                <i class="fa-solid fa-pen text-sky-600"></i><span>Editar Mensaje Personalizado</span>
+                                            </button>
+                                        </div>
+                                        <p class="text-[11px] text-slate-600 leading-relaxed" style="white-space:pre-line;">${previewText}</p>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 pt-1">
+                                    <select id="tool-prospect-sel-${v.id}" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-[11px] font-bold text-slate-800">
+                                        ${prospectOptionsHtml}
+                                    </select>
+                                    <button type="button" onclick="shareToolItemToProspectWhatsApp('${v.id}');"
+                                        class="w-full py-2.5 px-4 rounded-xl bg-[#00B074] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar por WhatsApp a Prospecto</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-900">
-                                <iframe class="w-full h-full" src="${v.embedUrl}" title="${v.title}" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                            <button type="button" onclick="shareCustomVideoWhatsApp('${v.title.replace(/'/g, "\\'")}', '${v.url}');"
-                                class="w-full py-2.5 px-4 rounded-xl bg-[#00B074] text-white font-bold text-xs flex items-center justify-center gap-1.5">
-                                <i class="fa-brands fa-whatsapp"></i><span>Compartir Video y Mi Enlace por WhatsApp</span>
-                            </button>
-                        </div>
-                    `).join('');
+                        `;
+                    }));
+                    vidGrid.innerHTML = cardsHtml.join('');
                 }
             }
         }
@@ -3465,6 +3961,17 @@
             }
         }
 
+        function toggleDuplicateEmailFilter() {
+            appState.filterOnlyDuplicateEmails = !appState.filterOnlyDuplicateEmails;
+            const btn = document.getElementById('btn-admin-filter-dup-emails');
+            if (btn) {
+                btn.className = appState.filterOnlyDuplicateEmails
+                    ? 'px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 text-[11px] font-black'
+                    : 'px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-extrabold';
+            }
+            renderTeamView();
+        }
+
         function toggleRowPasswordVisibility(userId) {
             appState.revealedPasswordIds[userId] = !appState.revealedPasswordIds[userId];
             renderTeamView();
@@ -3598,11 +4105,13 @@
             const tbody = document.getElementById('team-data-table-body');
             const filterTxt = (document.getElementById('team-table-search')?.value || '').toLowerCase();
             if (tbody) {
-                const filtered = visiblePartners.filter(m =>
-                    m.name.toLowerCase().includes(filterTxt) ||
-                    (m.email || '').toLowerCase().includes(filterTxt) ||
-                    (m.sponsorCode || '').toLowerCase().includes(filterTxt)
-                );
+                const filtered = visiblePartners.filter(m => {
+                    const emKey = String(m.email || '').trim().toLowerCase();
+                    if (isAdmin && appState.filterOnlyDuplicateEmails && (emailCounts[emKey] || 1) <= 1) return false;
+                    return m.name.toLowerCase().includes(filterTxt) ||
+                        emKey.includes(filterTxt) ||
+                        (m.sponsorCode || '').toLowerCase().includes(filterTxt);
+                });
                 if (filtered.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="${isAdmin ? 6 : 5}" class="py-6 text-center text-slate-400">No hay socios registrados en este criterio.</td></tr>`;
                 } else {
