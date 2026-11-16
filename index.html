@@ -132,48 +132,20 @@
         }
         input, select, textarea { font-family: inherit; }
 
-        /* Muro y Novedades: Visor Proporcionado sin Recortes ni Estiramiento */
-        .lp-wall-viewport {
+        /* Muro y Novedades: Contenedor Elástico 100% Adaptado a la Proporción Natural de la Imagen sin Espacios en Blanco */
+        .lp-elastic-wall-box {
             position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
-            max-height: 460px;
-            min-height: 230px;
             border-radius: 1.5rem;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 30%, #0E2342 0%, #060D1A 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(88, 184, 238, 0.25);
+            line-height: 0;
+            background: transparent;
         }
-        @media (min-width: 1024px) {
-            .lp-wall-viewport {
-                aspect-ratio: 21 / 9;
-                max-height: 440px;
-            }
-        }
-        .lp-wall-backdrop-blur {
-            position: absolute;
-            inset: -20px;
-            width: calc(100% + 40px);
-            height: calc(100% + 40px);
-            object-fit: cover;
-            filter: blur(22px) brightness(0.45) saturate(1.2);
-            transform: scale(1.06);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .lp-wall-foreground-media {
-            position: relative;
-            z-index: 2;
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
+        .lp-elastic-wall-media {
+            display: block;
+            width: 100%;
             height: auto;
-            object-fit: contain;
-            border-radius: 0.75rem;
-            box-shadow: 0 12px 32px rgba(2, 6, 23, 0.65);
+            border-radius: 1.5rem;
         }
         .lp-wall-arrow-btn {
             position: absolute;
@@ -190,7 +162,7 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(8px);
-            transition: all 0.2s ease;
+            transition: transform 0.15s ease, background-color 0.15s ease;
         }
         .lp-wall-arrow-btn:hover {
             background: #0EA5E9;
@@ -282,7 +254,7 @@
                         <i class="fa-solid fa-circle-exclamation mt-0.5 text-rose-600"></i>
                         <span id="login-error-text">Credenciales incorrectas.</span>
                     </div>
-                    <button type="button" id="btn-open-pending-modal-from-login" onclick="openActivationCodeModal();" class="hidden self-start px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-[11px] hover:bg-amber-400 transition-colors">
+                    <button type="button" id="btn-open-pending-modal-from-login" onclick="openActivationCodeModal();" class="hidden self-start px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-[11px] hover:bg-amber-400">
                         <i class="fa-solid fa-key mr-1"></i>Ingresar Código de 6 Dígitos
                     </button>
                 </div>
@@ -295,7 +267,7 @@
                                 <i class="fa-regular fa-envelope"></i>
                             </span>
                             <input type="email" id="input-auth-email" required autocomplete="off" placeholder="ejemplo@correo.com"
-                                class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
+                                class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white">
                         </div>
                     </div>
 
@@ -306,7 +278,7 @@
                                 <i class="fa-solid fa-lock"></i>
                             </span>
                             <input type="password" id="input-auth-password" required autocomplete="off" placeholder="••••••••"
-                                class="w-full pl-10 pr-11 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all">
+                                class="w-full pl-10 pr-11 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white">
                             <button type="button" onclick="togglePasswordVisibility('input-auth-password', 'eye-login');" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
                                 <i id="eye-login" class="fa-regular fa-eye"></i>
                             </button>
@@ -324,7 +296,7 @@
                     </div>
 
                     <button type="submit" id="btn-submit-login" onclick="event.preventDefault(); handleLogin();"
-                        class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-[#0284C7] hover:to-[#1D4ED8] text-white font-extrabold text-sm shadow-glow-btn flex items-center justify-center gap-2 transition-all active:scale-[0.99]">
+                        class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-[#0284C7] hover:to-[#1D4ED8] text-white font-extrabold text-sm shadow-glow-btn flex items-center justify-center gap-2 active:scale-[0.99]">
                         <span>Iniciar sesión</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
@@ -332,7 +304,7 @@
 
                 <!-- Verificación Código 6 Dígitos y Registro -->
                 <div class="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2.5 text-center">
-                    <button type="button" id="btn-open-activation-code-link" onclick="openActivationCodeModal();" class="w-full py-2.5 px-4 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                    <button type="button" id="btn-open-activation-code-link" onclick="openActivationCodeModal();" class="w-full py-2.5 px-4 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-bold text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-shield-halved text-amber-600"></i>
                         <span>Tengo un código de activación de 6 dígitos</span>
                     </button>
@@ -362,10 +334,10 @@
     <div id="dashboard-screen" class="hidden min-h-screen w-full flex bg-[#F1F5F9]">
 
         <!-- Backdrop Oscuro para Drawer Móvil -->
-        <div id="mobile-drawer-backdrop" onclick="closeMobileDrawer();" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+        <div id="mobile-drawer-backdrop" onclick="closeMobileDrawer();" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden lg:hidden"></div>
 
         <!-- Drawer Móvil Flotante (Off-Canvas) -->
-        <aside id="mobile-drawer" class="fixed inset-y-0 left-0 w-72 bg-[#060D1A] text-slate-200 z-50 transform -translate-x-full transition-transform duration-300 ease-out flex flex-col lg:hidden shadow-2xl">
+        <aside id="mobile-drawer" class="fixed inset-y-0 left-0 w-72 bg-[#060D1A] text-slate-200 z-50 transform -translate-x-full transition-transform duration-200 ease-out flex flex-col lg:hidden shadow-2xl">
             <div class="p-4 border-b border-slate-800/80 flex items-center justify-between">
                 <div class="w-40">
                     <svg viewBox="0 0 380 230" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -385,49 +357,49 @@
             </div>
 
             <nav class="flex-1 overflow-y-auto py-3 px-3 space-y-1 text-xs font-semibold">
-                <button type="button" onclick="navigateTab('inicio'); closeMobileDrawer();" data-nav="inicio" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('inicio'); closeMobileDrawer();" data-nav="inicio" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-house w-4 text-sky-400"></i><span>Inicio &amp; Resumen</span>
                 </button>
-                <button type="button" onclick="navigateTab('grupo-leader'); closeMobileDrawer();" data-nav="grupo-leader" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('grupo-leader'); closeMobileDrawer();" data-nav="grupo-leader" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-brands fa-whatsapp w-4 text-emerald-400"></i><span>GRUPO LEADER</span>
                 </button>
-                <button type="button" onclick="navigateTab('reconocimientos'); closeMobileDrawer();" data-nav="reconocimientos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('reconocimientos'); closeMobileDrawer();" data-nav="reconocimientos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-award w-4 text-amber-400"></i><span>Reconocimiento</span>
                 </button>
-                <button type="button" onclick="navigateTab('prospectos'); closeMobileDrawer();" data-nav="prospectos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('prospectos'); closeMobileDrawer();" data-nav="prospectos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-address-book w-4 text-sky-400"></i><span>Prospectos CRM</span>
                 </button>
-                <button type="button" onclick="navigateTab('agenda'); closeMobileDrawer();" data-nav="agenda" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('agenda'); closeMobileDrawer();" data-nav="agenda" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-calendar-days w-4 text-rose-400"></i><span>Mi Agenda &amp; Calendario</span>
                 </button>
-                <button type="button" onclick="navigateTab('equipo'); closeMobileDrawer();" data-nav="equipo" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('equipo'); closeMobileDrawer();" data-nav="equipo" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-sitemap w-4 text-indigo-400"></i><span>Mi Equipo MLM</span>
                 </button>
-                <button type="button" onclick="navigateTab('simulador'); closeMobileDrawer();" data-nav="simulador" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('simulador'); closeMobileDrawer();" data-nav="simulador" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-calculator w-4 text-teal-400"></i><span>Simulador FuXion PV</span>
                 </button>
-                <button type="button" onclick="navigateTab('enlaces'); closeMobileDrawer();" data-nav="enlaces" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('enlaces'); closeMobileDrawer();" data-nav="enlaces" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-qrcode w-4 text-cyan-400"></i><span>Enlaces y QR</span>
                 </button>
-                <button type="button" onclick="navigateTab('herramientas'); closeMobileDrawer();" data-nav="herramientas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('herramientas'); closeMobileDrawer();" data-nav="herramientas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-briefcase w-4 text-orange-400"></i><span>Herramientas</span>
                 </button>
 
                 <!-- Exclusivo Superadministrador -->
                 <div id="mobile-admin-activation-nav" class="hidden pt-2 mt-2 border-t border-slate-800">
-                    <button type="button" onclick="navigateTab('activacion-socios'); closeMobileDrawer();" data-nav="activacion-socios" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-300 transition-all">
+                    <button type="button" onclick="navigateTab('activacion-socios'); closeMobileDrawer();" data-nav="activacion-socios" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-300">
                         <span class="flex items-center gap-3"><i class="fa-solid fa-key w-4 text-amber-400"></i><span>Activación Socios</span></span>
                         <span id="mobile-admin-badge-count" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black">0</span>
                     </button>
                 </div>
 
-                <button type="button" onclick="navigateTab('perfil'); closeMobileDrawer();" data-nav="perfil" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('perfil'); closeMobileDrawer();" data-nav="perfil" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-user-gear w-4 text-sky-400"></i><span>Mi Perfil &amp; Respaldo</span>
                 </button>
             </nav>
 
             <div class="p-4 border-t border-slate-800">
-                <button type="button" onclick="logoutUser();" class="w-full py-2.5 px-4 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                <button type="button" onclick="logoutUser();" class="w-full py-2.5 px-4 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs flex items-center justify-center gap-2">
                     <i class="fa-solid fa-right-from-bracket"></i><span>Cerrar Sesión</span>
                 </button>
             </div>
@@ -452,49 +424,49 @@
             </div>
 
             <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 text-xs font-semibold">
-                <button type="button" onclick="navigateTab('inicio');" data-nav="inicio" class="nav-btn sidebar-nav-active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('inicio');" data-nav="inicio" class="nav-btn sidebar-nav-active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-house w-4 text-sky-400"></i><span>Inicio &amp; Resumen</span>
                 </button>
-                <button type="button" onclick="navigateTab('grupo-leader');" data-nav="grupo-leader" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('grupo-leader');" data-nav="grupo-leader" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-brands fa-whatsapp w-4 text-emerald-400"></i><span>GRUPO LEADER</span>
                 </button>
-                <button type="button" onclick="navigateTab('reconocimientos');" data-nav="reconocimientos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('reconocimientos');" data-nav="reconocimientos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-award w-4 text-amber-400"></i><span>Reconocimiento</span>
                 </button>
-                <button type="button" onclick="navigateTab('prospectos');" data-nav="prospectos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('prospectos');" data-nav="prospectos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-address-book w-4 text-sky-400"></i><span>Prospectos CRM</span>
                 </button>
-                <button type="button" onclick="navigateTab('agenda');" data-nav="agenda" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('agenda');" data-nav="agenda" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-calendar-days w-4 text-rose-400"></i><span>Mi Agenda &amp; Calendario</span>
                 </button>
-                <button type="button" onclick="navigateTab('equipo');" data-nav="equipo" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('equipo');" data-nav="equipo" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-sitemap w-4 text-indigo-400"></i><span>Mi Equipo MLM</span>
                 </button>
-                <button type="button" onclick="navigateTab('simulador');" data-nav="simulador" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('simulador');" data-nav="simulador" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-calculator w-4 text-teal-400"></i><span>Simulador FuXion PV</span>
                 </button>
-                <button type="button" onclick="navigateTab('enlaces');" data-nav="enlaces" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('enlaces');" data-nav="enlaces" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-qrcode w-4 text-cyan-400"></i><span>Enlaces y QR</span>
                 </button>
-                <button type="button" onclick="navigateTab('herramientas');" data-nav="herramientas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('herramientas');" data-nav="herramientas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-briefcase w-4 text-orange-400"></i><span>Herramientas</span>
                 </button>
 
                 <!-- Exclusivo Superadministrador -->
                 <div id="admin-activation-nav-item" class="hidden pt-2 mt-2 border-t border-slate-800">
-                    <button type="button" onclick="navigateTab('activacion-socios');" data-nav="activacion-socios" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-300 transition-all">
+                    <button type="button" onclick="navigateTab('activacion-socios');" data-nav="activacion-socios" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-300">
                         <span class="flex items-center gap-3"><i class="fa-solid fa-key w-4 text-amber-400"></i><span>Activación Socios</span></span>
                         <span id="desktop-admin-badge-count" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black">0</span>
                     </button>
                 </div>
 
-                <button type="button" onclick="navigateTab('perfil');" data-nav="perfil" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 transition-all">
+                <button type="button" onclick="navigateTab('perfil');" data-nav="perfil" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300">
                     <i class="fa-solid fa-user-gear w-4 text-sky-400"></i><span>Mi Perfil &amp; Respaldo</span>
                 </button>
             </nav>
 
             <div class="p-4 border-t border-slate-800">
-                <button type="button" onclick="logoutUser();" class="w-full py-2.5 px-4 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                <button type="button" onclick="logoutUser();" class="w-full py-2.5 px-4 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs flex items-center justify-center gap-2">
                     <i class="fa-solid fa-right-from-bracket"></i><span>Cerrar Sesión</span>
                 </button>
             </div>
@@ -505,7 +477,7 @@
             <!-- Cabecera Fija Superior -->
             <header class="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
-                    <button type="button" onclick="openMobileDrawer();" aria-label="Abrir menú" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition-colors">
+                    <button type="button" onclick="openMobileDrawer();" aria-label="Abrir menú" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center">
                         <i class="fa-solid fa-bars text-base"></i>
                     </button>
 
@@ -530,7 +502,7 @@
 
                 <!-- Controles Derechos: Campanita con Panel Desplegable + Avatar -->
                 <div class="flex items-center gap-2.5 relative">
-                    <button type="button" id="btn-header-bell" onclick="toggleNotificationsPopover();" class="relative w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors">
+                    <button type="button" id="btn-header-bell" onclick="toggleNotificationsPopover();" class="relative w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center">
                         <i class="fa-regular fa-bell text-base"></i>
                         <span id="header-bell-badge" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-black flex items-center justify-center">0</span>
                     </button>
@@ -554,7 +526,7 @@
                         </div>
                     </div>
 
-                    <button type="button" onclick="navigateTab('perfil');" class="flex items-center gap-2.5 pl-1.5 pr-3 py-1 rounded-2xl bg-slate-100 hover:bg-slate-200/80 transition-colors">
+                    <button type="button" onclick="navigateTab('perfil');" class="flex items-center gap-2.5 pl-1.5 pr-3 py-1 rounded-2xl bg-slate-100 hover:bg-slate-200/80">
                         <div id="header-user-avatar" class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0EA5E9] to-[#2563EB] text-white font-black text-xs flex items-center justify-center overflow-hidden">
                             LP
                         </div>
@@ -592,7 +564,7 @@
                                     <span class="px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/15 font-mono font-bold text-sky-300">
                                         Código Socio: <strong id="banner-sponsor-code" class="text-white">RudyG-Ad</strong>
                                     </span>
-                                    <button type="button" onclick="navigateTab('enlaces');" class="px-4 py-1.5 rounded-xl bg-[#0EA5E9] hover:bg-sky-400 text-slate-950 font-extrabold transition-colors">
+                                    <button type="button" onclick="navigateTab('enlaces');" class="px-4 py-1.5 rounded-xl bg-[#0EA5E9] hover:bg-sky-400 text-slate-950 font-extrabold">
                                         <i class="fa-solid fa-share-nodes mr-1.5"></i>Enlaces &amp; QR Personalizados
                                     </button>
                                 </div>
@@ -630,7 +602,7 @@
                         </div>
                     </div>
 
-                    <!-- MURAL / CARRUSEL PÚBLICO ADAPTATIVO (AUTO 3s, FLECHAS Y VISOR PROPORCIONAL) -->
+                    <!-- MURAL / CARRUSEL PÚBLICO ELÁSTICO (ADAPTADO AL FORMATO DE LA IMAGEN SIN ESPACIOS EN BLANCO, AUTO 3s Y FLECHAS) -->
                     <div id="public-carousel-wrapper" class="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
@@ -638,7 +610,7 @@
                             </div>
                             <!-- Controles exclusivos del Superadministrador -->
                             <div id="admin-carousel-controls" class="hidden flex flex-wrap items-center gap-2">
-                                <label class="py-2 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer transition-colors">
+                                <label class="py-2 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer">
                                     <i class="fa-solid fa-image"></i><span>Subir Imagen o Video</span>
                                     <input type="file" accept="image/*,video/*" multiple onchange="handleAdminCarouselUpload(event);" class="hidden">
                                 </label>
@@ -648,13 +620,13 @@
                             </div>
                         </div>
 
-                        <!-- Escenario Proporcional con Flechas, Contador y Rotación cada 3 Segundos -->
+                        <!-- Escenario Elástico al Tamaño Exacto de la Imagen sin Espacios en Blanco -->
                         <div id="public-carousel-stage" class="relative w-full overflow-hidden rounded-3xl"></div>
                     </div>
 
                     <!-- Tarjetas KPI Principales -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div onclick="navigateTab('prospectos');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-sky-300 transition-all">
+                        <div onclick="navigateTab('prospectos');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-sky-300">
                             <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg mb-3">
                                 <i class="fa-solid fa-users"></i>
                             </div>
@@ -662,7 +634,7 @@
                             <p id="kpi-total-prospects" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
 
-                        <div onclick="navigateTab('agenda');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-amber-300 transition-all">
+                        <div onclick="navigateTab('agenda');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-amber-300">
                             <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-3">
                                 <i class="fa-solid fa-calendar-check"></i>
                             </div>
@@ -670,7 +642,7 @@
                             <p id="kpi-today-followups" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
 
-                        <div onclick="navigateTab('equipo');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-emerald-300 transition-all">
+                        <div onclick="navigateTab('equipo');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-emerald-300">
                             <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-3">
                                 <i class="fa-solid fa-sitemap"></i>
                             </div>
@@ -678,7 +650,7 @@
                             <p id="kpi-direct-partners" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
 
-                        <div onclick="navigateTab('simulador');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-purple-300 transition-all">
+                        <div onclick="navigateTab('simulador');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-purple-300">
                             <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg mb-3">
                                 <i class="fa-solid fa-trophy"></i>
                             </div>
@@ -735,10 +707,10 @@
                                     <i class="fa-solid fa-link text-sky-500"></i>
                                     <span>Tu Enlace Corto Personalizado</span>
                                 </h3>
-                                <p class="text-xs text-slate-500 mb-4">Incluye tu nombre y apellido real y abre directamente en la plataforma.</p>
+                                <p class="text-xs text-slate-500 mb-4">Incluye tu usuario personalizado y abre directamente en la plataforma.</p>
                                 <div class="flex items-center gap-2">
                                     <input type="text" id="dashboard-dynamic-ref-input" readonly class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-mono text-slate-700 truncate">
-                                    <button type="button" onclick="copyReferralUrl('dashboard-dynamic-ref-input');" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shrink-0 transition-colors">
+                                    <button type="button" onclick="copyReferralUrl('dashboard-dynamic-ref-input');" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shrink-0">
                                         <i class="fa-regular fa-copy"></i>
                                     </button>
                                 </div>
@@ -768,7 +740,7 @@
                             </p>
                             <div class="pt-2">
                                 <a href="https://chat.whatsapp.com/C5LyNgJyfE4JbNDZQuWFOj?s=cl&p=i&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#00B074] hover:bg-emerald-500 text-white font-extrabold text-sm shadow-lg transition-all">
+                                    class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#00B074] hover:bg-emerald-500 text-white font-extrabold text-sm shadow-lg">
                                     <i class="fa-brands fa-whatsapp text-lg"></i>
                                     <span>Unirme al Grupo Oficial de WhatsApp</span>
                                     <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
@@ -784,7 +756,7 @@
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
                             <div class="space-y-3">
-                                <label class="block w-full p-4 rounded-2xl border-2 border-dashed border-slate-300 hover:border-emerald-500 bg-slate-50 text-center cursor-pointer transition-colors">
+                                <label class="block w-full p-4 rounded-2xl border-2 border-dashed border-slate-300 hover:border-emerald-500 bg-slate-50 text-center cursor-pointer">
                                     <i class="fa-solid fa-cloud-arrow-up text-2xl text-emerald-600 mb-1"></i>
                                     <span class="block text-xs font-bold text-slate-700">Seleccionar imagen corta de avance</span>
                                     <input type="file" id="group-progress-file" accept="image/*" onchange="handleGroupProgressUpload(event);" class="hidden">
@@ -794,7 +766,7 @@
                                     <textarea id="group-progress-caption" rows="3" placeholder="¡Avanzando con todo en esta semana de cierre FuXion! 🚀💎"
                                         class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                                 </div>
-                                <button type="button" onclick="shareGroupProgressWhatsApp();" class="w-full py-3 px-5 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                                <button type="button" onclick="shareGroupProgressWhatsApp();" class="w-full py-3 px-5 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
                                     <i class="fa-brands fa-whatsapp text-base"></i>
                                     <span>Compartir Avance en Grupo Leader</span>
                                 </button>
@@ -816,10 +788,10 @@
                                 <p class="text-xs text-slate-500">Diseña láminas oficiales o sube archivos de hasta 400 MB ajustados al perfil y listos para WhatsApp Business.</p>
                             </div>
                             <div class="inline-flex p-1 rounded-2xl bg-slate-100 border border-slate-200">
-                                <button type="button" id="btn-rec-mode-1" onclick="switchRecognitionMode(1);" class="px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm transition-all">
+                                <button type="button" id="btn-rec-mode-1" onclick="switchRecognitionMode(1);" class="px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm">
                                     1. Generador Lámina
                                 </button>
-                                <button type="button" id="btn-rec-mode-2" onclick="switchRecognitionMode(2);" class="px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 transition-all">
+                                <button type="button" id="btn-rec-mode-2" onclick="switchRecognitionMode(2);" class="px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900">
                                     2. Subir Imagen (Hasta 400MB)
                                 </button>
                             </div>
@@ -881,7 +853,7 @@
                                         <span class="text-xs font-black text-sky-900">Subir Imagen de Alta Calidad (Máx. 400 MB)</span>
                                         <span class="px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-black">HD Auto-Ajuste</span>
                                     </div>
-                                    <label class="mt-2 flex flex-col items-center justify-center p-5 rounded-2xl border-2 border-dashed border-sky-400 bg-white hover:bg-sky-50/70 cursor-pointer transition-all">
+                                    <label class="mt-2 flex flex-col items-center justify-center p-5 rounded-2xl border-2 border-dashed border-sky-400 bg-white hover:bg-sky-50/70 cursor-pointer">
                                         <i class="fa-solid fa-file-image text-2xl text-sky-600 mb-1"></i>
                                         <span class="text-xs font-extrabold text-slate-800">Seleccionar Archivo de Imagen (Hasta 400 MB)</span>
                                         <span id="rec-upload-file-info" class="text-[11px] text-slate-500 mt-1">JPG, PNG, WEBP, HEIC • Máximo 400 MB</span>
@@ -911,7 +883,7 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO + 4 PASOS + AUDIO + IMAGEN ==================== -->
+                <!-- ==================== SECCIÓN 4: PROSPECTOS CRM PRIVADO + 4 PASOS (PRIMER NOMBRE {nombre}) ==================== -->
                 <section id="tab-prospectos" class="tab-section hidden space-y-6">
                     <!-- Selector Subpestaña CRM: Cartera vs Plantillas de Mensajería -->
                     <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-3xl border border-slate-200/80 shadow-card-soft">
@@ -952,7 +924,7 @@
                         </div>
 
                         <!-- Importador Universal Multiformato -->
-                        <div class="relative rounded-2xl border-2 border-dashed border-sky-400 bg-sky-50/60 hover:bg-sky-50 p-5 text-center transition-all">
+                        <div class="relative rounded-2xl border-2 border-dashed border-sky-400 bg-sky-50/60 hover:bg-sky-50 p-5 text-center">
                             <input type="file" id="universal-contacts-file-input" accept="*/*" multiple onchange="handleUniversalContactsFileImport(event);"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
                             <div class="space-y-2 pointer-events-none">
@@ -976,7 +948,7 @@
                         <div class="flex flex-col sm:flex-row gap-3">
                             <div class="relative flex-1">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="crm-search-input" oninput="renderProspectsList();" placeholder="Buscar por nombre, teléfono, ciudad, etiqueta o país..."
+                                <input type="text" id="crm-search-input" oninput="debouncedRenderProspectsList();" placeholder="Buscar por nombre, teléfono, ciudad, etiqueta o país..."
                                     class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500">
                             </div>
                             <select id="crm-filter-funnel" onchange="renderProspectsList();" class="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700">
@@ -997,7 +969,7 @@
                                 <div>
                                     <span class="text-[10px] font-black uppercase tracking-widest text-sky-600">Guiones Oficiales de Conversión</span>
                                     <h3 class="text-base sm:text-lg font-black text-slate-900">Estructura Leader Prospect (4 Pasos)</h3>
-                                    <p class="text-xs text-slate-500">Elige un prospecto para reemplazar automáticamente <b>{nombre}</b> y tus datos. Al enviar un mensaje, se marcará con un check <b>✓ Enviado</b> (puedes tocar cada insignia para marcar o desmarcar manualmente).</p>
+                                    <p class="text-xs text-slate-500">Al seleccionar un prospecto, <b>{nombre}</b> coloca automáticamente solo su <b>primer nombre</b> y marca cada paso enviado con <b>✓ Enviado</b>.</p>
                                 </div>
                                 <button type="button" onclick="openAddCustomTemplateModal();" class="py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm self-start">
                                     <i class="fa-solid fa-plus"></i><span>Agregar Mensaje Personalizado</span>
@@ -1009,7 +981,7 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
                                     <div>
                                         <label class="block text-[11px] font-black text-sky-900 mb-1">1. Filtrar Prospecto Rápido:</label>
-                                        <input type="text" id="template-prospect-filter" oninput="populateTemplateProspectSelector();" placeholder="Escribe nombre o ciudad del prospecto..."
+                                        <input type="text" id="template-prospect-filter" oninput="debouncedPopulateTemplateSelector();" placeholder="Escribe nombre o ciudad del prospecto..."
                                             class="w-full px-3.5 py-2 rounded-xl bg-white border border-sky-200 text-xs">
                                     </div>
                                     <div>
@@ -1028,7 +1000,7 @@
 
                         <!-- Estudio de Mensajes Multimedia Personalizados (Audio en Tiempo Real / Subida + Imagen con Texto) -->
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                            <!-- A) Mensajes de Audio Personalizados (Permiso Micrófono en Tiempo Real o Subir Audio) -->
+                            <!-- A) Mensajes de Audio Personalizados -->
                             <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                                 <div class="flex items-center justify-between gap-2">
                                     <div>
@@ -1086,7 +1058,7 @@
                                     <div>
                                         <span class="text-[10px] font-black uppercase tracking-widest text-indigo-600">Material Visual + Texto</span>
                                         <h4 class="text-base font-black text-slate-900">Imagen con Mensaje Personalizado</h4>
-                                        <p class="text-[11px] text-slate-500">Sube una imagen y redacta tu mensaje personalizado con <b>{nombre}</b> para WhatsApp.</p>
+                                        <p class="text-[11px] text-slate-500">Sube una imagen y redacta tu mensaje personalizado con <b>{nombre}</b> (primer nombre) para WhatsApp.</p>
                                     </div>
                                     <span class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-image"></i>
@@ -1215,7 +1187,7 @@
                             <div class="flex flex-wrap items-center justify-between gap-3">
                                 <div class="relative flex-1 min-w-[220px] max-w-sm">
                                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                    <input type="text" id="team-table-search" oninput="renderTeamView();" placeholder="Filtrar socio por nombre, correo o código..."
+                                    <input type="text" id="team-table-search" oninput="debouncedRenderTeamView();" placeholder="Filtrar socio por nombre, correo o código..."
                                         class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                                 </div>
                                 <label id="admin-duplicate-email-filter-wrap" class="hidden inline-flex items-center gap-2 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-xl border border-amber-200 cursor-pointer">
@@ -1489,7 +1461,7 @@
                                 <span class="text-[11px] font-black text-slate-800 block"><i class="fa-solid fa-film text-sky-600 mr-1"></i>Subir Video o Archivo Multimedia HD (Hasta 400 MB):</span>
                                 <input type="text" id="inline-admin-file-title" placeholder="Nombre del video o tema (Ej. Plan de Pagos FuXion HD)"
                                     class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold">
-                                <label class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs cursor-pointer transition-colors">
+                                <label class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs cursor-pointer">
                                     <i class="fa-solid fa-cloud-arrow-up"></i>
                                     <span id="inline-admin-file-label">Seleccionar Archivo (Máx. 400 MB)</span>
                                     <input type="file" id="inline-admin-media-file" accept="video/*,image/*,application/pdf,*/*" onchange="handleAdminMultimedia400MB(event);" class="hidden">
@@ -1557,10 +1529,10 @@
 
                         <div class="rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-lg">
                             <div id="video-preview-cover" onclick="playEmbeddedPresentationVideo();" class="relative aspect-video w-full cursor-pointer group flex items-center justify-center bg-slate-900">
-                                <img src="https://img.youtube.com/vi/BT7YUDaStT8/hqdefault.jpg" alt="Vista previa Presentación de Negocio" class="w-full h-full object-cover opacity-75 group-hover:opacity-90 transition-opacity">
+                                <img src="https://img.youtube.com/vi/BT7YUDaStT8/hqdefault.jpg" alt="Vista previa Presentación de Negocio" class="w-full h-full object-cover opacity-75 group-hover:opacity-90">
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"></div>
                                 <div class="relative z-10 flex flex-col items-center text-center px-4">
-                                    <div class="w-16 h-16 rounded-full bg-rose-600 group-hover:scale-110 text-white flex items-center justify-center text-2xl shadow-2xl transition-transform">
+                                    <div class="w-16 h-16 rounded-full bg-rose-600 group-hover:scale-110 text-white flex items-center justify-center text-2xl shadow-2xl">
                                         <i class="fa-solid fa-play ml-1"></i>
                                     </div>
                                     <span class="mt-3 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-extrabold">
@@ -1575,14 +1547,14 @@
 
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-700">Personaliza tu mensaje de invitación (se envía unificado en un solo mensaje con el video y tu link corto):</label>
-                            <textarea id="business-pres-custom-msg" oninput="saveCustomPresentationMsg();" rows="3" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+                            <textarea id="business-pres-custom-msg" oninput="debouncedSaveCustomPresentationMsg();" rows="3" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                             <select id="pres-prospect-target-select" class="px-3.5 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800">
                                 <option value="">— Elegir prospecto de mi CRM (o compartir libre) —</option>
                             </select>
-                            <button type="button" onclick="shareBusinessPresentationWhatsApp();" class="py-3.5 px-6 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                            <button type="button" onclick="shareBusinessPresentationWhatsApp();" class="py-3.5 px-6 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
                                 <i class="fa-brands fa-whatsapp text-base"></i>
                                 <span>Enviar Presentación de Negocio por WhatsApp</span>
                             </button>
@@ -1611,13 +1583,13 @@
                         <!-- Doble Botón Selector de Bandeja: CÓDIGO SOCIO vs CÓDIGO SOCIO PAGO -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                             <button type="button" id="btn-tray-codigo-socio" onclick="switchAdminActivationTray('standard');"
-                                class="py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md transition-all">
+                                class="py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md">
                                 <span class="flex items-center gap-2"><i class="fa-solid fa-key text-sky-400"></i><span>CÓDIGO SOCIO</span></span>
                                 <span id="badge-count-codigo-socio" class="px-2.5 py-0.5 rounded-full bg-sky-500 text-slate-950 text-[11px] font-black">0</span>
                             </button>
 
                             <button type="button" id="btn-tray-codigo-socio-pago" onclick="switchAdminActivationTray('paid');"
-                                class="py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between transition-all">
+                                class="py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between">
                                 <span class="flex items-center gap-2"><i class="fa-solid fa-sack-dollar text-emerald-600"></i><span>CÓDIGO SOCIO PAGO</span></span>
                                 <span id="badge-count-codigo-socio-pago" class="px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[11px] font-black">0</span>
                             </button>
@@ -1634,7 +1606,7 @@
                                 <div id="profile-avatar-large" class="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#0EA5E9] to-[#2563EB] text-white font-black text-2xl flex items-center justify-center overflow-hidden shadow-lg">
                                     LP
                                 </div>
-                                <label title="Cambiar foto de perfil" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-xl bg-slate-900 hover:bg-sky-600 text-white flex items-center justify-center cursor-pointer shadow-md transition-colors">
+                                <label title="Cambiar foto de perfil" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-xl bg-slate-900 hover:bg-sky-600 text-white flex items-center justify-center cursor-pointer shadow-md">
                                     <i class="fa-solid fa-camera text-xs"></i>
                                     <input type="file" accept="image/*" onchange="handleProfilePhotoUpload(event);" class="hidden">
                                 </label>
@@ -1677,11 +1649,11 @@
                                 </p>
                             </div>
                             <div class="flex flex-wrap items-center gap-3">
-                                <button type="button" onclick="exportUserBackupPDF();" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm transition-colors">
+                                <button type="button" onclick="exportUserBackupPDF();" class="py-2.5 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm">
                                     <i class="fa-solid fa-file-export"></i>
                                     <span>EXPORTAR RESPALDO (PDF)</span>
                                 </button>
-                                <label class="py-2.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm cursor-pointer transition-colors">
+                                <label class="py-2.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm cursor-pointer">
                                     <i class="fa-solid fa-file-import"></i>
                                     <span>IMPORTAR RESPALDO (PDF)</span>
                                     <input type="file" accept=".pdf,application/pdf" onchange="importUserBackupPDF(event);" class="hidden">
@@ -1731,7 +1703,7 @@
                                     <input type="password" id="profile-input-newpass" placeholder="Dejar en blanco para mantener" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                                 </div>
                             </div>
-                            <button type="submit" class="py-3 px-6 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn transition-all">
+                            <button type="submit" class="py-3 px-6 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-glow-btn">
                                 Guardar Cambios en Mi Perfil
                             </button>
                         </form>
@@ -1815,7 +1787,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: Ventana de Espera y Verificación de Código de 6 Dígitos (Incluye Anuncio PLIN $15 USD / S/ 52.50) -->
+    <!-- Modal 2: Ventana de Espera y Verificación de Código de 6 Dígitos -->
     <div id="modal-activation-code" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-3.5 text-center my-auto">
             <div class="flex items-center justify-between">
@@ -1876,7 +1848,7 @@
         </div>
     </div>
 
-    <!-- Modal 4: Agregar Prospecto Manual (Incluye Ciudad) -->
+    <!-- Modal 4: Agregar Prospecto Manual -->
     <div id="modal-add-prospect" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
@@ -1923,7 +1895,7 @@
         </div>
     </div>
 
-    <!-- Modal 4B: Editar Prospecto (Ciudad, Etiquetas, Notas y Pasos Enviados) -->
+    <!-- Modal 4B: Editar Prospecto -->
     <div id="modal-edit-prospect" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
@@ -1975,7 +1947,7 @@
         </div>
     </div>
 
-    <!-- Modal 5: Conectar Dispositivo (Android / iOS) con Permiso y Botón SELECCIONAR TODO -->
+    <!-- Modal 5: Conectar Dispositivo (Android / iOS) -->
     <div id="modal-ios-contacts-guide" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
@@ -2051,7 +2023,7 @@
         </div>
     </div>
 
-    <!-- Modal 8: Vista Previa y Selección Masiva ("SELECCIONAR TODO") antes de Importar al CRM -->
+    <!-- Modal 8: Vista Previa y Selección Masiva ("SELECCIONAR TODO") -->
     <div id="modal-import-preview" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-4">
         <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
             <div class="p-5 bg-[#060D1A] text-white flex items-center justify-between gap-3">
@@ -2065,7 +2037,7 @@
             <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-2">
                     <button type="button" id="btn-toggle-select-all-import" onclick="toggleSelectAllImportPreview();"
-                        class="py-2 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs flex items-center gap-2 shadow-sm transition-all">
+                        class="py-2 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs flex items-center gap-2 shadow-sm">
                         <i class="fa-solid fa-check-double"></i>
                         <span id="label-toggle-select-all">SELECCIONAR TODO</span>
                     </button>
@@ -2096,7 +2068,7 @@
                         Cancelar
                     </button>
                     <button type="button" id="btn-confirm-staged-import" onclick="confirmStagedContactsImport();"
-                        class="flex-1 sm:flex-initial py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md transition-all">
+                        class="flex-1 sm:flex-initial py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md">
                         Importar 0 Contactos Seleccionados
                     </button>
                 </div>
@@ -2118,7 +2090,7 @@
                     <input type="text" id="tpl-edit-title" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Contenido (Usa <b>{nombre}</b> para el prospecto y <b>{socio}</b> para tu nombre) *</label>
+                    <label class="block font-bold text-slate-700 mb-1">Contenido (Usa <b>{nombre}</b> para el primer nombre del prospecto y <b>{socio}</b> para tu nombre) *</label>
                     <textarea id="tpl-edit-body" rows="6" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs leading-relaxed"></textarea>
                 </div>
                 <button type="button" onclick="saveTemplateChanges();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
@@ -2137,7 +2109,7 @@
             </div>
             <div class="space-y-3 text-xs">
                 <input type="hidden" id="edit-vid-msg-id">
-                <p class="text-slate-500">Personaliza el texto temático que acompaña este video al enviarlo por WhatsApp (usa <b>{nombre}</b> para el prospecto y <b>{socio}</b> para tu nombre):</p>
+                <p class="text-slate-500">Personaliza el texto temático que acompaña este video al enviarlo por WhatsApp (usa <b>{nombre}</b> para el primer nombre del prospecto y <b>{socio}</b> para tu nombre):</p>
                 <textarea id="edit-vid-msg-text" rows="5" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs leading-relaxed"></textarea>
                 <button type="button" onclick="saveEditedVideoTopicMessage();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
                     Guardar Mensaje Personalizado
@@ -2219,7 +2191,7 @@
         </div>
     </div>
 
-    <!-- Modal 13: Auditoría y Eliminación Selectiva por ID de Cuenta (Admin en Mi Equipo MLM) -->
+    <!-- Modal 13: Auditoría y Eliminación Selectiva por ID de Cuenta -->
     <div id="modal-admin-account-manager" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between">
@@ -2234,9 +2206,9 @@
     <!-- Toast Notificaciones -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ==================== LÓGICA JAVASCRIPT COMPLETA (FORMATO LP — SANDBOX SAFE) ==================== -->
+    <!-- ==================== LÓGICA JAVASCRIPT COMPLETA (FORMATO LP — ALTA VELOCIDAD SIN LAG) ==================== -->
     <script>
-        // Almacenamiento seguro con respaldo automático en memoria (evita bloqueos en iframes móviles)
+        // Almacenamiento seguro con respaldo automático en memoria
         const _memoryStorageFallback = {};
         const safeStorage = {
             getItem(key) {
@@ -2256,6 +2228,23 @@
                 try { window.localStorage.removeItem(key); } catch (e) {}
             }
         };
+
+        // Utilidad de debounce para evitar lag al escribir en búsquedas y formularios
+        function debounce(fn, delayMs) {
+            let timer = null;
+            return function (...args) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delayMs);
+            };
+        }
+
+        // Extrae exclusivamente el primer nombre de un prospecto (ej. "María Fernanda Gómez" -> "María")
+        function getProspectFirstName(fullName, fallback = 'amigo(a)') {
+            const clean = String(fullName || '').trim();
+            if (!clean) return fallback;
+            const first = clean.split(/\s+/)[0];
+            return first || fallback;
+        }
 
         const ADMIN_FULL_NAME = 'Rudy Bryan Geldres Reategui';
         const ADMIN_OFFICIAL_EMAIL = 'corporativogeldres@gmail.com';
@@ -2353,7 +2342,9 @@
             isRecordingAudio: false,
             audioRecTimerInterval: null,
             audioRecSeconds: 0,
-            revealedPasswords: {}
+            revealedPasswords: {},
+            isSyncInFlight: false,
+            lastCloudLineCount: 0
         };
 
         try {
@@ -2382,15 +2373,17 @@
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3400);
+                toast.style.transition = 'opacity 0.25s ease';
+                setTimeout(() => toast.remove(), 260);
+            }, 3000);
         }
 
         // ==================== INDEXEDDB PARA MULTIMEDIA HASTA 400 MB Y AUDIOS ====================
         const _memoryBlobFallback = {};
+        let _cachedDbPromise = null;
         function openMediaIndexedDB() {
-            return new Promise((resolve, reject) => {
+            if (_cachedDbPromise) return _cachedDbPromise;
+            _cachedDbPromise = new Promise((resolve, reject) => {
                 try {
                     if (typeof indexedDB === 'undefined') { reject(new Error('No IDB')); return; }
                     const req = indexedDB.open('LeaderProspectMediaDB', 1);
@@ -2401,11 +2394,13 @@
                         }
                     };
                     req.onsuccess = (e) => resolve(e.target.result);
-                    req.onerror = (e) => reject(e.target.error);
+                    req.onerror = (e) => { _cachedDbPromise = null; reject(e.target.error); };
                 } catch (err) {
+                    _cachedDbPromise = null;
                     reject(err);
                 }
             });
+            return _cachedDbPromise;
         }
 
         async function saveMediaBlobToIndexedDB(id, blob, meta = {}) {
@@ -2447,27 +2442,41 @@
             } catch (e) {}
         }
 
-        // ==================== SINCRONIZACIÓN MULTI-DISPOSITIVO EN LA NUBE ====================
-        async function publishCloudSyncEvent(eventType, payload) {
+        // ==================== SINCRONIZACIÓN MULTI-DISPOSITIVO EN LA NUBE (NO BLOQUEANTE / SIN LAG) ====================
+        function publishCloudSyncEvent(eventType, payload) {
             try {
-                await fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}`, {
+                const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+                if (ctrl) setTimeout(() => ctrl.abort(), 4000);
+                fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}`, {
                     method: 'POST',
                     headers: { 'Title': `LP_${eventType}` },
+                    signal: ctrl ? ctrl.signal : undefined,
                     body: JSON.stringify({
                         type: eventType,
                         ts: Date.now(),
                         payload
                     })
-                });
+                }).catch(() => {});
             } catch (e) {}
         }
 
         async function syncExternalRegistrationsNow(manualClick = false) {
+            if (appState.isSyncInFlight && !manualClick) return;
+            appState.isSyncInFlight = true;
             try {
-                const resp = await fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}/json?poll=1&since=all`);
+                const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+                const timeoutId = ctrl ? setTimeout(() => ctrl.abort(), 3500) : null;
+
+                const resp = await fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}/json?poll=1&since=24h`, {
+                    signal: ctrl ? ctrl.signal : undefined
+                });
+                if (timeoutId) clearTimeout(timeoutId);
                 if (!resp.ok) return;
+
                 const text = await resp.text();
                 const lines = text.split('\n').filter(Boolean);
+                if (!manualClick && lines.length === appState.lastCloudLineCount) return;
+                appState.lastCloudLineCount = lines.length;
 
                 let pendingList = safeParseStorageArray('lp_pending_activations');
                 let adminDb = safeParseStorageArray('lp_admin_activations_db');
@@ -2501,7 +2510,9 @@
                                     regUsers.push(usr);
                                     changed = true;
                                 }
+                                const beforeLen = pendingList.length;
                                 pendingList = pendingList.filter(p => p.email !== usr.email);
+                                if (pendingList.length !== beforeLen) changed = true;
                                 const dbIdx = adminDb.findIndex(a => a.email === usr.email && a.status !== 'Activado');
                                 if (dbIdx !== -1) {
                                     adminDb[dbIdx].status = 'Activado';
@@ -2556,8 +2567,12 @@
 
                     if (appState.currentUser) {
                         updateBellRemindersBadge();
-                        renderAdminActivationPanel();
-                        renderTeamView();
+                        if (!document.getElementById('tab-activacion-socios')?.classList.contains('hidden')) {
+                            renderAdminActivationPanel();
+                        }
+                        if (!document.getElementById('tab-equipo')?.classList.contains('hidden')) {
+                            renderTeamView();
+                        }
                     }
                 }
                 if (slidesChanged) {
@@ -2565,11 +2580,15 @@
                         safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: s.inDb }))));
                         safeStorage.setItem('lp_deleted_slide_ids', JSON.stringify(Array.from(deletedSlideIds)));
                     } catch (e) {}
-                    if (appState.currentUser) renderPublicCarousel();
+                    if (appState.currentUser && !document.getElementById('tab-inicio')?.classList.contains('hidden')) {
+                        renderPublicCarousel();
+                    }
                 }
                 if (manualClick) showToast('Sincronización completada con todos los dispositivos.');
             } catch (e) {
                 if (manualClick) showToast('Sincronización local verificada.');
+            } finally {
+                appState.isSyncInFlight = false;
             }
         }
 
@@ -2672,7 +2691,6 @@
         function handleLogin() {
             try {
                 repairAndSeedMasterRecords();
-                setTimeout(() => { syncExternalRegistrationsNow(false); }, 50);
 
                 const emailInput = document.getElementById('input-auth-email');
                 const passInput = document.getElementById('input-auth-password');
@@ -2718,6 +2736,7 @@
                         safeStorage.setItem('lp_active_session', JSON.stringify(adminUser));
                         loadUserScopedData(adminUser.id);
                         showDashboard(adminUser);
+                        setTimeout(() => { syncExternalRegistrationsNow(false); }, 150);
                         return;
                     } else {
                         showLoginError('Contraseña de Superadministrador incorrecta.');
@@ -2742,6 +2761,7 @@
                         safeStorage.setItem('lp_active_session', JSON.stringify(foundUser));
                         loadUserScopedData(foundUser.id);
                         showDashboard(foundUser);
+                        setTimeout(() => { syncExternalRegistrationsNow(false); }, 150);
                         return;
                     } else {
                         showLoginError('Contraseña incorrecta para este socio.');
@@ -2758,7 +2778,6 @@
 
                 showLoginError('Correo no registrado en Leader Prospect. Crea tu cuenta en "Regístrate aquí".');
             } catch (err) {
-                console.error('Error en handleLogin:', err);
                 showLoginError('Ocurrió un inconveniente al verificar los datos. Inténtalo nuevamente.');
             }
         }
@@ -2842,7 +2861,7 @@
             const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
 
-            const firstName = (user.name || 'Líder').split(' ')[0];
+            const firstName = getProspectFirstName(user.name, 'Líder');
             const userFlag = user.flag || '🇵🇪';
             setText('header-user-name', `${userFlag} ${user.name || ''}`);
             setText('header-user-role', user.role || '');
@@ -2897,12 +2916,12 @@
             renderPublicCarousel();
         }
 
-        function saveCustomPresentationMsg() {
+        const debouncedSaveCustomPresentationMsg = debounce(() => {
             const el = document.getElementById('business-pres-custom-msg');
             if (!el) return;
             appState.customPresentationMsg = el.value;
             saveUserScopedData();
-        }
+        }, 350);
 
         function updateDashboardKPIs() {
             const total = appState.prospects.length;
@@ -2937,7 +2956,7 @@
             }
         }
 
-        // ==================== MURAL / CARRUSEL PÚBLICO PROPORCIONAL (BACKDROP DIFUMINADO, FLECHAS Y AUTO 3s) ====================
+        // ==================== MURAL / CARRUSEL PÚBLICO ELÁSTICO (ADAPTADO AL FORMATO DE LA IMAGEN SIN ESPACIOS EN BLANCO, AUTO 3s) ====================
         function buildCloudCompactImageDataUrl(file) {
             return new Promise((resolve) => {
                 try {
@@ -3117,31 +3136,30 @@
                    <button type="button" onclick="stepPublicCarousel(1);" aria-label="Siguiente" class="lp-wall-arrow-btn" style="right: 12px;">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                    </button>
-                   <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-slate-950/75 border border-sky-400/30 text-[10px] font-black text-sky-300">
+                   <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-slate-950/75 border border-sky-400/30 text-[10px] font-black text-sky-300 leading-none">
                         ${idx + 1} / ${slides.length}
                    </span>`
                 : '';
 
             const dotsHtml = slides.length > 1
                 ? `<div class="flex items-center justify-center gap-1.5 pt-2.5">
-                    ${slides.map((_, i) => `<button type="button" onclick="goToPublicCarouselSlide(${i});" class="h-1.5 rounded-full transition-all ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}"></button>`).join('')}
+                    ${slides.map((_, i) => `<button type="button" onclick="goToPublicCarouselSlide(${i});" class="h-1.5 rounded-full ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}"></button>`).join('')}
                    </div>`
                 : '';
 
             if (current.kind === 'video') {
                 stage.innerHTML = `
-                    <div class="lp-wall-viewport" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
+                    <div class="lp-elastic-wall-box" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
                         ${navArrowsHtml}
-                        <video src="${mediaSrc}" autoplay muted loop playsinline controls class="lp-wall-foreground-media"></video>
+                        <video src="${mediaSrc}" autoplay muted loop playsinline controls class="lp-elastic-wall-media"></video>
                     </div>
                     ${dotsHtml}
                 `;
             } else {
                 stage.innerHTML = `
-                    <div class="lp-wall-viewport" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
-                        <img src="${mediaSrc}" alt="" aria-hidden="true" class="lp-wall-backdrop-blur">
+                    <div class="lp-elastic-wall-box" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
                         ${navArrowsHtml}
-                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" class="lp-wall-foreground-media">
+                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" class="lp-elastic-wall-media">
                     </div>
                     ${dotsHtml}
                 `;
@@ -3149,7 +3167,7 @@
 
             if (slides.length > 1) {
                 appState.carouselTimer = setInterval(() => {
-                    if (!appState.carouselPaused) {
+                    if (!appState.carouselPaused && !document.getElementById('tab-inicio')?.classList.contains('hidden')) {
                         appState.carouselIndex = (appState.carouselIndex + 1) % slides.length;
                         renderPublicCarousel();
                     }
@@ -3512,13 +3530,13 @@
             const prosId = selEl ? selEl.value : '';
             const pros = appState.prospects.find(p => p.id === prosId);
 
-            const prosName = pros ? pros.name : 'amigo(a)';
+            const prosFirstName = pros ? getProspectFirstName(pros.name) : 'amigo(a)';
             const rawTemplate = appState.videoTopicMessages[vidId] || vid.defaultTopicMsg || '';
             const slug = buildUserSlug(appState.currentUser.name);
             const refLink = `https://${slug}.teinvita.sesocio`;
 
             let msg = rawTemplate
-                .replace(/\{nombre\}/gi, prosName)
+                .replace(/\{nombre\}/gi, prosFirstName)
                 .replace(/\{socio\}/gi, appState.currentUser.name);
 
             if (vid.kind === 'link' && vid.url) {
@@ -3646,7 +3664,7 @@
                             <h3 class="text-sm font-black text-slate-900">${p.title}</h3>
                             <p class="text-[11px] text-slate-500">${p.desc}</p>
                         </div>
-                        <button type="button" onclick="downloadOfficialFuxionPDF('${p.id}');" class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                        <button type="button" onclick="downloadOfficialFuxionPDF('${p.id}');" class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2">
                             <i class="fa-solid fa-download"></i><span>Descargar PDF</span>
                         </button>
                     </div>
@@ -3668,7 +3686,7 @@
                             <h3 class="text-sm font-black text-slate-900">${p.title}</h3>
                             <p class="text-[11px] text-slate-600">${p.desc}</p>
                         </div>
-                        <button type="button" onclick="downloadCustomAdminPdf('${p.id}');" class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                        <button type="button" onclick="downloadCustomAdminPdf('${p.id}');" class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center justify-center gap-2">
                             <i class="fa-solid fa-download"></i><span>Abrir / Descargar PDF</span>
                         </button>
                     </div>
@@ -4008,6 +4026,8 @@
             showToast('Cuenta seleccionada eliminada definitivamente.');
         }
 
+        const debouncedRenderTeamView = debounce(() => renderTeamView(), 180);
+
         function renderTeamView() {
             const user = appState.currentUser;
             if (!user) return;
@@ -4031,7 +4051,7 @@
                     const directKidsCount = regUsers.filter(x => x.uplineCode === d.sponsorCode).length;
                     return `
                         <div onclick="${isAdmin ? `selectLeaderInChainInspector('${d.sponsorCode}');` : ''}"
-                            class="${isAdmin ? 'cursor-pointer hover:border-sky-500' : ''} p-3.5 rounded-2xl bg-white border-2 ${accentClass} shadow-sm text-center space-y-1 transition-all">
+                            class="${isAdmin ? 'cursor-pointer hover:border-sky-500' : ''} p-3.5 rounded-2xl bg-white border-2 ${accentClass} shadow-sm text-center space-y-1">
                             <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
                                 ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
                             </div>
@@ -4333,7 +4353,7 @@
 
                     cols += `
                         <button type="button" onclick="selectCalendarDay('${iso}');"
-                            class="p-3 rounded-2xl border text-center transition-all ${isSel ? 'bg-sky-600 text-white border-sky-600 shadow-md' : 'bg-slate-50 hover:bg-sky-50 border-slate-200 text-slate-800'}">
+                            class="p-3 rounded-2xl border text-center ${isSel ? 'bg-sky-600 text-white border-sky-600 shadow-md' : 'bg-slate-50 hover:bg-sky-50 border-slate-200 text-slate-800'}">
                             <span class="block text-[10px] uppercase font-bold opacity-75">${daysShort[i]}</span>
                             <span class="block text-base font-black mt-0.5">${d.getDate()}</span>
                             ${marked ? `<span class="inline-block w-2 h-2 rounded-full ${isSel ? 'bg-amber-300' : 'bg-rose-500'} mt-1"></span>` : '<span class="inline-block h-2 mt-1"></span>'}
@@ -4362,7 +4382,7 @@
 
                     html += `
                         <button type="button" onclick="selectCalendarDay('${iso}');"
-                            class="h-11 rounded-xl border text-xs font-extrabold flex flex-col items-center justify-center transition-all ${isSel ? 'bg-sky-600 text-white border-sky-600 shadow-sm' : 'bg-slate-50 hover:bg-sky-50 border-slate-200/80 text-slate-800'}">
+                            class="h-11 rounded-xl border text-xs font-extrabold flex flex-col items-center justify-center ${isSel ? 'bg-sky-600 text-white border-sky-600 shadow-sm' : 'bg-slate-50 hover:bg-sky-50 border-slate-200/80 text-slate-800'}">
                             <span>${day}</span>
                             ${marked ? `<span class="w-1.5 h-1.5 rounded-full ${isSel ? 'bg-amber-300' : 'bg-rose-500'} mt-0.5"></span>` : ''}
                         </button>
@@ -4379,7 +4399,7 @@
                     const count = appState.agendaTasks.filter(t => t.date.startsWith(prefix)).length;
                     cards += `
                         <button type="button" onclick="appState.calendarCursorDate = new Date(${year}, ${mIdx}, 1); setCalendarView('month');"
-                            class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-left transition-all">
+                            class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-left">
                             <span class="block text-xs font-black text-slate-900">${mName}</span>
                             <span class="text-[11px] font-semibold ${count > 0 ? 'text-sky-600' : 'text-slate-400'}">${count} tareas agendadas</span>
                         </button>
@@ -4595,7 +4615,7 @@
             listEl.innerHTML = itemsHtml;
         }
 
-        // ==================== PROSPECTOS CRM UNIVERSAL + 4 PASOS + CHECK ENVIADO + AUDIO + IMAGEN ====================
+        // ==================== PROSPECTOS CRM UNIVERSAL + 4 PASOS + PRIMER NOMBRE EN {nombre} ====================
         function switchCrmSubtab(sub) {
             const pList = document.getElementById('crm-subpanel-list');
             const pTpl = document.getElementById('crm-subpanel-templates');
@@ -4639,6 +4659,8 @@
             return [...defaults, ...customs];
         }
 
+        const debouncedPopulateTemplateSelector = debounce(() => populateTemplateProspectSelector(), 180);
+
         function populateTemplateProspectSelector() {
             const filter = (document.getElementById('template-prospect-filter')?.value || '').toLowerCase();
             const sel = document.getElementById('template-prospect-select');
@@ -4681,7 +4703,7 @@
             const selProsId = document.getElementById('template-prospect-select')?.value || '';
             const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
             const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const targetName = selectedPros ? selectedPros.name : '{nombre}';
+            const targetFirstName = selectedPros ? getProspectFirstName(selectedPros.name) : '{nombre}';
 
             const allTemplates = getAllUserMessageTemplates();
             const sentList = selectedPros && Array.isArray(selectedPros.sentSteps) ? selectedPros.sentSteps : [];
@@ -4689,12 +4711,12 @@
             if (progressBox) {
                 if (selectedPros) {
                     progressBox.classList.remove('hidden');
-                    progressBox.innerHTML = `<span class="font-black text-sky-900 mr-1">Historial de envíos a ${selectedPros.name}:</span>` +
+                    progressBox.innerHTML = `<span class="font-black text-sky-900 mr-1">Historial de envíos a ${getProspectFirstName(selectedPros.name)} (${selectedPros.name}):</span>` +
                         allTemplates.map(t => {
                             const isSent = sentList.includes(t.id);
                             return `
                                 <button type="button" onclick="toggleProspectSentStep('${selectedPros.id}', '${t.id}');"
-                                    class="px-2.5 py-1 rounded-full font-extrabold text-[10px] border transition-all ${isSent ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-500 border-slate-300'}">
+                                    class="px-2.5 py-1 rounded-full font-extrabold text-[10px] border ${isSent ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-500 border-slate-300'}">
                                     ${isSent ? '✓ ' : '○ '}${t.stepLabel}
                                 </button>
                             `;
@@ -4706,8 +4728,8 @@
 
             grid.innerHTML = allTemplates.map(tpl => {
                 const resolvedText = tpl.body
-                    .replace(/\{nombre\}/gi, targetName)
-                    .replace(/\{Nombre\}/g, targetName)
+                    .replace(/\{nombre\}/gi, targetFirstName)
+                    .replace(/\{Nombre\}/g, targetFirstName)
                     .replace(/\{nombre y apellido del socio o administrador\}/gi, sponsorName)
                     .replace(/\{socio\}/gi, sponsorName);
 
@@ -4740,7 +4762,7 @@
                         </div>
 
                         <button type="button" onclick="sendTemplateStepWhatsApp('${tpl.id}');"
-                            class="w-full py-3 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm transition-all">
+                            class="w-full py-3 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
                             <i class="fa-brands fa-whatsapp text-base"></i>
                             <span>${isSent ? '✓ Enviado • Reenviar ' + tpl.stepLabel : 'Enviar ' + tpl.stepLabel + ' por WhatsApp'}</span>
                         </button>
@@ -4757,11 +4779,11 @@
             const selProsId = document.getElementById('template-prospect-select')?.value || '';
             const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
             const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const targetName = selectedPros ? selectedPros.name : 'amigo(a)';
+            const targetFirstName = selectedPros ? getProspectFirstName(selectedPros.name) : 'amigo(a)';
 
             const text = tpl.body
-                .replace(/\{nombre\}/gi, targetName)
-                .replace(/\{Nombre\}/g, targetName)
+                .replace(/\{nombre\}/gi, targetFirstName)
+                .replace(/\{Nombre\}/g, targetFirstName)
                 .replace(/\{nombre y apellido del socio o administrador\}/gi, sponsorName)
                 .replace(/\{socio\}/gi, sponsorName);
 
@@ -4821,7 +4843,7 @@
             showToast('Mensaje personalizado eliminado.');
         }
 
-        // ==================== GRABACIÓN DE AUDIO EN TIEMPO REAL (MICRÓFONO) + SUBIDA AUDIO + IMAGEN PERSONALIZADA ====================
+        // ==================== GRABACIÓN DE AUDIO EN TIEMPO REAL + SUBIDA AUDIO + IMAGEN PERSONALIZADA ====================
         async function toggleCrmAudioRecording() {
             const label = document.getElementById('label-crm-record-audio');
             const timerEl = document.getElementById('crm-audio-rec-timer');
@@ -4951,7 +4973,8 @@
             const selProsId = document.getElementById('template-prospect-select')?.value || '';
             const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
             const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const msg = `¡Hola ${selectedPros ? selectedPros.name : ''}! 👋 Te saluda *${sponsorName}*. Te comparto este mensaje de voz: *${item.title}* 🎧✨`;
+            const firstName = selectedPros ? getProspectFirstName(selectedPros.name) : '';
+            const msg = `¡Hola ${firstName}! 👋 Te saluda *${sponsorName}*. Te comparto este mensaje de voz: *${item.title}* 🎧✨`;
 
             const rec = await getMediaBlobFromIndexedDB(audioId);
             if (rec && rec.blob && navigator.canShare) {
@@ -5018,7 +5041,6 @@
             listEl.innerHTML = rows.join('');
         }
 
-        // Imagen + Mensaje Personalizado en CRM
         function handleCrmCustomImageSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -5074,10 +5096,10 @@
             const selProsId = document.getElementById('template-prospect-select')?.value || '';
             const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
             const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
-            const targetName = selectedPros ? selectedPros.name : 'amigo(a)';
+            const targetFirstName = selectedPros ? getProspectFirstName(selectedPros.name) : 'amigo(a)';
 
             const text = item.body
-                .replace(/\{nombre\}/gi, targetName)
+                .replace(/\{nombre\}/gi, targetFirstName)
                 .replace(/\{socio\}/gi, sponsorName);
 
             if (item.imageUrl && navigator.canShare) {
@@ -5116,22 +5138,32 @@
                 return;
             }
 
-            listEl.innerHTML = appState.customImageMessages.map(m => `
-                <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-black text-slate-900 truncate">${m.title}</span>
-                        <button type="button" onclick="deleteCrmCustomImageMessage('${m.id}');" class="text-slate-400 hover:text-rose-600 text-xs">
-                            <i class="fa-solid fa-trash"></i>
+            const selProsId = document.getElementById('template-prospect-select')?.value || '';
+            const selectedPros = appState.prospects.find(p => p.id === selProsId) || null;
+            const sponsorName = appState.currentUser ? appState.currentUser.name : ADMIN_FULL_NAME;
+            const targetFirstName = selectedPros ? getProspectFirstName(selectedPros.name) : '{nombre}';
+
+            listEl.innerHTML = appState.customImageMessages.map(m => {
+                const previewText = m.body
+                    .replace(/\{nombre\}/gi, targetFirstName)
+                    .replace(/\{socio\}/gi, sponsorName);
+                return `
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-black text-slate-900 truncate">${m.title}</span>
+                            <button type="button" onclick="deleteCrmCustomImageMessage('${m.id}');" class="text-slate-400 hover:text-rose-600 text-xs">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                        ${m.imageUrl ? `<img src="${m.imageUrl}" alt="${m.title}" class="w-full h-auto max-h-40 rounded-xl" style="object-fit:contain;">` : ''}
+                        <p class="text-[11px] text-slate-600 whitespace-pre-line">${previewText}</p>
+                        <button type="button" onclick="sendCrmCustomImageWhatsApp('${m.id}');"
+                            class="w-full py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
+                            <i class="fa-brands fa-whatsapp"></i><span>Enviar Imagen y Mensaje por WhatsApp</span>
                         </button>
                     </div>
-                    ${m.imageUrl ? `<img src="${m.imageUrl}" alt="${m.title}" class="w-full h-auto max-h-40 rounded-xl" style="object-fit:contain;">` : ''}
-                    <p class="text-[11px] text-slate-600 whitespace-pre-line">${m.body}</p>
-                    <button type="button" onclick="sendCrmCustomImageWhatsApp('${m.id}');"
-                        class="w-full py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
-                        <i class="fa-brands fa-whatsapp"></i><span>Enviar Imagen y Mensaje por WhatsApp</span>
-                    </button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // ==================== IMPORTADOR UNIVERSAL DE CONTACTOS + DISPOSITIVO (ANDROID / iOS) ====================
@@ -5415,7 +5447,7 @@
             if (!listEl) return;
 
             listEl.innerHTML = appState.stagedImportContacts.map(c => `
-                <label class="flex items-center justify-between gap-3 p-3 rounded-2xl border ${c.selected ? 'bg-sky-50/60 border-sky-300' : 'bg-slate-50 border-slate-200/80'} cursor-pointer hover:border-sky-400 transition-all">
+                <label class="flex items-center justify-between gap-3 p-3 rounded-2xl border ${c.selected ? 'bg-sky-50/60 border-sky-300' : 'bg-slate-50 border-slate-200/80'} cursor-pointer hover:border-sky-400">
                     <div class="flex items-center gap-3 min-w-0">
                         <input type="checkbox" ${c.selected ? 'checked' : ''} onchange="toggleSingleStagedContact('${c.tempId}');"
                             class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300 shrink-0">
@@ -5613,6 +5645,8 @@
             renderCrmSavedMediaMessages();
         }
 
+        const debouncedRenderProspectsList = debounce(() => renderProspectsList(), 180);
+
         function renderProspectsList() {
             const container = document.getElementById('crm-prospects-container');
             if (!container) return;
@@ -5636,9 +5670,10 @@
 
             container.innerHTML = filtered.map(p => {
                 const cleanNum = p.phone.replace(/\D/g, '');
+                const firstName = getProspectFirstName(p.name);
                 const waText = p.funnel === 'Salud / Bebidas'
-                    ? `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu asesor'}. Te escribo para compartirte información sobre las bebidas naturales FuXion 🌿✨.`
-                    : `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.name || 'tu socio'}. Me encantaría compartirte cómo estamos posicionando la marca FuXion en expansión 🚀💎.`;
+                    ? `¡Hola ${firstName}! 👋 Te saluda ${appState.currentUser?.name || 'tu asesor'}. Te escribo para compartirte información sobre las bebidas naturales FuXion 🌿✨.`
+                    : `¡Hola ${firstName}! 👋 Te saluda ${appState.currentUser?.name || 'tu socio'}. Me encantaría compartirte cómo estamos posicionando la marca FuXion en expansión 🚀💎.`;
 
                 const sentSteps = Array.isArray(p.sentSteps) ? p.sentSteps : [];
                 const stepsBadgesHtml = allTemplates.map(tpl => {
@@ -5729,12 +5764,12 @@
             const b2 = document.getElementById('btn-rec-mode-2');
             if (mode === 1) {
                 p1.classList.remove('hidden'); p2.classList.add('hidden');
-                b1.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm transition-all';
-                b2.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 transition-all';
+                b1.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm';
+                b2.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900';
             } else {
                 p1.classList.add('hidden'); p2.classList.remove('hidden');
-                b2.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm transition-all';
-                b1.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 transition-all';
+                b2.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm';
+                b1.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900';
             }
         }
 
@@ -6187,7 +6222,7 @@
         }
         function openRecoveryModal() { openModal('modal-recovery'); }
 
-        async function submitUserRegistration() {
+        function submitUserRegistration() {
             const name = document.getElementById('reg-name').value.trim();
             const email = document.getElementById('reg-email').value.trim().toLowerCase();
             const phone = document.getElementById('reg-phone').value.trim();
@@ -6287,7 +6322,6 @@
         }
 
         function verifyAndActivateUser() {
-            setTimeout(() => { syncExternalRegistrationsNow(false); }, 50);
             const email = document.getElementById('act-email').value.trim().toLowerCase();
             const code = document.getElementById('act-code').value.trim();
 
@@ -6390,11 +6424,11 @@
             const btnPaid = document.getElementById('btn-tray-codigo-socio-pago');
 
             if (appState.adminActivationTray === 'standard') {
-                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md transition-all';
-                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between transition-all';
+                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md';
+                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between';
             } else {
-                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black text-xs flex items-center justify-between shadow-md transition-all';
-                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-black text-xs flex items-center justify-between transition-all';
+                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black text-xs flex items-center justify-between shadow-md';
+                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-black text-xs flex items-center justify-between';
             }
             renderAdminActivationPanel();
         }
@@ -6435,7 +6469,7 @@
                                 <span class="text-sm font-black text-slate-900">${item.flag || '🇵🇪'} ${item.name}</span>
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isDone ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">${item.status}</span>
                                 ${isPaid ? `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950">PAGO $15 USD / S/ 52.50</span>` : ''}
-                                ${isRecov ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Recuperación Clave</span>` : ''}
+                                ${isRecov ? `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Recuperación Clave</span>` : ''}
                             </div>
                             <p class="text-xs text-slate-600"><b>Correo:</b> ${item.email} • <b>Tel:</b> ${item.phone || 'Sin teléfono'} ${item.city ? `• <b>Ubicación:</b> ${item.country || ''} - ${item.city}` : ''}</p>
                             <p class="text-[11px] text-slate-400">Patrocinador: <b>${item.uplineCode}</b> • Fecha: ${item.date}</p>
@@ -6449,7 +6483,7 @@
 
                             <a href="https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(waMsg)}" target="_blank"
                                 onclick="${isRecov ? `markRecoveryResolved('${item.id}');` : ''}"
-                                class="py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all">
+                                class="py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm">
                                 <i class="fa-brands fa-whatsapp text-sm"></i><span>${isRecov ? 'Enviar Contraseña por WhatsApp' : 'Enviar Código por WhatsApp'}</span>
                             </a>
                         </div>
@@ -6540,13 +6574,11 @@
                     }
                 }
 
-                setTimeout(() => { syncExternalRegistrationsNow(false); }, 100);
+                setTimeout(() => { syncExternalRegistrationsNow(false); }, 400);
                 setInterval(() => {
                     syncExternalRegistrationsNow(false);
-                }, 6000);
-            } catch (initErr) {
-                console.error('Error al inicializar Leader Prospect:', initErr);
-            }
+                }, 12000);
+            } catch (initErr) {}
         }
 
         Object.assign(window, {
