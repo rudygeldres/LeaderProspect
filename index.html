@@ -124,35 +124,78 @@
             font-family: inherit;
         }
         .nav-btn:hover { background-color: rgba(30, 41, 59, 0.75); color: #FFFFFF; }
-        button { cursor: pointer; font-family: inherit; }
+        button, a, label, [role="button"] {
+            cursor: pointer;
+            font-family: inherit;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
         input, select, textarea { font-family: inherit; }
 
-        /* Adaptación exacta del Mural sin espacios en blanco laterales ni superiores */
-        .adaptive-wall-frame {
+        /* Muro y Novedades: Visor Proporcionado sin Recortes ni Estiramiento */
+        .lp-wall-viewport {
+            position: relative;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            max-height: 460px;
+            min-height: 230px;
             border-radius: 1.5rem;
-            line-height: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 30%, #0E2342 0%, #060D1A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(88, 184, 238, 0.25);
         }
-        .adaptive-wall-media-vertical {
-            display: block;
+        @media (min-width: 1024px) {
+            .lp-wall-viewport {
+                aspect-ratio: 21 / 9;
+                max-height: 440px;
+            }
+        }
+        .lp-wall-backdrop-blur {
+            position: absolute;
+            inset: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            object-fit: cover;
+            filter: blur(22px) brightness(0.45) saturate(1.2);
+            transform: scale(1.06);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .lp-wall-foreground-media {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
             width: auto;
             height: auto;
-            max-width: 100%;
-            max-height: 82vh;
-            border-radius: 1.5rem;
-            object-fit: cover;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 32px rgba(2, 6, 23, 0.65);
         }
-        .adaptive-wall-media-landscape {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-height: 75vh;
-            border-radius: 1.5rem;
-            object-fit: cover;
+        .lp-wall-arrow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 38px;
+            height: 38px;
+            border-radius: 9999px;
+            background: rgba(6, 13, 26, 0.72);
+            border: 1px solid rgba(88, 184, 238, 0.45);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s ease;
+        }
+        .lp-wall-arrow-btn:hover {
+            background: #0EA5E9;
+            color: #040914;
+            transform: translateY(-50%) scale(1.06);
         }
 
         /* Animación de onda de grabación en vivo */
@@ -226,8 +269,8 @@
         </header>
 
         <!-- Tarjeta Blanca de Inicio de Sesión -->
-        <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-4">
-            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100 text-slate-800">
+        <main class="relative z-20 flex-1 flex items-center justify-center px-4 py-4">
+            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-slate-100 text-slate-800 relative z-20">
                 <div class="text-center mb-6">
                     <h1 class="text-2xl font-black text-slate-900 tracking-tight">¡Bienvenido!</h1>
                     <p class="text-xs sm:text-sm text-slate-500 mt-1">Ingresa a tu espacio privado de oportunidades FuXion</p>
@@ -275,12 +318,12 @@
                             <input type="checkbox" id="chk-remember" checked class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
                             <span>Recordar mi acceso</span>
                         </label>
-                        <button type="button" onclick="openRecoveryModal();" class="font-bold text-sky-600 hover:text-sky-700">
+                        <button type="button" id="btn-open-recovery-link" onclick="openRecoveryModal();" class="font-bold text-sky-600 hover:text-sky-700 py-1 px-1">
                             ¿Olvidaste tu contraseña?
                         </button>
                     </div>
 
-                    <button type="submit" id="btn-submit-login"
+                    <button type="submit" id="btn-submit-login" onclick="event.preventDefault(); handleLogin();"
                         class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-[#0284C7] hover:to-[#1D4ED8] text-white font-extrabold text-sm shadow-glow-btn flex items-center justify-center gap-2 transition-all active:scale-[0.99]">
                         <span>Iniciar sesión</span>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -289,14 +332,14 @@
 
                 <!-- Verificación Código 6 Dígitos y Registro -->
                 <div class="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2.5 text-center">
-                    <button type="button" onclick="openActivationCodeModal();" class="w-full py-2.5 px-4 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                    <button type="button" id="btn-open-activation-code-link" onclick="openActivationCodeModal();" class="w-full py-2.5 px-4 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
                         <i class="fa-solid fa-shield-halved text-amber-600"></i>
                         <span>Tengo un código de activación de 6 dígitos</span>
                     </button>
 
                     <p class="text-xs text-slate-500 mt-1">
                         ¿Nuevo socio líder?
-                        <button type="button" id="btn-open-register-link" onclick="openRegisterModal('partner');" class="font-extrabold text-sky-600 hover:text-sky-700 ml-1">
+                        <button type="button" id="btn-open-register-link" onclick="openRegisterModal('partner', false);" class="font-extrabold text-sky-600 hover:text-sky-700 ml-1 py-1 px-1">
                             Regístrate aquí &gt;
                         </button>
                     </p>
@@ -587,7 +630,7 @@
                         </div>
                     </div>
 
-                    <!-- MURAL / CARRUSEL PÚBLICO ADAPTATIVO (AUTO 7s, SIN FLECHAS, SIN DESCRIPCIÓN DE FORMATO) -->
+                    <!-- MURAL / CARRUSEL PÚBLICO ADAPTATIVO (AUTO 3s, FLECHAS Y VISOR PROPORCIONAL) -->
                     <div id="public-carousel-wrapper" class="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
@@ -605,7 +648,7 @@
                             </div>
                         </div>
 
-                        <!-- Escenario Adaptativo Vertical u Horizontal sin espacios en blanco ni etiquetas de formato -->
+                        <!-- Escenario Proporcional con Flechas, Contador y Rotación cada 3 Segundos -->
                         <div id="public-carousel-stage" class="relative w-full overflow-hidden rounded-3xl"></div>
                     </div>
 
@@ -1150,6 +1193,23 @@
                             <div id="mlm-genealogy-tree" class="min-w-[320px] flex flex-col items-center"></div>
                         </div>
 
+                        <!-- INSPECTOR DE CADENA GENEALÓGICA ILIMITADA EN PROFUNDIDAD (EXCLUSIVO ADMIN) -->
+                        <div id="admin-downline-chain-inspector" class="hidden p-5 rounded-3xl bg-slate-900 text-white border border-sky-500/30 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-sky-400">Auditoría Recursiva Sin Límite de Niveles</span>
+                                    <h3 class="text-sm sm:text-base font-black text-white">Cadena de Patrocinio y Descendencia en Profundidad</h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <select id="admin-chain-root-selector" onchange="renderAdminDownlineChainInspector();" class="px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-sky-300">
+                                        <option value="RudyG-Ad">Raíz: RudyG-Ad (Toda la Red)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="admin-downline-chain-summary" class="text-xs text-slate-300"></div>
+                            <div id="admin-downline-chain-tree" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+                        </div>
+
                         <!-- MODO B: TABLA EJECUTIVA + AUDITORÍA ADMIN -->
                         <div id="team-table-container" class="hidden space-y-3">
                             <div class="flex flex-wrap items-center justify-between gap-3">
@@ -1332,16 +1392,16 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 8: ENLACES Y QR REALES PERSONALIZADOS ==================== -->
+                <!-- ==================== SECCIÓN 8: ENLACES ULTRA CORTOS Y QR PERSONALIZADOS ==================== -->
                 <section id="tab-enlaces" class="tab-section hidden space-y-6">
                     <div class="bg-sky-50 border border-sky-200 rounded-3xl p-4 text-xs text-sky-900 flex items-center gap-3">
                         <i class="fa-solid fa-circle-check text-sky-600 text-lg"></i>
-                        <span>Enlaces reales y cortos personalizados automáticamente con tu nombre y apellido (<b id="links-owner-slug-preview">Rudy-Geldres</b>), listos para escanear o compartir.</span>
+                        <span>Enlaces ultra cortos personalizados automáticamente con tu usuario (<b id="links-owner-slug-preview">rudygeldres</b>), listos para escanear o compartir.</span>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div id="referral-links-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft flex flex-col items-center text-center space-y-4">
-                            <span class="px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase">1. Enlace Corto de Patrocinio (Socios Líderes)</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase">1. Enlace Ultra Corto • Socios Líderes</span>
                             <h3 class="text-base font-black text-slate-900">Invita Líderes a tu Equipo</h3>
                             <p class="text-xs text-slate-500">El socio se registra bajo tu patrocinio y su código de 6 dígitos llega al Administrador.</p>
                             <canvas id="qr-canvas-partner" class="rounded-2xl border border-slate-200 p-2 bg-white shadow-sm"></canvas>
@@ -1354,10 +1414,13 @@
                                     <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
                                 </button>
                             </div>
+                            <button type="button" onclick="previewShortReferralLink('partner');" class="w-full py-2 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-700 font-bold text-[11px]">
+                                <i class="fa-solid fa-eye mr-1"></i>Probar Vista Previa del Link
+                            </button>
                         </div>
 
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft flex flex-col items-center text-center space-y-4">
-                            <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase">2. Enlace Corto de Prospectos (Clientes)</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase">2. Enlace Ultra Corto • Prospectos</span>
                             <h3 class="text-base font-black text-slate-900">Captura Clientes Salud &amp; Negocio</h3>
                             <p class="text-xs text-slate-500">Al registrarse, el prospecto entra directo a tu CRM privado con su bandera.</p>
                             <canvas id="qr-canvas-prospect" class="rounded-2xl border border-slate-200 p-2 bg-white shadow-sm"></canvas>
@@ -1369,6 +1432,38 @@
                                 <button type="button" onclick="shareReferralWhatsApp('prospect');" class="flex-1 py-2.5 px-4 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-bold text-xs">
                                     <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
                                 </button>
+                            </div>
+                            <button type="button" onclick="previewShortReferralLink('prospect');" class="w-full py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 font-bold text-[11px]">
+                                <i class="fa-solid fa-eye mr-1"></i>Probar Vista Previa del Link
+                            </button>
+                        </div>
+
+                        <!-- 3. ENLACE EXCLUSIVO ADMINISTRADOR: INVITAR LÍDERES A EQUIPO POR PAGO CONFIRMADO -->
+                        <div id="admin-paid-link-card" class="hidden md:col-span-2 bg-gradient-to-br from-[#060D1A] via-[#0B172A] to-[#0C2342] text-white rounded-3xl p-6 border-2 border-amber-400/60 shadow-xl flex flex-col md:flex-row items-center gap-6">
+                            <div class="shrink-0 bg-white p-2.5 rounded-2xl shadow-md">
+                                <canvas id="qr-canvas-paid-partner" class="rounded-xl"></canvas>
+                            </div>
+                            <div class="flex-1 space-y-3 text-center md:text-left">
+                                <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wider">
+                                    <i class="fa-solid fa-crown mr-1"></i>Exclusivo Administrador • Activación por Pago Confirmado
+                                </span>
+                                <h3 class="text-lg font-black text-white">Invitar Líderes a Equipo por Pago Confirmado</h3>
+                                <p class="text-xs text-sky-200 leading-relaxed">
+                                    Todo nuevo socio registrado desde este enlace y <b>toda su cadena descendente en profundidad</b> visualizará el anuncio oficial de pago de <b>$15 USD (T.C. S/ 3.50 = S/ 52.50 Soles) al PLIN 935 877 981 (Rudy Geldres)</b> antes de recibir su código de 6 dígitos en la bandeja <b>CÓDIGO SOCIO PAGO</b>.
+                                </p>
+                                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                    <input type="text" id="input-link-paid-partner" readonly value="https://rudygeldres.teinvita.liderpro"
+                                        class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-amber-400/50 text-xs font-mono text-amber-300 font-bold text-center sm:text-left">
+                                    <button type="button" onclick="copyReferralUrl('input-link-paid-partner');" class="py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0">
+                                        <i class="fa-regular fa-copy mr-1"></i>Copiar Link
+                                    </button>
+                                    <button type="button" onclick="shareReferralWhatsApp('paid_partner');" class="py-2.5 px-4 rounded-xl bg-[#00B074] hover:bg-emerald-500 text-white font-extrabold text-xs shrink-0">
+                                        <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
+                                    </button>
+                                    <button type="button" onclick="previewShortReferralLink('paid_partner');" class="py-2.5 px-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs shrink-0">
+                                        <i class="fa-solid fa-eye mr-1"></i>Probar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1495,21 +1590,38 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 10: ACTIVACIÓN SOCIOS (EXCLUSIVO ADMINISTRADOR) ==================== -->
+                <!-- ==================== SECCIÓN 10: ACTIVACIÓN SOCIOS (EXCLUSIVO ADMINISTRADOR — DOBLE BANDEJA) ==================== -->
                 <section id="tab-activacion-socios" class="tab-section hidden space-y-6">
-                    <div class="bg-amber-50 border border-amber-300 rounded-3xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shrink-0">
-                                <i class="fa-solid fa-shield-halved"></i>
+                    <div class="bg-amber-50 border border-amber-300 rounded-3xl p-5 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-base font-black text-slate-900">Centro de Control • Activación Socios (Multi-Dispositivo)</h2>
+                                    <p class="text-xs text-slate-600">Gestiona por separado los registros estándar y los registros por pago confirmado en profundidad.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h2 class="text-base font-black text-slate-900">Bandeja de Activación y Validación Multi-Dispositivo</h2>
-                                <p class="text-xs text-slate-600">Recibe al instante registros externos (códigos de 6 dígitos) y solicitudes de recuperación de contraseña.</p>
-                            </div>
+                            <button type="button" onclick="syncExternalRegistrationsNow(true);" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 self-start sm:self-center">
+                                <i class="fa-solid fa-rotate text-sky-400"></i><span>Sincronizar Ahora</span>
+                            </button>
                         </div>
-                        <button type="button" onclick="syncExternalRegistrationsNow(true);" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 self-start sm:self-center">
-                            <i class="fa-solid fa-rotate text-sky-400"></i><span>Sincronizar Ahora</span>
-                        </button>
+
+                        <!-- Doble Botón Selector de Bandeja: CÓDIGO SOCIO vs CÓDIGO SOCIO PAGO -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <button type="button" id="btn-tray-codigo-socio" onclick="switchAdminActivationTray('standard');"
+                                class="py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md transition-all">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-key text-sky-400"></i><span>CÓDIGO SOCIO</span></span>
+                                <span id="badge-count-codigo-socio" class="px-2.5 py-0.5 rounded-full bg-sky-500 text-slate-950 text-[11px] font-black">0</span>
+                            </button>
+
+                            <button type="button" id="btn-tray-codigo-socio-pago" onclick="switchAdminActivationTray('paid');"
+                                class="py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between transition-all">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-sack-dollar text-emerald-600"></i><span>CÓDIGO SOCIO PAGO</span></span>
+                                <span id="badge-count-codigo-socio-pago" class="px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[11px] font-black">0</span>
+                            </button>
+                        </div>
                     </div>
                     <div id="admin-pending-activations-list" class="space-y-3"></div>
                 </section>
@@ -1592,10 +1704,29 @@
                                     <input type="text" id="profile-input-whatsapp" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold">
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">Ciudad / País</label>
-                                    <input type="text" id="profile-input-city" placeholder="Ej. Lima, Perú" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold">
+                                    <label class="block font-bold text-slate-700 mb-1">País y Bandera</label>
+                                    <select id="profile-input-country" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                                        <option value="🇵🇪|Perú">🇵🇪 Perú</option>
+                                        <option value="🇨🇴|Colombia">🇨🇴 Colombia</option>
+                                        <option value="🇲🇽|México">🇲🇽 México</option>
+                                        <option value="🇪🇨|Ecuador">🇪🇨 Ecuador</option>
+                                        <option value="🇨🇱|Chile">🇨🇱 Chile</option>
+                                        <option value="🇦🇷|Argentina">🇦🇷 Argentina</option>
+                                        <option value="🇧🇴|Bolivia">🇧🇴 Bolivia</option>
+                                        <option value="🇺🇸|Estados Unidos">🇺🇸 Estados Unidos</option>
+                                        <option value="🇪🇸|España">🇪🇸 España</option>
+                                        <option value="🇻🇪|Venezuela">🇻🇪 Venezuela</option>
+                                        <option value="🇨🇷|Costa Rica">🇨🇷 Costa Rica</option>
+                                        <option value="🇵🇦|Panamá">🇵🇦 Panamá</option>
+                                        <option value="🇧🇷|Brasil">🇧🇷 Brasil</option>
+                                        <option value="🌎|Internacional">🌎 Otro País</option>
+                                    </select>
                                 </div>
-                                <div class="sm:col-span-2">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">Ciudad / Localidad</label>
+                                    <input type="text" id="profile-input-city" placeholder="Ej. Lima / Arequipa" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold">
+                                </div>
+                                <div>
                                     <label class="block font-bold text-slate-700 mb-1">Cambiar Contraseña</label>
                                     <input type="password" id="profile-input-newpass" placeholder="Dejar en blanco para mantener" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                                 </div>
@@ -1614,13 +1745,16 @@
     <!-- ==================== MODALES ==================== -->
 
     <!-- Modal 1: Registro -->
-    <div id="modal-register" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
+    <div id="modal-register" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-3.5 my-auto">
             <div class="flex items-center justify-between">
                 <h3 id="modal-register-title" class="text-base font-black text-slate-900">Registro de Nuevo Socio Líder</h3>
                 <button type="button" onclick="closeRegisterModalSafe();" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">✕</button>
             </div>
             <p id="modal-register-subtitle" class="text-xs text-slate-500">Completa tus datos para generar tu código de activación de 6 dígitos.</p>
+            <div id="reg-paid-tier-banner" class="hidden p-3 rounded-2xl bg-amber-50 border border-amber-300 text-[11px] text-amber-950 font-bold">
+                <i class="fa-solid fa-crown text-amber-600 mr-1"></i>Registro de Equipo Líder Pro (Activación por Pago Confirmado $15 USD / S/ 52.50 PLIN).
+            </div>
             <form onsubmit="event.preventDefault(); submitUserRegistration(); return false;" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Nombre y Apellidos *</label>
@@ -1630,13 +1764,34 @@
                     <label class="block font-bold text-slate-700 mb-1">Correo Electrónico *</label>
                     <input type="email" id="reg-email" required placeholder="carlos@correo.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">País y Bandera *</label>
+                        <select id="reg-country" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                            <option value="🇵🇪|Perú">🇵🇪 Perú (+51)</option>
+                            <option value="🇨🇴|Colombia">🇨🇴 Colombia (+57)</option>
+                            <option value="🇲🇽|México">🇲🇽 México (+52)</option>
+                            <option value="🇪🇨|Ecuador">🇪🇨 Ecuador (+593)</option>
+                            <option value="🇨🇱|Chile">🇨🇱 Chile (+56)</option>
+                            <option value="🇦🇷|Argentina">🇦🇷 Argentina (+54)</option>
+                            <option value="🇧🇴|Bolivia">🇧🇴 Bolivia (+591)</option>
+                            <option value="🇺🇸|Estados Unidos">🇺🇸 EE.UU. (+1)</option>
+                            <option value="🇪🇸|España">🇪🇸 España (+34)</option>
+                            <option value="🇻🇪|Venezuela">🇻🇪 Venezuela (+58)</option>
+                            <option value="🇨🇷|Costa Rica">🇨🇷 Costa Rica (+506)</option>
+                            <option value="🇵🇦|Panamá">🇵🇦 Panamá (+507)</option>
+                            <option value="🇧🇷|Brasil">🇧🇷 Brasil (+55)</option>
+                            <option value="🌎|Internacional">🌎 Otro País</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Ciudad *</label>
+                        <input type="text" id="reg-city" required placeholder="Ej. Lima" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    </div>
+                </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">WhatsApp (con código de país) *</label>
                     <input type="tel" id="reg-phone" required placeholder="+51 987 654 321" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                </div>
-                <div id="reg-city-wrapper">
-                    <label class="block font-bold text-slate-700 mb-1">Ciudad / País *</label>
-                    <input type="text" id="reg-city" required placeholder="Ej. Lima, Perú" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
                 <div id="reg-interest-wrapper" class="hidden">
                     <label class="block font-bold text-slate-700 mb-1">Interés Principal en FuXion *</label>
@@ -1660,23 +1815,47 @@
         </div>
     </div>
 
-    <!-- Modal 2: Ventana de Espera y Verificación de Código de 6 Dígitos -->
-    <div id="modal-activation-code" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 text-center">
+    <!-- Modal 2: Ventana de Espera y Verificación de Código de 6 Dígitos (Incluye Anuncio PLIN $15 USD / S/ 52.50) -->
+    <div id="modal-activation-code" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-3.5 text-center my-auto">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-black uppercase text-amber-600"><i class="fa-solid fa-hourglass-half mr-1"></i>Espera de Activación</span>
                 <button type="button" onclick="closeModal('modal-activation-code');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
-            <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-semibold leading-relaxed">
+
+            <!-- Anuncio Oficial Pago Confirmado ($15 USD / T.C. 3.50 = S/ 52.50 PLIN 935 877 981 Rudy Geldres) -->
+            <div id="paid-activation-payment-notice" class="hidden p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-amber-400 text-white text-left space-y-2 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase">Activación por Pago Confirmado</span>
+                    <span class="text-xs font-black text-emerald-400">$15 USD / S/ 52.50</span>
+                </div>
+                <p class="text-[11px] text-slate-200 leading-relaxed">
+                    Para recibir tu <b>código de activación de 6 dígitos</b> en el WhatsApp que registraste, realiza el pago único de <b>$15 dólares (Tipo de cambio S/ 3.50 = S/ 52.50 Soles)</b> mediante la billetera digital <b>PLIN</b>:
+                </p>
+                <div class="p-2.5 rounded-xl bg-slate-950/90 border border-sky-400/40 flex items-center justify-between text-xs">
+                    <div>
+                        <span class="text-[10px] text-sky-300 block">Número PLIN Oficial:</span>
+                        <strong class="text-base font-mono text-amber-400 tracking-wider">935 877 981</strong>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-sky-300 block">Titular PLIN:</span>
+                        <strong class="text-xs text-white">Rudy Geldres</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div id="standard-activation-notice" class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-semibold leading-relaxed">
                 Tu solicitud ha sido enviada al Administrador. Solicita tu <b>código de 6 dígitos</b> por WhatsApp e ingrésalo abajo para activar tu acceso vitalicio:
             </div>
+
             <a id="btn-notify-admin-wa-code" href="https://api.whatsapp.com/send?phone=51970425293" target="_blank"
-                class="w-full py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
-                <i class="fa-brands fa-whatsapp text-base"></i><span>Solicitar Código al Administrador por WhatsApp</span>
+                class="w-full py-3 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-brands fa-whatsapp text-base"></i><span id="label-notify-admin-wa-code">Solicitar Código al Administrador por WhatsApp</span>
             </a>
+
             <input type="email" id="act-email" placeholder="Tu correo registrado" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
             <input type="text" id="act-code" maxlength="6" placeholder="000000" class="w-full px-3.5 py-3 rounded-xl bg-slate-900 text-amber-400 font-mono text-xl font-black tracking-[0.4em] text-center">
-            <button type="button" onclick="verifyAndActivateUser();" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+            <button type="button" id="btn-verify-activation-code" onclick="verifyAndActivateUser();" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
                 Verificar Código y Activar Cuenta
             </button>
         </div>
@@ -1691,7 +1870,7 @@
             </div>
             <p class="text-xs text-slate-600">Ingresa tu correo electrónico registrado. Tu solicitud se enviará a la bandeja de control del Administrador para reenviarte tu clave por WhatsApp.</p>
             <input type="email" id="recov-email" placeholder="correo@ejemplo.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-            <button type="button" onclick="processPasswordRecovery();" class="w-full py-3 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+            <button type="button" id="btn-submit-recovery" onclick="processPasswordRecovery();" class="w-full py-3 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2">
                 <i class="fa-brands fa-whatsapp text-base"></i><span>Pedir Envío de Contraseña por WhatsApp</span>
             </button>
         </div>
@@ -1770,7 +1949,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Embudo FuXion</label>
-                        <select id="edit-pros-funnel" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                        <select id="edit-pros-funnel" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                             <option value="Salud / Bebidas">Salud / Bebidas</option>
                             <option value="Negocio / Multinivel">Negocio / Multinivel</option>
                             <option value="Sin clasificar">Sin clasificar</option>
@@ -2055,15 +2234,36 @@
     <!-- Toast Notificaciones -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ==================== LÓGICA JAVASCRIPT COMPLETA (FORMATO LP) ==================== -->
+    <!-- ==================== LÓGICA JAVASCRIPT COMPLETA (FORMATO LP — SANDBOX SAFE) ==================== -->
     <script>
+        // Almacenamiento seguro con respaldo automático en memoria (evita bloqueos en iframes móviles)
+        const _memoryStorageFallback = {};
+        const safeStorage = {
+            getItem(key) {
+                try {
+                    const v = window.localStorage.getItem(key);
+                    return v !== null ? v : (Object.prototype.hasOwnProperty.call(_memoryStorageFallback, key) ? _memoryStorageFallback[key] : null);
+                } catch (e) {
+                    return Object.prototype.hasOwnProperty.call(_memoryStorageFallback, key) ? _memoryStorageFallback[key] : null;
+                }
+            },
+            setItem(key, val) {
+                _memoryStorageFallback[key] = String(val);
+                try { window.localStorage.setItem(key, String(val)); } catch (e) {}
+            },
+            removeItem(key) {
+                delete _memoryStorageFallback[key];
+                try { window.localStorage.removeItem(key); } catch (e) {}
+            }
+        };
+
         const ADMIN_FULL_NAME = 'Rudy Bryan Geldres Reategui';
         const ADMIN_OFFICIAL_EMAIL = 'corporativogeldres@gmail.com';
         const ADMIN_DEFAULT_PASS = 'Reategui7';
         const ADMIN_SPONSOR_CODE = 'RudyG-Ad';
         const ADMIN_WHATSAPP_NUMBER = '+51970425293';
         const ADMIN_DISPLAY_PHONE = '+51 970 425 293';
-        const CLOUD_SYNC_TOPIC = 'leader_prospect_global_sync_2026_v3';
+        const CLOUD_SYNC_TOPIC = 'leader_prospect_global_sync_2026_v4';
 
         const OFFICIAL_FUXION_PDFS = [
             { id: 'plan_accion', title: 'PLAN DE ACCIÓN', desc: 'Los 10 Pasos para el Éxito, Lista de 70 contactos de Inauguración, Pro 1 y Acuerdos.' },
@@ -2071,7 +2271,6 @@
             { id: 'plan_prolev', title: 'PLAN PRO-LEV X™', desc: 'Tabla completa de 16 Rangos, Bono Cliente Preferente Pro 1/2/3, Bono Balance y Estilo de Vida.' }
         ];
 
-        // Plantillas Oficiales de 4 Pasos (Estructura Leader Prospect con emoticones)
         const DEFAULT_LP_4_STEPS = [
             {
                 id: 'step_1',
@@ -2103,7 +2302,6 @@
             }
         ];
 
-        // Tabla Oficial de los 16 Rangos del Plan PRO-LEV X™
         const FUXION_RANKS_DATA = {
             entrepreneur: { title: 'ENTREPRENEUR (ACTIVO)', income: '$50 - $150 USD', pv4: 40, dv4: 0, maxLine: 'Sin tope', lines: 'Emprendedor Activo (40 PV4)', bonuses: ['Descuento 20% a 50%', 'Bono Pack Profesional 25%'], strategy: 'Mantén tu activación de 40 PV4 cada 4 semanas para conservar el arrastre de puntos en tus brazos de balance.' },
             executive: { title: 'EXECUTIVE ENTREPRENEUR', income: '$175 USD / mes', pv4: 100, dv4: 500, maxLine: '300 QV', lines: 'Mínimo 2 líneas activas', bonuses: ['Bono Familia Nivel 1-2', 'Bono Pro 1'], strategy: 'Alcanza 100 PV4 personales y 500 DV4 grupales con un máximo de 300 QV por línea.' },
@@ -2137,12 +2335,15 @@
             recBannerPhoto: null,
             groupProgressImage: null,
             registrationMode: 'partner',
+            isPaidRegistrationFlow: false,
+            adminActivationTray: 'standard',
             isReferralGuestMode: false,
             calendarView: 'month',
             calendarCursorDate: new Date(),
             selectedDateStr: new Date().toISOString().split('T')[0],
             carouselIndex: 0,
             carouselTimer: null,
+            carouselPaused: false,
             mediaObjectUrlCache: {},
             draftAudioBlob: null,
             draftAudioUrl: null,
@@ -2155,13 +2356,15 @@
             revealedPasswords: {}
         };
 
-        if (typeof pdfjsLib !== 'undefined') {
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        }
+        try {
+            if (typeof pdfjsLib !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            }
+        } catch (e) {}
 
         function safeParseStorageArray(key) {
             try {
-                const raw = localStorage.getItem(key);
+                const raw = safeStorage.getItem(key);
                 if (!raw) return [];
                 const parsed = JSON.parse(raw);
                 return Array.isArray(parsed) ? parsed : [];
@@ -2185,34 +2388,46 @@
         }
 
         // ==================== INDEXEDDB PARA MULTIMEDIA HASTA 400 MB Y AUDIOS ====================
+        const _memoryBlobFallback = {};
         function openMediaIndexedDB() {
             return new Promise((resolve, reject) => {
-                const req = indexedDB.open('LeaderProspectMediaDB', 1);
-                req.onupgradeneeded = (e) => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains('mediaFiles')) {
-                        db.createObjectStore('mediaFiles', { keyPath: 'id' });
-                    }
-                };
-                req.onsuccess = (e) => resolve(e.target.result);
-                req.onerror = (e) => reject(e.target.error);
+                try {
+                    if (typeof indexedDB === 'undefined') { reject(new Error('No IDB')); return; }
+                    const req = indexedDB.open('LeaderProspectMediaDB', 1);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('mediaFiles')) {
+                            db.createObjectStore('mediaFiles', { keyPath: 'id' });
+                        }
+                    };
+                    req.onsuccess = (e) => resolve(e.target.result);
+                    req.onerror = (e) => reject(e.target.error);
+                } catch (err) {
+                    reject(err);
+                }
             });
         }
 
         async function saveMediaBlobToIndexedDB(id, blob, meta = {}) {
-            const db = await openMediaIndexedDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction('mediaFiles', 'readwrite');
-                tx.objectStore('mediaFiles').put({ id, blob, ...meta, savedAt: Date.now() });
-                tx.oncomplete = () => resolve(true);
-                tx.onerror = (e) => reject(e.target.error);
-            });
+            _memoryBlobFallback[id] = { id, blob, ...meta, savedAt: Date.now() };
+            try {
+                const db = await openMediaIndexedDB();
+                return await new Promise((resolve) => {
+                    const tx = db.transaction('mediaFiles', 'readwrite');
+                    tx.objectStore('mediaFiles').put({ id, blob, ...meta, savedAt: Date.now() });
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(true);
+                });
+            } catch (e) {
+                return true;
+            }
         }
 
         async function getMediaBlobFromIndexedDB(id) {
+            if (_memoryBlobFallback[id]) return _memoryBlobFallback[id];
             try {
                 const db = await openMediaIndexedDB();
-                return new Promise((resolve) => {
+                return await new Promise((resolve) => {
                     const tx = db.transaction('mediaFiles', 'readonly');
                     const req = tx.objectStore('mediaFiles').get(id);
                     req.onsuccess = () => resolve(req.result || null);
@@ -2224,6 +2439,7 @@
         }
 
         async function deleteMediaBlobFromIndexedDB(id) {
+            delete _memoryBlobFallback[id];
             try {
                 const db = await openMediaIndexedDB();
                 const tx = db.transaction('mediaFiles', 'readwrite');
@@ -2333,10 +2549,10 @@
                 }
 
                 if (changed) {
-                    localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
-                    localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminDb));
-                    localStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
-                    localStorage.setItem('lp_deleted_user_ids', JSON.stringify(Array.from(deletedIds)));
+                    safeStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
+                    safeStorage.setItem('lp_admin_activations_db', JSON.stringify(adminDb));
+                    safeStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
+                    safeStorage.setItem('lp_deleted_user_ids', JSON.stringify(Array.from(deletedIds)));
 
                     if (appState.currentUser) {
                         updateBellRemindersBadge();
@@ -2346,8 +2562,8 @@
                 }
                 if (slidesChanged) {
                     try {
-                        localStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: s.inDb }))));
-                        localStorage.setItem('lp_deleted_slide_ids', JSON.stringify(Array.from(deletedSlideIds)));
+                        safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: s.inDb }))));
+                        safeStorage.setItem('lp_deleted_slide_ids', JSON.stringify(Array.from(deletedSlideIds)));
                     } catch (e) {}
                     if (appState.currentUser) renderPublicCarousel();
                 }
@@ -2362,23 +2578,23 @@
         }
 
         function repairAndSeedMasterRecords() {
-            if (!localStorage.getItem('lp_registered_users')) localStorage.setItem('lp_registered_users', JSON.stringify([]));
-            if (!localStorage.getItem('lp_pending_activations')) localStorage.setItem('lp_pending_activations', JSON.stringify([]));
-            if (!localStorage.getItem('lp_admin_activations_db')) localStorage.setItem('lp_admin_activations_db', JSON.stringify([]));
-            if (!localStorage.getItem('lp_admin_public_carousel')) localStorage.setItem('lp_admin_public_carousel', JSON.stringify([]));
-            if (!localStorage.getItem('lp_admin_videos')) localStorage.setItem('lp_admin_videos', JSON.stringify([]));
-            if (!localStorage.getItem('lp_admin_pdfs')) localStorage.setItem('lp_admin_pdfs', JSON.stringify([]));
-            if (!localStorage.getItem('lp_hidden_official_pdfs')) localStorage.setItem('lp_hidden_official_pdfs', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_registered_users')) safeStorage.setItem('lp_registered_users', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_pending_activations')) safeStorage.setItem('lp_pending_activations', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_admin_activations_db')) safeStorage.setItem('lp_admin_activations_db', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_admin_public_carousel')) safeStorage.setItem('lp_admin_public_carousel', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_admin_videos')) safeStorage.setItem('lp_admin_videos', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_admin_pdfs')) safeStorage.setItem('lp_admin_pdfs', JSON.stringify([]));
+            if (!safeStorage.getItem('lp_hidden_official_pdfs')) safeStorage.setItem('lp_hidden_official_pdfs', JSON.stringify([]));
         }
 
         function verifyAdminCredentials(pass) {
-            const savedPass = localStorage.getItem('lp_admin_pass') || ADMIN_DEFAULT_PASS;
+            const savedPass = safeStorage.getItem('lp_admin_pass') || ADMIN_DEFAULT_PASS;
             return pass === savedPass || pass === ADMIN_DEFAULT_PASS;
         }
 
         function loadUserScopedData(userId) {
             try {
-                const raw = localStorage.getItem(getUserDbKey(userId));
+                const raw = safeStorage.getItem(getUserDbKey(userId));
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     appState.prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
@@ -2427,10 +2643,8 @@
                 customPresentationMsg: appState.customPresentationMsg || ''
             };
             try {
-                localStorage.setItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
-            } catch (e) {
-                console.warn('Almacenamiento local lleno:', e);
-            }
+                safeStorage.setItem(getUserDbKey(appState.currentUser.id), JSON.stringify(payload));
+            } catch (e) {}
         }
 
         function showLoginError(msg, pendingRecord = null) {
@@ -2438,94 +2652,115 @@
             const errText = document.getElementById('login-error-text');
             const btnPending = document.getElementById('btn-open-pending-modal-from-login');
             if (errText) errText.textContent = msg;
-            if (errBox) errBox.classList.remove('hidden');
+            if (errBox) {
+                errBox.classList.remove('hidden');
+                errBox.style.display = 'flex';
+            }
             if (btnPending) {
                 if (pendingRecord) {
                     btnPending.classList.remove('hidden');
+                    btnPending.style.display = 'inline-block';
                     const actEmail = document.getElementById('act-email');
                     if (actEmail) actEmail.value = pendingRecord.email;
                 } else {
                     btnPending.classList.add('hidden');
+                    btnPending.style.display = 'none';
                 }
             }
         }
 
-        async function handleLogin() {
-            repairAndSeedMasterRecords();
-            await syncExternalRegistrationsNow(false);
+        function handleLogin() {
+            try {
+                repairAndSeedMasterRecords();
+                setTimeout(() => { syncExternalRegistrationsNow(false); }, 50);
 
-            const emailInput = document.getElementById('input-auth-email');
-            const passInput = document.getElementById('input-auth-password');
-            const errBox = document.getElementById('login-error-box');
-            if (!emailInput || !passInput) return;
+                const emailInput = document.getElementById('input-auth-email');
+                const passInput = document.getElementById('input-auth-password');
+                const errBox = document.getElementById('login-error-box');
+                if (!emailInput || !passInput) return;
 
-            const email = emailInput.value.trim().toLowerCase();
-            const pass = passInput.value.trim();
+                const email = emailInput.value.trim().toLowerCase();
+                const pass = passInput.value.trim();
 
-            if (!email || !pass) {
-                showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
-                return;
-            }
-
-            if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
-                if (verifyAdminCredentials(pass)) {
-                    if (errBox) errBox.classList.add('hidden');
-                    const existingAdminPhoto = localStorage.getItem('lp_admin_photo_avatar') || null;
-                    const savedAdminCity = localStorage.getItem('lp_admin_city') || 'Lima, Perú';
-                    const adminUser = {
-                        id: 'usr_admin_rudy',
-                        name: ADMIN_FULL_NAME,
-                        email: ADMIN_OFFICIAL_EMAIL,
-                        role: 'Superadministrador',
-                        sponsorCode: ADMIN_SPONSOR_CODE,
-                        uplineCode: 'Directo Empresa',
-                        phone: ADMIN_WHATSAPP_NUMBER,
-                        city: savedAdminCity,
-                        date: 'Fundador / Admin',
-                        isAdmin: true,
-                        avatarUrl: existingAdminPhoto
-                    };
-                    appState.isReferralGuestMode = false;
-                    appState.currentUser = adminUser;
-                    localStorage.setItem('lp_active_session', JSON.stringify(adminUser));
-                    loadUserScopedData(adminUser.id);
-                    showDashboard(adminUser);
-                    return;
-                } else {
-                    showLoginError('Contraseña de Superadministrador incorrecta.');
+                if (!email || !pass) {
+                    showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
                     return;
                 }
-            }
 
-            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-            const registeredUsers = safeParseStorageArray('lp_registered_users');
-            const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+                if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
+                    if (verifyAdminCredentials(pass)) {
+                        if (errBox) {
+                            errBox.classList.add('hidden');
+                            errBox.style.display = 'none';
+                        }
+                        const existingAdminPhoto = safeStorage.getItem('lp_admin_photo_avatar') || null;
+                        const savedAdminCity = safeStorage.getItem('lp_admin_city') || 'Lima';
+                        const savedAdminCountry = safeStorage.getItem('lp_admin_country') || 'Perú';
+                        const savedAdminFlag = safeStorage.getItem('lp_admin_flag') || '🇵🇪';
+                        const adminUser = {
+                            id: 'usr_admin_rudy',
+                            name: ADMIN_FULL_NAME,
+                            email: ADMIN_OFFICIAL_EMAIL,
+                            role: 'Superadministrador',
+                            sponsorCode: ADMIN_SPONSOR_CODE,
+                            uplineCode: 'Directo Empresa',
+                            phone: ADMIN_WHATSAPP_NUMBER,
+                            city: savedAdminCity,
+                            country: savedAdminCountry,
+                            flag: savedAdminFlag,
+                            date: 'Fundador / Admin',
+                            isAdmin: true,
+                            isPaidTier: true,
+                            avatarUrl: existingAdminPhoto
+                        };
+                        appState.isReferralGuestMode = false;
+                        appState.currentUser = adminUser;
+                        safeStorage.setItem('lp_active_session', JSON.stringify(adminUser));
+                        loadUserScopedData(adminUser.id);
+                        showDashboard(adminUser);
+                        return;
+                    } else {
+                        showLoginError('Contraseña de Superadministrador incorrecta.');
+                        return;
+                    }
+                }
 
-            if (foundUser) {
-                if (foundUser.password === pass) {
-                    if (errBox) errBox.classList.add('hidden');
-                    foundUser.role = 'Líder de Red';
-                    foundUser.isAdmin = false;
-                    appState.isReferralGuestMode = false;
-                    appState.currentUser = foundUser;
-                    localStorage.setItem('lp_active_session', JSON.stringify(foundUser));
-                    loadUserScopedData(foundUser.id);
-                    showDashboard(foundUser);
-                    return;
-                } else {
-                    showLoginError('Contraseña incorrecta para este socio.');
+                const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+                const registeredUsers = safeParseStorageArray('lp_registered_users');
+                const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+
+                if (foundUser) {
+                    if (foundUser.password === pass) {
+                        if (errBox) {
+                            errBox.classList.add('hidden');
+                            errBox.style.display = 'none';
+                        }
+                        foundUser.role = 'Líder de Red';
+                        foundUser.isAdmin = false;
+                        appState.isReferralGuestMode = false;
+                        appState.currentUser = foundUser;
+                        safeStorage.setItem('lp_active_session', JSON.stringify(foundUser));
+                        loadUserScopedData(foundUser.id);
+                        showDashboard(foundUser);
+                        return;
+                    } else {
+                        showLoginError('Contraseña incorrecta para este socio.');
+                        return;
+                    }
+                }
+
+                const pendingList = safeParseStorageArray('lp_pending_activations');
+                const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
+                if (isPending) {
+                    showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
                     return;
                 }
-            }
 
-            const pendingList = safeParseStorageArray('lp_pending_activations');
-            const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
-            if (isPending) {
-                showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
-                return;
+                showLoginError('Correo no registrado en Leader Prospect. Crea tu cuenta en "Regístrate aquí".');
+            } catch (err) {
+                console.error('Error en handleLogin:', err);
+                showLoginError('Ocurrió un inconveniente al verificar los datos. Inténtalo nuevamente.');
             }
-
-            showLoginError('Correo no registrado en Leader Prospect. Crea tu cuenta en "Regístrate aquí".');
         }
 
         function showDashboard(user) {
@@ -2550,7 +2785,7 @@
             appState.prospects = [];
             appState.agendaTasks = [];
             if (appState.carouselTimer) clearInterval(appState.carouselTimer);
-            localStorage.removeItem('lp_active_session');
+            safeStorage.removeItem('lp_active_session');
             const dashEl = document.getElementById('dashboard-screen');
             const authEl = document.getElementById('auth-screen');
             if (dashEl) dashEl.style.display = 'none';
@@ -2608,17 +2843,18 @@
             const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
 
             const firstName = (user.name || 'Líder').split(' ')[0];
-            setText('header-user-name', user.name || '');
+            const userFlag = user.flag || '🇵🇪';
+            setText('header-user-name', `${userFlag} ${user.name || ''}`);
             setText('header-user-role', user.role || '');
-            setText('header-user-greeting', `¡Bienvenido, ${firstName}!`);
+            setText('header-user-greeting', `¡Bienvenido, ${userFlag} ${firstName}!`);
             setText('banner-sponsor-code', user.sponsorCode || ADMIN_SPONSOR_CODE);
 
-            setText('profile-display-name', user.name || '');
+            setText('profile-display-name', `${userFlag} ${user.name || ''}`);
             setText('profile-display-email', user.email || '');
             setText('profile-display-role', user.role || '');
             setText('profile-card-email', user.email || '-');
             setText('profile-card-phone', user.phone || 'No especificado');
-            setText('profile-card-city', user.city || 'No especificada');
+            setText('profile-card-city', `${userFlag} ${user.city || 'No especificada'}${user.country ? ' (' + user.country + ')' : ''}`);
             setText('profile-card-sponsor', user.sponsorCode || '-');
             setText('profile-card-upline', user.uplineCode || ADMIN_SPONSOR_CODE);
             setText('profile-card-date', user.date || 'Activo en Red');
@@ -2627,6 +2863,10 @@
             setVal('profile-input-email', user.email || '');
             setVal('profile-input-whatsapp', user.phone || '');
             setVal('profile-input-city', user.city || '');
+            const profCountryEl = document.getElementById('profile-input-country');
+            if (profCountryEl) {
+                profCountryEl.value = `${userFlag}|${user.country || 'Perú'}`;
+            }
 
             const presInput = document.getElementById('business-pres-custom-msg');
             if (presInput) {
@@ -2647,6 +2887,8 @@
             toggleAdminEl('btn-edit-countdown');
             toggleAdminEl('admin-tools-bar');
             toggleAdminEl('btn-admin-hide-official-pres');
+            toggleAdminEl('admin-paid-link-card');
+            toggleAdminEl('admin-downline-chain-inspector');
 
             updateDashboardKPIs();
             renderDashboardTodayAgenda();
@@ -2695,7 +2937,7 @@
             }
         }
 
-        // ==================== MURAL / CARRUSEL PÚBLICO ADAPTATIVO (INDEXEDDB + CLOUD SYNC + SIN ESPACIOS EN BLANCO) ====================
+        // ==================== MURAL / CARRUSEL PÚBLICO PROPORCIONAL (BACKDROP DIFUMINADO, FLECHAS Y AUTO 3s) ====================
         function buildCloudCompactImageDataUrl(file) {
             return new Promise((resolve) => {
                 try {
@@ -2765,9 +3007,9 @@
             }
 
             try {
-                localStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
             } catch (e) {
-                localStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: true }))));
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: true }))));
             }
 
             appState.carouselIndex = Math.max(0, slides.length - 1);
@@ -2790,24 +3032,34 @@
                 const deletedSlideIds = safeParseStorageArray('lp_deleted_slide_ids');
                 if (!deletedSlideIds.includes(removed.id)) {
                     deletedSlideIds.push(removed.id);
-                    try { localStorage.setItem('lp_deleted_slide_ids', JSON.stringify(deletedSlideIds)); } catch (e) {}
+                    try { safeStorage.setItem('lp_deleted_slide_ids', JSON.stringify(deletedSlideIds)); } catch (e) {}
                 }
                 publishCloudSyncEvent('PUBLIC_WALL_SLIDE_DEL', { id: removed.id });
             }
             try {
-                localStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
             } catch (e) {}
             appState.carouselIndex = 0;
             await renderPublicCarousel();
             showToast('Elemento eliminado del muro público.');
         }
 
-        function adjustCarouselMediaAspect(el) {
-            if (!el) return;
-            el.style.width = '100%';
-            el.style.height = 'auto';
-            el.style.display = 'block';
-            el.style.borderRadius = '1.5rem';
+        function stepPublicCarousel(delta) {
+            const slides = safeParseStorageArray('lp_admin_public_carousel');
+            if (slides.length <= 1) return;
+            appState.carouselIndex = (appState.carouselIndex + delta + slides.length) % slides.length;
+            renderPublicCarousel();
+        }
+
+        function goToPublicCarouselSlide(index) {
+            const slides = safeParseStorageArray('lp_admin_public_carousel');
+            if (slides.length === 0) return;
+            appState.carouselIndex = index % slides.length;
+            renderPublicCarousel();
+        }
+
+        function setCarouselHoverPause(paused) {
+            appState.carouselPaused = !!paused;
         }
 
         async function renderPublicCarousel() {
@@ -2858,23 +3110,38 @@
                 }
             }
 
+            const navArrowsHtml = slides.length > 1
+                ? `<button type="button" onclick="stepPublicCarousel(-1);" aria-label="Anterior" class="lp-wall-arrow-btn" style="left: 12px;">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                   </button>
+                   <button type="button" onclick="stepPublicCarousel(1);" aria-label="Siguiente" class="lp-wall-arrow-btn" style="right: 12px;">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                   </button>
+                   <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-slate-950/75 border border-sky-400/30 text-[10px] font-black text-sky-300">
+                        ${idx + 1} / ${slides.length}
+                   </span>`
+                : '';
+
             const dotsHtml = slides.length > 1
                 ? `<div class="flex items-center justify-center gap-1.5 pt-2.5">
-                    ${slides.map((_, i) => `<span class="h-1.5 rounded-full transition-all ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300'}"></span>`).join('')}
+                    ${slides.map((_, i) => `<button type="button" onclick="goToPublicCarouselSlide(${i});" class="h-1.5 rounded-full transition-all ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}"></button>`).join('')}
                    </div>`
                 : '';
 
             if (current.kind === 'video') {
                 stage.innerHTML = `
-                    <div class="w-full overflow-hidden rounded-3xl" style="line-height:0;">
-                        <video src="${mediaSrc}" autoplay muted loop playsinline controls onloadedmetadata="adjustCarouselMediaAspect(this);" style="width:100%; height:auto; display:block; border-radius:1.5rem;"></video>
+                    <div class="lp-wall-viewport" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
+                        ${navArrowsHtml}
+                        <video src="${mediaSrc}" autoplay muted loop playsinline controls class="lp-wall-foreground-media"></video>
                     </div>
                     ${dotsHtml}
                 `;
             } else {
                 stage.innerHTML = `
-                    <div class="w-full overflow-hidden rounded-3xl" style="line-height:0;">
-                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" onload="adjustCarouselMediaAspect(this);" style="width:100%; height:auto; display:block; border-radius:1.5rem;">
+                    <div class="lp-wall-viewport" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
+                        <img src="${mediaSrc}" alt="" aria-hidden="true" class="lp-wall-backdrop-blur">
+                        ${navArrowsHtml}
+                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" class="lp-wall-foreground-media">
                     </div>
                     ${dotsHtml}
                 `;
@@ -2882,15 +3149,17 @@
 
             if (slides.length > 1) {
                 appState.carouselTimer = setInterval(() => {
-                    appState.carouselIndex = (appState.carouselIndex + 1) % slides.length;
-                    renderPublicCarousel();
-                }, 7000);
+                    if (!appState.carouselPaused) {
+                        appState.carouselIndex = (appState.carouselIndex + 1) % slides.length;
+                        renderPublicCarousel();
+                    }
+                }, 3000);
             }
         }
 
         // ==================== RELOJ DE CIERRE FUXION CONFIGURABLE ====================
         function openCountdownSettingsModal() {
-            const cfg = JSON.parse(localStorage.getItem('lp_countdown_cfg') || '{}');
+            const cfg = JSON.parse(safeStorage.getItem('lp_countdown_cfg') || '{}');
             if (cfg.header) document.getElementById('cd-cfg-header').value = cfg.header;
             if (cfg.sublabel) document.getElementById('cd-cfg-sublabel').value = cfg.sublabel;
             if (cfg.weekday !== undefined) document.getElementById('cd-cfg-weekday').value = String(cfg.weekday);
@@ -2907,7 +3176,7 @@
                 time: document.getElementById('cd-cfg-time').value || '23:59',
                 exact: document.getElementById('cd-cfg-exact').value || ''
             };
-            localStorage.setItem('lp_countdown_cfg', JSON.stringify(cfg));
+            safeStorage.setItem('lp_countdown_cfg', JSON.stringify(cfg));
             closeModal('modal-countdown-settings');
             showToast('Reloj de cierre actualizado.');
         }
@@ -2916,7 +3185,7 @@
             const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             function updateClock() {
                 const now = new Date();
-                const cfg = JSON.parse(localStorage.getItem('lp_countdown_cfg') || '{}');
+                const cfg = JSON.parse(safeStorage.getItem('lp_countdown_cfg') || '{}');
 
                 const headerEl = document.getElementById('fuxion-countdown-header');
                 if (headerEl) headerEl.textContent = cfg.header || 'CIERRE DE SEMANA FUXION';
@@ -2963,55 +3232,80 @@
             setInterval(updateClock, 1000);
         }
 
-        // ==================== ENLACES CORTOS PERSONALIZADOS Y QR ====================
+        // ==================== ENLACES ULTRA CORTOS Y QR PERSONALIZADOS ====================
         function buildUserSlug(fullName) {
-            return String(fullName || 'Lider-FuXion')
+            if (fullName === ADMIN_FULL_NAME) return 'rudygeldres';
+            return String(fullName || 'liderfuxion')
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                .trim()
-                .replace(/[^a-zA-Z0-9\s-]/g, '')
-                .replace(/\s+/g, '-');
-        }
-
-        function getBaseAppUrl() {
-            const path = window.location.pathname || '/';
-            return `${window.location.origin}${path}`;
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, '')
+                .slice(0, 18) || 'liderfuxion';
         }
 
         function updateReferralLinksUI() {
             const user = appState.currentUser;
             if (!user) return;
-            const baseUrl = getBaseAppUrl();
             const userSlug = buildUserSlug(user.name);
 
             const slugPreview = document.getElementById('links-owner-slug-preview');
             if (slugPreview) slugPreview.textContent = userSlug;
 
-            const partnerLink = `${baseUrl}?socio=${encodeURIComponent(userSlug)}`;
-            const prospectLink = `${baseUrl}?cliente=${encodeURIComponent(userSlug)}`;
+            const partnerLink = `https://${userSlug}.teinvita.sesocio`;
+            const prospectLink = `https://${userSlug}.teinvita.cliente`;
+            const paidPartnerLink = `https://rudygeldres.teinvita.liderpro`;
 
             const dashInput = document.getElementById('dashboard-dynamic-ref-input');
             const inpPartner = document.getElementById('input-link-partner');
             const inpProspect = document.getElementById('input-link-prospect');
+            const inpPaid = document.getElementById('input-link-paid-partner');
 
             if (dashInput) dashInput.value = partnerLink;
             if (inpPartner) inpPartner.value = partnerLink;
             if (inpProspect) inpProspect.value = prospectLink;
+            if (inpPaid) inpPaid.value = paidPartnerLink;
 
             if (typeof QRious !== 'undefined') {
                 const qrPartner = document.getElementById('qr-canvas-partner');
                 const qrProspect = document.getElementById('qr-canvas-prospect');
-                if (qrPartner) new QRious({ element: qrPartner, value: partnerLink, size: 175, foreground: '#060D1A' });
-                if (qrProspect) new QRious({ element: qrProspect, value: prospectLink, size: 175, foreground: '#060D1A' });
+                const qrPaid = document.getElementById('qr-canvas-paid-partner');
+                if (qrPartner) new QRious({ element: qrPartner, value: partnerLink, size: 170, foreground: '#060D1A' });
+                if (qrProspect) new QRious({ element: qrProspect, value: prospectLink, size: 170, foreground: '#060D1A' });
+                if (qrPaid) new QRious({ element: qrPaid, value: paidPartnerLink, size: 150, foreground: '#060D1A' });
+            }
+        }
+
+        function previewShortReferralLink(type) {
+            const user = appState.currentUser;
+            const sponsorCode = user ? (user.sponsorCode || ADMIN_SPONSOR_CODE) : ADMIN_SPONSOR_CODE;
+            const isUserPaidTree = !!(user && !user.isAdmin && user.isPaidTier);
+
+            appState.isReferralGuestMode = true;
+            appState.currentUser = null;
+            safeStorage.removeItem('lp_active_session');
+
+            const dashEl = document.getElementById('dashboard-screen');
+            const authEl = document.getElementById('auth-screen');
+            if (dashEl) dashEl.style.display = 'none';
+            if (authEl) authEl.style.display = 'flex';
+
+            const uplineInput = document.getElementById('reg-upline');
+            if (uplineInput) uplineInput.value = sponsorCode;
+
+            if (type === 'prospect') {
+                openRegisterModal('prospect', false);
+            } else if (type === 'paid_partner' || isUserPaidTree) {
+                openRegisterModal('partner', true);
+            } else {
+                openRegisterModal('partner', false);
             }
         }
 
         function resolveSponsorFromSlugOrCode(paramVal) {
             const cleanParam = decodeURIComponent(paramVal || '').trim();
-            if (!cleanParam) return ADMIN_SPONSOR_CODE;
+            if (!cleanParam) return { sponsorCode: ADMIN_SPONSOR_CODE, isPaidBranch: false };
 
-            const adminSlug = buildUserSlug(ADMIN_FULL_NAME).toLowerCase();
-            if (cleanParam.toLowerCase() === adminSlug || cleanParam.toLowerCase().includes('rudy')) {
-                return ADMIN_SPONSOR_CODE;
+            if (cleanParam.toLowerCase() === 'rudygeldres' || cleanParam.toLowerCase().includes('rudy')) {
+                return { sponsorCode: ADMIN_SPONSOR_CODE, isPaidBranch: false };
             }
 
             const regUsers = safeParseStorageArray('lp_registered_users');
@@ -3019,14 +3313,43 @@
                 buildUserSlug(u.name).toLowerCase() === cleanParam.toLowerCase() ||
                 (u.sponsorCode && u.sponsorCode.toLowerCase() === cleanParam.toLowerCase())
             );
-            return matched ? matched.sponsorCode : cleanParam;
+            if (matched) {
+                return { sponsorCode: matched.sponsorCode, isPaidBranch: !!matched.isPaidTier };
+            }
+            return { sponsorCode: cleanParam, isPaidBranch: false };
         }
 
         function detectUrlReferralParams() {
             try {
+                const host = (window.location.hostname || '').toLowerCase();
                 const params = new URLSearchParams(window.location.search);
                 const socioParam = params.get('socio') || params.get('ref');
                 const clienteParam = params.get('cliente');
+                const pagoParam = params.get('liderpro') || params.get('pago');
+
+                if (host.endsWith('.teinvita.liderpro') || pagoParam) {
+                    appState.isReferralGuestMode = true;
+                    appState.currentUser = null;
+                    document.getElementById('dashboard-screen').style.display = 'none';
+                    document.getElementById('auth-screen').style.display = 'flex';
+                    const uplineInput = document.getElementById('reg-upline');
+                    if (uplineInput) uplineInput.value = ADMIN_SPONSOR_CODE;
+                    openRegisterModal('partner', true);
+                    return true;
+                }
+
+                if (host.endsWith('.teinvita.sesocio') || host.endsWith('.teinvita.cliente')) {
+                    const sub = host.split('.')[0];
+                    const resolved = resolveSponsorFromSlugOrCode(sub);
+                    appState.isReferralGuestMode = true;
+                    appState.currentUser = null;
+                    document.getElementById('dashboard-screen').style.display = 'none';
+                    document.getElementById('auth-screen').style.display = 'flex';
+                    const uplineInput = document.getElementById('reg-upline');
+                    if (uplineInput) uplineInput.value = resolved.sponsorCode;
+                    openRegisterModal(host.endsWith('.teinvita.sesocio') ? 'partner' : 'prospect', resolved.isPaidBranch);
+                    return true;
+                }
 
                 if (socioParam || clienteParam) {
                     appState.isReferralGuestMode = true;
@@ -3036,10 +3359,10 @@
                     if (dashEl) dashEl.style.display = 'none';
                     if (authEl) authEl.style.display = 'flex';
 
-                    const sponsorResolved = resolveSponsorFromSlugOrCode(socioParam || clienteParam);
+                    const resolved = resolveSponsorFromSlugOrCode(socioParam || clienteParam);
                     const uplineInput = document.getElementById('reg-upline');
-                    if (uplineInput) uplineInput.value = sponsorResolved;
-                    openRegisterModal(socioParam ? 'partner' : 'prospect');
+                    if (uplineInput) uplineInput.value = resolved.sponsorCode;
+                    openRegisterModal(socioParam ? 'partner' : 'prospect', resolved.isPaidBranch);
                     return true;
                 }
             } catch (e) {}
@@ -3052,13 +3375,21 @@
             inp.select();
             inp.setSelectionRange(0, 99999);
             document.execCommand('copy');
-            showToast('Enlace corto personalizado copiado al portapapeles.');
+            showToast('Enlace ultra corto copiado al portapapeles.');
         }
 
         function shareReferralWhatsApp(type) {
             const user = appState.currentUser;
             if (!user) return;
             updateReferralLinksUI();
+
+            if (type === 'paid_partner') {
+                const paidLink = document.getElementById('input-link-paid-partner').value;
+                const text = `¡Hola! 👋 Te saluda *${user.name}*. Te invito a formar parte de nuestro equipo de élite en *LEADER PROSPECT — FuXion* (Activación por Pago Confirmado $15 USD / S/ 52.50).\n\nRegístrate con mi enlace oficial aquí:\n${paidLink}`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+                return;
+            }
+
             const link = type === 'partner'
                 ? document.getElementById('input-link-partner').value
                 : document.getElementById('input-link-prospect').value;
@@ -3105,7 +3436,7 @@
                 inDb: true,
                 defaultTopicMsg: `¡Hola {nombre}! 👋 Te saluda *{socio}*. Quiero compartir contigo este material sobre *${customTitle}* de FuXion 🚀💎:`
             });
-            localStorage.setItem('lp_admin_videos', JSON.stringify(videos));
+            safeStorage.setItem('lp_admin_videos', JSON.stringify(videos));
 
             if (titleInput) titleInput.value = '';
             event.target.value = '';
@@ -3132,7 +3463,7 @@
                 url,
                 defaultTopicMsg: `¡Hola {nombre}! 👋 Te saluda *{socio}*. Mira este video sobre *${title}* para conocer más de FuXion 🚀💎:`
             });
-            localStorage.setItem('lp_admin_videos', JSON.stringify(videos));
+            safeStorage.setItem('lp_admin_videos', JSON.stringify(videos));
 
             titleInp.value = '';
             urlInp.value = '';
@@ -3146,7 +3477,7 @@
             const target = videos.find(v => v.id === id);
             if (target && target.inDb) await deleteMediaBlobFromIndexedDB(id);
             const next = videos.filter(v => v.id !== id);
-            localStorage.setItem('lp_admin_videos', JSON.stringify(next));
+            safeStorage.setItem('lp_admin_videos', JSON.stringify(next));
             renderToolsSection();
             showToast('Video eliminado de Herramientas.');
         }
@@ -3183,9 +3514,8 @@
 
             const prosName = pros ? pros.name : 'amigo(a)';
             const rawTemplate = appState.videoTopicMessages[vidId] || vid.defaultTopicMsg || '';
-            const baseUrl = getBaseAppUrl();
-            const slug = encodeURIComponent(buildUserSlug(appState.currentUser.name));
-            const refLink = `${baseUrl}?socio=${slug}`;
+            const slug = buildUserSlug(appState.currentUser.name);
+            const refLink = `https://${slug}.teinvita.sesocio`;
 
             let msg = rawTemplate
                 .replace(/\{nombre\}/gi, prosName)
@@ -3251,7 +3581,7 @@
                 inDb: !!file,
                 fileName: file ? file.name : `${buildUserSlug(title)}.pdf`
             });
-            localStorage.setItem('lp_admin_pdfs', JSON.stringify(pdfs));
+            safeStorage.setItem('lp_admin_pdfs', JSON.stringify(pdfs));
             closeModal('modal-admin-add-pdf');
             renderToolsSection();
             showToast('PDF agregado en Herramientas.');
@@ -3262,12 +3592,12 @@
             if (isOfficial) {
                 const hidden = safeParseStorageArray('lp_hidden_official_pdfs');
                 if (!hidden.includes(id)) hidden.push(id);
-                localStorage.setItem('lp_hidden_official_pdfs', JSON.stringify(hidden));
+                safeStorage.setItem('lp_hidden_official_pdfs', JSON.stringify(hidden));
             } else {
                 const pdfs = safeParseStorageArray('lp_admin_pdfs');
                 const target = pdfs.find(p => p.id === id);
                 if (target && target.inDb) await deleteMediaBlobFromIndexedDB(id);
-                localStorage.setItem('lp_admin_pdfs', JSON.stringify(pdfs.filter(p => p.id !== id)));
+                safeStorage.setItem('lp_admin_pdfs', JSON.stringify(pdfs.filter(p => p.id !== id)));
             }
             renderToolsSection();
             showToast('PDF eliminado.');
@@ -3293,7 +3623,7 @@
 
         function toggleOfficialPresentationVisibility(show) {
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
-            localStorage.setItem('lp_hide_official_pres', show ? '0' : '1');
+            safeStorage.setItem('lp_hide_official_pres', show ? '0' : '1');
             renderToolsSection();
             showToast(show ? 'Presentación oficial restaurada.' : 'Presentación oficial ocultada.');
         }
@@ -3302,7 +3632,6 @@
             const isAdmin = !!(appState.currentUser && appState.currentUser.isAdmin);
             const hiddenOfficial = safeParseStorageArray('lp_hidden_official_pdfs');
 
-            // 1. PDFs Oficiales
             const offGrid = document.getElementById('official-pdfs-grid');
             if (offGrid) {
                 offGrid.innerHTML = OFFICIAL_FUXION_PDFS.filter(p => !hiddenOfficial.includes(p.id)).map(p => `
@@ -3324,7 +3653,6 @@
                 `).join('');
             }
 
-            // 2. PDFs Subidos por el Administrador
             const dynPdfGrid = document.getElementById('dynamic-admin-pdfs-grid');
             const customPdfs = safeParseStorageArray('lp_admin_pdfs');
             if (dynPdfGrid) {
@@ -3347,7 +3675,6 @@
                 `).join('');
             }
 
-            // 3. Videos y Multimedia Subidos por el Administrador
             const vidSection = document.getElementById('dynamic-admin-videos-section');
             const vidGrid = document.getElementById('dynamic-admin-videos-grid');
             const videos = safeParseStorageArray('lp_admin_videos');
@@ -3420,10 +3747,9 @@
                 }
             }
 
-            // 4. Presentación Oficial de Negocio
             const presCard = document.getElementById('official-business-presentation-card');
             if (presCard) {
-                const hidePres = localStorage.getItem('lp_hide_official_pres') === '1';
+                const hidePres = safeStorage.getItem('lp_hide_official_pres') === '1';
                 presCard.classList.toggle('hidden', hidePres);
             }
             const presSel = document.getElementById('pres-prospect-target-select');
@@ -3445,9 +3771,8 @@
         function shareBusinessPresentationWhatsApp() {
             const user = appState.currentUser;
             const customMsg = document.getElementById('business-pres-custom-msg').value.trim();
-            const baseUrl = getBaseAppUrl();
-            const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
-            const refLink = `${baseUrl}?socio=${slug}`;
+            const slug = buildUserSlug(user ? user.name : ADMIN_FULL_NAME);
+            const refLink = `https://${slug}.teinvita.sesocio`;
 
             const prosId = document.getElementById('pres-prospect-target-select')?.value || '';
             const pros = appState.prospects.find(p => p.id === prosId);
@@ -3667,14 +3992,14 @@
             if (!appState.currentUser || !appState.currentUser.isAdmin) return;
             const regUsers = safeParseStorageArray('lp_registered_users');
             const remaining = regUsers.filter(u => u.id !== userId);
-            localStorage.setItem('lp_registered_users', JSON.stringify(remaining));
+            safeStorage.setItem('lp_registered_users', JSON.stringify(remaining));
 
             const deletedIds = safeParseStorageArray('lp_deleted_user_ids');
             if (!deletedIds.includes(userId)) {
                 deletedIds.push(userId);
-                localStorage.setItem('lp_deleted_user_ids', JSON.stringify(deletedIds));
+                safeStorage.setItem('lp_deleted_user_ids', JSON.stringify(deletedIds));
             }
-            localStorage.removeItem(getUserDbKey(userId));
+            safeStorage.removeItem(getUserDbKey(userId));
             publishCloudSyncEvent('DELETED_PARTNER_ID', { id: userId });
 
             closeModal('modal-admin-account-manager');
@@ -3691,7 +4016,6 @@
             const regUsers = safeParseStorageArray('lp_registered_users');
             const visiblePartners = isAdmin ? regUsers : regUsers.filter(u => u.uplineCode === user.sponsorCode);
 
-            // Distribución binaria en 2 ramas principales (Izquierda y Derecha)
             const leftBranch = [];
             const rightBranch = [];
             visiblePartners.forEach((p, index) => {
@@ -3703,16 +4027,23 @@
                 if (list.length === 0) {
                     return `<div class="p-4 rounded-2xl bg-white border border-dashed border-slate-300 text-center text-[11px] text-slate-400">Cupo disponible en ${branchName}</div>`;
                 }
-                return list.map(d => `
-                    <div class="p-3.5 rounded-2xl bg-white border-2 ${accentClass} shadow-sm text-center space-y-1">
-                        <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
-                            ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
+                return list.map(d => {
+                    const directKidsCount = regUsers.filter(x => x.uplineCode === d.sponsorCode).length;
+                    return `
+                        <div onclick="${isAdmin ? `selectLeaderInChainInspector('${d.sponsorCode}');` : ''}"
+                            class="${isAdmin ? 'cursor-pointer hover:border-sky-500' : ''} p-3.5 rounded-2xl bg-white border-2 ${accentClass} shadow-sm text-center space-y-1 transition-all">
+                            <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
+                                ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
+                            </div>
+                            <p class="text-xs font-black text-slate-900 truncate">${d.flag || '🇵🇪'} ${d.name}</p>
+                            <p class="text-[10px] font-mono font-bold text-sky-600">${d.sponsorCode}</p>
+                            <p class="text-[10px] text-slate-500">${d.city || 'Red Global'}</p>
+                            <span class="inline-block px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[9px] font-extrabold">
+                                ${directKidsCount} directo(s)
+                            </span>
                         </div>
-                        <p class="text-xs font-black text-slate-900 truncate">${d.name}</p>
-                        <p class="text-[10px] font-mono font-bold text-sky-600">${d.sponsorCode}</p>
-                        <p class="text-[10px] text-slate-500">${d.city || 'Red Global'}</p>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             };
 
             const treeEl = document.getElementById('mlm-genealogy-tree');
@@ -3725,7 +4056,7 @@
                     <div class="mlm-connector-v"></div>
                     <div class="px-6 py-4 rounded-3xl cosmic-hero-bg text-white text-center shadow-lg border-2 border-sky-400">
                         <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">TÚ • LÍDER PRINCIPAL</span>
-                        <p class="text-sm font-black mt-1">${user.name}</p>
+                        <p class="text-sm font-black mt-1">${user.flag || '🇵🇪'} ${user.name}</p>
                         <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${visiblePartners.length} Socios</p>
                     </div>
                     <div class="mlm-connector-v"></div>
@@ -3751,7 +4082,11 @@
                 `;
             }
 
-            // Auditoría en Tabla Ejecutiva
+            if (isAdmin) {
+                populateAdminChainInspectorSelector(regUsers);
+                renderAdminDownlineChainInspector();
+            }
+
             const dupFilterWrap = document.getElementById('admin-duplicate-email-filter-wrap');
             const thAdminPass = document.getElementById('th-admin-password');
             if (dupFilterWrap) dupFilterWrap.classList.toggle('hidden', !isAdmin);
@@ -3784,12 +4119,13 @@
                         const countForEmail = emailCounts[emLower] || 1;
                         const branchTag = idx % 2 === 0 ? 'Rama Izquierda' : 'Rama Derecha';
                         const isRevealed = !!appState.revealedPasswords[m.id];
+                        const directKidsCount = regUsers.filter(x => x.uplineCode === m.sponsorCode).length;
 
                         return `
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-4">
-                                    <p class="font-extrabold text-slate-900">${m.name}</p>
-                                    <p class="text-[10px] text-slate-500">${m.city || 'Ciudad no especificada'}</p>
+                                    <p class="font-extrabold text-slate-900">${m.flag || '🇵🇪'} ${m.name}</p>
+                                    <p class="text-[10px] text-slate-500">${m.city || 'Ciudad no especificada'} • <span class="font-bold text-sky-700">${directKidsCount} socio(s) con su link</span></p>
                                 </td>
                                 <td class="py-3 px-4">
                                     <p class="font-mono text-[11px] text-slate-700">${m.email || '-'}</p>
@@ -3812,6 +4148,12 @@
                                 ` : ''}
                                 <td class="py-3 px-4 text-right">
                                     <div class="inline-flex items-center gap-1.5">
+                                        ${isAdmin ? `
+                                            <button type="button" onclick="selectLeaderInChainInspector('${m.sponsorCode}');" title="Ver cadena de descendencia"
+                                                class="px-2.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-700 font-bold text-[11px]">
+                                                <i class="fa-solid fa-diagram-project mr-1"></i>Cadena (${directKidsCount})
+                                            </button>
+                                        ` : ''}
                                         <a href="https://api.whatsapp.com/send?phone=${cleanNum}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#00B074] text-white font-bold text-[11px]">
                                             <i class="fa-brands fa-whatsapp"></i>Chat
                                         </a>
@@ -3828,6 +4170,94 @@
                     }).join('');
                 }
             }
+        }
+
+        function populateAdminChainInspectorSelector(regUsers) {
+            const sel = document.getElementById('admin-chain-root-selector');
+            if (!sel) return;
+            const prevVal = sel.value || ADMIN_SPONSOR_CODE;
+            sel.innerHTML = `<option value="${ADMIN_SPONSOR_CODE}">Raíz: ${ADMIN_FULL_NAME} (${ADMIN_SPONSOR_CODE})</option>` +
+                regUsers.map(u => {
+                    const directCount = regUsers.filter(x => x.uplineCode === u.sponsorCode).length;
+                    return `<option value="${u.sponsorCode}">${u.flag || '🇵🇪'} ${u.name} (${u.sponsorCode}) — ${directCount} directos</option>`;
+                }).join('');
+            if (Array.from(sel.options).some(o => o.value === prevVal)) sel.value = prevVal;
+        }
+
+        function selectLeaderInChainInspector(sponsorCode) {
+            const sel = document.getElementById('admin-chain-root-selector');
+            if (sel) {
+                sel.value = sponsorCode;
+                renderAdminDownlineChainInspector();
+                const box = document.getElementById('admin-downline-chain-inspector');
+                if (box) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function renderAdminDownlineChainInspector() {
+            const sel = document.getElementById('admin-chain-root-selector');
+            const summaryEl = document.getElementById('admin-downline-chain-summary');
+            const treeBox = document.getElementById('admin-downline-chain-tree');
+            if (!sel || !summaryEl || !treeBox) return;
+
+            const rootCode = sel.value || ADMIN_SPONSOR_CODE;
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const visited = new Set();
+
+            function countTotalDescendants(code) {
+                if (visited.has(code)) return 0;
+                visited.add(code);
+                const children = regUsers.filter(u => u.uplineCode === code);
+                let total = children.length;
+                children.forEach(ch => {
+                    total += countTotalDescendants(ch.sponsorCode);
+                });
+                return total;
+            }
+
+            const directChildren = regUsers.filter(u => u.uplineCode === rootCode);
+            const totalNetwork = countTotalDescendants(rootCode);
+            const rootOwner = rootCode === ADMIN_SPONSOR_CODE
+                ? { name: ADMIN_FULL_NAME, sponsorCode: ADMIN_SPONSOR_CODE }
+                : (regUsers.find(u => u.sponsorCode === rootCode) || { name: rootCode, sponsorCode: rootCode });
+
+            summaryEl.innerHTML = `
+                Líder seleccionado: <b class="text-amber-400">${rootOwner.name}</b> (<span class="font-mono text-sky-300">${rootCode}</span>) •
+                Socios directos con su link: <b class="text-emerald-400">${directChildren.length}</b> •
+                Total red descendente en profundidad: <b class="text-sky-300">${totalNetwork}</b>
+            `;
+
+            const renderVisited = new Set();
+            function buildRecursiveChainHtml(parentCode, depth) {
+                if (renderVisited.has(parentCode)) return '';
+                renderVisited.add(parentCode);
+                const kids = regUsers.filter(u => u.uplineCode === parentCode);
+                if (kids.length === 0) return '';
+
+                return kids.map(k => {
+                    const subKids = regUsers.filter(x => x.uplineCode === k.sponsorCode);
+                    return `
+                        <div style="margin-left: ${Math.min(depth * 18, 120)}px;" class="p-3 rounded-2xl bg-slate-800/90 border border-slate-700 flex flex-col gap-2">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="text-xs">
+                                    <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] mr-1.5">Nivel ${depth + 1}</span>
+                                    <b class="text-white">${k.flag || '🇵🇪'} ${k.name}</b>
+                                    <span class="text-slate-400 text-[11px] ml-1">(${k.city || 'Sin ciudad'} • <span class="font-mono text-sky-300">${k.sponsorCode}</span>)</span>
+                                    ${k.isPaidTier ? `<span class="ml-1.5 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black">PAGO CONFIRMADO</span>` : ''}
+                                </div>
+                                <button type="button" onclick="selectLeaderInChainInspector('${k.sponsorCode}');"
+                                    class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-sky-600 text-white text-[10px] font-bold">
+                                    Ver sus ${subKids.length} registrado(s)
+                                </button>
+                            </div>
+                            ${buildRecursiveChainHtml(k.sponsorCode, depth + 1)}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const chainHtml = buildRecursiveChainHtml(rootCode, 0);
+            treeBox.innerHTML = chainHtml || `<p class="text-xs text-slate-400 p-4 rounded-2xl bg-slate-800/50 text-center">Este socio aún no tiene nuevos registros con su enlace.</p>`;
         }
 
         // ==================== MI AGENDA & CALENDARIO ====================
@@ -4127,6 +4557,16 @@
                 } else {
                     badge.classList.add('hidden');
                 }
+            }
+
+            if (user.isAdmin) {
+                const regOnlyAll = adminActivationsDb.filter(c => c.type !== 'PASSWORD_RECOVERY');
+                const standardCount = regOnlyAll.filter(c => !c.isPaidTier).length;
+                const paidCount = regOnlyAll.filter(c => !!c.isPaidTier).length;
+                const bStd = document.getElementById('badge-count-codigo-socio');
+                const bPaid = document.getElementById('badge-count-codigo-socio-pago');
+                if (bStd) bStd.textContent = standardCount;
+                if (bPaid) bPaid.textContent = paidCount;
             }
 
             const listEl = document.getElementById('bell-notifications-list');
@@ -5446,15 +5886,15 @@
         function persistNewAvatar(dataUrl) {
             if (!appState.currentUser) return;
             appState.currentUser.avatarUrl = dataUrl;
-            localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
+            safeStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
             if (appState.currentUser.isAdmin) {
-                localStorage.setItem('lp_admin_photo_avatar', dataUrl);
+                safeStorage.setItem('lp_admin_photo_avatar', dataUrl);
             } else {
                 const users = safeParseStorageArray('lp_registered_users');
                 const idx = users.findIndex(u => u.id === appState.currentUser.id);
                 if (idx !== -1) {
                     users[idx].avatarUrl = dataUrl;
-                    localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                    safeStorage.setItem('lp_registered_users', JSON.stringify(users));
                 }
             }
             updateUserAvatarDisplay();
@@ -5484,8 +5924,8 @@
         function removeProfilePhoto() {
             if (!appState.currentUser) return;
             appState.currentUser.avatarUrl = null;
-            localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
-            if (appState.currentUser.isAdmin) localStorage.removeItem('lp_admin_photo_avatar');
+            safeStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
+            if (appState.currentUser.isAdmin) safeStorage.removeItem('lp_admin_photo_avatar');
             updateUserAvatarDisplay();
             showToast('Foto de perfil eliminada.');
         }
@@ -5514,24 +5954,30 @@
             const newName = document.getElementById('profile-input-name').value.trim();
             const newPhone = document.getElementById('profile-input-whatsapp').value.trim();
             const newCity = document.getElementById('profile-input-city').value.trim();
+            const countryRaw = document.getElementById('profile-input-country')?.value || '🇵🇪|Perú';
+            const [newFlag, newCountry] = countryRaw.split('|');
             const newPass = document.getElementById('profile-input-newpass').value.trim();
 
             if (newName) appState.currentUser.name = newName;
             if (newPhone) appState.currentUser.phone = newPhone;
             appState.currentUser.city = newCity;
+            appState.currentUser.flag = newFlag || '🇵🇪';
+            appState.currentUser.country = newCountry || 'Perú';
 
             if (newPass) {
                 if (newPass.length < 4) { showToast('La nueva contraseña debe tener al menos 4 caracteres.'); return; }
-                if (appState.currentUser.isAdmin) localStorage.setItem('lp_admin_pass', newPass);
+                if (appState.currentUser.isAdmin) safeStorage.setItem('lp_admin_pass', newPass);
                 else appState.currentUser.password = newPass;
                 document.getElementById('profile-input-newpass').value = '';
             }
 
             if (appState.currentUser.isAdmin) {
-                localStorage.setItem('lp_admin_city', newCity);
+                safeStorage.setItem('lp_admin_city', newCity);
+                safeStorage.setItem('lp_admin_country', appState.currentUser.country);
+                safeStorage.setItem('lp_admin_flag', appState.currentUser.flag);
             }
 
-            localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
+            safeStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
             if (!appState.currentUser.isAdmin) {
                 const users = safeParseStorageArray('lp_registered_users');
                 const idx = users.findIndex(u => u.id === appState.currentUser.id);
@@ -5539,8 +5985,10 @@
                     users[idx].name = appState.currentUser.name;
                     users[idx].phone = appState.currentUser.phone;
                     users[idx].city = appState.currentUser.city;
+                    users[idx].flag = appState.currentUser.flag;
+                    users[idx].country = appState.currentUser.country;
                     if (newPass) users[idx].password = newPass;
-                    localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                    safeStorage.setItem('lp_registered_users', JSON.stringify(users));
                 }
             }
             renderDashboardUI();
@@ -5661,11 +6109,19 @@
         // ==================== REGISTRO, VERIFICACIÓN 6 DÍGITOS Y RECUPERACIÓN ====================
         function openModal(id) {
             const el = document.getElementById(id);
-            if (el) { el.classList.remove('hidden'); el.classList.add('flex'); }
+            if (el) {
+                el.classList.remove('hidden');
+                el.classList.add('flex');
+                el.style.display = 'flex';
+            }
         }
         function closeModal(id) {
             const el = document.getElementById(id);
-            if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+            if (el) {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+                el.style.display = 'none';
+            }
         }
 
         function closeRegisterModalSafe() {
@@ -5678,24 +6134,28 @@
             }
         }
 
-        function openRegisterModal(mode = 'partner') {
+        function openRegisterModal(mode = 'partner', isPaidBranch = false) {
             appState.registrationMode = mode;
+            appState.isPaidRegistrationFlow = !!isPaidBranch;
             const titleEl = document.getElementById('modal-register-title');
             const subEl = document.getElementById('modal-register-subtitle');
             const passWrap = document.getElementById('reg-password-wrapper');
             const passInp = document.getElementById('reg-password');
             const intWrap = document.getElementById('reg-interest-wrapper');
             const btnSub = document.getElementById('btn-submit-register');
+            const paidBanner = document.getElementById('reg-paid-tier-banner');
+
+            if (paidBanner) paidBanner.classList.toggle('hidden', !(mode === 'partner' && isPaidBranch));
 
             if (mode === 'prospect') {
                 if (titleEl) titleEl.textContent = 'Asesoría FuXion — Registro de Prospecto';
-                if (subEl) subEl.textContent = 'Déjanos tus datos y ciudad para que tu asesor se comunique por WhatsApp.';
+                if (subEl) subEl.textContent = 'Déjanos tus datos, país y ciudad para que tu asesor se comunique por WhatsApp.';
                 if (passWrap) passWrap.classList.add('hidden');
                 if (passInp) passInp.required = false;
                 if (intWrap) intWrap.classList.remove('hidden');
                 if (btnSub) btnSub.textContent = 'Enviar Mis Datos a Mi Asesor';
             } else {
-                if (titleEl) titleEl.textContent = 'Registro de Nuevo Socio Líder';
+                if (titleEl) titleEl.textContent = isPaidBranch ? 'Registro de Líder • Equipo Pago Confirmado' : 'Registro de Nuevo Socio Líder';
                 if (subEl) subEl.textContent = 'Completa tus datos para generar tu código de activación de 6 dígitos.';
                 if (passWrap) passWrap.classList.remove('hidden');
                 if (passInp) passInp.required = true;
@@ -5705,7 +6165,26 @@
             openModal('modal-register');
         }
 
-        function openActivationCodeModal() { openModal('modal-activation-code'); }
+        function configureActivationModalForTier(isPaidTier) {
+            const paidNotice = document.getElementById('paid-activation-payment-notice');
+            const stdNotice = document.getElementById('standard-activation-notice');
+            const waLabel = document.getElementById('label-notify-admin-wa-code');
+            if (paidNotice) paidNotice.classList.toggle('hidden', !isPaidTier);
+            if (stdNotice) stdNotice.classList.toggle('hidden', !!isPaidTier);
+            if (waLabel) {
+                waLabel.textContent = isPaidTier
+                    ? 'Confirmar Pago PLIN ($15 USD / S/ 52.50) y Pedir Código'
+                    : 'Solicitar Código al Administrador por WhatsApp';
+            }
+        }
+
+        function openActivationCodeModal() {
+            const emailVal = (document.getElementById('act-email')?.value || '').trim().toLowerCase();
+            const pendingList = safeParseStorageArray('lp_pending_activations');
+            const matched = pendingList.find(p => p.email === emailVal);
+            configureActivationModalForTier(matched ? !!matched.isPaidTier : !!appState.isPaidRegistrationFlow);
+            openModal('modal-activation-code');
+        }
         function openRecoveryModal() { openModal('modal-recovery'); }
 
         async function submitUserRegistration() {
@@ -5713,6 +6192,8 @@
             const email = document.getElementById('reg-email').value.trim().toLowerCase();
             const phone = document.getElementById('reg-phone').value.trim();
             const city = document.getElementById('reg-city').value.trim();
+            const countryRaw = document.getElementById('reg-country')?.value || '🇵🇪|Perú';
+            const [flag, country] = countryRaw.split('|');
             const password = document.getElementById('reg-password').value.trim();
             const uplineCode = document.getElementById('reg-upline').value.trim() || ADMIN_SPONSOR_CODE;
 
@@ -5725,31 +6206,35 @@
                 const targetOwnerId = sponsorObj ? sponsorObj.id : 'usr_admin_rudy';
 
                 const targetKey = getUserDbKey(targetOwnerId);
-                const existingDb = JSON.parse(localStorage.getItem(targetKey) || '{"prospects":[],"agendaTasks":[]}');
+                const existingDb = JSON.parse(safeStorage.getItem(targetKey) || '{"prospects":[],"agendaTasks":[]}');
                 existingDb.prospects = Array.isArray(existingDb.prospects) ? existingDb.prospects : [];
                 existingDb.prospects.unshift({
                     id: 'prs_' + Date.now(),
                     name,
                     phone: norm.e164,
                     city,
-                    flag: norm.flag,
-                    country: norm.country,
+                    flag: flag || norm.flag,
+                    country: country || norm.country,
                     funnel: interest,
                     followUpDate: new Date().toISOString().split('T')[0],
                     tags: [],
                     sentSteps: [],
                     note: `Registrado desde enlace de prospecto (${email})`
                 });
-                localStorage.setItem(targetKey, JSON.stringify(existingDb));
+                safeStorage.setItem(targetKey, JSON.stringify(existingDb));
                 closeRegisterModalSafe();
                 showToast('¡Datos enviados! Tu asesor FuXion se pondrá en contacto contigo.');
                 return;
             }
 
             if (!name || !email || !phone || !city || password.length < 4) {
-                showToast('Completa todos los campos incluyendo tu ciudad (contraseña mínimo 4 caracteres).');
+                showToast('Completa todos los campos incluyendo país y ciudad (contraseña mínimo 4 caracteres).');
                 return;
             }
+
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const sponsorUser = regUsers.find(u => u.sponsorCode === uplineCode);
+            const inheritedPaidTier = !!(appState.isPaidRegistrationFlow || (sponsorUser && sponsorUser.isPaidTier));
 
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             const recordId = 'act_' + Date.now();
@@ -5759,10 +6244,13 @@
             const newRecord = {
                 id: recordId,
                 type: 'PARTNER_ACTIVATION',
+                isPaidTier: inheritedPaidTier,
                 name,
                 email,
                 phone,
                 city,
+                country: country || 'Perú',
+                flag: flag || '🇵🇪',
                 password,
                 uplineCode,
                 sponsorCode,
@@ -5773,31 +6261,33 @@
 
             const pendingList = safeParseStorageArray('lp_pending_activations');
             pendingList.unshift(newRecord);
-            localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
+            safeStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             adminActivationsDb.unshift(newRecord);
-            localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
+            safeStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
 
-            // Sincronización multi-dispositivo hacia bandeja del Administrador
             publishCloudSyncEvent('NEW_PENDING_PARTNER', newRecord);
 
             closeModal('modal-register');
             document.getElementById('act-email').value = email;
             document.getElementById('act-code').value = '';
+            configureActivationModalForTier(inheritedPaidTier);
 
             const waAdminBtn = document.getElementById('btn-notify-admin-wa-code');
             if (waAdminBtn) {
-                const reqMsg = `¡Hola! 👋 Me acabo de registrar en *LEADER PROSPECT*.\n\n*Nombre:* ${name}\n*Ciudad:* ${city || 'No indicada'}\n*Correo:* ${email}\n*Patrocinador:* ${uplineCode}\n\nPor favor bríndame mi código de activación de 6 dígitos 💎🚀.`;
+                const reqMsg = inheritedPaidTier
+                    ? `¡Hola Rudy Geldres! 👋 Acabo de registrarme en *LEADER PROSPECT (Equipo Pago Confirmado)* y confirmo mi pago de *$15 USD (S/ 52.50 Soles)* al *PLIN 935 877 981*.\n\n*Nombre:* ${name}\n*País / Ciudad:* ${flag} ${country} - ${city}\n*Correo:* ${email}\n*WhatsApp:* ${phone}\n*Patrocinador:* ${uplineCode}\n\nPor favor envíame mi código de activación de 6 dígitos 💎🚀.`
+                    : `¡Hola! 👋 Me acabo de registrar en *LEADER PROSPECT*.\n\n*Nombre:* ${name}\n*País / Ciudad:* ${flag} ${country} - ${city}\n*Correo:* ${email}\n*Patrocinador:* ${uplineCode}\n\nPor favor bríndame mi código de activación de 6 dígitos 💎🚀.`;
                 waAdminBtn.href = `https://api.whatsapp.com/send?phone=51970425293&text=${encodeURIComponent(reqMsg)}`;
             }
 
-            openActivationCodeModal();
+            openModal('modal-activation-code');
             showToast('Solicitud enviada. Ingresa el código de 6 dígitos brindado por el Administrador.');
         }
 
-        async function verifyAndActivateUser() {
-            await syncExternalRegistrationsNow(false);
+        function verifyAndActivateUser() {
+            setTimeout(() => { syncExternalRegistrationsNow(false); }, 50);
             const email = document.getElementById('act-email').value.trim().toLowerCase();
             const code = document.getElementById('act-code').value.trim();
 
@@ -5811,13 +6301,13 @@
 
             const pendingUser = pendingList[idx];
             pendingList.splice(idx, 1);
-            localStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
+            safeStorage.setItem('lp_pending_activations', JSON.stringify(pendingList));
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             const dbIdx = adminActivationsDb.findIndex(c => c.id === pendingUser.id);
             if (dbIdx !== -1) {
                 adminActivationsDb[dbIdx].status = 'Activado';
-                localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
+                safeStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
             }
 
             const regUsers = safeParseStorageArray('lp_registered_users');
@@ -5827,23 +6317,25 @@
                 email: pendingUser.email,
                 phone: pendingUser.phone,
                 city: pendingUser.city || '',
+                country: pendingUser.country || 'Perú',
+                flag: pendingUser.flag || '🇵🇪',
                 password: pendingUser.password,
                 sponsorCode: pendingUser.sponsorCode,
                 uplineCode: pendingUser.uplineCode,
+                isPaidTier: !!pendingUser.isPaidTier,
                 date: new Date().toLocaleDateString(),
                 role: 'Líder de Red',
                 isAdmin: false
             };
             regUsers.push(activeUser);
-            localStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
+            safeStorage.setItem('lp_registered_users', JSON.stringify(regUsers));
 
-            // Publicar socio activado para acceso vitalicio multi-dispositivo
             publishCloudSyncEvent('ACTIVATED_PARTNER', activeUser);
 
             closeModal('modal-activation-code');
             appState.isReferralGuestMode = false;
             appState.currentUser = activeUser;
-            localStorage.setItem('lp_active_session', JSON.stringify(activeUser));
+            safeStorage.setItem('lp_active_session', JSON.stringify(activeUser));
             loadUserScopedData(activeUser.id);
             showDashboard(activeUser);
             showToast('¡Cuenta activada con éxito! Bienvenido a Leader Prospect.');
@@ -5872,7 +6364,7 @@
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
             adminActivationsDb.unshift(recovRecord);
-            localStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
+            safeStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
             publishCloudSyncEvent('PASSWORD_RECOVERY_REQ', recovRecord);
 
             closeModal('modal-recovery');
@@ -5886,10 +6378,25 @@
             const idx = db.findIndex(x => x.id === id);
             if (idx !== -1) {
                 db[idx].status = 'Resuelto';
-                localStorage.setItem('lp_admin_activations_db', JSON.stringify(db));
+                safeStorage.setItem('lp_admin_activations_db', JSON.stringify(db));
                 renderAdminActivationPanel();
                 updateBellRemindersBadge();
             }
+        }
+
+        function switchAdminActivationTray(tray) {
+            appState.adminActivationTray = tray === 'paid' ? 'paid' : 'standard';
+            const btnStd = document.getElementById('btn-tray-codigo-socio');
+            const btnPaid = document.getElementById('btn-tray-codigo-socio-pago');
+
+            if (appState.adminActivationTray === 'standard') {
+                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-slate-900 text-white font-black text-xs flex items-center justify-between shadow-md transition-all';
+                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-amber-100 border-2 border-amber-400 text-slate-900 font-black text-xs flex items-center justify-between transition-all';
+            } else {
+                if (btnPaid) btnPaid.className = 'py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black text-xs flex items-center justify-between shadow-md transition-all';
+                if (btnStd) btnStd.className = 'py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-black text-xs flex items-center justify-between transition-all';
+            }
+            renderAdminActivationPanel();
         }
 
         function renderAdminActivationPanel() {
@@ -5897,29 +6404,40 @@
             if (!container) return;
 
             const adminActivationsDb = safeParseStorageArray('lp_admin_activations_db');
-            if (adminActivationsDb.length === 0) {
-                container.innerHTML = `<div class="bg-white p-8 rounded-3xl border border-slate-200 text-center text-xs text-slate-500">Aún no hay registros de activación en la base del Administrador.</div>`;
+            const tray = appState.adminActivationTray || 'standard';
+
+            const filteredItems = adminActivationsDb.filter(item => {
+                if (item.type === 'PASSWORD_RECOVERY') return tray === 'standard';
+                return tray === 'paid' ? !!item.isPaidTier : !item.isPaidTier;
+            });
+
+            if (filteredItems.length === 0) {
+                container.innerHTML = `<div class="bg-white p-8 rounded-3xl border border-slate-200 text-center text-xs text-slate-500">No hay registros en la bandeja <b>${tray === 'paid' ? 'CÓDIGO SOCIO PAGO' : 'CÓDIGO SOCIO'}</b> por el momento.</div>`;
                 return;
             }
 
-            container.innerHTML = adminActivationsDb.map(item => {
+            container.innerHTML = filteredItems.map(item => {
                 const isRecov = item.type === 'PASSWORD_RECOVERY';
+                const isPaid = !!item.isPaidTier;
                 const isDone = item.status === 'Activado' || item.status === 'Resuelto';
                 const cleanPhone = (item.phone || '').replace(/[^0-9]/g, '');
 
                 const waMsg = isRecov
                     ? `¡Hola ${item.name}! 👋💎 Atendiendo tu solicitud de *LEADER PROSPECT*.\n\nTu correo registrado es: *${item.email}*\nTu contraseña actual es: 👉 *${item.password}*\n\nYa puedes iniciar sesión en la plataforma.`
-                    : `¡Hola ${item.name}! 👋💎 Bienvenido a *LEADER PROSPECT*.\n\nTu código oficial de activación de 6 dígitos es:\n👉 *${item.code}*\n\nIngrésalo en la plataforma para activar tu panel privado FuXion.`;
+                    : (isPaid
+                        ? `¡Hola ${item.name}! 👋💎 Pago confirmado ($15 USD / S/ 52.50 PLIN). Bienvenido al equipo de élite *LEADER PROSPECT*.\n\nTu código oficial de activación de 6 dígitos es:\n👉 *${item.code}*\n\nIngrésalo en la plataforma para activar tu acceso vitalicio FuXion.`
+                        : `¡Hola ${item.name}! 👋💎 Bienvenido a *LEADER PROSPECT*.\n\nTu código oficial de activación de 6 dígitos es:\n👉 *${item.code}*\n\nIngrésalo en la plataforma para activar tu panel privado FuXion.`);
 
                 return `
-                    <div class="bg-white p-5 rounded-3xl border ${isDone ? 'border-emerald-200' : 'border-amber-300'} shadow-card-soft flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="bg-white p-5 rounded-3xl border ${isDone ? 'border-emerald-200' : (isPaid ? 'border-amber-400' : 'border-sky-200')} shadow-card-soft flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div class="space-y-1">
                             <div class="flex items-center gap-2 flex-wrap">
-                                <span class="text-sm font-black text-slate-900">${item.name}</span>
+                                <span class="text-sm font-black text-slate-900">${item.flag || '🇵🇪'} ${item.name}</span>
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isDone ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">${item.status}</span>
+                                ${isPaid ? `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950">PAGO $15 USD / S/ 52.50</span>` : ''}
                                 ${isRecov ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Recuperación Clave</span>` : ''}
                             </div>
-                            <p class="text-xs text-slate-600"><b>Correo:</b> ${item.email} • <b>Tel:</b> ${item.phone || 'Sin teléfono'} ${item.city ? `• <b>Ciudad:</b> ${item.city}` : ''}</p>
+                            <p class="text-xs text-slate-600"><b>Correo:</b> ${item.email} • <b>Tel:</b> ${item.phone || 'Sin teléfono'} ${item.city ? `• <b>Ubicación:</b> ${item.country || ''} - ${item.city}` : ''}</p>
                             <p class="text-[11px] text-slate-400">Patrocinador: <b>${item.uplineCode}</b> • Fecha: ${item.date}</p>
                         </div>
 
@@ -5941,43 +6459,113 @@
         }
 
         // ==================== ARRANQUE SEGURO DE LA PLATAFORMA (FORMATO LP) ====================
-        function initializeLeaderProspectPlatform() {
-            repairAndSeedMasterRecords();
-            startCycleCountdownTimer();
-            drawRecognitionCanvas();
-            renderSelectedRankDetails();
-
-            const emailInp = document.getElementById('input-auth-email');
-            const passInp = document.getElementById('input-auth-password');
-
-            const isReferralLanding = detectUrlReferralParams();
-            if (!isReferralLanding) {
-                const savedSessionRaw = localStorage.getItem('lp_active_session');
-                if (savedSessionRaw) {
-                    try {
-                        const sessionUser = JSON.parse(savedSessionRaw);
-                        const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-                        if (sessionUser && sessionUser.id && sessionUser.email && !deletedIds.has(sessionUser.id)) {
-                            appState.currentUser = sessionUser;
-                            loadUserScopedData(sessionUser.id);
-                            showDashboard(sessionUser);
-                        } else {
-                            localStorage.removeItem('lp_active_session');
-                        }
-                    } catch (e) {
-                        localStorage.removeItem('lp_active_session');
-                    }
-                } else {
-                    if (emailInp) emailInp.value = '';
-                    if (passInp) passInp.value = '';
-                }
+        function wireAuthScreenEventListeners() {
+            const loginForm = document.getElementById('login-form');
+            if (loginForm && !loginForm.dataset.wired) {
+                loginForm.dataset.wired = '1';
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleLogin();
+                });
             }
 
-            syncExternalRegistrationsNow(false);
-            setInterval(() => {
-                syncExternalRegistrationsNow(false);
-            }, 6000);
+            const btnLogin = document.getElementById('btn-submit-login');
+            if (btnLogin && !btnLogin.dataset.wired) {
+                btnLogin.dataset.wired = '1';
+                btnLogin.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+
+            const btnRecov = document.getElementById('btn-open-recovery-link');
+            if (btnRecov && !btnRecov.dataset.wired) {
+                btnRecov.dataset.wired = '1';
+                btnRecov.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openRecoveryModal();
+                });
+            }
+
+            const btnReg = document.getElementById('btn-open-register-link');
+            if (btnReg && !btnReg.dataset.wired) {
+                btnReg.dataset.wired = '1';
+                btnReg.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openRegisterModal('partner', false);
+                });
+            }
+
+            const btnActCode = document.getElementById('btn-open-activation-code-link');
+            if (btnActCode && !btnActCode.dataset.wired) {
+                btnActCode.dataset.wired = '1';
+                btnActCode.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openActivationCodeModal();
+                });
+            }
         }
+
+        function initializeLeaderProspectPlatform() {
+            try {
+                wireAuthScreenEventListeners();
+                repairAndSeedMasterRecords();
+                startCycleCountdownTimer();
+                drawRecognitionCanvas();
+                renderSelectedRankDetails();
+
+                const emailInp = document.getElementById('input-auth-email');
+                const passInp = document.getElementById('input-auth-password');
+
+                const isReferralLanding = detectUrlReferralParams();
+                if (!isReferralLanding) {
+                    const savedSessionRaw = safeStorage.getItem('lp_active_session');
+                    if (savedSessionRaw) {
+                        try {
+                            const sessionUser = JSON.parse(savedSessionRaw);
+                            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+                            if (sessionUser && sessionUser.id && sessionUser.email && !deletedIds.has(sessionUser.id)) {
+                                appState.currentUser = sessionUser;
+                                loadUserScopedData(sessionUser.id);
+                                showDashboard(sessionUser);
+                            } else {
+                                safeStorage.removeItem('lp_active_session');
+                            }
+                        } catch (e) {
+                            safeStorage.removeItem('lp_active_session');
+                        }
+                    } else {
+                        if (emailInp) emailInp.value = '';
+                        if (passInp) passInp.value = '';
+                    }
+                }
+
+                setTimeout(() => { syncExternalRegistrationsNow(false); }, 100);
+                setInterval(() => {
+                    syncExternalRegistrationsNow(false);
+                }, 6000);
+            } catch (initErr) {
+                console.error('Error al inicializar Leader Prospect:', initErr);
+            }
+        }
+
+        Object.assign(window, {
+            handleLogin,
+            openRegisterModal,
+            closeRegisterModalSafe,
+            openActivationCodeModal,
+            openRecoveryModal,
+            submitUserRegistration,
+            verifyAndActivateUser,
+            processPasswordRecovery,
+            openModal,
+            closeModal,
+            navigateTab,
+            logoutUser,
+            togglePasswordVisibility,
+            openMobileDrawer,
+            closeMobileDrawer
+        });
 
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initializeLeaderProspectPlatform);
