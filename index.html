@@ -1799,23 +1799,26 @@
             </div>
 
             <!-- Anuncio Oficial Pago Confirmado ($15 USD / T.C. 3.50 = S/ 52.50 PLIN 935 877 981 Rudy Geldres) -->
-            <div id="paid-activation-payment-notice" class="hidden p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-amber-400 text-white text-left space-y-2 shadow-lg">
+            <div id="paid-activation-payment-notice" class="hidden p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-amber-400 text-white text-left space-y-2.5 shadow-lg">
                 <div class="flex items-center justify-between">
                     <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase">Activación por Pago Confirmado</span>
                     <span class="text-xs font-black text-emerald-400">$15 USD / S/ 52.50</span>
                 </div>
                 <p class="text-[11px] text-slate-200 leading-relaxed">
-                    Para recibir tu <b>código de activación de 6 dígitos</b> en el WhatsApp que registraste, realiza el pago único de <b>$15 dólares (Tipo de cambio S/ 3.50 = S/ 52.50 Soles)</b> mediante la billetera digital <b>PLIN</b>:
+                    Antes de ingresar a la plataforma y para recibir tu <b>código de activación de 6 dígitos</b> en el WhatsApp que registraste, realiza el pago único de <b>$15 dólares (Tipo de cambio S/ 3.50 = S/ 52.50 Soles)</b> mediante la billetera digital <b>PLIN</b>:
                 </p>
-                <div class="p-2.5 rounded-xl bg-slate-950/90 border border-sky-400/40 flex items-center justify-between text-xs">
+                <div class="p-2.5 rounded-xl bg-slate-950/90 border border-sky-400/40 flex items-center justify-between gap-2 text-xs">
                     <div>
                         <span class="text-[10px] text-sky-300 block">Número PLIN Oficial:</span>
                         <strong class="text-base font-mono text-amber-400 tracking-wider">935 877 981</strong>
                     </div>
                     <div class="text-right">
                         <span class="text-[10px] text-sky-300 block">Titular PLIN:</span>
-                        <strong class="text-xs text-white">Rudy Geldres</strong>
+                        <strong class="text-xs text-white block">Rudy Geldres</strong>
                     </div>
+                    <button type="button" onclick="copyPlinNumberToClipboard();" class="px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[10px] shrink-0">
+                        <i class="fa-regular fa-copy mr-1"></i>Copiar PLIN
+                    </button>
                 </div>
             </div>
 
@@ -2850,7 +2853,31 @@
             const pendingList = safeParseStorageArray('lp_pending_activations');
             const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
             if (isPending) {
-                showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
+                const pendingIsPaid = !!(isPending.isPaidTier || isPending.isPaidLineage || isPending.requiresPaidActivation || isSponsorInPaidLineage(isPending.uplineCode));
+                isPending.isPaidTier = pendingIsPaid;
+                isPending.isPaidLineage = pendingIsPaid;
+                isPending.requiresPaidActivation = pendingIsPaid;
+                appState.isPaidRegistrationFlow = pendingIsPaid;
+
+                const actEmail = document.getElementById('act-email');
+                if (actEmail) actEmail.value = isPending.email;
+
+                const waAdminBtn = document.getElementById('btn-notify-admin-wa-code');
+                if (waAdminBtn) {
+                    const reqMsg = pendingIsPaid
+                        ? `¡Hola Rudy Geldres! 👋 Me registré en *LEADER PROSPECT (Rama Pago Confirmado)* y confirmo mi pago de *$15 USD (S/ 52.50 Soles)* al *PLIN 935 877 981*.\n\n*Nombre:* ${isPending.name}\n*Correo:* ${isPending.email}\n*Patrocinador:* ${isPending.uplineCode}\n\nPor favor envíame mi código de activación de 6 dígitos para ingresar a la plataforma 💎🚀.`
+                        : `¡Hola! 👋 Mi cuenta (*${isPending.email}*) está a la espera de su código de activación de 6 dígitos en *LEADER PROSPECT* 💎🚀.`;
+                    waAdminBtn.href = `https://api.whatsapp.com/send?phone=51970425293&text=${encodeURIComponent(reqMsg)}`;
+                }
+
+                showLoginError(
+                    pendingIsPaid
+                        ? 'Tu cuenta requiere confirmar el pago único ($15 USD / S/ 52.50 PLIN) e ingresar tu código de 6 dígitos antes de acceder a la plataforma.'
+                        : 'Tu cuenta está a la espera de su código de activación de 6 dígitos.',
+                    isPending
+                );
+                configureActivationModalForTier(pendingIsPaid);
+                openModal('modal-activation-code');
                 return;
             }
 
@@ -3504,6 +3531,78 @@
         }
 
         // ==================== ENLACES REALES Y EJECUTABLES EN TODOS LOS DISPOSITIVOS + QR ====================
+        function copyPlinNumberToClipboard() {
+            const temp = document.createElement('input');
+            temp.value = '935877981';
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            temp.remove();
+            showToast('Número PLIN 935 877 981 copiado al portapapeles.');
+        }
+
+        function isSponsorInPaidLineage(sponsorSlugOrCodeOrUser) {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('liderpro') || params.get('pago') || params.get('paid') === '1' || params.get('lin') === 'pago') {
+                    return true;
+                }
+            } catch (e) {}
+
+            if (!sponsorSlugOrCodeOrUser) return false;
+
+            const regUsers = safeParseStorageArray('lp_registered_users');
+            const pendingUsers = safeParseStorageArray('lp_pending_activations');
+            const adminDb = safeParseStorageArray('lp_admin_activations_db');
+            const allKnownRecords = [...regUsers, ...pendingUsers, ...adminDb];
+
+            const isRecordPaid = (rec) => !!(
+                rec && (
+                    rec.isPaidTier === true ||
+                    rec.isPaidLineage === true ||
+                    rec.requiresPaidActivation === true ||
+                    rec.registrationType === 'liderpro'
+                )
+            );
+
+            let currentKey = '';
+            if (typeof sponsorSlugOrCodeOrUser === 'object') {
+                if (isRecordPaid(sponsorSlugOrCodeOrUser)) return true;
+                currentKey = String(sponsorSlugOrCodeOrUser.sponsorCode || sponsorSlugOrCodeOrUser.uplineCode || '').trim();
+            } else {
+                currentKey = String(sponsorSlugOrCodeOrUser || '').trim();
+            }
+
+            const visited = new Set();
+            let depth = 0;
+
+            while (currentKey && depth < 500) {
+                const normKey = currentKey.toLowerCase();
+                if (visited.has(normKey)) break;
+                visited.add(normKey);
+
+                if (normKey === ADMIN_SPONSOR_CODE.toLowerCase() || normKey === 'rudygeldres' || normKey === 'directo empresa') {
+                    break;
+                }
+
+                const found = allKnownRecords.find(u =>
+                    u && (
+                        (u.sponsorCode && u.sponsorCode.toLowerCase() === normKey) ||
+                        (u.name && buildUserSlug(u.name).toLowerCase() === normKey) ||
+                        (u.email && u.email.toLowerCase() === normKey)
+                    )
+                );
+
+                if (!found) break;
+                if (isRecordPaid(found)) return true;
+
+                currentKey = String(found.uplineCode || '').trim();
+                depth++;
+            }
+
+            return false;
+        }
+
         function buildUserSlug(fullName) {
             if (fullName === ADMIN_FULL_NAME) return 'rudygeldres';
             return String(fullName || 'liderfuxion')
@@ -3525,8 +3624,10 @@
         function buildRealReferralUrls(user) {
             const base = getRealExecutableBaseUrl();
             const slug = encodeURIComponent(buildUserSlug(user ? user.name : ADMIN_FULL_NAME));
+            const userInPaidLineage = !!(user && !user.isAdmin && (user.isPaidTier || user.isPaidLineage || user.requiresPaidActivation || user.registrationType === 'liderpro' || isSponsorInPaidLineage(user)));
+            const paidSuffix = userInPaidLineage ? '&lin=pago' : '';
             return {
-                partnerLink: `${base}?socio=${slug}`,
+                partnerLink: `${base}?socio=${slug}${paidSuffix}`,
                 prospectLink: `${base}?cliente=${slug}`,
                 paidPartnerLink: `${base}?liderpro=${slug}`
             };
@@ -3565,7 +3666,7 @@
         function previewShortReferralLink(type) {
             const user = appState.currentUser;
             const sponsorCode = user ? (user.sponsorCode || ADMIN_SPONSOR_CODE) : ADMIN_SPONSOR_CODE;
-            const isUserPaidTree = !!(user && !user.isAdmin && user.isPaidTier);
+            const isUserPaidTree = !!(user && !user.isAdmin && (user.isPaidTier || user.isPaidLineage || user.requiresPaidActivation || isSponsorInPaidLineage(user)));
 
             appState.isReferralGuestMode = true;
             appState.currentUser = null;
@@ -3597,14 +3698,21 @@
             }
 
             const regUsers = safeParseStorageArray('lp_registered_users');
-            const matched = regUsers.find(u =>
-                buildUserSlug(u.name).toLowerCase() === cleanParam.toLowerCase() ||
-                (u.sponsorCode && u.sponsorCode.toLowerCase() === cleanParam.toLowerCase())
+            const pendingUsers = safeParseStorageArray('lp_pending_activations');
+            const adminDb = safeParseStorageArray('lp_admin_activations_db');
+            const allUsers = [...regUsers, ...pendingUsers, ...adminDb];
+
+            const matched = allUsers.find(u =>
+                u && (
+                    buildUserSlug(u.name).toLowerCase() === cleanParam.toLowerCase() ||
+                    (u.sponsorCode && u.sponsorCode.toLowerCase() === cleanParam.toLowerCase())
+                )
             );
             if (matched) {
-                return { sponsorCode: matched.sponsorCode, isPaidBranch: !!matched.isPaidTier };
+                const paidBranch = !!(matched.isPaidTier || matched.isPaidLineage || matched.requiresPaidActivation || matched.registrationType === 'liderpro' || isSponsorInPaidLineage(matched.sponsorCode));
+                return { sponsorCode: matched.sponsorCode, isPaidBranch: paidBranch };
             }
-            return { sponsorCode: cleanParam, isPaidBranch: false };
+            return { sponsorCode: cleanParam, isPaidBranch: isSponsorInPaidLineage(cleanParam) };
         }
 
         function detectUrlReferralParams() {
@@ -3613,6 +3721,7 @@
                 const socioParam = params.get('socio') || params.get('ref');
                 const clienteParam = params.get('cliente');
                 const pagoParam = params.get('liderpro') || params.get('pago');
+                const forcedPaidLineage = params.get('lin') === 'pago' || params.get('paid') === '1';
 
                 if (pagoParam) {
                     const resolved = resolveSponsorFromSlugOrCode(pagoParam);
@@ -3637,7 +3746,8 @@
                     const resolved = resolveSponsorFromSlugOrCode(socioParam || clienteParam);
                     const uplineInput = document.getElementById('reg-upline');
                     if (uplineInput) uplineInput.value = resolved.sponsorCode;
-                    openRegisterModal(socioParam ? 'partner' : 'prospect', resolved.isPaidBranch);
+                    const shouldUsePaidFlow = socioParam ? !!(forcedPaidLineage || resolved.isPaidBranch || isSponsorInPaidLineage(resolved.sponsorCode)) : false;
+                    openRegisterModal(socioParam ? 'partner' : 'prospect', shouldUsePaidFlow);
                     return true;
                 }
             } catch (e) {}
@@ -6422,8 +6532,10 @@
         }
 
         function openRegisterModal(mode = 'partner', isPaidBranch = false) {
+            const currentUplineVal = (document.getElementById('reg-upline')?.value || '').trim();
+            const detectedPaidUpline = mode === 'partner' && (isPaidBranch || isSponsorInPaidLineage(currentUplineVal));
             appState.registrationMode = mode;
-            appState.isPaidRegistrationFlow = !!isPaidBranch;
+            appState.isPaidRegistrationFlow = !!detectedPaidUpline;
             const titleEl = document.getElementById('modal-register-title');
             const subEl = document.getElementById('modal-register-subtitle');
             const passWrap = document.getElementById('reg-password-wrapper');
@@ -6432,7 +6544,7 @@
             const btnSub = document.getElementById('btn-submit-register');
             const paidBanner = document.getElementById('reg-paid-tier-banner');
 
-            if (paidBanner) paidBanner.classList.toggle('hidden', !(mode === 'partner' && isPaidBranch));
+            if (paidBanner) paidBanner.classList.toggle('hidden', !(mode === 'partner' && detectedPaidUpline));
 
             if (mode === 'prospect') {
                 if (titleEl) titleEl.textContent = 'Asesoría FuXion — Registro de Prospecto';
@@ -6442,12 +6554,16 @@
                 if (intWrap) intWrap.classList.remove('hidden');
                 if (btnSub) btnSub.textContent = 'Enviar Mis Datos a Mi Asesor';
             } else {
-                if (titleEl) titleEl.textContent = isPaidBranch ? 'Registro de Líder • Equipo Pago Confirmado' : 'Registro de Nuevo Socio Líder';
-                if (subEl) subEl.textContent = 'Completa tus datos para generar tu código de activación de 6 dígitos.';
+                if (titleEl) titleEl.textContent = detectedPaidUpline ? 'Registro de Líder • Equipo Pago Confirmado' : 'Registro de Nuevo Socio Líder';
+                if (subEl) subEl.textContent = detectedPaidUpline
+                    ? 'Completa tus datos para ver las instrucciones de Pago Confirmado ($15 USD / S/ 52.50 PLIN) y solicitar tu código de 6 dígitos.'
+                    : 'Completa tus datos para generar tu código de activación de 6 dígitos.';
                 if (passWrap) passWrap.classList.remove('hidden');
                 if (passInp) passInp.required = true;
                 if (intWrap) intWrap.classList.add('hidden');
-                if (btnSub) btnSub.textContent = 'Solicitar Activación y Generar Código';
+                if (btnSub) btnSub.textContent = detectedPaidUpline
+                    ? 'Continuar al Pago Confirmado y Código de 6 Dígitos'
+                    : 'Solicitar Activación y Generar Código';
             }
             openModal('modal-register');
         }
@@ -6466,10 +6582,16 @@
         }
 
         function openActivationCodeModal() {
-            const emailVal = (document.getElementById('act-email')?.value || '').trim().toLowerCase();
+            const emailVal = (document.getElementById('act-email')?.value || document.getElementById('input-auth-email')?.value || '').trim().toLowerCase();
+            if (emailVal && document.getElementById('act-email')) {
+                document.getElementById('act-email').value = emailVal;
+            }
             const pendingList = safeParseStorageArray('lp_pending_activations');
             const matched = pendingList.find(p => p.email === emailVal);
-            configureActivationModalForTier(matched ? !!matched.isPaidTier : !!appState.isPaidRegistrationFlow);
+            const isPaid = matched
+                ? !!(matched.isPaidTier || matched.isPaidLineage || matched.requiresPaidActivation || isSponsorInPaidLineage(matched.uplineCode))
+                : !!(appState.isPaidRegistrationFlow || isSponsorInPaidLineage(document.getElementById('reg-upline')?.value));
+            configureActivationModalForTier(isPaid);
             openModal('modal-activation-code');
         }
         function openRecoveryModal() { openModal('modal-recovery'); }
@@ -6519,9 +6641,8 @@
                 return;
             }
 
-            const regUsers = safeParseStorageArray('lp_registered_users');
-            const sponsorUser = regUsers.find(u => u.sponsorCode === uplineCode);
-            const inheritedPaidTier = !!(appState.isPaidRegistrationFlow || (sponsorUser && sponsorUser.isPaidTier));
+            const inheritedPaidTier = !!(appState.isPaidRegistrationFlow || isSponsorInPaidLineage(uplineCode));
+            appState.isPaidRegistrationFlow = inheritedPaidTier;
 
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             const recordId = 'act_' + Date.now();
@@ -6532,6 +6653,9 @@
                 id: recordId,
                 type: 'PARTNER_ACTIVATION',
                 isPaidTier: inheritedPaidTier,
+                isPaidLineage: inheritedPaidTier,
+                requiresPaidActivation: inheritedPaidTier,
+                registrationType: inheritedPaidTier ? 'liderpro' : 'socio',
                 name,
                 email,
                 phone,
@@ -6570,7 +6694,9 @@
             }
 
             openModal('modal-activation-code');
-            showToast('Solicitud enviada. Ingresa el código de 6 dígitos brindado por el Administrador.');
+            showToast(inheritedPaidTier
+                ? 'Realiza tu pago PLIN ($15 USD / S/ 52.50) e ingresa el código de 6 dígitos brindado por el Administrador.'
+                : 'Solicitud enviada. Ingresa el código de 6 dígitos brindado por el Administrador.');
         }
 
         function verifyAndActivateUser() {
@@ -6596,6 +6722,8 @@
                 safeStorage.setItem('lp_admin_activations_db', JSON.stringify(adminActivationsDb));
             }
 
+            const isPaidLineageUser = !!(pendingUser.isPaidTier || pendingUser.isPaidLineage || pendingUser.requiresPaidActivation || isSponsorInPaidLineage(pendingUser.uplineCode));
+
             const regUsers = safeParseStorageArray('lp_registered_users');
             const activeUser = {
                 id: 'usr_' + Date.now(),
@@ -6608,7 +6736,10 @@
                 password: pendingUser.password,
                 sponsorCode: pendingUser.sponsorCode,
                 uplineCode: pendingUser.uplineCode,
-                isPaidTier: !!pendingUser.isPaidTier,
+                isPaidTier: isPaidLineageUser,
+                isPaidLineage: isPaidLineageUser,
+                requiresPaidActivation: isPaidLineageUser,
+                registrationType: isPaidLineageUser ? 'liderpro' : 'socio',
                 date: new Date().toLocaleDateString(),
                 role: 'Líder de Red',
                 isAdmin: false
@@ -6778,7 +6909,8 @@
                 btnReg.dataset.wired = '1';
                 btnReg.addEventListener('click', (e) => {
                     e.preventDefault();
-                    openRegisterModal('partner', false);
+                    const currentUpline = (document.getElementById('reg-upline')?.value || '').trim();
+                    openRegisterModal('partner', isSponsorInPaidLineage(currentUpline));
                 });
             }
 
@@ -6788,6 +6920,19 @@
                 btnActCode.addEventListener('click', (e) => {
                     e.preventDefault();
                     openActivationCodeModal();
+                });
+            }
+
+            const regUplineInp = document.getElementById('reg-upline');
+            if (regUplineInp && !regUplineInp.dataset.wired) {
+                regUplineInp.dataset.wired = '1';
+                regUplineInp.addEventListener('input', () => {
+                    if (appState.registrationMode === 'partner') {
+                        const isPaid = isSponsorInPaidLineage(regUplineInp.value.trim());
+                        appState.isPaidRegistrationFlow = isPaid;
+                        const paidBanner = document.getElementById('reg-paid-tier-banner');
+                        if (paidBanner) paidBanner.classList.toggle('hidden', !isPaid);
+                    }
                 });
             }
         }
@@ -6849,7 +6994,9 @@
             togglePasswordVisibility,
             openMobileDrawer,
             closeMobileDrawer,
-            resyncAllPublicWallSlidesToCloud
+            resyncAllPublicWallSlidesToCloud,
+            copyPlinNumberToClipboard,
+            isSponsorInPaidLineage
         });
 
         if (document.readyState === 'loading') {
