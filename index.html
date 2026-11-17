@@ -614,6 +614,9 @@
                                     <i class="fa-solid fa-image"></i><span>Subir Imagen o Video</span>
                                     <input type="file" accept="image/*,video/*" multiple onchange="handleAdminCarouselUpload(event);" class="hidden">
                                 </label>
+                                <button type="button" id="btn-resync-wall-all" onclick="resyncAllPublicWallSlidesToCloud();" class="py-2 px-3 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 font-bold text-xs flex items-center gap-1">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i><span>Re-sincronizar Muro</span>
+                                </button>
                                 <button type="button" id="btn-remove-current-slide" onclick="removeCurrentCarouselSlide();" class="hidden py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 font-bold text-xs">
                                     <i class="fa-solid fa-trash mr-1"></i>Eliminar del Muro
                                 </button>
@@ -2332,6 +2335,7 @@
             carouselTimer: null,
             carouselPaused: false,
             mediaObjectUrlCache: {},
+            wallSlideChunksBuffer: {},
             draftAudioBlob: null,
             draftAudioUrl: null,
             draftMediaImageDataUrl: null,
@@ -2463,9 +2467,9 @@
             appState.isSyncInFlight = true;
             try {
                 const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-                const timeoutId = ctrl ? setTimeout(() => ctrl.abort(), 3500) : null;
+                const timeoutId = ctrl ? setTimeout(() => ctrl.abort(), 4500) : null;
 
-                const resp = await fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}/json?poll=1&since=24h`, {
+                const resp = await fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}/json?poll=1&since=48h`, {
                     signal: ctrl ? ctrl.signal : undefined
                 });
                 if (timeoutId) clearTimeout(timeoutId);
@@ -2482,14 +2486,24 @@
                 let deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
                 let slides = safeParseStorageArray('lp_admin_public_carousel');
                 let deletedSlideIds = new Set(safeParseStorageArray('lp_deleted_slide_ids'));
+                let latestManifestIds = null;
                 let changed = false;
                 let slidesChanged = false;
 
                 for (const line of lines) {
                     try {
                         const envelope = JSON.parse(line);
-                        if (!envelope || !envelope.message) continue;
-                        const evt = JSON.parse(envelope.message);
+                        if (!envelope) continue;
+
+                        let evt = null;
+                        if (envelope.message && envelope.message.startsWith('{')) {
+                            evt = JSON.parse(envelope.message);
+                        } else if (envelope.attachment && envelope.attachment.url) {
+                            try {
+                                const attResp = await fetch(envelope.attachment.url);
+                                if (attResp.ok) evt = await attResp.json();
+                            } catch (attErr) {}
+                        }
                         if (!evt || !evt.type || !evt.payload) continue;
 
                         if (evt.type === 'NEW_PENDING_PARTNER') {
@@ -2530,44 +2544,64 @@
                                 adminDb.unshift(recov);
                                 changed = true;
                             }
-                        } else if (evt.type === 'PUBLIC_WALL_SLIDE_ADD') {
-                            const sl = evt.payload;
-                            if (sl && sl.id && !deletedSlideIds.has(sl.id)) {
-                                const existingIdx = slides.findIndex(x => x.id === sl.id);
-                                if (sl.cloudDataUrl) {
+                        } else if (evt.type === 'PUBLIC_WALL_SLIDE_CHUNK') {
+                            const { id, idx, total, data } = evt.payload;
+                            if (id && typeof idx === 'number' && total > 0 && typeof data === 'string' && !deletedSlideIds.has(id)) {
+                                if (!appState.wallSlideChunksBuffer[id]) {
+                                    appState.wallSlideChunksBuffer[id] = { total, parts: new Array(total).fill(null) };
+                                }
+                                const entry = appState.wallSlideChunksBuffer[id];
+                                entry.parts[idx] = data;
+                                if (entry.parts.every(p => p !== null)) {
+                                    const fullDataUrl = entry.parts.join('');
+                                    delete appState.wallSlideChunksBuffer[id];
+                                    const existingIdx = slides.findIndex(x => x.id === id);
                                     try {
-                                        const blobResp = await fetch(sl.cloudDataUrl);
+                                        const blobResp = await fetch(fullDataUrl);
                                         const blob = await blobResp.blob();
-                                        await saveMediaBlobToIndexedDB(sl.id, blob, { mimeType: blob.type || 'image/jpeg', isVideo: false });
-                                        const slideObj = { id: sl.id, kind: sl.kind || 'image', inDb: true, fallbackSrc: sl.cloudDataUrl };
+                                        await saveMediaBlobToIndexedDB(id, blob, { mimeType: blob.type || 'image/jpeg', isVideo: false });
+                                        appState.mediaObjectUrlCache[id] = URL.createObjectURL(blob);
+                                        const slideObj = { id, kind: 'image', inDb: true, fallbackSrc: fullDataUrl };
                                         if (existingIdx === -1) slides.push(slideObj);
                                         else slides[existingIdx] = slideObj;
                                     } catch (e) {
-                                        const slideObj = { id: sl.id, kind: sl.kind || 'image', inDb: false, fallbackSrc: sl.cloudDataUrl };
+                                        appState.mediaObjectUrlCache[id] = fullDataUrl;
+                                        const slideObj = { id, kind: 'image', inDb: false, fallbackSrc: fullDataUrl };
                                         if (existingIdx === -1) slides.push(slideObj);
                                         else slides[existingIdx] = slideObj;
                                     }
                                     slidesChanged = true;
                                 }
                             }
-                        } else if (evt.type === 'PUBLIC_WALL_MANIFEST') {
-                            const manifestIds = Array.isArray(evt.payload.ids) ? evt.payload.ids : [];
-                            if (manifestIds.length > 0) {
-                                const mapById = new Map(slides.map(s => [s.id, s]));
-                                const ordered = [];
-                                manifestIds.forEach(mId => {
-                                    if (!deletedSlideIds.has(mId) && mapById.has(mId)) {
-                                        ordered.push(mapById.get(mId));
-                                        mapById.delete(mId);
+                        } else if (evt.type === 'PUBLIC_WALL_MANIFEST_V2') {
+                            if (Array.isArray(evt.payload.slides) && evt.payload.slides.length > 0) {
+                                const incomingSlides = evt.payload.slides;
+                                const nextSlides = [];
+                                for (const item of incomingSlides) {
+                                    if (!item || !item.id || deletedSlideIds.has(item.id)) continue;
+                                    const existing = slides.find(x => x.id === item.id);
+                                    const resolvedMediaUrl = item.mediaUrl || (existing && existing.mediaUrl) || '';
+                                    const resolvedFallback = item.fallbackSrc || (existing && existing.fallbackSrc) || '';
+                                    if (resolvedMediaUrl) {
+                                        appState.mediaObjectUrlCache[item.id] = resolvedMediaUrl;
                                     }
-                                });
-                                mapById.forEach((val, key) => {
-                                    if (!deletedSlideIds.has(key)) ordered.push(val);
-                                });
-                                if (ordered.length !== slides.length || ordered.some((s, idx) => slides[idx]?.id !== s.id)) {
-                                    slides = ordered;
+                                    nextSlides.push({
+                                        id: item.id,
+                                        kind: item.kind || (existing && existing.kind) || 'image',
+                                        inDb: !!(existing && existing.inDb),
+                                        mediaUrl: resolvedMediaUrl,
+                                        assetTopic: item.assetTopic || (existing && existing.assetTopic) || '',
+                                        fallbackSrc: resolvedFallback
+                                    });
+                                }
+                                if (nextSlides.length > 0) {
+                                    slides = nextSlides;
                                     slidesChanged = true;
                                 }
+                            }
+                        } else if (evt.type === 'PUBLIC_WALL_MANIFEST') {
+                            if (Array.isArray(evt.payload.ids) && evt.payload.ids.length > 0) {
+                                latestManifestIds = evt.payload.ids;
                             }
                         } else if (evt.type === 'PUBLIC_WALL_SLIDE_DEL') {
                             const delId = evt.payload.id;
@@ -2579,6 +2613,24 @@
                             }
                         }
                     } catch (err) {}
+                }
+
+                if (latestManifestIds && latestManifestIds.length > 0) {
+                    const mapById = new Map(slides.map(s => [s.id, s]));
+                    const ordered = [];
+                    latestManifestIds.forEach(mId => {
+                        if (!deletedSlideIds.has(mId) && mapById.has(mId)) {
+                            ordered.push(mapById.get(mId));
+                            mapById.delete(mId);
+                        }
+                    });
+                    mapById.forEach((val, key) => {
+                        if (!deletedSlideIds.has(key)) ordered.push(val);
+                    });
+                    if (ordered.length !== slides.length || ordered.some((s, idx) => slides[idx]?.id !== s.id)) {
+                        slides = ordered;
+                        slidesChanged = true;
+                    }
                 }
 
                 if (changed) {
@@ -2599,11 +2651,24 @@
                 }
                 if (slidesChanged) {
                     try {
-                        safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: s.inDb, fallbackSrc: s.fallbackSrc || '' }))));
+                        safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({
+                            id: s.id,
+                            kind: s.kind,
+                            inDb: s.inDb,
+                            mediaUrl: s.mediaUrl || '',
+                            assetTopic: s.assetTopic || '',
+                            fallbackSrc: s.fallbackSrc || ''
+                        }))));
                         safeStorage.setItem('lp_deleted_slide_ids', JSON.stringify(Array.from(deletedSlideIds)));
                     } catch (e) {
                         try {
-                            safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: s.inDb }))));
+                            safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({
+                                id: s.id,
+                                kind: s.kind,
+                                inDb: s.inDb,
+                                mediaUrl: s.mediaUrl || '',
+                                assetTopic: s.assetTopic || ''
+                            }))));
                         } catch (err2) {}
                     }
                     if (appState.currentUser && !document.getElementById('tab-inicio')?.classList.contains('hidden')) {
@@ -2697,115 +2762,100 @@
             const errText = document.getElementById('login-error-text');
             const btnPending = document.getElementById('btn-open-pending-modal-from-login');
             if (errText) errText.textContent = msg;
-            if (errBox) {
-                errBox.classList.remove('hidden');
-                errBox.style.display = 'flex';
-            }
+            if (errBox) errBox.classList.remove('hidden');
             if (btnPending) {
                 if (pendingRecord) {
                     btnPending.classList.remove('hidden');
-                    btnPending.style.display = 'inline-block';
                     const actEmail = document.getElementById('act-email');
                     if (actEmail) actEmail.value = pendingRecord.email;
                 } else {
                     btnPending.classList.add('hidden');
-                    btnPending.style.display = 'none';
                 }
             }
         }
 
         function handleLogin() {
-            try {
-                repairAndSeedMasterRecords();
+            repairAndSeedMasterRecords();
 
-                const emailInput = document.getElementById('input-auth-email');
-                const passInput = document.getElementById('input-auth-password');
-                const errBox = document.getElementById('login-error-box');
-                if (!emailInput || !passInput) return;
+            const emailInput = document.getElementById('input-auth-email');
+            const passInput = document.getElementById('input-auth-password');
+            const errBox = document.getElementById('login-error-box');
+            if (!emailInput || !passInput) return;
 
-                const email = emailInput.value.trim().toLowerCase();
-                const pass = passInput.value.trim();
+            const email = emailInput.value.trim().toLowerCase();
+            const pass = passInput.value.trim();
 
-                if (!email || !pass) {
-                    showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
-                    return;
-                }
-
-                if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
-                    if (verifyAdminCredentials(pass)) {
-                        if (errBox) {
-                            errBox.classList.add('hidden');
-                            errBox.style.display = 'none';
-                        }
-                        const existingAdminPhoto = safeStorage.getItem('lp_admin_photo_avatar') || null;
-                        const savedAdminCity = safeStorage.getItem('lp_admin_city') || 'Lima';
-                        const savedAdminCountry = safeStorage.getItem('lp_admin_country') || 'Perú';
-                        const savedAdminFlag = safeStorage.getItem('lp_admin_flag') || '🇵🇪';
-                        const adminUser = {
-                            id: 'usr_admin_rudy',
-                            name: ADMIN_FULL_NAME,
-                            email: ADMIN_OFFICIAL_EMAIL,
-                            role: 'Superadministrador',
-                            sponsorCode: ADMIN_SPONSOR_CODE,
-                            uplineCode: 'Directo Empresa',
-                            phone: ADMIN_WHATSAPP_NUMBER,
-                            city: savedAdminCity,
-                            country: savedAdminCountry,
-                            flag: savedAdminFlag,
-                            date: 'Fundador / Admin',
-                            isAdmin: true,
-                            isPaidTier: true,
-                            avatarUrl: existingAdminPhoto
-                        };
-                        appState.isReferralGuestMode = false;
-                        appState.currentUser = adminUser;
-                        safeStorage.setItem('lp_active_session', JSON.stringify(adminUser));
-                        loadUserScopedData(adminUser.id);
-                        showDashboard(adminUser);
-                        setTimeout(() => { syncExternalRegistrationsNow(false); }, 150);
-                        return;
-                    } else {
-                        showLoginError('Contraseña de Superadministrador incorrecta.');
-                        return;
-                    }
-                }
-
-                const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-                const registeredUsers = safeParseStorageArray('lp_registered_users');
-                const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
-
-                if (foundUser) {
-                    if (foundUser.password === pass) {
-                        if (errBox) {
-                            errBox.classList.add('hidden');
-                            errBox.style.display = 'none';
-                        }
-                        foundUser.role = 'Líder de Red';
-                        foundUser.isAdmin = false;
-                        appState.isReferralGuestMode = false;
-                        appState.currentUser = foundUser;
-                        safeStorage.setItem('lp_active_session', JSON.stringify(foundUser));
-                        loadUserScopedData(foundUser.id);
-                        showDashboard(foundUser);
-                        setTimeout(() => { syncExternalRegistrationsNow(false); }, 150);
-                        return;
-                    } else {
-                        showLoginError('Contraseña incorrecta para este socio.');
-                        return;
-                    }
-                }
-
-                const pendingList = safeParseStorageArray('lp_pending_activations');
-                const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
-                if (isPending) {
-                    showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
-                    return;
-                }
-
-                showLoginError('Correo no registrado en Leader Prospect. Crea tu cuenta en "Regístrate aquí".');
-            } catch (err) {
-                showLoginError('Ocurrió un inconveniente al verificar los datos. Inténtalo nuevamente.');
+            if (!email || !pass) {
+                showLoginError('Por favor ingresa tu correo electrónico y contraseña.');
+                return;
             }
+
+            if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
+                if (verifyAdminCredentials(pass)) {
+                    if (errBox) errBox.classList.add('hidden');
+                    const existingAdminPhoto = safeStorage.getItem('lp_admin_photo_avatar') || null;
+                    const savedAdminCity = safeStorage.getItem('lp_admin_city') || 'Lima';
+                    const savedAdminCountry = safeStorage.getItem('lp_admin_country') || 'Perú';
+                    const savedAdminFlag = safeStorage.getItem('lp_admin_flag') || '🇵🇪';
+                    const adminUser = {
+                        id: 'usr_admin_rudy',
+                        name: ADMIN_FULL_NAME,
+                        email: ADMIN_OFFICIAL_EMAIL,
+                        role: 'Superadministrador',
+                        sponsorCode: ADMIN_SPONSOR_CODE,
+                        uplineCode: 'Directo Empresa',
+                        phone: ADMIN_WHATSAPP_NUMBER,
+                        city: savedAdminCity,
+                        country: savedAdminCountry,
+                        flag: savedAdminFlag,
+                        date: 'Fundador / Admin',
+                        isAdmin: true,
+                        avatarUrl: existingAdminPhoto
+                    };
+                    appState.isReferralGuestMode = false;
+                    appState.currentUser = adminUser;
+                    safeStorage.setItem('lp_active_session', JSON.stringify(adminUser));
+                    loadUserScopedData(adminUser.id);
+                    showDashboard(adminUser);
+                    syncExternalRegistrationsNow(false);
+                    return;
+                } else {
+                    showLoginError('Contraseña de Superadministrador incorrecta.');
+                    return;
+                }
+            }
+
+            const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
+            const registeredUsers = safeParseStorageArray('lp_registered_users');
+            const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+
+            if (foundUser) {
+                if (foundUser.password === pass) {
+                    if (errBox) errBox.classList.add('hidden');
+                    foundUser.role = 'Líder de Red';
+                    foundUser.isAdmin = false;
+                    appState.isReferralGuestMode = false;
+                    appState.currentUser = foundUser;
+                    safeStorage.setItem('lp_active_session', JSON.stringify(foundUser));
+                    loadUserScopedData(foundUser.id);
+                    showDashboard(foundUser);
+                    syncExternalRegistrationsNow(false);
+                    return;
+                } else {
+                    showLoginError('Contraseña incorrecta para este socio.');
+                    return;
+                }
+            }
+
+            const pendingList = safeParseStorageArray('lp_pending_activations');
+            const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
+            if (isPending) {
+                showLoginError('Tu cuenta aún está pendiente de activación con su código de 6 dígitos.', isPending);
+                return;
+            }
+
+            showLoginError('Verificando cuenta en la red global... Intenta nuevamente en 2 segundos o regístrate en "Regístrate aquí".');
+            syncExternalRegistrationsNow(false);
         }
 
         function showDashboard(user) {
@@ -2887,8 +2937,10 @@
             const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
 
-            const firstName = getProspectFirstName(user.name, 'Líder');
+            const firstName = (user.name || 'Líder').split(' ')[0];
             const userFlag = user.flag || '🇵🇪';
+            const userLocation = [user.city, user.country].filter(Boolean).join(', ') || 'Perú';
+
             setText('header-user-name', `${userFlag} ${user.name || ''}`);
             setText('header-user-role', user.role || '');
             setText('header-user-greeting', `¡Bienvenido, ${userFlag} ${firstName}!`);
@@ -2899,7 +2951,7 @@
             setText('profile-display-role', user.role || '');
             setText('profile-card-email', user.email || '-');
             setText('profile-card-phone', user.phone || 'No especificado');
-            setText('profile-card-city', `${userFlag} ${user.city || 'No especificada'}${user.country ? ' (' + user.country + ')' : ''}`);
+            setText('profile-card-city', `${userFlag} ${userLocation}`);
             setText('profile-card-sponsor', user.sponsorCode || '-');
             setText('profile-card-upline', user.uplineCode || ADMIN_SPONSOR_CODE);
             setText('profile-card-date', user.date || 'Activo en Red');
@@ -2908,9 +2960,12 @@
             setVal('profile-input-email', user.email || '');
             setVal('profile-input-whatsapp', user.phone || '');
             setVal('profile-input-city', user.city || '');
-            const profCountryEl = document.getElementById('profile-input-country');
-            if (profCountryEl) {
-                profCountryEl.value = `${userFlag}|${user.country || 'Perú'}`;
+            const countrySel = document.getElementById('profile-input-country');
+            if (countrySel && user.flag && user.country) {
+                const candidateVal = `${user.flag}|${user.country}`;
+                if (Array.from(countrySel.options).some(o => o.value === candidateVal)) {
+                    countrySel.value = candidateVal;
+                }
             }
 
             const presInput = document.getElementById('business-pres-custom-msg');
@@ -2947,7 +3002,7 @@
             if (!el) return;
             appState.customPresentationMsg = el.value;
             saveUserScopedData();
-        }, 350);
+        }, 300);
 
         function updateDashboardKPIs() {
             const total = appState.prospects.length;
@@ -2982,14 +3037,14 @@
             }
         }
 
-        // ==================== MURAL / CARRUSEL PÚBLICO ELÁSTICO ====================
-        function buildCloudCompactImageDataUrl(file) {
+        // ==================== MURAL / CARRUSEL PÚBLICO ELÁSTICO SIN LÍMITE DE CAPACIDAD ====================
+        function buildCloudCompactImageDataUrl(fileOrBlob) {
             return new Promise((resolve) => {
                 try {
-                    const objUrl = URL.createObjectURL(file);
+                    const objUrl = URL.createObjectURL(fileOrBlob);
                     const img = new Image();
                     img.onload = () => {
-                        let maxDim = 820;
+                        let maxDim = 960;
                         let w = img.width;
                         let h = img.height;
                         if (w > maxDim || h > maxDim) {
@@ -3002,20 +3057,13 @@
                         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                         URL.revokeObjectURL(objUrl);
 
-                        let q = 0.68;
+                        let q = 0.72;
                         let dataUrl = canvas.toDataURL('image/jpeg', q);
-                        while (dataUrl.length > 36000 && q > 0.22) {
+                        while (dataUrl.length > 26000 && q > 0.28) {
                             q -= 0.1;
                             dataUrl = canvas.toDataURL('image/jpeg', q);
                         }
-                        if (dataUrl.length > 38000) {
-                            const smallCanvas = document.createElement('canvas');
-                            smallCanvas.width = Math.max(320, Math.round(w * 0.68));
-                            smallCanvas.height = Math.max(320, Math.round(h * 0.68));
-                            smallCanvas.getContext('2d').drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
-                            dataUrl = smallCanvas.toDataURL('image/jpeg', 0.55);
-                        }
-                        resolve(dataUrl.length <= 42000 ? dataUrl : null);
+                        resolve(dataUrl);
                     };
                     img.onerror = () => { URL.revokeObjectURL(objUrl); resolve(null); };
                     img.src = objUrl;
@@ -3023,6 +3071,66 @@
                     resolve(null);
                 }
             });
+        }
+
+        async function uploadBinarySlideToCloudUnlimited(slideId, fileOrBlob) {
+            const assetTopic = `lp_media_asset_${slideId.replace(/[^a-zA-Z0-9_]/g, '')}`;
+            const ext = (fileOrBlob.type || '').includes('video') ? 'mp4' : 'jpg';
+            try {
+                const putResp = await fetch(`https://ntfy.sh/${assetTopic}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Filename': `wall_${slideId}.${ext}`
+                    },
+                    body: fileOrBlob
+                });
+                if (putResp.ok) {
+                    const info = await putResp.json();
+                    if (info && info.attachment && info.attachment.url) {
+                        return { mediaUrl: info.attachment.url, assetTopic };
+                    }
+                }
+            } catch (e) {}
+            return { mediaUrl: '', assetTopic };
+        }
+
+        async function resolveSlideDirectMediaUrl(slide) {
+            if (!slide) return '';
+            if (appState.mediaObjectUrlCache[slide.id]) {
+                return appState.mediaObjectUrlCache[slide.id];
+            }
+            const localRec = await getMediaBlobFromIndexedDB(slide.id);
+            if (localRec && localRec.blob) {
+                const localUrl = URL.createObjectURL(localRec.blob);
+                appState.mediaObjectUrlCache[slide.id] = localUrl;
+                return localUrl;
+            }
+            if (slide.mediaUrl && slide.mediaUrl.startsWith('http')) {
+                appState.mediaObjectUrlCache[slide.id] = slide.mediaUrl;
+                return slide.mediaUrl;
+            }
+            if (slide.assetTopic) {
+                try {
+                    const resp = await fetch(`https://ntfy.sh/${slide.assetTopic}/json?poll=1&since=all`);
+                    if (resp.ok) {
+                        const text = await resp.text();
+                        const lines = text.split('\n').filter(Boolean);
+                        for (let i = lines.length - 1; i >= 0; i--) {
+                            const env = JSON.parse(lines[i]);
+                            if (env && env.attachment && env.attachment.url) {
+                                slide.mediaUrl = env.attachment.url;
+                                appState.mediaObjectUrlCache[slide.id] = env.attachment.url;
+                                return env.attachment.url;
+                            }
+                        }
+                    }
+                } catch (e) {}
+            }
+            if (slide.fallbackSrc && slide.fallbackSrc.length > 15) {
+                appState.mediaObjectUrlCache[slide.id] = slide.fallbackSrc;
+                return slide.fallbackSrc;
+            }
+            return '';
         }
 
         async function publishCloudSyncEventSequential(eventType, payload) {
@@ -3043,12 +3151,81 @@
             } catch (e) {}
         }
 
+        async function broadcastSlideChunksToCloud(slideId, dataUrl) {
+            if (!slideId || !dataUrl) return;
+            const CHUNK_LEN = 2200;
+            const total = Math.ceil(dataUrl.length / CHUNK_LEN);
+            for (let idx = 0; idx < total; idx++) {
+                const slice = dataUrl.slice(idx * CHUNK_LEN, (idx + 1) * CHUNK_LEN);
+                await publishCloudSyncEventSequential('PUBLIC_WALL_SLIDE_CHUNK', {
+                    id: slideId,
+                    idx,
+                    total,
+                    data: slice
+                });
+                await new Promise(r => setTimeout(r, 110));
+            }
+        }
+
+        async function resyncAllPublicWallSlidesToCloud() {
+            const slides = safeParseStorageArray('lp_admin_public_carousel');
+            if (slides.length === 0) {
+                showToast('No hay imágenes en el Muro para sincronizar.');
+                return;
+            }
+            showToast(`Subiendo y sincronizando ${slides.length} archivo(s) sin límite para todos los socios...`);
+            const manifestSlides = [];
+
+            for (const s of slides) {
+                const rec = await getMediaBlobFromIndexedDB(s.id);
+                let mediaUrl = s.mediaUrl || '';
+                let assetTopic = s.assetTopic || '';
+                let fallbackSrc = s.fallbackSrc || '';
+
+                if (rec && rec.blob) {
+                    const up = await uploadBinarySlideToCloudUnlimited(s.id, rec.blob);
+                    if (up.mediaUrl) mediaUrl = up.mediaUrl;
+                    if (up.assetTopic) assetTopic = up.assetTopic;
+                    if (s.kind !== 'video' && !fallbackSrc) {
+                        fallbackSrc = await buildCloudCompactImageDataUrl(rec.blob) || '';
+                    }
+                }
+
+                s.mediaUrl = mediaUrl;
+                s.assetTopic = assetTopic;
+                s.fallbackSrc = fallbackSrc;
+
+                manifestSlides.push({
+                    id: s.id,
+                    kind: s.kind || 'image',
+                    mediaUrl: mediaUrl || '',
+                    assetTopic: assetTopic || ''
+                });
+
+                if (!mediaUrl && fallbackSrc) {
+                    await broadcastSlideChunksToCloud(s.id, fallbackSrc);
+                }
+            }
+
+            try {
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
+            } catch (e) {}
+
+            await publishCloudSyncEventSequential('PUBLIC_WALL_MANIFEST_V2', {
+                slides: manifestSlides
+            });
+            await publishCloudSyncEventSequential('PUBLIC_WALL_MANIFEST', {
+                ids: slides.map(s => s.id)
+            });
+            showToast('¡Muro sincronizado al 100% sin límite para todos los socios!');
+        }
+
         async function handleAdminCarouselUpload(event) {
             const files = Array.from(event.target.files || []);
             if (files.length === 0) return;
 
             const slides = safeParseStorageArray('lp_admin_public_carousel');
-            const queuedCloudPayloads = [];
+            const newItemsForCloud = [];
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
@@ -3062,40 +3239,52 @@
                 let cloudDataUrl = null;
                 if (!isVideo) {
                     cloudDataUrl = await buildCloudCompactImageDataUrl(file);
-                    if (cloudDataUrl) {
-                        queuedCloudPayloads.push({
-                            id: slideId,
-                            kind: 'image',
-                            cloudDataUrl
-                        });
-                    }
                 }
 
-                slides.push({
+                const slideObj = {
                     id: slideId,
                     kind: isVideo ? 'video' : 'image',
                     inDb: true,
+                    mediaUrl: '',
+                    assetTopic: `lp_media_asset_${slideId.replace(/[^a-zA-Z0-9_]/g, '')}`,
                     fallbackSrc: cloudDataUrl || ''
-                });
+                };
+                slides.push(slideObj);
+                newItemsForCloud.push({ slideObj, file, cloudDataUrl });
             }
 
             try {
-                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: true, fallbackSrc: s.fallbackSrc || '' }))));
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
             } catch (e) {
-                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: true }))));
+                safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides.map(s => ({ id: s.id, kind: s.kind, inDb: true, mediaUrl: s.mediaUrl || '', assetTopic: s.assetTopic || '' }))));
             }
 
             appState.carouselIndex = Math.max(0, slides.length - 1);
             event.target.value = '';
             await renderPublicCarousel();
-            showToast(`Publicadas ${files.length} lámina(s) en el Muro para todos los usuarios.`);
+            showToast(`Publicadas ${files.length} lámina(s). Sincronizando en alta capacidad con todos los socios...`);
 
-            // Envío secuencial garantizado a la nube para que todos los socios reciban 100% de las imágenes
             (async () => {
-                for (const item of queuedCloudPayloads) {
-                    await publishCloudSyncEventSequential('PUBLIC_WALL_SLIDE_ADD', item);
-                    await new Promise(r => setTimeout(r, 320));
+                for (const item of newItemsForCloud) {
+                    const up = await uploadBinarySlideToCloudUnlimited(item.slideObj.id, item.file);
+                    if (up.mediaUrl) item.slideObj.mediaUrl = up.mediaUrl;
+                    if (up.assetTopic) item.slideObj.assetTopic = up.assetTopic;
+                    if (!up.mediaUrl && item.cloudDataUrl) {
+                        await broadcastSlideChunksToCloud(item.slideObj.id, item.cloudDataUrl);
+                    }
                 }
+                try {
+                    safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
+                } catch (e) {}
+
+                await publishCloudSyncEventSequential('PUBLIC_WALL_MANIFEST_V2', {
+                    slides: slides.map(s => ({
+                        id: s.id,
+                        kind: s.kind || 'image',
+                        mediaUrl: s.mediaUrl || '',
+                        assetTopic: s.assetTopic || ''
+                    }))
+                });
                 await publishCloudSyncEventSequential('PUBLIC_WALL_MANIFEST', {
                     ids: slides.map(s => s.id)
                 });
@@ -3109,7 +3298,7 @@
             const removed = slides.splice(idx, 1)[0];
             if (removed) {
                 if (appState.mediaObjectUrlCache[removed.id]) {
-                    URL.revokeObjectURL(appState.mediaObjectUrlCache[removed.id]);
+                    try { URL.revokeObjectURL(appState.mediaObjectUrlCache[removed.id]); } catch (e) {}
                     delete appState.mediaObjectUrlCache[removed.id];
                 }
                 await deleteMediaBlobFromIndexedDB(removed.id);
@@ -3119,7 +3308,6 @@
                     try { safeStorage.setItem('lp_deleted_slide_ids', JSON.stringify(deletedSlideIds)); } catch (e) {}
                 }
                 publishCloudSyncEvent('PUBLIC_WALL_SLIDE_DEL', { id: removed.id });
-                publishCloudSyncEvent('PUBLIC_WALL_MANIFEST', { ids: slides.map(s => s.id) });
             }
             try {
                 safeStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
@@ -3138,7 +3326,7 @@
 
         function goToPublicCarouselSlide(index) {
             const slides = safeParseStorageArray('lp_admin_public_carousel');
-            if (slides.length === 0) return;
+            if (slides.length <= 1) return;
             appState.carouselIndex = index % slides.length;
             renderPublicCarousel();
         }
@@ -3157,11 +3345,20 @@
                 appState.carouselTimer = null;
             }
 
-            const slides = safeParseStorageArray('lp_admin_public_carousel');
-            const isAdmin = !!(appState.currentUser && appState.currentUser.isAdmin);
-            if (btnRemove) btnRemove.classList.toggle('hidden', !(isAdmin && slides.length > 0));
+            const rawSlides = safeParseStorageArray('lp_admin_public_carousel');
+            const resolvedSlides = [];
 
-            if (slides.length === 0) {
+            for (const s of rawSlides) {
+                const mediaSrc = await resolveSlideDirectMediaUrl(s);
+                if (mediaSrc && mediaSrc.trim().length > 8) {
+                    resolvedSlides.push({ ...s, resolvedSrc: mediaSrc });
+                }
+            }
+
+            const isAdmin = !!(appState.currentUser && appState.currentUser.isAdmin);
+            if (btnRemove) btnRemove.classList.toggle('hidden', !(isAdmin && resolvedSlides.length > 0));
+
+            if (resolvedSlides.length === 0) {
                 stage.innerHTML = `
                     <div class="cosmic-hero-bg rounded-3xl p-6 sm:p-8 text-center border border-sky-500/25">
                         <div class="w-36 mx-auto mb-2">
@@ -3181,21 +3378,11 @@
                 return;
             }
 
-            const idx = appState.carouselIndex % slides.length;
-            const current = slides[idx];
-            let mediaSrc = current.src || current.fallbackSrc || '';
+            const idx = appState.carouselIndex % resolvedSlides.length;
+            const current = resolvedSlides[idx];
+            const mediaSrc = current.resolvedSrc;
 
-            if (appState.mediaObjectUrlCache[current.id]) {
-                mediaSrc = appState.mediaObjectUrlCache[current.id];
-            } else {
-                const rec = await getMediaBlobFromIndexedDB(current.id);
-                if (rec && rec.blob) {
-                    mediaSrc = URL.createObjectURL(rec.blob);
-                    appState.mediaObjectUrlCache[current.id] = mediaSrc;
-                }
-            }
-
-            const navArrowsHtml = slides.length > 1
+            const navArrowsHtml = resolvedSlides.length > 1
                 ? `<button type="button" onclick="stepPublicCarousel(-1);" aria-label="Anterior" class="lp-wall-arrow-btn" style="left: 12px;">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                    </button>
@@ -3203,13 +3390,13 @@
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                    </button>
                    <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-slate-950/75 border border-sky-400/30 text-[10px] font-black text-sky-300 leading-none">
-                        ${idx + 1} / ${slides.length}
+                        ${idx + 1} / ${resolvedSlides.length}
                    </span>`
                 : '';
 
-            const dotsHtml = slides.length > 1
+            const dotsHtml = resolvedSlides.length > 1
                 ? `<div class="flex items-center justify-center gap-1.5 pt-2.5">
-                    ${slides.map((_, i) => `<button type="button" onclick="goToPublicCarouselSlide(${i});" class="h-1.5 rounded-full ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}"></button>`).join('')}
+                    ${resolvedSlides.map((_, i) => `<button type="button" onclick="goToPublicCarouselSlide(${i});" class="h-1.5 rounded-full ${i === idx ? 'w-6 bg-sky-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}"></button>`).join('')}
                    </div>`
                 : '';
 
@@ -3225,16 +3412,16 @@
                 stage.innerHTML = `
                     <div class="lp-elastic-wall-box" onmouseenter="setCarouselHoverPause(true);" onmouseleave="setCarouselHoverPause(false);">
                         ${navArrowsHtml}
-                        <img src="${mediaSrc}" alt="Novedades Leader Prospect" class="lp-elastic-wall-media">
+                        <img src="${mediaSrc}" alt="" onerror="this.style.display='none'; stepPublicCarousel(1);" class="lp-elastic-wall-media">
                     </div>
                     ${dotsHtml}
                 `;
             }
 
-            if (slides.length > 1) {
+            if (resolvedSlides.length > 1) {
                 appState.carouselTimer = setInterval(() => {
                     if (!appState.carouselPaused && !document.getElementById('tab-inicio')?.classList.contains('hidden')) {
-                        appState.carouselIndex = (appState.carouselIndex + 1) % slides.length;
+                        appState.carouselIndex = (appState.carouselIndex + 1) % resolvedSlides.length;
                         renderPublicCarousel();
                     }
                 }, 3000);
@@ -6661,7 +6848,8 @@
             logoutUser,
             togglePasswordVisibility,
             openMobileDrawer,
-            closeMobileDrawer
+            closeMobileDrawer,
+            resyncAllPublicWallSlidesToCloud
         });
 
         if (document.readyState === 'loading') {
