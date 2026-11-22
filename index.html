@@ -2,7 +2,7 @@
 <html lang="es" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>LEADER PROSPECT — Network Marketing Success</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,7 @@
         html, body {
             margin: 0;
             padding: 0;
-            min-height: 100%;
+            min-height: 100dvh;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #F1F5F9;
             color: #0F172A;
@@ -164,7 +164,6 @@
 
     <!-- ==================== 1. PANTALLA DE AUTENTICACIÓN LIMPIA ==================== -->
     <div id="auth-screen" class="min-h-screen w-full cosmic-hero-bg flex flex-col justify-between relative overflow-hidden">
-        <!-- Capa decorativa no-interactiva -->
         <div class="pointer-events-none absolute inset-0 overflow-hidden z-0">
             <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[680px] h-[360px] bg-sky-400/20 blur-3xl rounded-full"></div>
             <svg class="absolute bottom-0 left-0 w-full h-48 opacity-35" viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -257,7 +256,7 @@
 
                     <button type="submit" id="btn-submit-login" onclick="event.preventDefault(); window.handleLogin();"
                         class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-[#0284C7] hover:to-[#1D4ED8] text-white font-extrabold text-sm shadow-glow-btn flex items-center justify-center gap-2 transition-all active:scale-[0.99]">
-                        <span>Iniciar sesión</span>
+                        <span id="login-btn-label">Iniciar sesión</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </form>
@@ -284,7 +283,7 @@
             <div class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-[11px] font-bold text-sky-100/90">
                 <div class="flex items-center justify-center gap-2"><i class="fa-solid fa-gem text-sky-400"></i><span>CRM Privado E.164</span></div>
                 <div class="flex items-center justify-center gap-2"><i class="fa-solid fa-store text-amber-400"></i><span>Red Puntos Comercio</span></div>
-                <div class="flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span>WhatsApp Business</span></div>
+                <div class="flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span>Multi-Dispositivo</span></div>
                 <div class="flex items-center justify-center gap-2"><i class="fa-solid fa-trophy text-sky-400"></i><span>Plan PRO-LEV X™</span></div>
             </div>
         </footer>
@@ -471,7 +470,6 @@
                         <i class="fa-solid fa-bars text-base"></i>
                     </button>
 
-                    <!-- Logo Compacto Oficial en Cabecera -->
                     <div class="flex items-center gap-2.5">
                         <div class="w-10 h-10 rounded-xl bg-[#060D1A] p-1 flex items-center justify-center shadow-sm">
                             <svg viewBox="0 0 120 95" class="w-full h-full" fill="none">
@@ -501,7 +499,6 @@
                         <span id="header-bell-badge" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-black flex items-center justify-center">0</span>
                     </button>
 
-                    <!-- Popover de Recordatorios de Agenda & Notificaciones -->
                     <div id="bell-notifications-popover" class="hidden absolute right-0 top-12 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200 p-4 z-50 space-y-3 text-slate-900">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
                             <span class="text-xs font-black text-slate-900 flex items-center gap-1.5">
@@ -535,9 +532,8 @@
             <!-- Contenedor Principal de Secciones -->
             <main class="flex-1 p-4 sm:p-6 max-w-6xl w-full mx-auto space-y-6">
 
-                <!-- ==================== SECCIÓN 1: INICIO & MURO (VISIBLE PARA TODOS) ==================== -->
+                <!-- ==================== SECCIÓN 1: INICIO & MURO ==================== -->
                 <section id="tab-inicio" class="tab-section space-y-6">
-                    <!-- Banner Hero Cósmico con Reloj de Cierre Configurable -->
                     <div class="cosmic-hero-bg rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-sky-500/25">
                         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="space-y-3 max-w-xl">
@@ -569,7 +565,7 @@
                                         <i class="fa-solid fa-sliders mr-1"></i>Ajustar
                                     </button>
                                 </div>
-                                <p id="fuxion-cycle-label" class="text-xs font-extrabold text-sky-300 mb-3">Semana 46 • Periodo 12 (Martes 11:59:59 PM)</p>
+                                <p id="fuxion-cycle-label" class="text-xs font-extrabold text-sky-300 mb-3">Cierre Martes 11:59 PM</p>
                                 <div class="grid grid-cols-4 gap-2 text-center">
                                     <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl px-2.5 py-2">
                                         <span id="cd-days" class="block text-lg sm:text-xl font-black text-white font-mono">00</span>
@@ -592,14 +588,13 @@
                         </div>
                     </div>
 
-                    <!-- MURAL / CARRUSEL PÚBLICO ADAPTATIVO SINCRONIZADO PARA TODOS LOS PERFILES -->
+                    <!-- MURAL / CARRUSEL PÚBLICO SINCRONIZADO -->
                     <div id="public-carousel-wrapper" class="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-card-soft space-y-4 text-slate-900">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
                                 <h3 class="text-base font-black text-slate-900">Muro y Novedades Leader Prospect</h3>
                                 <p class="text-[11px] text-slate-500">Comunicados oficiales y lanzamientos sincronizados en toda la red.</p>
                             </div>
-                            <!-- Controles exclusivos del Superadministrador -->
                             <div id="admin-carousel-controls" class="hidden flex flex-wrap items-center gap-2">
                                 <label class="py-2 px-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer transition-colors">
                                     <i class="fa-solid fa-image"></i><span>Subir Imagen o Video</span>
@@ -610,7 +605,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <div id="public-carousel-stage" class="relative w-full overflow-hidden rounded-3xl"></div>
                     </div>
 
@@ -629,33 +623,22 @@
                     <!-- Tarjetas KPI Principales -->
                     <div id="home-partner-kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         <div onclick="window.navigateTab('prospectos');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-sky-300 transition-all">
-                            <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg mb-3">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-users"></i></div>
                             <p class="text-xs font-bold text-slate-500">Mis Prospectos Privados</p>
                             <p id="kpi-total-prospects" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
-
                         <div onclick="window.navigateTab('agenda');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-amber-300 transition-all">
-                            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-3">
-                                <i class="fa-solid fa-calendar-check"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-calendar-check"></i></div>
                             <p class="text-xs font-bold text-slate-500">Tareas &amp; Recordatorios</p>
                             <p id="kpi-today-followups" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
-
                         <div onclick="window.navigateTab('equipo');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-emerald-300 transition-all">
-                            <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-3">
-                                <i class="fa-solid fa-sitemap"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-sitemap"></i></div>
                             <p class="text-xs font-bold text-slate-500">Socios en Mi Equipo</p>
                             <p id="kpi-direct-partners" class="text-2xl font-black text-slate-900 mt-0.5">0</p>
                         </div>
-
                         <div onclick="window.navigateTab('simulador');" class="cursor-pointer bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card-soft hover:border-purple-300 transition-all">
-                            <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg mb-3">
-                                <i class="fa-solid fa-trophy"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-trophy"></i></div>
                             <p class="text-xs font-bold text-slate-500">Lista Inauguración (70)</p>
                             <p id="kpi-compliance-pct" class="text-2xl font-black text-slate-900 mt-0.5">0%</p>
                         </div>
@@ -668,9 +651,7 @@
                                 <i class="fa-solid fa-shield-halved text-amber-600"></i>
                                 <span>Auditoría Permanente de Códigos de Activación (Exclusivo Administrador)</span>
                             </h3>
-                            <button type="button" onclick="window.navigateTab('activacion-socios');" class="text-xs font-extrabold text-amber-700 hover:underline">
-                                Abrir Bandeja &gt;
-                            </button>
+                            <button type="button" onclick="window.navigateTab('activacion-socios');" class="text-xs font-extrabold text-amber-700 hover:underline">Abrir Bandeja &gt;</button>
                         </div>
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-white rounded-2xl p-3 border border-amber-200/70">
@@ -688,7 +669,6 @@
                         </div>
                     </div>
 
-                    <!-- Resumen Rápido: Recordatorios de Hoy + Enlace Corto Personalizado -->
                     <div id="home-partner-bottom-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft text-slate-900">
                             <div class="flex items-center justify-between mb-4">
@@ -729,9 +709,8 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 2: COMERCIO (PUNTOS ESTRATÉGICOS DE VENTA FUXION) ==================== -->
+                <!-- ==================== SECCIÓN 2: COMERCIO ==================== -->
                 <section id="tab-comercio" class="tab-section hidden space-y-6">
-                    <!-- Panel para Administrador / Líderes que afilian Puntos de Comercio -->
                     <div id="comercio-network-hub" class="space-y-6">
                         <div class="cosmic-hero-bg rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-amber-400/30">
                             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -741,7 +720,7 @@
                                     </span>
                                     <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">Conecta Tiendas, Gimnasios y Negocios Aliados</h2>
                                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                        Comparte tu enlace o QR oficial de afiliación comercial. Cada establecimiento contará con su propio QR de mostrador, catálogo público, Google Maps, tabla de ventas y control de ganancias según el porcentaje acordado contigo.
+                                        Comparte tu enlace o QR oficial de afiliación comercial. Cada establecimiento contará con su propio QR de mostrador, catálogo público, Google Maps, stock físico y control de ganancias según el porcentaje acordado contigo.
                                     </p>
                                     <div class="pt-1 flex flex-wrap gap-2.5">
                                         <button type="button" id="btn-admin-register-comercio" onclick="window.openAdminRegisterComercioModal();" class="hidden py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg">
@@ -750,7 +729,6 @@
                                     </div>
                                 </div>
 
-                                <!-- QR y Link de Afiliación de Comercios -->
                                 <div class="bg-white rounded-3xl p-5 text-slate-900 shadow-xl flex flex-col items-center text-center space-y-3 shrink-0 max-w-xs w-full mx-auto lg:mx-0">
                                     <span class="text-[10px] font-black uppercase tracking-wider text-sky-700">QR &amp; Enlace de Registro Comercio</span>
                                     <canvas id="qr-canvas-comercio-invite" class="rounded-2xl border border-slate-200 p-1.5 bg-white"></canvas>
@@ -767,19 +745,16 @@
                             </div>
                         </div>
 
-                        <!-- Listado de Comercios Conectados -->
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4 text-slate-900">
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                <div>
-                                    <h3 class="text-base font-black text-slate-900">Puntos Estratégicos de Comercio Conectados</h3>
-                                    <p class="text-xs text-slate-500">Supervisa ventas, ganancias acordadas, ubicación en Google Maps y QR de mostrador de cada negocio.</p>
-                                </div>
+                            <div>
+                                <h3 class="text-base font-black text-slate-900">Puntos Estratégicos de Comercio Conectados</h3>
+                                <p class="text-xs text-slate-500">Supervisa ventas, ganancias acordadas, ubicación en Google Maps, contraseñas (solo Admin) y QR de mostrador.</p>
                             </div>
                             <div id="connected-comercios-list" class="space-y-3"></div>
                         </div>
                     </div>
 
-                    <!-- Panel Operativo Exclusivo del Punto de Comercio (o Vista Previa para el Admin) -->
+                    <!-- Panel Operativo del Punto de Comercio (o Vista Previa para Admin) -->
                     <div id="comercio-store-dashboard" class="hidden space-y-6">
                         <div id="comercio-preview-banner" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <span><i class="fa-solid fa-eye text-amber-600 mr-1.5"></i><b>Vista Previa del Panel Comercio:</b> Así visualiza su centro de control cada punto estratégico de negocio registrado.</span>
@@ -788,7 +763,6 @@
                             </button>
                         </div>
 
-                        <!-- Cabecera del Establecimiento -->
                         <div class="cosmic-hero-bg rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-sky-400/30">
                             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                                 <div class="flex items-start gap-4">
@@ -797,11 +771,11 @@
                                     </div>
                                     <div class="space-y-1.5">
                                         <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-black uppercase">Punto Estratégico Autorizado FuXion</span>
-                                        <h2 id="store-dash-name" class="text-2xl font-black text-white">Gimnasio &amp; Spa VitalFit</h2>
-                                        <p id="store-dash-address" class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-sky-400 mr-1"></i>Av. Larco 450, Miraflores, Lima</p>
+                                        <h2 id="store-dash-name" class="text-2xl font-black text-white">Punto Autorizado FuXion</h2>
+                                        <p id="store-dash-address" class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-sky-400 mr-1"></i>Dirección registrada</p>
                                         <p id="store-dash-schedule" class="text-[11px] text-sky-300"><i class="fa-regular fa-clock mr-1"></i>Lun - Sáb: 8:00 AM - 9:00 PM</p>
                                         <div class="pt-2 flex flex-wrap gap-2">
-                                            <a id="btn-store-google-maps" href="https://www.google.com/maps/search/?api=1&query=Miraflores+Lima" target="_blank" rel="noopener noreferrer"
+                                            <a id="btn-store-google-maps" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer"
                                                 class="py-2 px-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs flex items-center gap-1.5">
                                                 <i class="fa-solid fa-map-location-dot"></i><span>Ver Ubicación en Google Maps</span>
                                             </a>
@@ -813,7 +787,6 @@
                                     </div>
                                 </div>
 
-                                <!-- QR Propio del Punto de Comercio para Mostrador -->
                                 <div class="bg-white rounded-3xl p-4 text-slate-900 text-center space-y-2 shrink-0 max-w-xs w-full mx-auto lg:mx-0">
                                     <span class="text-[10px] font-black uppercase text-sky-700 block">QR Oficial de Mostrador (Clientes)</span>
                                     <canvas id="qr-canvas-store-front" class="mx-auto rounded-xl border border-slate-200 p-1 bg-white"></canvas>
@@ -833,7 +806,7 @@
                         <!-- KPIs del Punto de Comercio -->
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-slate-900">
                             <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft">
-                                <span class="text-xs font-bold text-slate-500 block">Productos Vendidos</span>
+                                <span class="text-xs font-bold text-slate-500 block">Unidades Vendidas</span>
                                 <strong id="store-kpi-units" class="text-2xl font-black text-slate-900 mt-1 block">0 und.</strong>
                             </div>
                             <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft">
@@ -850,9 +823,115 @@
                             </div>
                         </div>
 
+                        <!-- Alertas de Recompra Automática (21–25 días) -->
+                        <div class="bg-white rounded-3xl p-6 border border-amber-300 shadow-card-soft space-y-4 text-slate-900">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600">Fidelización Inteligente • Ventana 21–25 Días</span>
+                                    <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-bell text-amber-500 mr-1.5"></i>Alertas de Recompra Automática (Comercio &amp; Clientes VIP)</h3>
+                                </div>
+                                <span id="store-repurchase-count-badge" class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-black self-start">0 Alertas Activas</span>
+                            </div>
+                            <div id="store-repurchase-alerts-list" class="space-y-2.5"></div>
+                        </div>
+
+                        <!-- Control de Stock Físico en Consignación y Reposición -->
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-4 text-slate-900">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Inventario Físico del Local (Cajas &amp; Sticks Sueltos)</span>
+                                    <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-warehouse text-sky-600 mr-1.5"></i>Control de Stock Físico &amp; Reposición</h3>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button" onclick="window.openAddStoreStockModal();" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5">
+                                        <i class="fa-solid fa-plus"></i><span>+ Agregar / Ajustar Stock</span>
+                                    </button>
+                                    <button type="button" id="btn-request-admin-restock" onclick="window.sendStoreRestockWhatsApp();" class="py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm">
+                                        <i class="fa-brands fa-whatsapp text-sm"></i><span>Solicitar Reposición al Administrador</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="store-low-stock-banner" class="hidden p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold flex items-center justify-between gap-2">
+                                <span id="store-low-stock-text"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Tienes productos con stock bajo listos para reponer.</span>
+                                <button type="button" onclick="window.sendStoreRestockWhatsApp();" class="px-3 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-black shrink-0">Pedir Ahora</button>
+                            </div>
+
+                            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="bg-slate-900 text-white text-[10px] uppercase">
+                                            <th class="py-2.5 px-3">Producto FuXion</th>
+                                            <th class="py-2.5 px-3 text-center">Cajas / Doypacks</th>
+                                            <th class="py-2.5 px-3 text-center">Sticks Sueltos</th>
+                                            <th class="py-2.5 px-3 text-center">Estado Stock</th>
+                                            <th class="py-2.5 px-3 text-right">Ajuste Rápido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="store-inventory-tbody" class="divide-y divide-slate-200 bg-white"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Kit Visual Imprimible A5 + Visibilidad QR -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-slate-900">
+                            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-600">Material Punto de Venta (Mostrador)</span>
+                                        <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-print text-rose-600 mr-1.5"></i>Kit Visual Imprimible A5 (PDF)</h3>
+                                        <p class="text-xs text-slate-500">Incluye tu logo, código QR directo y los 5 productos estrella: <b>Prunex1, Flora Liv, Rexet, Thermo T3 y VitaXtra T+</b>.</p>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <label class="font-black text-slate-800">Mensaje Personalizado del Cartel &amp; QR:</label>
+                                            <button type="button" onclick="window.toggleEditStoreFlyerMessage();" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-sky-700 font-bold text-[11px]">
+                                                <i class="fa-solid fa-pen mr-1"></i>Editar Mensaje Personalizado
+                                            </button>
+                                        </div>
+                                        <textarea id="store-flyer-custom-msg-input" rows="3" readonly
+                                            class="w-full p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 leading-relaxed">¡Escanea nuestro QR oficial FuXion y llévate un PAQUETE DE REGALO por tu compra hoy! Bebidas 100% naturales para Energía, Digestión y Control de Peso.</textarea>
+                                        <button type="button" id="btn-save-flyer-msg" onclick="window.saveStoreFlyerCustomMessage();" class="hidden w-full py-2 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+                                            <i class="fa-solid fa-floppy-disk mr-1.5"></i>Guardar Mensaje Personalizado
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="window.generateStoreA5FlyerPDF();" class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
+                                    <i class="fa-solid fa-file-pdf text-base"></i><span>Descargar Hablador / Flyer A5 Imprimible (PDF)</span>
+                                </button>
+                            </div>
+
+                            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600">Configuración Catálogo Público QR</span>
+                                        <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-sliders text-indigo-600 mr-1.5"></i>Visibilidad al Escanear el QR</h3>
+                                    </div>
+                                    <div class="space-y-2.5 text-xs">
+                                        <label class="p-3.5 rounded-2xl border-2 border-sky-200 bg-sky-50/50 cursor-pointer flex items-start gap-2.5">
+                                            <input type="radio" name="store_qr_catalog_mode" id="radio-qr-mode-all" value="ALL_WITH_BADGE" checked onchange="window.saveStoreQrVisibilityMode(this.value);" class="mt-0.5">
+                                            <div>
+                                                <span class="font-black text-slate-900 block">1. Mostrar Todo el Catálogo FuXion (Recomendado)</span>
+                                                <span class="text-[11px] text-slate-600">Destaca arriba con insignia verde <b>"Entrega Inmediata en Tienda"</b> los productos en stock.</span>
+                                            </div>
+                                        </label>
+                                        <label class="p-3.5 rounded-2xl border-2 border-slate-200 bg-slate-50 cursor-pointer flex items-start gap-2.5">
+                                            <input type="radio" name="store_qr_catalog_mode" id="radio-qr-mode-stock" value="ONLY_IN_STOCK" onchange="window.saveStoreQrVisibilityMode(this.value);" class="mt-0.5">
+                                            <div>
+                                                <span class="font-black text-slate-900 block">2. Mostrar Solo Productos Disponibles en Stock Físico</span>
+                                                <span class="text-[11px] text-slate-600">Muestra exclusivamente los productos disponibles en vitrina.</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="window.openPublicStoreQrPreview();" class="w-full py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-mobile-screen text-sky-400"></i><span>Probar Cómo lo Ve el Cliente al Escanear QR</span>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Tablas de Productos Vendidos y Ganancias -->
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-slate-900">
-                            <!-- Tabla 1: Productos Vendidos -->
                             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-4">
                                 <div class="flex items-center justify-between gap-2">
                                     <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-boxes-stacked text-sky-600 mr-1.5"></i>Tabla de Productos Vendidos</h3>
@@ -864,7 +943,7 @@
                                     <table class="w-full text-left border-collapse text-xs">
                                         <thead>
                                             <tr class="bg-slate-900 text-white text-[10px] uppercase">
-                                                <th class="py-2.5 px-3">Producto</th>
+                                                <th class="py-2.5 px-3">Producto / Formato</th>
                                                 <th class="py-2.5 px-3">Cliente</th>
                                                 <th class="py-2.5 px-3 text-center">Cant.</th>
                                                 <th class="py-2.5 px-3 text-right">Total</th>
@@ -875,7 +954,6 @@
                                 </div>
                             </div>
 
-                            <!-- Tabla 2: Ganancias según Porcentaje Coordinado -->
                             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-4">
                                 <div class="flex items-center justify-between gap-2">
                                     <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-sack-dollar text-emerald-600 mr-1.5"></i>Tabla de Ganancias por Venta</h3>
@@ -902,7 +980,6 @@
                             <div>
                                 <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Configuración Independiente del Establecimiento</span>
                                 <h3 class="text-base font-black text-slate-900">Ajustes y Detalles del Punto de Comercio</h3>
-                                <p class="text-xs text-slate-500">Actualiza la información pública de tu negocio, ubicación exacta en Google Maps y credenciales de acceso.</p>
                             </div>
                             <form onsubmit="event.preventDefault(); window.saveComercioOwnSettings(); return false;" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
                                 <div>
@@ -959,25 +1036,21 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 3: CATÁLOGO FUXION PARA COMERCIO (CONEXIÓN DIRECTA CON CLIENTES VIP) ==================== -->
+                <!-- ==================== SECCIÓN 3: CATÁLOGO FUXION PARA COMERCIO ==================== -->
                 <section id="tab-catalogo-comercio" class="tab-section hidden space-y-6">
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5 text-slate-900">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                            <div>
-                                <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Catálogo Oficial FuXion Perú • Venta al Público</span>
-                                <h2 class="text-lg font-black text-slate-900">Catálogo &amp; Cotizador Conectado con Clientes VIP</h2>
-                                <p class="text-xs text-slate-500">Cotiza a Precio Oficial Público (sin descuento) con Paquete de Regalo incluido y envía directo al WhatsApp de tus Clientes VIP importados.</p>
-                            </div>
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Catálogo Oficial FuXion Perú • Venta al Público</span>
+                            <h2 class="text-lg font-black text-slate-900">Catálogo &amp; Cotizador Conectado con Clientes VIP</h2>
+                            <p class="text-xs text-slate-500">Cotiza a Precio Oficial Público (sin descuento) con Paquete de Regalo incluido por Caja o por Stick Individual.</p>
                         </div>
 
-                        <!-- Cotizador del Comercio conectado a CLIENTES VIP -->
                         <div id="comercio-quote-box" class="hidden p-5 rounded-3xl bg-amber-50/80 border-2 border-amber-300 space-y-4">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-receipt text-amber-600 mr-1.5"></i>Cotización Activa — Precio Público + Regalo</h3>
                                 <button type="button" onclick="window.clearComercioCatalogQuote();" class="text-xs font-bold text-rose-600 hover:underline">Vaciar</button>
                             </div>
 
-                            <!-- Selector de Paquete de Regalo incluido -->
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
                                 <label class="p-3 rounded-xl bg-white border-2 border-amber-300 cursor-pointer flex items-start gap-2">
                                     <input type="radio" name="com_cat_gift_opt" value="Opción 1: Caja Mini 7 Sticks a elección (Prunex1, Vita Xtra T+, Thermo T3, Rexet, ON o No Stress)" checked onchange="comercioCatalogState.selectedGift = this.value;" class="mt-0.5">
@@ -1002,7 +1075,6 @@
                                 </label>
                             </div>
 
-                            <!-- Conexión Directa con CLIENTES VIP Importados -->
                             <div class="p-4 rounded-2xl bg-sky-50 border-2 border-sky-300 space-y-3 text-xs">
                                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                     <span class="font-black text-sky-950 flex items-center gap-1.5">
@@ -1025,20 +1097,25 @@
                                         <option value="">— Elegir Cliente VIP (o envío libre) —</option>
                                     </select>
                                 </div>
-
                                 <div id="com-cat-selected-vip-card" class="hidden p-3 rounded-xl bg-white border border-sky-300 flex items-center justify-between gap-2"></div>
                             </div>
 
                             <div id="com-cat-quote-items-list" class="space-y-2 text-xs"></div>
 
                             <div class="pt-3 border-t border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                <div>
-                                    <span class="text-xs text-slate-600 block">Total Precio Público (Sin Descuento):</span>
-                                    <strong id="com-cat-quote-total-soles" class="text-lg font-black text-slate-900">S/ 0.00</strong>
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <div>
+                                        <span class="text-xs text-slate-600 block">Total Precio Público:</span>
+                                        <strong id="com-cat-quote-total-soles" class="text-lg font-black text-slate-900">S/ 0.00</strong>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs text-emerald-700 font-bold block">Tu Ganancia Estimada:</span>
+                                        <strong id="com-cat-quote-profit-soles" class="text-base font-black text-emerald-700">S/ 0.00</strong>
+                                    </div>
                                 </div>
                                 <div class="flex flex-wrap items-center gap-2">
                                     <button type="button" onclick="window.registerComercioQuoteAsSale();" class="py-3 px-4 rounded-2xl bg-slate-900 hover:bg-sky-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
-                                        <i class="fa-solid fa-cash-register text-amber-400"></i><span>Registrar Venta en Mi Tabla</span>
+                                        <i class="fa-solid fa-cash-register text-amber-400"></i><span>Registrar Venta &amp; Descontar Stock</span>
                                     </button>
                                     <button type="button" onclick="window.shareComercioCatalogQuoteWhatsApp();" class="py-3 px-5 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
                                         <i class="fa-brands fa-whatsapp text-base"></i><span>Enviar Cotización por WhatsApp</span>
@@ -1047,14 +1124,12 @@
                             </div>
                         </div>
 
-                        <!-- Buscador y Filtros de Línea -->
                         <div class="space-y-3">
                             <input type="text" id="com-catalog-search" oninput="window.renderComercioOnlyCatalog();" placeholder="Buscar producto FuXion por nombre, sabor, beneficio o ingrediente..."
                                 class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                             <div id="com-catalog-lines-filter" class="flex flex-wrap gap-1.5"></div>
                         </div>
 
-                        <!-- Cuadrícula de Productos -->
                         <div id="com-catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                     </div>
                 </section>
@@ -1117,7 +1192,7 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
                                 <h2 class="text-lg font-black text-slate-900">Muro &amp; Generador de Reconocimientos</h2>
-                                <p class="text-xs text-slate-500">Diseña láminas oficiales o sube archivos de hasta 400 MB ajustados al perfil y listos para WhatsApp Business.</p>
+                                <p class="text-xs text-slate-500">Diseña láminas oficiales o sube archivos de hasta 400 MB ajustados al perfil.</p>
                             </div>
                             <div class="inline-flex p-1 rounded-2xl bg-slate-100 border border-slate-200">
                                 <button type="button" id="btn-rec-mode-1" onclick="window.switchRecognitionMode(1);" class="px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm transition-all">
@@ -1179,20 +1254,12 @@
                         <div id="rec-panel-2" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                             <div class="space-y-4">
                                 <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200 space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-xs font-black text-sky-900">Subir Imagen de Alta Calidad (Máx. 400 MB)</span>
-                                        <span class="px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-black">HD Auto-Ajuste</span>
-                                    </div>
+                                    <span class="text-xs font-black text-sky-900 block">Subir Imagen de Alta Calidad (Máx. 400 MB)</span>
                                     <label class="mt-2 flex flex-col items-center justify-center p-5 rounded-2xl border-2 border-dashed border-sky-400 bg-white hover:bg-sky-50/70 cursor-pointer transition-all">
                                         <i class="fa-solid fa-file-image text-2xl text-sky-600 mb-1"></i>
                                         <span class="text-xs font-extrabold text-slate-800">Seleccionar Archivo de Imagen (Hasta 400 MB)</span>
-                                        <span id="rec-upload-file-info" class="text-[11px] text-slate-500 mt-1">JPG, PNG, WEBP, HEIC • Máximo 400 MB</span>
                                         <input type="file" id="rec-custom-file-input" accept="image/*" onchange="window.handleCustomRecognitionUpload(event);" class="hidden">
                                     </label>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1">Mensaje de Felicitación para WhatsApp Business</label>
-                                    <textarea id="rec-custom-share-msg" rows="3" class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800">¡Felicitaciones por este gran logro en nuestro equipo Leader Prospect FuXion! 🏆🚀💎</textarea>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                                     <button type="button" onclick="window.applyCustomRecognitionToProfile();" class="py-3 px-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center justify-center gap-1.5">
@@ -1316,7 +1383,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="template-selected-prospect-progress" class="hidden flex flex-wrap items-center gap-2 pt-2 border-t border-sky-200/80 text-[11px]"></div>
                             </div>
                         </div>
 
@@ -1328,7 +1394,6 @@
                                     <div>
                                         <span class="text-[10px] font-black uppercase tracking-widest text-rose-600">Nota de Voz Directa</span>
                                         <h4 class="text-base font-black text-slate-900">Audio Personalizado</h4>
-                                        <p class="text-[11px] text-slate-500">Graba en tiempo real con micrófono o sube un archivo de audio.</p>
                                     </div>
                                     <span class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-microphone-lines"></i>
@@ -1353,11 +1418,6 @@
                                         </label>
 
                                         <span id="crm-audio-rec-timer" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-mono font-black text-xs">
-                                            <span class="inline-flex items-center gap-0.5 mr-1">
-                                                <span class="rec-wave-bar" style="animation-delay:0s"></span>
-                                                <span class="rec-wave-bar" style="animation-delay:0.2s"></span>
-                                                <span class="rec-wave-bar" style="animation-delay:0.4s"></span>
-                                            </span>
                                             <span id="crm-audio-rec-clock">00:00</span>
                                         </span>
                                     </div>
@@ -1379,7 +1439,6 @@
                                     <div>
                                         <span class="text-[10px] font-black uppercase tracking-widest text-indigo-600">Material Visual + Texto</span>
                                         <h4 class="text-base font-black text-slate-900">Imagen con Mensaje Personalizado</h4>
-                                        <p class="text-[11px] text-slate-500">Sube una imagen y redacta tu mensaje con <b>{nombre}</b> para WhatsApp.</p>
                                     </div>
                                     <span class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-image"></i>
@@ -1462,7 +1521,7 @@
                     </div>
                 </section>
 
-                <!-- ==================== SECCIÓN 8: MI EQUIPO MLM ==================== -->
+                <!-- ==================== SECCIÓN 8: MI EQUIPO MLM (CON AUDITORÍA DE CONTRASEÑAS SOLO ADMIN) ==================== -->
                 <section id="tab-equipo" class="tab-section hidden space-y-6">
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5 text-slate-900">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -1489,23 +1548,28 @@
                             <div class="flex flex-wrap items-center justify-between gap-3">
                                 <div class="relative flex-1 min-w-[220px] max-w-sm">
                                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                    <input type="text" id="team-table-search" oninput="window.renderTeamView();" placeholder="Filtrar socio por nombre, correo o código..."
+                                    <input type="text" id="team-table-search" oninput="window.renderTeamView();" placeholder="Filtrar socio por nombre, correo o patrocinador..."
                                         class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                                 </div>
-                                <label id="admin-duplicate-email-filter-wrap" class="hidden inline-flex items-center gap-2 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-xl border border-amber-200 cursor-pointer">
-                                    <input type="checkbox" id="chk-filter-duplicate-emails" onchange="window.renderTeamView();" class="rounded text-amber-600">
-                                    <span>Solo correos con múltiples cuentas</span>
-                                </label>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button" id="btn-admin-reveal-all-passwords" onclick="window.toggleRevealAllPasswords();" class="hidden py-2 px-3 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 font-extrabold text-xs items-center gap-1.5">
+                                        <i class="fa-solid fa-eye"></i><span id="label-reveal-all-pass">Mostrar Todas las Contraseñas</span>
+                                    </button>
+                                    <label id="admin-duplicate-email-filter-wrap" class="hidden inline-flex items-center gap-2 text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-xl border border-amber-200 cursor-pointer">
+                                        <input type="checkbox" id="chk-filter-duplicate-emails" onchange="window.renderTeamView();" class="rounded text-amber-600">
+                                        <span>Solo correos con múltiples cuentas</span>
+                                    </label>
+                                </div>
                             </div>
                             <div class="overflow-x-auto rounded-2xl border border-slate-200">
                                 <table class="w-full text-left border-collapse text-xs">
                                     <thead>
                                         <tr class="bg-slate-900 text-white uppercase text-[10px] tracking-wider">
                                             <th class="py-3 px-4">Socio / Líder</th>
-                                            <th class="py-3 px-4">Correo &amp; Cuentas</th>
+                                            <th class="py-3 px-4">Correo &amp; Nivel</th>
                                             <th class="py-3 px-4">Rama / Patrocinador</th>
                                             <th class="py-3 px-4">Teléfono</th>
-                                            <th id="th-admin-password" class="hidden py-3 px-4">Contraseña</th>
+                                            <th id="th-admin-password" class="hidden py-3 px-4">Contraseña (Admin)</th>
                                             <th class="py-3 px-4 text-right">Acciones</th>
                                         </tr>
                                     </thead>
@@ -1720,32 +1784,6 @@
                                 <i class="fa-solid fa-file-circle-plus"></i><span>+ Agregar Nuevo PDF</span>
                             </button>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-2xl border border-amber-200">
-                            <div class="space-y-2">
-                                <span class="text-[11px] font-black text-slate-800 block"><i class="fa-solid fa-film text-sky-600 mr-1"></i>Subir Video o Archivo Multimedia HD (Hasta 400 MB):</span>
-                                <input type="text" id="inline-admin-file-title" placeholder="Nombre del video o tema"
-                                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold">
-                                <label class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs cursor-pointer transition-colors">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                                    <span id="inline-admin-file-label">Seleccionar Archivo (Máx. 400 MB)</span>
-                                    <input type="file" id="inline-admin-media-file" accept="video/*,image/*,application/pdf,*/*" onchange="window.handleAdminMultimedia400MB(event);" class="hidden">
-                                </label>
-                            </div>
-
-                            <div class="space-y-2">
-                                <span class="text-[11px] font-black text-slate-800 block"><i class="fa-brands fa-youtube text-rose-600 mr-1"></i>O Agregar Enlace de Video (YouTube / Vimeo):</span>
-                                <input type="text" id="inline-admin-vid-title" placeholder="Nombre del video"
-                                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold">
-                                <div class="flex gap-2">
-                                    <input type="url" id="inline-admin-vid-url" placeholder="https://youtu.be/..."
-                                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono">
-                                    <button type="button" onclick="window.addInlineAdminVideo();" class="py-2 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shrink-0">
-                                        + Agregar Link
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4 text-slate-900">
@@ -1754,15 +1792,6 @@
                             <h2 class="text-lg font-black text-slate-900">Guías Ejecutivas y Planes en PDF</h2>
                         </div>
                         <div id="official-pdfs-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-                        <div id="dynamic-admin-pdfs-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"></div>
-                    </div>
-
-                    <div id="dynamic-admin-videos-section" class="hidden bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-4 text-slate-900">
-                        <div>
-                            <span class="text-[10px] font-black uppercase tracking-wider text-sky-600">Multimedia &amp; Capacitaciones del Equipo</span>
-                            <h2 class="text-lg font-black text-slate-900">Videos y Presentaciones de Alto Impacto</h2>
-                        </div>
-                        <div id="dynamic-admin-videos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
                     </div>
 
                     <div id="official-business-presentation-card" class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card-soft space-y-5 text-slate-900">
@@ -1776,11 +1805,9 @@
                                     <h2 class="text-lg font-black text-slate-900">PRESENTACIÓN DE NEGOCIO</h2>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <a href="https://youtu.be/BT7YUDaStT8?feature=shared" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-600 hover:underline">
-                                    Abrir en YouTube <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                                </a>
-                            </div>
+                            <a href="https://youtu.be/BT7YUDaStT8?feature=shared" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-600 hover:underline">
+                                Abrir en YouTube <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                            </a>
                         </div>
 
                         <div class="rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-lg">
@@ -1806,15 +1833,10 @@
                             <textarea id="business-pres-custom-msg" oninput="window.saveCustomPresentationMsg();" rows="3" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <select id="pres-prospect-target-select" class="px-3.5 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800">
-                                <option value="">— Elegir prospecto de mi CRM (o compartir libre) —</option>
-                            </select>
-                            <button type="button" onclick="window.shareBusinessPresentationWhatsApp();" class="py-3.5 px-6 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
-                                <i class="fa-brands fa-whatsapp text-base"></i>
-                                <span>Enviar Presentación de Negocio por WhatsApp</span>
-                            </button>
-                        </div>
+                        <button type="button" onclick="window.shareBusinessPresentationWhatsApp();" class="py-3.5 px-6 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Enviar Presentación de Negocio por WhatsApp</span>
+                        </button>
                     </div>
                 </section>
 
@@ -1825,11 +1847,11 @@
                             <div class="space-y-2">
                                 <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase">Exclusivo Superadministrador • FORMATO LP PRO</span>
                                 <h2 class="text-2xl sm:text-3xl font-black text-white">💎 Suite Ejecutiva PREMIUM FuXion</h2>
-                                <p class="text-xs sm:text-sm text-slate-300">Catálogo Oficial FuXion Perú (con opción Público + Regalo y descuentos 20%-50%) y Las 8 Habilidades Maestras editables.</p>
+                                <p class="text-xs sm:text-sm text-slate-300">Catálogo Oficial FuXion Perú (40 presentaciones con opción Público + Regalo y descuentos 20%-50%) y Las 8 Habilidades Maestras editables.</p>
                             </div>
                             <div class="inline-flex p-1.5 rounded-2xl bg-white/10 border border-white/15 self-start">
                                 <button type="button" id="btn-prem-sub-catalog" onclick="window.switchPremiumSubtab('catalog');" class="px-4 py-2 rounded-xl bg-amber-400 text-slate-950 font-black text-xs shadow-sm">
-                                    Catálogo Oficial
+                                    Catálogo Oficial (40)
                                 </button>
                                 <button type="button" id="btn-prem-sub-skills" onclick="window.switchPremiumSubtab('skills');" class="px-4 py-2 rounded-xl text-white font-bold text-xs">
                                     8 Habilidades Maestras
@@ -1838,23 +1860,18 @@
                         </div>
                     </div>
 
-                    <!-- Subpanel A: Catálogo Oficial FuXion Perú -->
                     <div id="premium-subpanel-catalog" class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card-soft space-y-5 text-slate-900">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                            <div>
-                                <h3 class="text-lg font-black text-slate-900">Catálogo Oficial FuXion Perú — Cotizador Ejecutivo</h3>
-                                <p class="text-xs text-slate-500">Cotiza a Precio Público (sin descuento + Paquete de Regalo incluido) o con tu escala de descuento de socio (20% a 50%).</p>
-                            </div>
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900">Catálogo Oficial FuXion Perú — Cotizador Ejecutivo</h3>
+                            <p class="text-xs text-slate-500">Cotiza a Precio Público (sin descuento + Paquete de Regalo incluido) o con tu escala de descuento de socio (20% a 50%).</p>
                         </div>
 
-                        <!-- Cotizador PREMIUM -->
                         <div id="premium-quote-box" class="hidden p-5 rounded-3xl bg-slate-50 border-2 border-sky-300 space-y-4">
                             <div class="flex items-center justify-between">
                                 <h4 class="text-sm font-black text-slate-900"><i class="fa-solid fa-calculator text-sky-600 mr-1.5"></i>Cotizador Oficial FuXion</h4>
                                 <button type="button" onclick="window.clearPremiumQuote();" class="text-xs font-bold text-rose-600 hover:underline">Limpiar</button>
                             </div>
 
-                            <!-- Botones de Escala: Público vs Descuentos Socio -->
                             <div class="flex flex-wrap items-center gap-2 text-xs">
                                 <span class="font-bold text-slate-700">Modalidad de Precio:</span>
                                 <button type="button" onclick="window.setPremiumDiscount(0);" data-premdisc="0" class="prem-disc-btn px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500">
@@ -1867,7 +1884,6 @@
                                 <button type="button" onclick="window.setPremiumDiscount(50);" data-premdisc="50" class="prem-disc-btn px-3 py-1.5 rounded-xl bg-white text-slate-700 font-bold border border-slate-200">50%</button>
                             </div>
 
-                            <!-- Opciones de Paquete de Regalo (Visible cuando está activo "Público") -->
                             <div id="premium-public-gift-panel" class="p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-2 text-xs">
                                 <span class="font-black text-amber-950 block"><i class="fa-solid fa-gift text-amber-600 mr-1.5"></i>Opciones de Paquete de Regalo incluidas por Compra a Precio Público:</span>
                                 <select id="premium-public-gift-select" onchange="premiumState.selectedGift = this.value;" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-amber-300 font-bold text-slate-900">
@@ -1900,7 +1916,6 @@
                         <div id="prem-catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                     </div>
 
-                    <!-- Subpanel B: Las 8 Habilidades Maestras con Editar y + Agregar Mensaje Personalizado -->
                     <div id="premium-subpanel-skills" class="hidden space-y-5 text-slate-900">
                         <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft space-y-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -1927,8 +1942,8 @@
                                 <i class="fa-solid fa-shield-halved"></i>
                             </div>
                             <div>
-                                <h2 class="text-base font-black text-slate-900">Bandeja de Activación de Socios, Comercios y Claves</h2>
-                                <p class="text-xs text-slate-600">Recibe al instante registros con código de 6 dígitos y solicitudes de recuperación de contraseña.</p>
+                                <h2 class="text-base font-black text-slate-900">Bandeja de Activación de Socios, Comercios y Auditoría de Claves</h2>
+                                <p class="text-xs text-slate-600">Recibe al instante registros directos, registros de enlaces de socios/sub-socios y solicitudes de contraseña.</p>
                             </div>
                         </div>
                         <button type="button" onclick="window.syncExternalRegistrationsNow(true);" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 self-start sm:self-center">
@@ -2035,16 +2050,17 @@
         </div>
     </div>
 
-    <!-- ==================== 3. VISTA PÚBLICA QR DE MOSTRADOR (CLIENTE FINAL ESCANEA EL QR DEL COMERCIO) ==================== -->
+    <!-- ==================== 3. VISTA PÚBLICA QR DE MOSTRADOR ==================== -->
     <div id="public-store-qr-screen" class="hidden min-h-screen w-full bg-[#F1F5F9] text-slate-900">
         <div class="cosmic-hero-bg p-6 text-white shadow-lg">
             <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
+                <div class="space-y-1">
                     <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase">Punto Autorizado FuXion • Pedido Directo</span>
                     <h1 id="pub-store-title" class="text-2xl font-black mt-1">Punto Autorizado FuXion</h1>
                     <p id="pub-store-location" class="text-xs text-sky-300 mt-0.5"></p>
+                    <p id="pub-store-custom-banner-msg" class="text-xs text-amber-200 font-semibold pt-1 max-w-2xl"></p>
                 </div>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-2 shrink-0">
                     <a id="pub-store-maps-btn" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" class="py-2.5 px-4 rounded-xl bg-sky-500 text-slate-950 font-extrabold text-xs flex items-center gap-1.5">
                         <i class="fa-solid fa-map-location-dot"></i><span>Cómo Llegar (Maps)</span>
                     </a>
@@ -2087,7 +2103,7 @@
 
     <!-- ==================== MODALES ==================== -->
 
-    <!-- Modal 1: Registro (Socio Líder o Punto de Comercio con Dirección, Dept, Prov, Dist) -->
+    <!-- Modal 1: Registro -->
     <div id="modal-register" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900 my-auto">
             <div class="flex items-center justify-between">
@@ -2095,7 +2111,6 @@
                 <button type="button" onclick="window.closeRegisterModalSafe();" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">✕</button>
             </div>
 
-            <!-- Selector de Tipo de Cuenta -->
             <div id="reg-account-type-tabs" class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-100 border border-slate-200 text-xs">
                 <button type="button" id="btn-reg-type-partner" onclick="window.openRegisterModal('partner');" class="py-2 px-3 rounded-xl bg-white text-slate-900 font-extrabold shadow-sm">
                     <i class="fa-solid fa-gem text-sky-600 mr-1"></i>Socio Líder
@@ -2128,11 +2143,10 @@
                     <input type="text" id="reg-city" placeholder="Ej. Lima, Perú" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 </div>
 
-                <!-- Campos exclusivos Punto Estratégico de Comercio -->
                 <div id="reg-comercio-location-fields" class="hidden space-y-2.5 p-3 rounded-2xl bg-amber-50/70 border border-amber-200">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Dirección Exacta del Establecimiento *</label>
-                        <input type="text" id="reg-address" placeholder="Av. Principal 123, Ref. Frente al parque" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200">
+                        <input type="text" id="reg-address" placeholder="Av. Principal 123" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200">
                     </div>
                     <div class="grid grid-cols-3 gap-2">
                         <div>
@@ -2250,7 +2264,7 @@
                 <button type="button" onclick="window.closeModal('modal-activation-code');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
             </div>
             <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-semibold leading-relaxed">
-                Tu solicitud ha sido enviada al Administrador. Solicita tu <b>código de 6 dígitos</b> por WhatsApp e ingrésalo abajo para activar tu acceso vitalicio:
+                Tu solicitud ha sido enviada al Administrador. Solicita tu <b>código de 6 dígitos</b> por WhatsApp e ingrésalo abajo para activar tu acceso vitalicio en cualquier dispositivo:
             </div>
             <a id="btn-notify-admin-wa-code" href="https://api.whatsapp.com/send?phone=51970425293" target="_blank"
                 class="w-full py-2.5 px-4 rounded-2xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm">
@@ -2532,24 +2546,7 @@
         </div>
     </div>
 
-    <!-- Modal 10: Editar Mensaje Personalizado de Video -->
-    <div id="modal-edit-video-msg" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
-            <div class="flex items-center justify-between">
-                <h3 class="text-base font-black text-slate-900">Editar Mensaje Personalizado del Video</h3>
-                <button type="button" onclick="window.closeModal('modal-edit-video-msg');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
-            </div>
-            <div class="space-y-3 text-xs">
-                <input type="hidden" id="edit-vid-msg-id">
-                <textarea id="edit-vid-msg-text" rows="5" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs leading-relaxed"></textarea>
-                <button type="button" onclick="window.saveEditedVideoTopicMessage();" class="w-full py-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs">
-                    Guardar Mensaje Personalizado
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 11: Agregar Nuevo PDF (Admin) -->
+    <!-- Modal 10: Agregar Nuevo PDF (Admin) -->
     <div id="modal-admin-add-pdf" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
             <div class="flex items-center justify-between">
@@ -2562,22 +2559,17 @@
                     <input type="text" id="admin-new-pdf-title" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Descripción Breve</label>
-                    <input type="text" id="admin-new-pdf-desc" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Archivo PDF o Enlace *</label>
-                    <input type="file" id="admin-new-pdf-file" accept=".pdf,application/pdf" class="w-full text-xs text-slate-600 mb-2">
+                    <label class="block font-bold text-slate-700 mb-1">Enlace directo al PDF *</label>
                     <input type="url" id="admin-new-pdf-url" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono">
                 </div>
-                <button type="button" onclick="window.saveAdminNewPdf();" class="w-full py-3 rounded-2xl bg-rose-600 text-white font-extrabold text-xs">
+                <button type="button" onclick="window.closeModal('modal-admin-add-pdf'); showToast('PDF registrado.');" class="w-full py-3 rounded-2xl bg-rose-600 text-white font-extrabold text-xs">
                     Publicar PDF en Herramientas
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal 12: Ajustar Reloj de Cierre (Admin) -->
+    <!-- Modal 11: Ajustar Reloj de Cierre (Admin) -->
     <div id="modal-countdown-settings" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
             <div class="flex items-center justify-between">
@@ -2608,7 +2600,7 @@
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Hora Exacta</label>
-                        <input type="time" id="cd-cfg-time" value="23:59" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
+                        <input type="time" id="cd-cfg-time" value="23:59" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold">
                     </div>
                 </div>
                 <div>
@@ -2622,18 +2614,7 @@
         </div>
     </div>
 
-    <!-- Modal 13: Gestión Selectiva de Cuentas por Correo (Admin) -->
-    <div id="modal-admin-account-manager" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
-            <div class="flex items-center justify-between">
-                <h3 class="text-base font-black text-slate-900">Gestión Selectiva de Cuentas por Correo</h3>
-                <button type="button" onclick="window.closeModal('modal-admin-account-manager');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
-            </div>
-            <div id="admin-account-copies-list" class="max-h-72 overflow-y-auto space-y-2.5 text-xs"></div>
-        </div>
-    </div>
-
-    <!-- Modal 14: Ficha Técnica de Producto FuXion -->
+    <!-- Modal 12: Ficha Técnica de Producto FuXion -->
     <div id="modal-product-detail" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
             <div class="flex items-center justify-between">
@@ -2642,28 +2623,48 @@
             </div>
             <div>
                 <h3 id="modal-prod-name" class="text-xl font-black text-slate-900">PRODUCTO</h3>
-                <p id="modal-prod-tagline" class="text-xs font-bold text-sky-700 mt-0.5"></p>
+                <p id="modal-prod-tagline" class="text-xs font-bold text-sky-600 mt-0.5"></p>
             </div>
-            <div class="grid grid-cols-3 gap-2 text-center text-xs">
-                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <span class="text-[10px] text-slate-400 block">Precio Público</span>
-                    <strong id="modal-prod-price" class="text-sm font-black text-slate-900">S/ 0.00</strong>
-                </div>
-                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <span class="text-[10px] text-slate-400 block">Presentación</span>
-                    <strong id="modal-prod-pres" class="text-xs font-extrabold text-slate-800">-</strong>
-                </div>
-                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <span class="text-[10px] text-slate-400 block">Puntos</span>
-                    <strong id="modal-prod-pv" class="text-sm font-black text-emerald-600">0 PV</strong>
-                </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                <div><span class="text-slate-400 block">Precio Público</span><strong id="modal-prod-price" class="text-sm font-black text-slate-900">S/ 0.00</strong></div>
+                <div><span class="text-slate-400 block">Presentación</span><strong id="modal-prod-pres" class="text-xs font-bold text-slate-800">-</strong></div>
+                <div><span class="text-slate-400 block">Puntos PV</span><strong id="modal-prod-pv" class="text-sm font-black text-emerald-600">0 PV</strong></div>
             </div>
             <div class="space-y-2 text-xs">
-                <p class="font-bold text-slate-800">Ingredientes &amp; Patentes:</p>
-                <p id="modal-prod-ingredients" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 leading-relaxed"></p>
-                <p class="font-bold text-slate-800">Beneficios Principales:</p>
-                <ul id="modal-prod-benefits" class="list-disc pl-5 text-slate-700 space-y-1"></ul>
+                <p class="font-black text-slate-800">Composición Nutracéutica Oficial:</p>
+                <p id="modal-prod-ingredients" class="text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed"></p>
+                <p class="font-black text-slate-800 pt-1">Beneficios Clave:</p>
+                <ul id="modal-prod-benefits" class="list-disc pl-5 text-slate-600 space-y-1"></ul>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal 13: Agregar o Ajustar Stock Físico en Comercio -->
+    <div id="modal-store-add-stock" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-warehouse text-sky-600 mr-1.5"></i>Ingresar / Ajustar Stock Físico</h3>
+                <button type="button" onclick="window.closeModal('modal-store-add-stock');" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600">✕</button>
+            </div>
+            <form onsubmit="event.preventDefault(); window.submitStoreStockEntry(); return false;" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Producto FuXion *</label>
+                    <select id="stk-prod-select" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-bold"></select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Cajas / Doypacks Disponibles</label>
+                        <input type="number" id="stk-boxes-input" value="3" min="0" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-black">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Sticks Sueltos Disponibles</label>
+                        <input type="number" id="stk-sticks-input" value="14" min="0" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 font-black">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
+                    Guardar Stock en Inventario del Local
+                </button>
+            </form>
         </div>
     </div>
 
@@ -2672,7 +2673,7 @@
 
     <!-- ==================== LÓGICA JAVASCRIPT AUTÓNOMA Y PRE-REGISTRADA EN WINDOW ==================== -->
     <script>
-        // Pre-registro inmediato en window para garantizar respuesta instantánea de botones críticos
+        // Pre-registro inmediato en window para garantizar respuesta instantánea en todos los dispositivos
         window.openModal = function(id) {
             const el = document.getElementById(id);
             if (el) { el.classList.remove('hidden'); el.classList.add('flex'); }
@@ -2701,9 +2702,9 @@
         const ADMIN_DEFAULT_PASS = 'Reategui7';
         const ADMIN_SPONSOR_CODE = 'RudyG-Ad';
         const ADMIN_WHATSAPP_NUMBER = '+51970425293';
-        const CLOUD_SYNC_TOPIC = 'leader_prospect_global_sync_2026_v4';
+        const CLOUD_SYNC_TOPIC = 'leader_prospect_global_sync_2026_v3';
 
-        // Catálogo Oficial FuXion Perú
+        // Catálogo Oficial FuXion Perú (40 presentaciones y packs oficiales)
         const FUXION_OFFICIAL_CATALOG = [
             { id: 'prunex1', name: 'PRUNEX 1', line: 'Sistema Base: Limpia', flavor: 'Guindón', presentation: 'Doypack 28 x 5g', price: 76.00, pv: 15, color: '#6D28D9', tagline: '¡Libera el tránsito en tu sistema digestivo!', ingredients: 'Mix de fibras (Psyllium, Inulina de achicoria, Mucílago de linaza) + Extracto de guindón + Kelp + Anís estrella.', benefits: ['Promueve un adecuado tránsito intestinal', 'Alivia la hinchazón abdominal', 'Libera desechos perjudiciales'] },
             { id: 'rexet', name: 'REXET', line: 'Sistema Base: Limpia', flavor: 'Tuna Roja', presentation: 'Doypack 28 x 5g', price: 129.50, pv: 25, color: '#65A30D', tagline: '¡Prepara y reinicia tu cuerpo!', ingredients: 'Tuna roja, Alcachofa, Hierba luisa, Perejil, Acerola, Clorofila, Zinc, Magnesio, Taurina, Vitaminas B, C y D.', benefits: ['Protege el hígado y su función desintoxicante', 'Equilibra el organismo de toxinas'] },
@@ -2713,11 +2714,13 @@
             { id: 'berry_balance', name: 'BERRY BALANCE', line: 'Sistema Base: Limpia', flavor: 'Cranberry Piña', presentation: 'Doypack 28 x 5g', price: 169.00, pv: 33, color: '#E11D48', tagline: '¡Protege tu organismo y mantenlo en equilibrio!', ingredients: 'Cranberry + Mix de berries + Piña + Bacterias probióticas + Calcio orgánico + Vitaminas C y E.', benefits: ['Protege el tracto urinario de forma natural', 'Evita la retención de líquidos'] },
             { id: 'detox_5', name: 'PROGRAMA DETOX 5-DÍAS', line: 'Sistema Base: Limpia', flavor: 'Pack Integral 26 Sticks', presentation: 'Caja Pack', price: 175.00, pv: 35, color: '#15803D', tagline: '¡Limpia tu cuerpo, renuévate y vive con buena vibra!', ingredients: 'Rexet + Prunex1 + Flora Liv + Berry Balance + Alpha Balance + Liquid Fiber + Thermo T3 + Protein Active Fit + Protein Xoup.', benefits: ['Purificación integral en 5 días', 'Afina el metabolismo y revitaliza'] },
             { id: 'biopro_tect', name: 'BIOPRO+ TECT', line: 'Sistema Base: Regenera', flavor: 'Vainilla', presentation: 'Caja 14 x 25g', price: 119.50, pv: 23, color: '#0284C7', tagline: '¡Activa tu sistema natural de protección!', ingredients: 'BioProtein+ con Colostrum + Bioferrín + Aminoácidos + Calcio lácteo + DHA y ARA.', benefits: ['100% Valor Biológico', 'Potencia la regeneración celular y defensas'] },
-            { id: 'protein_active', name: 'PROTEIN ACTIVE (100% Vegetal)', line: 'Sistema Base: Regenera', flavor: 'Vainilla y Canela / Chocolate', presentation: 'Caja 14 x 25g', price: 141.50, pv: 28, color: '#059669', tagline: '¡Dale a tu cuerpo nutrición avanzada 100% vegetal!', ingredients: 'BioProtein Active (Quinua germinada, Arroz integral germinado, Arveja, Algas) + Aminoácidos + Aceite de coco.', benefits: ['Alimento vivo de alta biodisponibilidad', 'Regenera tejidos en menor tiempo'] },
+            { id: 'protein_active_vc', name: 'PROTEIN ACTIVE (Vainilla y Canela)', line: 'Sistema Base: Regenera', flavor: 'Vainilla y Canela 100% Vegetal', presentation: 'Caja 14 x 25g', price: 141.50, pv: 28, color: '#059669', tagline: '¡Dale a tu cuerpo nutrición avanzada 100% vegetal!', ingredients: 'BioProtein Active (Quinua germinada, Arroz integral germinado, Arveja, Algas) + Aminoácidos + Aceite de coco.', benefits: ['Alimento vivo de alta biodisponibilidad', 'Regenera tejidos en menor tiempo'] },
+            { id: 'protein_active_ch', name: 'PROTEIN ACTIVE (Chocolate Avellanas)', line: 'Sistema Base: Regenera', flavor: 'Chocolate con Avellanas 100% Vegetal', presentation: 'Caja 14 x 25g', price: 141.50, pv: 28, color: '#78350F', tagline: '¡Nutrición vegetal activa con delicioso sabor a chocolate y avellanas!', ingredients: 'BioProtein Active + Cacao amazónico + Avellanas + Aminoácidos esenciales + DHA y ARA.', benefits: ['100% libre de lácteos y gluten', 'Regeneración celular óptima'] },
             { id: 'vita_xtra', name: 'VITA XTRA T+', line: 'Sistema Base: Revitaliza', flavor: 'Chicha Morada', presentation: 'Doypack 28 x 5g', price: 129.50, pv: 25, color: '#7E22CE', tagline: '¡Recupera tu vitalidad cada día!', ingredients: 'Guayusa + Té verde + Acai Berry + Goji Berry + Cordyceps + Maca + Ginseng + Antocianina de maíz morado.', benefits: ['Energía sostenida y buen ánimo', 'Mejora el rendimiento físico diario'] },
             { id: 'nutraday', name: 'NUTRADAY', line: 'Sistema Base: Revitaliza', flavor: 'Fresa Natural', presentation: 'Doypack 28 x 5g', price: 129.50, pv: 25, color: '#EF4444', tagline: '¡Brinda a tu cuerpo los nutrientes que necesita!', ingredients: 'Extracto de Moringa + Guayaba + Camu Camu + Acai Berry + Acerola + Quinua germinada (12 vitaminas y 5 minerales).', benefits: ['Ideal para toda la familia (niños y adultos)', 'Fortalece defensas y vitalidad'] },
             { id: 'vitaenergia', name: 'VITAENERGIA', line: 'Sistema Base: Revitaliza', flavor: 'Chicha Morada', presentation: 'Caja 30 x 7.5g', price: 129.50, pv: 25, color: '#EA580C', tagline: '¡Para que le pongas ganas cada día!', ingredients: 'Aminoácidos + Vitaminas + Minerales + Fibra prebiótica + Maíz morado + Acai Berry + Camu Camu + Luteína.', benefits: ['Disipa la sensación de fatiga', 'Potente efecto antioxidante'] },
-            { id: 'xpeed', name: 'XPEED ENERGIZANTE', line: 'Sistema Base: Revitaliza', flavor: 'Guaraná / Citrus Power', presentation: 'FourPack 4 x 355ml', price: 39.50, pv: 8, color: '#2563EB', tagline: '¡Energía líquida, lista para actuar!', ingredients: 'Maca + Guaraná + Teína + Taurina + Acetil Tirosina + Vitaminas C y B5.', benefits: ['Burbujeo natural refrescante', 'Contrarresta la fatiga al instante'] },
+            { id: 'xpeed_guarana', name: 'XPEED ENERGIZANTE (Guaraná)', line: 'Sistema Base: Revitaliza', flavor: 'Guaraná Natural', presentation: 'FourPack 4 x 355ml', price: 39.50, pv: 8, color: '#2563EB', tagline: '¡Energía líquida, lista para actuar!', ingredients: 'Maca + Guaraná + Teína + Taurina + Acetil Tirosina + Vitaminas C y B5.', benefits: ['Burbujeo natural refrescante', 'Contrarresta la fatiga al instante'] },
+            { id: 'xpeed_citrus', name: 'XPEED CITRUS POWER (Sin Azúcar)', line: 'Sistema Base: Revitaliza', flavor: 'Limón Refrescante', presentation: 'FourPack 4 x 355ml', price: 39.50, pv: 8, color: '#16A34A', tagline: '¡Llénate de energía sin azúcar!', ingredients: 'Agua osmotizada + Teína de té verde + Maca + Guaraná + Taurina + Complejo B y Vitamina C.', benefits: ['Cero azúcar añadida', 'Energía limpia y burbujeante'] },
             { id: 'vera_plus', name: 'VERA+', line: 'Línea Inmunológica', flavor: 'Menta Fresca', presentation: 'Doypack 28 x 5g', price: 169.00, pv: 33, color: '#0D9488', tagline: '¡Refuerza tu cuerpo de manera inteligente!', ingredients: 'Extracto de Aloe Vera + Beta Glucanos (Wellmune WGP) + Aminoácidos + Hoja de Oliva + Amalaki.', benefits: ['Mantiene activas las defensas naturales', 'Protección respiratoria y celular'] },
             { id: 'gano_t', name: 'GANO+ T', line: 'Línea Inmunológica', flavor: 'Té Naranja', presentation: 'Doypack 28 x 5g', price: 92.50, pv: 18, color: '#B45309', tagline: '¡Optimiza tu sistema de protección!', ingredients: 'Ganoderma Lucidum + Extracto de Té Blanco + Vitaminas C y D.', benefits: ['Propiedades inmunomoduladoras', 'Neutraliza radicales libres'] },
             { id: 'gano_cappuccino', name: 'GANO+ CAPPUCCINO', line: 'Línea Inmunológica', flavor: 'Cappuccino Cremoso', presentation: 'Doypack 28 x 7.5g', price: 92.50, pv: 18, color: '#78350F', tagline: '¡Disfruta un cappuccino saludable que protege tus defensas!', ingredients: 'Extracto de Ganoderma Lucidum + Quillay + Micronutrientes.', benefits: ['Gran poder antioxidante celular', 'Modula tus defensas naturales'] },
@@ -2726,6 +2729,7 @@
             { id: 'nocarb_t', name: 'NOCARB-T', line: 'Control de Peso', flavor: 'Té Manzana y Canela', presentation: 'Doypack 28 x 5g', price: 129.50, pv: 25, color: '#DC2626', tagline: '¡Mantén los carbohidratos a raya!', ingredients: 'Fibras solubles (Yacón, Acacia, Achicoria, Pectina de manzana) + Canela + Té verde + Cromo.', benefits: ['Inhibe parcialmente la asimilación de carbohidratos', 'Ayuda a mantener niveles normales de glucosa'] },
             { id: 'chocolate_fit', name: 'CHOCOLATE FIT', line: 'Control de Peso', flavor: 'Cacao Amazónico', presentation: 'Caja 14 x 15g', price: 92.50, pv: 18, color: '#713F12', tagline: '¡Mantente en forma deliciosamente!', ingredients: 'Cacao puro del Amazonas + Proteína vegetal + Café verde + CLA + Cromo orgánico.', benefits: ['Calma la ansiedad por comer', 'Acelera el metabolismo de grasas'] },
             { id: 'cafe_fit', name: 'CAFÉ & CAFÉ FIT', line: 'Control de Peso', flavor: 'Café Gourmet Tostado', presentation: 'Caja 28 x 5g', price: 159.50, pv: 31, color: '#78350F', tagline: '¡Date un gusto sin perder la línea!', ingredients: 'Café tostado liofilizado + Extracto de Café Verde (Svetol).', benefits: ['Reduce la sensación de apetito', 'Apoya el control de peso y medidas'] },
+            { id: 'cafe_fit_cappuccino', name: 'CAFÉ & CAFÉ FIT CAPPUCCINO', line: 'Control de Peso', flavor: 'Cappuccino Bajo en Calorías', presentation: 'Doypack 14 x 15g', price: 109.50, pv: 21, color: '#92400E', tagline: '¡Cappuccino gourmet con Svetol para reducir medidas!', ingredients: 'Café tostado liofilizado + Café Verde (Svetol) + Leche descremada + Crema baja en calorías.', benefits: ['Controla el apetito y la ansiedad', 'Apoya la quema de grasa corporal'] },
             { id: 'pack_514', name: 'PACK 5/14 (DIETA KETO)', line: 'Control de Peso', flavor: 'Programa Completo 74 Sticks', presentation: 'Caja Pack 930g', price: 399.00, pv: 80, color: '#0369A1', tagline: '¡Pierde esos kilos de más y gana salud en 14 días!', ingredients: '4 Prunex1 + 28 BioPro+ Fit + 14 Vita Xtra T+ + 14 Thermo T3 + 14 NoCarb-T + Guía Nutricional Keto.', benefits: ['Ayuda a reducir hasta el 5% de peso corporal', 'Tonifica músculos evitando la flacidez'] },
             { id: 'pack_514_active', name: 'PACK 5/14 ACTIVE (100% Vegetal)', line: 'Control de Peso', flavor: 'Programa Vegano 74 Sticks', presentation: 'Caja Pack 930g', price: 435.00, pv: 86, color: '#15803D', tagline: '¡Programa 5/14 con proteína 100% vegetal y Dieta Mito!', ingredients: '4 Prunex1 + 28 Protein Active Fit + 14 Vita Xtra T+ + 14 Thermo T3 + 14 NoCarb-T.', benefits: ['100% libre de lácteos y alérgenos', 'Activa la quema de grasa metabólica'] },
             { id: 'biopro_fit', name: 'BIOPRO+ FIT', line: 'Control de Peso', flavor: 'Vainilla', presentation: 'Caja 14 x 25g', price: 108.00, pv: 21, color: '#0EA5E9', tagline: '¡Mejora tu nutrición y reduce medidas!', ingredients: 'BioProtein+ con Colostrum + Prolibra + Aminoácidos + Tamarindo Malabar + DHA y ARA.', benefits: ['Disminuye grasa corporal manteniendo masa magra', 'Brinda saciedad prolongada'] },
@@ -2859,6 +2863,9 @@
             prospects: [],
             agendaTasks: [],
             storeSales: [],
+            storeInventory: [],
+            storeFlyerMsg: '¡Escanea nuestro QR oficial FuXion y llévate un PAQUETE DE REGALO por tu compra hoy! Bebidas 100% naturales para Energía, Digestión y Control de Peso.',
+            storeQrCatalogMode: 'ALL_WITH_BADGE',
             customTemplates: [],
             editedDefaultSteps: {},
             editedSkillScripts: {},
@@ -2886,22 +2893,23 @@
             isRecordingAudio: false,
             audioRecTimerInterval: null,
             audioRecSeconds: 0,
-            revealedPasswords: {}
-        };
-
-        const comercioCatalogState = {
-            selectedLine: 'Todos',
-            quoteItems: [],
-            selectedGift: 'Opción 1: Caja Mini 7 Sticks a elección (Prunex1, Vita Xtra T+, Thermo T3, Rexet, ON o No Stress)',
-            selectedClientId: ''
+            revealedPasswords: {},
+            revealAllPasswordsFlag: false
         };
 
         const premiumState = {
-            selectedLine: 'Todos',
+            selectedLine: 'TODAS',
             discountPct: 0,
             selectedGift: 'Caja Mini 7 Sticks a elección (Prunex1, Vita Xtra T+, Thermo T3, Rexet, ON o No Stress)',
             quoteItems: [],
             activeSkillKey: 'ventas'
+        };
+
+        const comercioCatalogState = {
+            selectedLine: 'TODAS',
+            selectedGift: 'Opción 1: Caja Mini 7 Sticks a elección (Prunex1, Vita Xtra T+, Thermo T3, Rexet, ON o No Stress)',
+            selectedClientId: '',
+            quoteItems: []
         };
 
         const publicStoreQrState = {
@@ -2911,6 +2919,23 @@
 
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        function getDefaultDemoInventory() {
+            return [
+                { prodId: 'prunex1', name: 'PRUNEX 1', boxes: 4, sticks: 14, sticksPerBox: 28 },
+                { prodId: 'flora_liv', name: 'FLORA LIV', boxes: 2, sticks: 10, sticksPerBox: 28 },
+                { prodId: 'rexet', name: 'REXET', boxes: 3, sticks: 12, sticksPerBox: 28 },
+                { prodId: 'thermo_t3', name: 'THERMO T3', boxes: 2, sticks: 8, sticksPerBox: 28 },
+                { prodId: 'vita_xtra', name: 'VITA XTRA T+', boxes: 5, sticks: 20, sticksPerBox: 28 }
+            ];
+        }
+
+        function getStickUnitPrice(prod) {
+            if (!prod) return 5.00;
+            const sticksCount = prod.presentation.includes('14') ? 14 : (prod.presentation.includes('30') ? 30 : (prod.presentation.includes('7') ? 7 : 28));
+            const rawUnit = (prod.price / sticksCount) * 1.25;
+            return Math.ceil(rawUnit * 2) / 2;
         }
 
         function safeParseStorageArray(key) {
@@ -2983,7 +3008,7 @@
             } catch (e) {}
         }
 
-        // ==================== SINCRONIZACIÓN EN LA NUBE (NO BLOQUEANTE) ====================
+        // ==================== SINCRONIZACIÓN MULTI-DISPOSITIVO EN LA NUBE ====================
         async function publishCloudSyncEvent(eventType, payload) {
             try {
                 fetch(`https://ntfy.sh/${CLOUD_SYNC_TOPIC}`, {
@@ -3030,7 +3055,9 @@
                         } else if (evt.type === 'ACTIVATED_PARTNER') {
                             const usr = evt.payload;
                             if (usr && usr.id && !deletedIds.has(usr.id)) {
-                                if (!regUsers.some(u => u.id === usr.id)) { regUsers.push(usr); changed = true; }
+                                const exIdx = regUsers.findIndex(u => u.id === usr.id || (u.email && usr.email && u.email.toLowerCase() === usr.email.toLowerCase()));
+                                if (exIdx === -1) { regUsers.push(usr); changed = true; }
+                                else { regUsers[exIdx] = { ...regUsers[exIdx], ...usr }; changed = true; }
                                 pendingList = pendingList.filter(p => p.email !== usr.email);
                                 const dbIdx = adminDb.findIndex(a => a.email === usr.email && a.status !== 'Activado');
                                 if (dbIdx !== -1) { adminDb[dbIdx].status = 'Activado'; changed = true; }
@@ -3059,7 +3086,7 @@
                     if (appState.currentUser) {
                         updateBellRemindersBadge();
                         renderAdminActivationPanel();
-                        renderTeamView();
+                        window.renderTeamView();
                         renderComercioSection();
                     }
                 }
@@ -3068,9 +3095,9 @@
                         localStorage.setItem('lp_admin_public_carousel', JSON.stringify(slides));
                         localStorage.setItem('lp_deleted_slide_ids', JSON.stringify(Array.from(deletedSlideIds)));
                     } catch (e) {}
-                    if (appState.currentUser) renderPublicCarousel();
+                    if (appState.currentUser) window.renderPublicCarousel();
                 }
-                if (manualClick) showToast('Sincronización completada.');
+                if (manualClick) showToast('Sincronización multi-dispositivo completada.');
             } catch (e) {
                 if (manualClick) showToast('Sincronización local verificada.');
             }
@@ -3101,6 +3128,9 @@
                     appState.prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
                     appState.agendaTasks = Array.isArray(parsed.agendaTasks) ? parsed.agendaTasks : [];
                     appState.storeSales = Array.isArray(parsed.storeSales) ? parsed.storeSales : [];
+                    appState.storeInventory = Array.isArray(parsed.storeInventory) ? parsed.storeInventory : getDefaultDemoInventory();
+                    appState.storeFlyerMsg = parsed.storeFlyerMsg || appState.storeFlyerMsg;
+                    appState.storeQrCatalogMode = parsed.storeQrCatalogMode || 'ALL_WITH_BADGE';
                     appState.customTemplates = Array.isArray(parsed.customTemplates) ? parsed.customTemplates : [];
                     appState.editedDefaultSteps = parsed.editedDefaultSteps || {};
                     appState.editedSkillScripts = parsed.editedSkillScripts || {};
@@ -3113,6 +3143,7 @@
                     appState.prospects = [];
                     appState.agendaTasks = [];
                     appState.storeSales = [];
+                    appState.storeInventory = getDefaultDemoInventory();
                     appState.customTemplates = [];
                     appState.editedDefaultSteps = {};
                     appState.editedSkillScripts = {};
@@ -3127,6 +3158,7 @@
                 appState.prospects = [];
                 appState.agendaTasks = [];
                 appState.storeSales = [];
+                appState.storeInventory = getDefaultDemoInventory();
             }
         }
 
@@ -3138,6 +3170,9 @@
                 prospects: appState.prospects,
                 agendaTasks: appState.agendaTasks,
                 storeSales: appState.storeSales,
+                storeInventory: appState.storeInventory,
+                storeFlyerMsg: appState.storeFlyerMsg,
+                storeQrCatalogMode: appState.storeQrCatalogMode,
                 customTemplates: appState.customTemplates,
                 editedDefaultSteps: appState.editedDefaultSteps,
                 editedSkillScripts: appState.editedSkillScripts,
@@ -3167,13 +3202,14 @@
             }
         }
 
-        // ==================== INICIO DE SESIÓN INSTANTÁNEO ====================
-        window.handleLogin = function() {
+        // ==================== INICIO DE SESIÓN INDEPENDIENTE MULTI-DISPOSITIVO ====================
+        window.handleLogin = async function() {
             repairAndSeedMasterRecords();
 
             const emailInput = document.getElementById('input-auth-email');
             const passInput = document.getElementById('input-auth-password');
             const errBox = document.getElementById('login-error-box');
+            const btnLabel = document.getElementById('login-btn-label');
             if (!emailInput || !passInput) return;
 
             const email = emailInput.value.trim().toLowerCase();
@@ -3184,7 +3220,7 @@
                 return;
             }
 
-            // 1. Verificación Instantánea Superadministrador Oficial
+            // 1. Acceso Directo Superadministrador Oficial
             if (email === ADMIN_OFFICIAL_EMAIL.toLowerCase()) {
                 if (verifyAdminCredentials(pass)) {
                     if (errBox) errBox.classList.add('hidden');
@@ -3217,10 +3253,18 @@
                 }
             }
 
-            // 2. Verificación Socios Líderes y Puntos Estratégicos de Comercio
+            // 2. Buscar en registros locales del dispositivo; si no aparece en un dispositivo nuevo, sincronizar desde la nube
             const deletedIds = new Set(safeParseStorageArray('lp_deleted_user_ids'));
-            const registeredUsers = safeParseStorageArray('lp_registered_users');
-            const foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+            let registeredUsers = safeParseStorageArray('lp_registered_users');
+            let foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+
+            if (!foundUser) {
+                if (btnLabel) btnLabel.textContent = 'Verificando cuenta...';
+                await window.syncExternalRegistrationsNow(false);
+                if (btnLabel) btnLabel.textContent = 'Iniciar sesión';
+                registeredUsers = safeParseStorageArray('lp_registered_users');
+                foundUser = registeredUsers.find(u => u && u.email && u.email.trim().toLowerCase() === email && !deletedIds.has(u.id));
+            }
 
             if (foundUser) {
                 if (foundUser.password === pass) {
@@ -3240,7 +3284,7 @@
                 }
             }
 
-            // 3. Verificación Cuenta Pendiente de Código de 6 Dígitos
+            // 3. Verificar si está pendiente de código de 6 dígitos
             const pendingList = safeParseStorageArray('lp_pending_activations');
             const isPending = pendingList.find(p => p && p.email && p.email.trim().toLowerCase() === email);
             if (isPending) {
@@ -3301,7 +3345,6 @@
         };
 
         window.navigateTab = function(tabId) {
-            // Protección: PREMIUM es estrictamente exclusivo para el Superadministrador
             if (tabId === 'premium' && (!appState.currentUser || !appState.currentUser.isAdmin)) {
                 tabId = 'inicio';
             }
@@ -3350,7 +3393,6 @@
             setText('header-user-greeting', `¡Bienvenido, ${firstName}!`);
             setText('banner-sponsor-code', user.sponsorCode || ADMIN_SPONSOR_CODE);
 
-            // Configurar visibilidad de navegación según perfil (Comercio vs Socio vs Admin)
             document.querySelectorAll('.partner-nav-item').forEach(el => {
                 if (isComercio && !el.classList.contains('comercio-nav-item')) {
                     el.classList.add('hidden');
@@ -3365,17 +3407,14 @@
                 el.textContent = isComercio ? 'CLIENTES VIP' : 'Prospectos CRM';
             });
 
-            // Encabezados dinámicos CRM / CLIENTES VIP
             setText('crm-subtab-list-title', isComercio ? 'Cartera Clientes VIP' : 'Cartera de Prospectos');
             setText('crm-main-heading', isComercio ? 'CLIENTES VIP del Establecimiento' : 'Prospectos CRM Privado');
 
-            // Ocultar KPIs exclusivos de red multinivel si es un Punto de Comercio
             const kpisRow = document.getElementById('home-partner-kpis');
             const bottomGrid = document.getElementById('home-partner-bottom-grid');
             if (kpisRow) kpisRow.classList.toggle('hidden', isComercio);
             if (bottomGrid) bottomGrid.classList.toggle('hidden', isComercio);
 
-            // Visibilidad estrictamente exclusiva para el Superadministrador (PREMIUM y Activaciones)
             const toggleAdminEl = (id, flexMode = false) => {
                 const el = document.getElementById(id);
                 if (!el) return;
@@ -3401,7 +3440,6 @@
             toggleAdminEl('admin-tools-bar');
             toggleAdminEl('btn-admin-register-comercio', true);
 
-            // Datos de Perfil
             setText('profile-display-name', user.name || '');
             setText('profile-display-email', user.email || '');
             setText('profile-display-role', user.role || '');
@@ -3555,7 +3593,6 @@
             const previewBanner = document.getElementById('comercio-preview-banner');
             const settingsCard = document.getElementById('store-autonomous-settings-card');
 
-            // Configurar enlace y QR de afiliación de Comercios
             const baseUrl = getBaseAppUrl();
             const slug = encodeURIComponent(buildUserSlug(user.name));
             const comercioInviteLink = `${baseUrl}?comercio=${slug}`;
@@ -3567,14 +3604,12 @@
             }
 
             if (user.isComercio) {
-                // Vista operativa exclusiva del Punto de Comercio
                 if (hubEl) hubEl.classList.add('hidden');
                 if (storeDashEl) storeDashEl.classList.remove('hidden');
                 if (previewBanner) previewBanner.classList.add('hidden');
                 if (settingsCard) settingsCard.classList.remove('hidden');
                 populateStoreDashboardPanel(user, appState.storeSales || []);
             } else {
-                // Vista del Administrador o Líder
                 if (hubEl) hubEl.classList.remove('hidden');
                 const regUsers = safeParseStorageArray('lp_registered_users');
                 const comercios = regUsers.filter(u => u.accountType === 'comercio' || u.isComercio);
@@ -3593,6 +3628,7 @@
                             const profit = totalGross * (pct / 100);
                             const mapsUrl = buildStoreGoogleMapsUrl(c);
                             const cleanPhone = (c.phone || '').replace(/\D/g, '');
+                            const isPassRev = !!appState.revealedPasswords[c.id];
 
                             return `
                                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -3601,8 +3637,17 @@
                                             <span class="text-sm font-black text-slate-900"><i class="fa-solid fa-store text-amber-600 mr-1"></i>${c.businessName || c.name}</span>
                                             <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">${c.district || ''}, ${c.department || ''}</span>
                                         </div>
-                                        <p class="text-xs text-slate-600">Encargado: <b>${c.name}</b> • Tel: ${c.phone} • Dir: ${c.address || '-'}</p>
+                                        <p class="text-xs text-slate-600">Encargado: <b>${c.name}</b> • Correo: <span class="font-mono">${c.email}</span> • Tel: ${c.phone}</p>
                                         <p class="text-xs font-bold text-sky-700">Vendidos: ${totalUnits} und. • Ventas: S/ ${totalGross.toFixed(2)} • Ganancia Comercio (${pct}%): <span class="text-emerald-700">S/ ${profit.toFixed(2)}</span></p>
+                                        ${user.isAdmin ? `
+                                            <div class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-1 rounded-lg bg-amber-100/80 border border-amber-300 text-[11px]">
+                                                <span class="font-bold text-amber-950">Clave Acceso:</span>
+                                                <span class="font-mono font-black text-slate-900">${isPassRev ? (c.password || '—') : '••••••••'}</span>
+                                                <button type="button" onclick="appState.revealedPasswords['${c.id}']=!appState.revealedPasswords['${c.id}']; renderComercioSection();" class="text-amber-800 hover:text-slate-950 ml-1">
+                                                    <i class="fa-regular ${isPassRev ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                                                </button>
+                                            </div>
+                                        ` : ''}
                                     </div>
                                     <div class="flex flex-wrap items-center gap-2">
                                         ${user.isAdmin ? `
@@ -3627,7 +3672,6 @@
                     }
                 }
 
-                // Mostrar vista previa completa de cómo luce el panel de un comercio (incluso si aún no hay comercios registrados)
                 if (storeDashEl) storeDashEl.classList.remove('hidden');
                 if (previewBanner) previewBanner.classList.remove('hidden');
                 if (settingsCard) settingsCard.classList.add('hidden');
@@ -3647,8 +3691,8 @@
                 const sampleSales = comercios[0]
                     ? (JSON.parse(localStorage.getItem(getUserDbKey(comercios[0].id)) || '{"storeSales":[]}').storeSales || [])
                     : [
-                        { productName: 'PRUNEX 1', clientName: 'Cliente Mostrador', qty: 2, totalSale: 152.00, date: new Date().toLocaleDateString() },
-                        { productName: 'VITA XTRA T+', clientName: 'Cliente VIP', qty: 1, totalSale: 129.50, date: new Date().toLocaleDateString() }
+                        { productName: 'PRUNEX 1', saleUnit: 'box', clientName: 'Cliente Mostrador', qty: 2, totalSale: 152.00, date: new Date().toLocaleDateString(), repurchaseDate: '2026-12-15' },
+                        { productName: 'VITA XTRA T+', saleUnit: 'box', clientName: 'Cliente VIP', qty: 1, totalSale: 129.50, date: new Date().toLocaleDateString(), repurchaseDate: '2026-12-15' }
                     ];
                 populateStoreDashboardPanel(sampleStore, sampleSales);
             }
@@ -3676,7 +3720,6 @@
                 chatAdminBtn.href = `https://api.whatsapp.com/send?phone=51970425293&text=${encodeURIComponent(msg)}`;
             }
 
-            // QR de mostrador del punto
             const storeQrUrl = `${getBaseAppUrl()}?tienda_qr=${encodeURIComponent(store.id)}`;
             if (typeof QRious !== 'undefined') {
                 const qrFront = document.getElementById('qr-canvas-store-front');
@@ -3694,6 +3737,17 @@
             setText('store-kpi-profit', `S/ ${totalProfit.toFixed(2)}`);
             setText('store-profit-rate-badge', `Comisión: ${pct}%`);
 
+            const flyerInput = document.getElementById('store-flyer-custom-msg-input');
+            if (flyerInput) flyerInput.value = appState.storeFlyerMsg || '';
+            const qrMode = appState.storeQrCatalogMode || 'ALL_WITH_BADGE';
+            const rAll = document.getElementById('radio-qr-mode-all');
+            const rStk = document.getElementById('radio-qr-mode-stock');
+            if (rAll) rAll.checked = qrMode === 'ALL_WITH_BADGE';
+            if (rStk) rStk.checked = qrMode === 'ONLY_IN_STOCK';
+
+            renderStoreInventoryTable();
+            renderStoreRepurchaseAlerts(salesList);
+
             const soldBody = document.getElementById('store-sold-products-tbody');
             const profBody = document.getElementById('store-profits-tbody');
 
@@ -3702,7 +3756,7 @@
                     ? `<tr><td colspan="4" class="py-5 text-center text-slate-400">Aún no hay ventas registradas.</td></tr>`
                     : salesList.map(s => `
                         <tr>
-                            <td class="py-2.5 px-3 font-bold text-slate-900">${s.productName}</td>
+                            <td class="py-2.5 px-3"><span class="font-bold text-slate-900 block">${s.productName}</span><span class="text-[10px] text-sky-700 font-semibold">${s.saleUnit === 'stick' ? 'Por Stick' : 'Caja / Doypack'}</span></td>
                             <td class="py-2.5 px-3 text-slate-600">${s.clientName || 'Cliente'}</td>
                             <td class="py-2.5 px-3 text-center font-mono font-bold">${s.qty}</td>
                             <td class="py-2.5 px-3 text-right font-black text-slate-900">S/ ${Number(s.totalSale || 0).toFixed(2)}</td>
@@ -3712,24 +3766,23 @@
 
             if (profBody) {
                 profBody.innerHTML = salesList.length === 0
-                    ? `<tr><td colspan="4" class="py-5 text-center text-slate-400">Sin ganancias registradas aún.</td></tr>`
+                    ? `<tr><td colspan="4" class="py-5 text-center text-slate-400">Registra una venta desde el Catálogo para ver tus ganancias.</td></tr>`
                     : salesList.map(s => {
                         const rowProfit = Number(s.totalSale || 0) * (pct / 100);
                         return `
                             <tr>
-                                <td class="py-2.5 px-3"><span class="font-bold text-slate-800 block">${s.productName}</span><span class="text-[10px] text-slate-400">${s.date || ''}</span></td>
+                                <td class="py-2.5 px-3 font-semibold text-slate-700">${s.date || 'Hoy'} • ${s.productName}</td>
                                 <td class="py-2.5 px-3 text-right font-mono">S/ ${Number(s.totalSale || 0).toFixed(2)}</td>
                                 <td class="py-2.5 px-3 text-center font-bold text-amber-700">${pct}%</td>
-                                <td class="py-2.5 px-3 text-right font-black text-emerald-700">S/ ${rowProfit.toFixed(2)}</td>
+                                <td class="py-2.5 px-3 text-right font-black text-emerald-700">+ S/ ${rowProfit.toFixed(2)}</td>
                             </tr>
                         `;
                     }).join('');
             }
 
-            // Rellenar formulario de ajustes si es el comercio logueado
             if (appState.currentUser && appState.currentUser.isComercio) {
-                const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
-                setV('set-store-bname', store.businessName || store.name);
+                const setV = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+                setV('set-store-bname', store.businessName);
                 setV('set-store-owner', store.name);
                 setV('set-store-phone', store.phone);
                 setV('set-store-address', store.address);
@@ -3741,22 +3794,256 @@
             }
         }
 
+        function renderStoreInventoryTable() {
+            const tbody = document.getElementById('store-inventory-tbody');
+            const lowBanner = document.getElementById('store-low-stock-banner');
+            if (!tbody) return;
+
+            const inv = Array.isArray(appState.storeInventory) ? appState.storeInventory : [];
+            const lowItems = inv.filter(it => it.boxes <= 2 || it.sticks <= 5);
+
+            if (lowBanner) {
+                lowBanner.classList.toggle('hidden', lowItems.length === 0);
+                const txt = document.getElementById('store-low-stock-text');
+                if (txt && lowItems.length > 0) {
+                    txt.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Alerta de Stock Bajo en: <b>${lowItems.map(x => x.name).join(', ')}</b>.`;
+                }
+            }
+
+            if (inv.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-5 text-center text-slate-400">Sin productos en inventario físico.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = inv.map((it, idx) => {
+                const isLow = it.boxes <= 2 || it.sticks <= 5;
+                return `
+                    <tr class="${isLow ? 'bg-rose-50/40' : ''}">
+                        <td class="py-2.5 px-3 font-black text-slate-900">${it.name}</td>
+                        <td class="py-2.5 px-3 text-center font-mono font-extrabold">${it.boxes} cajas</td>
+                        <td class="py-2.5 px-3 text-center font-mono font-extrabold text-sky-700">${it.sticks} sticks</td>
+                        <td class="py-2.5 px-3 text-center">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-black ${isLow ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                                ${isLow ? 'Stock Bajo' : 'Óptimo'}
+                            </span>
+                        </td>
+                        <td class="py-2.5 px-3 text-right">
+                            <div class="inline-flex items-center gap-1">
+                                <button type="button" onclick="window.adjustStoreStockQuick(${idx}, 1, 0);" class="px-2 py-1 rounded bg-slate-100 hover:bg-sky-100 text-[10px] font-bold">+1 Caja</button>
+                                <button type="button" onclick="window.adjustStoreStockQuick(${idx}, 0, 5);" class="px-2 py-1 rounded bg-slate-100 hover:bg-sky-100 text-[10px] font-bold">+5 Sticks</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        window.adjustStoreStockQuick = function(idx, dBoxes, dSticks) {
+            const it = appState.storeInventory[idx];
+            if (!it) return;
+            it.boxes = Math.max(0, (it.boxes || 0) + dBoxes);
+            it.sticks = Math.max(0, (it.sticks || 0) + dSticks);
+            saveUserScopedData();
+            renderStoreInventoryTable();
+            showToast(`Stock de ${it.name} actualizado.`);
+        };
+
+        window.openAddStoreStockModal = function() {
+            const sel = document.getElementById('stk-prod-select');
+            if (sel) {
+                sel.innerHTML = FUXION_OFFICIAL_CATALOG.map(p => `<option value="${p.id}">${p.name} (${p.presentation})</option>`).join('');
+            }
+            window.openModal('modal-store-add-stock');
+        };
+
+        window.submitStoreStockEntry = function() {
+            const prodId = document.getElementById('stk-prod-select').value;
+            const boxes = Math.max(0, Number(document.getElementById('stk-boxes-input').value || 0));
+            const sticks = Math.max(0, Number(document.getElementById('stk-sticks-input').value || 0));
+            const prod = FUXION_OFFICIAL_CATALOG.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const existing = appState.storeInventory.find(x => x.prodId === prodId);
+            if (existing) {
+                existing.boxes = boxes;
+                existing.sticks = sticks;
+            } else {
+                appState.storeInventory.unshift({ prodId, name: prod.name, boxes, sticks, sticksPerBox: 28 });
+            }
+            saveUserScopedData();
+            window.closeModal('modal-store-add-stock');
+            renderStoreInventoryTable();
+            showToast(`Stock de ${prod.name} guardado.`);
+        };
+
+        window.sendStoreRestockWhatsApp = function() {
+            const u = appState.currentUser;
+            const storeName = u?.businessName || u?.name || 'Punto Autorizado FuXion';
+            const inv = appState.storeInventory || [];
+            const lowItems = inv.filter(it => it.boxes <= 2 || it.sticks <= 5);
+            const targetList = lowItems.length > 0 ? lowItems : inv;
+            const lines = targetList.map(it => `• *${it.name}*: quedan ${it.boxes} cajas y ${it.sticks} sticks`).join('\n');
+            const msg = `¡Hola Administrador! 👋 Te saluda el Punto de Comercio *${storeName}*.\n\nSolicito reposición de stock FuXion para mantener nuestro mostrador abastecido:\n\n${lines}\n\n¿Me confirmas el despacho? 🚀🌿`;
+            window.open(`https://api.whatsapp.com/send?phone=51970425293&text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.toggleEditStoreFlyerMessage = function() {
+            const ta = document.getElementById('store-flyer-custom-msg-input');
+            const saveBtn = document.getElementById('btn-save-flyer-msg');
+            if (!ta) return;
+            ta.readOnly = false;
+            ta.classList.add('ring-2', 'ring-sky-500');
+            ta.focus();
+            if (saveBtn) saveBtn.classList.remove('hidden');
+        };
+
+        window.saveStoreFlyerCustomMessage = function() {
+            const ta = document.getElementById('store-flyer-custom-msg-input');
+            const saveBtn = document.getElementById('btn-save-flyer-msg');
+            if (!ta) return;
+            appState.storeFlyerMsg = ta.value.trim() || appState.storeFlyerMsg;
+            ta.readOnly = true;
+            ta.classList.remove('ring-2', 'ring-sky-500');
+            if (saveBtn) saveBtn.classList.add('hidden');
+            saveUserScopedData();
+            showToast('Mensaje personalizado del cartel y QR guardado.');
+        };
+
+        window.generateStoreA5FlyerPDF = function() {
+            if (!window.jspdf) { showToast('Generador PDF cargando...'); return; }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ format: 'a5', unit: 'mm' });
+            const u = appState.currentUser;
+            const storeName = (u?.businessName || u?.name || 'PUNTO AUTORIZADO FUXION').toUpperCase();
+            const storeAddr = u?.address ? `${u.address}, ${u.district || ''}` : 'Punto Estratégico Autorizado';
+
+            doc.setFillColor(6, 13, 26);
+            doc.rect(0, 0, 148, 44, 'F');
+            doc.setTextColor(88, 184, 238);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.text('PUNTO ESTRATÉGICO AUTORIZADO FUXION', 74, 12, { align: 'center' });
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(14);
+            doc.text(doc.splitTextToSize(storeName, 130), 74, 21, { align: 'center' });
+
+            doc.setTextColor(203, 213, 225);
+            doc.setFontSize(8);
+            doc.text(storeAddr, 74, 37, { align: 'center' });
+
+            doc.setFillColor(254, 243, 199);
+            doc.roundedRect(10, 49, 128, 24, 3, 3, 'F');
+            doc.setTextColor(120, 53, 15);
+            doc.setFontSize(8.5);
+            doc.setFont('helvetica', 'bold');
+            const wrappedPromo = doc.splitTextToSize(appState.storeFlyerMsg || '', 120);
+            doc.text(wrappedPromo, 74, 56, { align: 'center' });
+
+            const qrCanvas = document.getElementById('qr-canvas-store-front');
+            if (qrCanvas) {
+                const qrDataUrl = qrCanvas.toDataURL('image/png');
+                doc.addImage(qrDataUrl, 'PNG', 51, 77, 46, 46);
+            }
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(8);
+            doc.text('ESCANEA AQUÍ PARA VER EL CATÁLOGO Y PEDIR', 74, 128, { align: 'center' });
+
+            doc.setFillColor(241, 245, 249);
+            doc.roundedRect(10, 133, 128, 65, 3, 3, 'F');
+            doc.setTextColor(2, 132, 199);
+            doc.setFontSize(9.5);
+            doc.text('NUESTROS 5 PRODUCTOS ESTRELLA FUXION:', 15, 141);
+
+            const stars = [
+                '1. PRUNEX 1 — Limpieza digestiva y tránsito intestinal (Guindón)',
+                '2. FLORA LIV — Regenera flora intestinal con probióticos (Granadilla)',
+                '3. REXET — Desintoxicante hepático y equilibrio metabólico (Tuna)',
+                '4. THERMO T3 — Transforma la grasa en energía (Té Limón)',
+                '5. VITA XTRA T+ — Energía natural y vitalidad diaria (Chicha Morada)'
+            ];
+            doc.setTextColor(30, 41, 59);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            let sy = 149;
+            stars.forEach(st => {
+                doc.text(st, 15, sy);
+                sy += 9;
+            });
+
+            doc.save(`Cartel-Mostrador-A5-${buildUserSlug(storeName)}.pdf`);
+            showToast('Cartel / Flyer A5 descargado en PDF listo para imprimir.');
+        };
+
+        function getCombinationSuggestion(productName) {
+            const upper = (productName || '').toUpperCase();
+            if (upper.includes('PRUNEX')) return 'Sugerencia: Combínalo con *Flora Liv* (regenerar flora) o *Thermo T3* (control de medidas).';
+            if (upper.includes('THERMO')) return 'Sugerencia: Potencia resultados combinándolo con *NoCarb-T* o *BioPro+ Fit*.';
+            if (upper.includes('VITA')) return 'Sugerencia: Ideal complementar con *ON* (vigor mental) o *Rexet* (detox).';
+            return 'Sugerencia: Ofrécele el Pack Detox o su bebida favorita con Paquete de Regalo.';
+        }
+
+        function renderStoreRepurchaseAlerts(salesList) {
+            const container = document.getElementById('store-repurchase-alerts-list');
+            const badge = document.getElementById('store-repurchase-count-badge');
+            if (!container) return;
+
+            const boxSales = (salesList || []).filter(s => s.saleUnit !== 'stick');
+            if (badge) badge.textContent = `${boxSales.length} Alertas Programadas`;
+
+            if (boxSales.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 p-3.5 rounded-2xl bg-slate-50 text-center">Registra una venta de caja/doypack a un Cliente VIP para activar automáticamente su alerta de recompra (día 24).</p>`;
+                return;
+            }
+
+            container.innerHTML = boxSales.slice(0, 6).map(s => {
+                const clientObj = (appState.prospects || []).find(p => p.id === s.clientId || p.name === s.clientName);
+                const cleanNum = clientObj ? clientObj.phone.replace(/\D/g, '') : '';
+                const storeName = appState.currentUser?.businessName || appState.currentUser?.name || 'tu punto autorizado FuXion';
+                const suggestion = getCombinationSuggestion(s.productName);
+                const waMsg = `¡Hola *${s.clientName}*! 👋🌿 Te saluda *${storeName}*. Ya se cumplen 24 días desde que llevaste tu *${s.productName}* y seguro ya se te está terminando 😊.\n\n¿Te separo tu siguiente caja hoy con un *Paquete de Regalo* especial? 🎁✨\n💡 ${suggestion}`;
+
+                return `
+                    <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs font-black text-slate-900">👤 ${s.clientName}</span>
+                                <span class="px-2 py-0.5 rounded-full bg-amber-200 text-amber-950 text-[10px] font-black">Recompra Día 24: ${s.repurchaseDate || 'Programada (21-25 días)'}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-700">Compró: <b>${s.qty}x ${s.productName}</b> (${s.date || 'Hoy'}) • ${suggestion}</p>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?${cleanNum ? 'phone=' + cleanNum + '&' : ''}text=${encodeURIComponent(waMsg)}" target="_blank"
+                            class="py-2 px-3.5 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-[11px] flex items-center gap-1.5 shrink-0 self-start sm:self-center">
+                            <i class="fa-brands fa-whatsapp text-sm"></i><span>Enviar Recordatorio Recompra</span>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.saveStoreQrVisibilityMode = function(mode) {
+            appState.storeQrCatalogMode = mode;
+            saveUserScopedData();
+            showToast(mode === 'ONLY_IN_STOCK'
+                ? 'QR configurado: mostrará solo productos disponibles en stock físico.'
+                : 'QR configurado: mostrará todo el catálogo destacando entrega inmediata.');
+        };
+
         window.handleStoreLogoUpload = function(event) {
             const file = event.target.files[0];
-            if (!file) return;
+            if (!file || !appState.currentUser) return;
             const objUrl = URL.createObjectURL(file);
             const img = new Image();
-            img.onload = function() {
+            img.onload = () => {
                 const canvas = document.createElement('canvas');
-                canvas.width = 256;
-                canvas.height = 256;
-                const ctx = canvas.getContext('2d');
+                canvas.width = 240;
+                canvas.height = 240;
                 const minSide = Math.min(img.width, img.height);
-                ctx.drawImage(img, (img.width - minSide) / 2, (img.height - minSide) / 2, minSide, minSide, 0, 0, 256, 256);
+                canvas.getContext('2d').drawImage(img, (img.width - minSide) / 2, (img.height - minSide) / 2, minSide, minSide, 0, 0, 240, 240);
                 URL.revokeObjectURL(objUrl);
                 persistNewAvatar(canvas.toDataURL('image/jpeg', 0.88));
                 renderComercioSection();
-                showToast('Logo del Punto de Comercio actualizado.');
+                showToast('Logo del negocio actualizado.');
             };
             img.src = objUrl;
         };
@@ -3789,6 +4076,7 @@
                 users[idx] = { ...users[idx], ...u };
                 localStorage.setItem('lp_registered_users', JSON.stringify(users));
             }
+            publishCloudSyncEvent('ACTIVATED_PARTNER', u);
             renderDashboardUI();
             renderComercioSection();
             showToast('Ajustes del Punto de Comercio guardados correctamente.');
@@ -3809,13 +4097,18 @@
             const regUsers = safeParseStorageArray('lp_registered_users');
             const foundStore = regUsers.find(u => u.id === targetId) || {
                 id: targetId,
-                businessName: 'Punto Estratégico Autorizado FuXion',
-                name: 'Asesor Comercial',
-                phone: ADMIN_WHATSAPP_NUMBER,
-                address: 'Av. Principal 123',
-                district: 'Lima',
-                department: 'Perú'
+                businessName: appState.currentUser?.businessName || 'Punto Estratégico Autorizado FuXion',
+                name: appState.currentUser?.name || 'Asesor Comercial',
+                phone: appState.currentUser?.phone || ADMIN_WHATSAPP_NUMBER,
+                address: appState.currentUser?.address || 'Av. Principal 123',
+                district: appState.currentUser?.district || 'Lima',
+                department: appState.currentUser?.department || 'Perú'
             };
+
+            const storeDbRaw = JSON.parse(localStorage.getItem(getUserDbKey(foundStore.id)) || 'null');
+            const storeInv = (storeDbRaw && Array.isArray(storeDbRaw.storeInventory)) ? storeDbRaw.storeInventory : appState.storeInventory;
+            const flyerBannerMsg = (storeDbRaw && storeDbRaw.storeFlyerMsg) ? storeDbRaw.storeFlyerMsg : appState.storeFlyerMsg;
+            const visibilityMode = (storeDbRaw && storeDbRaw.storeQrCatalogMode) ? storeDbRaw.storeQrCatalogMode : appState.storeQrCatalogMode;
 
             publicStoreQrState.storeObj = foundStore;
             publicStoreQrState.items = [];
@@ -3832,26 +4125,59 @@
 
             document.getElementById('pub-store-title').textContent = foundStore.businessName || foundStore.name;
             document.getElementById('pub-store-location').textContent = `${foundStore.address || ''} • ${foundStore.district || ''}, ${foundStore.department || ''}`;
+            document.getElementById('pub-store-custom-banner-msg').textContent = flyerBannerMsg || '';
             document.getElementById('pub-store-maps-btn').href = buildStoreGoogleMapsUrl(foundStore);
+
+            const inStockIds = new Set((storeInv || []).filter(i => i.boxes > 0 || i.sticks > 0).map(i => i.prodId));
+            let catalogToRender = [...FUXION_OFFICIAL_CATALOG];
+
+            if (visibilityMode === 'ONLY_IN_STOCK' && inStockIds.size > 0) {
+                catalogToRender = catalogToRender.filter(p => inStockIds.has(p.id));
+            } else {
+                catalogToRender.sort((a, b) => (inStockIds.has(b.id) ? 1 : 0) - (inStockIds.has(a.id) ? 1 : 0));
+            }
 
             const grid = document.getElementById('pub-store-products-grid');
             if (grid) {
-                grid.innerHTML = FUXION_OFFICIAL_CATALOG.map(p => `
-                    <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft flex flex-col justify-between gap-3">
-                        <div class="space-y-1.5">
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white" style="background:${p.color};">${p.line}</span>
-                            <h3 class="text-base font-black text-slate-900">${p.name}</h3>
-                            <p class="text-[11px] font-bold text-sky-700">${p.tagline}</p>
-                            <p class="text-xs text-slate-500">${p.flavor} • ${p.presentation}</p>
+                grid.innerHTML = catalogToRender.map(p => {
+                    const hasStock = inStockIds.has(p.id);
+                    const stickPrice = getStickUnitPrice(p);
+                    return `
+                        <div class="bg-white rounded-3xl p-5 border ${hasStock ? 'border-emerald-300' : 'border-slate-200'} shadow-card-soft flex flex-col justify-between gap-3">
+                            <div class="space-y-1.5">
+                                <div class="flex items-center justify-between gap-1.5 flex-wrap">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white" style="background:${p.color};">${p.line}</span>
+                                    ${hasStock
+                                        ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black">✓ Entrega Inmediata en Tienda</span>`
+                                        : `<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">Pedido Bajo Encargo</span>`}
+                                </div>
+                                <h3 class="text-base font-black text-slate-900">${p.name}</h3>
+                                <p class="text-[11px] font-bold text-sky-700">${p.tagline}</p>
+                                <p class="text-xs text-slate-500">${p.flavor} • ${p.presentation}</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-100 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-[10px] text-slate-400 block">Caja / Doypack</span>
+                                        <strong class="text-base font-black text-slate-900">S/ ${p.price.toFixed(2)}</strong>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-[10px] text-slate-400 block">Por Stick / Und.</span>
+                                        <strong class="text-sm font-black text-sky-700">S/ ${stickPrice.toFixed(2)}</strong>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1.5">
+                                    <button type="button" onclick="window.addPublicStoreItem('${p.id}', 'box');" class="py-2 px-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-[11px]">
+                                        + Caja
+                                    </button>
+                                    <button type="button" onclick="window.addPublicStoreItem('${p.id}', 'stick');" class="py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-[11px]">
+                                        + Stick
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                            <strong class="text-lg font-black text-slate-900">S/ ${p.price.toFixed(2)}</strong>
-                            <button type="button" onclick="window.addPublicStoreItem('${p.id}');" class="py-2 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
-                                + Agregar
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             }
             window.renderPublicStoreCart();
         };
@@ -3860,16 +4186,21 @@
             const pubEl = document.getElementById('public-store-qr-screen');
             if (pubEl) pubEl.classList.add('hidden');
             if (appState.currentUser) showDashboard(appState.currentUser);
+            else {
+                document.getElementById('auth-screen').style.display = 'flex';
+            }
         };
 
-        window.addPublicStoreItem = function(prodId) {
+        window.addPublicStoreItem = function(prodId, unitType = 'box') {
             const prod = FUXION_OFFICIAL_CATALOG.find(x => x.id === prodId);
             if (!prod) return;
-            const ex = publicStoreQrState.items.find(i => i.id === prodId);
+            const unitPrice = unitType === 'stick' ? getStickUnitPrice(prod) : prod.price;
+            const key = `${prodId}_${unitType}`;
+            const ex = publicStoreQrState.items.find(i => i.key === key);
             if (ex) ex.qty++;
-            else publicStoreQrState.items.push({ ...prod, qty: 1 });
+            else publicStoreQrState.items.push({ key, ...prod, saleUnit: unitType, unitPrice, qty: 1 });
             window.renderPublicStoreCart();
-            showToast(`${prod.name} agregado a tu cotización.`);
+            showToast(`${prod.name} (${unitType === 'stick' ? 'Stick' : 'Caja'}) agregado.`);
         };
 
         window.renderPublicStoreCart = function() {
@@ -3883,12 +4214,12 @@
                 return;
             }
             box.classList.remove('hidden');
-            const total = publicStoreQrState.items.reduce((a, b) => a + b.price * b.qty, 0);
+            const total = publicStoreQrState.items.reduce((a, b) => a + b.unitPrice * b.qty, 0);
             if (totEl) totEl.textContent = `S/ ${total.toFixed(2)}`;
             list.innerHTML = publicStoreQrState.items.map(it => `
                 <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <span class="font-bold text-slate-900">${it.qty}x ${it.name}</span>
-                    <span class="font-black text-slate-900">S/ ${(it.price * it.qty).toFixed(2)}</span>
+                    <span class="font-bold text-slate-900">${it.qty}x ${it.name} (${it.saleUnit === 'stick' ? 'Stick' : 'Caja'})</span>
+                    <span class="font-black text-slate-900">S/ ${(it.unitPrice * it.qty).toFixed(2)}</span>
                 </div>
             `).join('');
         };
@@ -3898,8 +4229,8 @@
             if (!store || publicStoreQrState.items.length === 0) return;
             const clientName = document.getElementById('pub-client-name').value.trim() || 'Cliente de Mostrador';
             const gift = document.getElementById('pub-client-gift').value;
-            const total = publicStoreQrState.items.reduce((a, b) => a + b.price * b.qty, 0);
-            const lines = publicStoreQrState.items.map(it => `• ${it.qty}x *${it.name}* — S/ ${(it.price * it.qty).toFixed(2)}`).join('\n');
+            const total = publicStoreQrState.items.reduce((a, b) => a + b.unitPrice * b.qty, 0);
+            const lines = publicStoreQrState.items.map(it => `• ${it.qty}x *${it.name}* [${it.saleUnit === 'stick' ? 'Stick' : 'Caja'}] — S/ ${(it.unitPrice * it.qty).toFixed(2)}`).join('\n');
             const cleanNum = (store.phone || ADMIN_WHATSAPP_NUMBER).replace(/\D/g, '');
             const msg = `¡Hola *${store.businessName || store.name}*! 👋 Escaneé su QR oficial de *FuXion* y deseo cotizar este pedido:\n\n👤 *Cliente:* ${clientName}\n${lines}\n\n💰 *Total Precio Público:* S/ ${total.toFixed(2)}\n🎁 *Opción de Regalo elegida:* ${gift}\n\n¿Me confirman disponibilidad? 😊`;
             window.open(`https://api.whatsapp.com/send?phone=${cleanNum}&text=${encodeURIComponent(msg)}`, '_blank');
@@ -3964,23 +4295,63 @@
             const client = (appState.prospects || []).find(p => p.id === comercioCatalogState.selectedClientId);
             const clientName = client ? client.name : 'Cliente Mostrador';
             if (!Array.isArray(appState.storeSales)) appState.storeSales = [];
+            if (!Array.isArray(appState.storeInventory)) appState.storeInventory = [];
+
+            const futureDate = new Date();
+            futureDate.setDate(futureDate.getDate() + 24);
+            const repurchaseDateStr = futureDate.toISOString().split('T')[0];
 
             comercioCatalogState.quoteItems.forEach((it, idx) => {
+                const isStick = it.saleUnit === 'stick';
+                const totalRow = it.unitPrice * it.qty;
+
                 appState.storeSales.unshift({
                     id: 'sale_' + Date.now() + '_' + idx,
                     prodId: it.id,
                     productName: it.name,
-                    unitPrice: it.price,
+                    saleUnit: it.saleUnit || 'box',
+                    unitPrice: it.unitPrice,
                     qty: it.qty,
-                    totalSale: it.price * it.qty,
+                    totalSale: totalRow,
+                    clientId: client ? client.id : '',
                     clientName,
-                    date: new Date().toLocaleDateString()
+                    date: new Date().toLocaleDateString(),
+                    repurchaseDate: repurchaseDateStr
                 });
+
+                const invItem = appState.storeInventory.find(x => x.prodId === it.id);
+                if (invItem) {
+                    if (isStick) invItem.sticks = Math.max(0, (invItem.sticks || 0) - it.qty);
+                    else invItem.boxes = Math.max(0, (invItem.boxes || 0) - it.qty);
+                }
+
+                if (client) {
+                    if (!Array.isArray(client.purchaseHistory)) client.purchaseHistory = [];
+                    client.purchaseHistory.unshift({
+                        productName: it.name,
+                        saleUnit: isStick ? 'Stick' : 'Caja',
+                        qty: it.qty,
+                        total: totalRow,
+                        date: new Date().toLocaleDateString(),
+                        repurchaseDate: repurchaseDateStr
+                    });
+                    if (!isStick) {
+                        client.followUpDate = repurchaseDateStr;
+                        appState.agendaTasks.unshift({
+                            id: 'rep_' + Date.now() + '_' + idx,
+                            title: `Recompra VIP (Día 24): ${client.name} — ${it.name}`,
+                            date: repurchaseDateStr,
+                            time: '10:00',
+                            notes: `Recordatorio automático ventana 21-25 días para ofrecer reposición con regalo.`
+                        });
+                    }
+                }
             });
 
             saveUserScopedData();
             window.clearComercioCatalogQuote();
-            showToast(`¡Venta registrada para ${clientName}! Revisa tus ganancias en la sección COMERCIO.`);
+            updateBellRemindersBadge();
+            showToast(`¡Venta registrada para ${clientName}! Stock descontado y alerta de recompra programada.`);
         };
 
         window.setComercioCatalogLine = function(lineName) {
@@ -3994,22 +4365,24 @@
             const gridContainer = document.getElementById('com-catalog-products-grid');
             if (!linesContainer || !gridContainer) return;
 
-            const lines = ['Todos', ...new Set(FUXION_OFFICIAL_CATALOG.map(p => p.line))];
-            linesContainer.innerHTML = lines.map(l => `
-                <button type="button" onclick="window.setComercioCatalogLine('${l}');"
-                    class="px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${comercioCatalogState.selectedLine === l ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
-                    ${l}
+            const uniqueLines = ['TODAS', ...new Set(FUXION_OFFICIAL_CATALOG.map(p => p.line))];
+            linesContainer.innerHTML = uniqueLines.map(ln => `
+                <button type="button" onclick="window.setComercioCatalogLine('${ln}');"
+                    class="px-3 py-1.5 rounded-xl text-[11px] font-extrabold border ${comercioCatalogState.selectedLine === ln ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-700 border-slate-200'}">
+                    ${ln}
                 </button>
             `).join('');
 
-            const q = (document.getElementById('com-catalog-search')?.value || '').toLowerCase();
+            const query = (document.getElementById('com-catalog-search')?.value || '').toLowerCase();
             const filtered = FUXION_OFFICIAL_CATALOG.filter(p => {
-                const matchLine = comercioCatalogState.selectedLine === 'Todos' || p.line === comercioCatalogState.selectedLine;
-                const matchText = p.name.toLowerCase().includes(q) || p.flavor.toLowerCase().includes(q) || p.tagline.toLowerCase().includes(q) || p.ingredients.toLowerCase().includes(q);
-                return matchLine && matchText;
+                const matchLine = comercioCatalogState.selectedLine === 'TODAS' || p.line === comercioCatalogState.selectedLine;
+                const matchTxt = p.name.toLowerCase().includes(query) || p.flavor.toLowerCase().includes(query) || p.tagline.toLowerCase().includes(query) || p.ingredients.toLowerCase().includes(query);
+                return matchLine && matchTxt;
             });
 
-            gridContainer.innerHTML = filtered.map(p => `
+            gridContainer.innerHTML = filtered.map(p => {
+                const stickPrice = getStickUnitPrice(p);
+                return `
                 <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft flex flex-col justify-between gap-4">
                     <div class="space-y-2">
                         <div class="flex items-center justify-between gap-2">
@@ -4023,33 +4396,42 @@
                     <div class="space-y-2.5 pt-3 border-t border-slate-100">
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-[10px] text-slate-400 block">Precio Público</span>
-                                <strong class="text-lg font-black text-slate-900">S/ ${p.price.toFixed(2)}</strong>
+                                <span class="text-[10px] text-slate-400 block">Caja / Doypack</span>
+                                <strong class="text-base font-black text-slate-900">S/ ${p.price.toFixed(2)}</strong>
                             </div>
-                            <span class="px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-[10px] font-black">+ Regalo</span>
+                            <div class="text-right">
+                                <span class="text-[10px] text-sky-700 font-bold block">Por Stick / Und.</span>
+                                <strong class="text-sm font-black text-sky-700">S/ ${stickPrice.toFixed(2)}</strong>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button type="button" onclick="window.addProductToComercioQuote('${p.id}');" class="py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs">
-                                + Cotizar
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button type="button" onclick="window.addProductToComercioQuote('${p.id}', 'box');" class="py-2 px-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-[11px]">
+                                + Caja
                             </button>
-                            <button type="button" onclick="window.shareSingleProductComercioWhatsApp('${p.id}');" class="py-2 px-3 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-xs">
-                                <i class="fa-brands fa-whatsapp mr-1"></i>Enviar
+                            <button type="button" onclick="window.addProductToComercioQuote('${p.id}', 'stick');" class="py-2 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-[11px]">
+                                + Stick
+                            </button>
+                            <button type="button" onclick="window.shareSingleProductComercioWhatsApp('${p.id}');" class="py-2 px-2 rounded-xl bg-[#00B074] hover:bg-emerald-600 text-white font-extrabold text-[11px]">
+                                <i class="fa-brands fa-whatsapp"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
             renderComercioQuoteItems();
         };
 
-        window.addProductToComercioQuote = function(prodId) {
+        window.addProductToComercioQuote = function(prodId, unitType = 'box') {
             const p = FUXION_OFFICIAL_CATALOG.find(x => x.id === prodId);
             if (!p) return;
-            const ex = comercioCatalogState.quoteItems.find(i => i.id === prodId);
+            const unitPrice = unitType === 'stick' ? getStickUnitPrice(p) : p.price;
+            const key = `${prodId}_${unitType}`;
+            const ex = comercioCatalogState.quoteItems.find(i => i.key === key);
             if (ex) ex.qty++;
-            else comercioCatalogState.quoteItems.push({ ...p, qty: 1 });
+            else comercioCatalogState.quoteItems.push({ key, ...p, saleUnit: unitType, unitPrice, qty: 1 });
             renderComercioQuoteItems();
-            showToast(`${p.name} agregado a la cotización.`);
+            showToast(`${p.name} (${unitType === 'stick' ? 'Por Stick' : 'Caja'}) agregado.`);
         };
 
         window.clearComercioCatalogQuote = function() {
@@ -4061,6 +4443,7 @@
             const box = document.getElementById('comercio-quote-box');
             const list = document.getElementById('com-cat-quote-items-list');
             const totEl = document.getElementById('com-cat-quote-total-soles');
+            const profEl = document.getElementById('com-cat-quote-profit-soles');
             if (!box || !list) return;
 
             if (comercioCatalogState.quoteItems.length === 0) {
@@ -4068,14 +4451,18 @@
                 return;
             }
             box.classList.remove('hidden');
-            const total = comercioCatalogState.quoteItems.reduce((acc, it) => acc + it.price * it.qty, 0);
+            const total = comercioCatalogState.quoteItems.reduce((acc, it) => acc + it.unitPrice * it.qty, 0);
+            const pct = Number(appState.currentUser?.commissionPct || 25);
+            const profit = total * (pct / 100);
+
             if (totEl) totEl.textContent = `S/ ${total.toFixed(2)}`;
+            if (profEl) profEl.textContent = `S/ ${profit.toFixed(2)} (${pct}%)`;
 
             list.innerHTML = comercioCatalogState.quoteItems.map((it, idx) => `
                 <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-amber-200">
                     <div>
-                        <span class="font-black text-slate-900">${it.name}</span>
-                        <span class="text-[11px] text-slate-500 block">S/ ${it.price.toFixed(2)} c/u</span>
+                        <span class="font-black text-slate-900">${it.name} <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px]">${it.saleUnit === 'stick' ? 'Stick Individual' : 'Caja / Doypack'}</span></span>
+                        <span class="text-[11px] text-slate-500 block">S/ ${it.unitPrice.toFixed(2)} c/u</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <button type="button" onclick="comercioCatalogState.quoteItems[${idx}].qty = Math.max(1, comercioCatalogState.quoteItems[${idx}].qty - 1); renderComercioQuoteItems();" class="w-6 h-6 rounded bg-slate-100 font-bold">-</button>
@@ -4108,8 +4495,8 @@
             const storeName = u?.businessName || u?.name || 'Punto Autorizado FuXion';
             const client = (appState.prospects || []).find(c => c.id === comercioCatalogState.selectedClientId);
             const greeting = client ? `¡Hola *${client.name}*! 👋🌿` : '¡Hola! 👋🌿';
-            const totalSoles = comercioCatalogState.quoteItems.reduce((acc, it) => acc + (it.price * it.qty), 0);
-            const lines = comercioCatalogState.quoteItems.map(it => `• ${it.qty}x *${it.name}* (${it.presentation}) — S/ ${(it.price * it.qty).toFixed(2)}`).join('\n');
+            const totalSoles = comercioCatalogState.quoteItems.reduce((acc, it) => acc + (it.unitPrice * it.qty), 0);
+            const lines = comercioCatalogState.quoteItems.map(it => `• ${it.qty}x *${it.name}* [${it.saleUnit === 'stick' ? 'Stick Individual' : it.presentation}] — S/ ${(it.unitPrice * it.qty).toFixed(2)}`).join('\n');
             const mapsUrl = u ? buildStoreGoogleMapsUrl(u) : '';
             const locLine = (u && u.address) ? `\n📍 *Ubicación del Punto:* ${u.address}, ${u.district || ''}\n🗺️ *Google Maps:* ${mapsUrl}` : '';
 
@@ -4165,30 +4552,37 @@
             const grid = document.getElementById('prem-catalog-grid');
             if (!linesBox || !grid) return;
 
-            const lines = ['Todos', ...new Set(FUXION_OFFICIAL_CATALOG.map(p => p.line))];
-            linesBox.innerHTML = lines.map(l => `
-                <button type="button" onclick="premiumState.selectedLine='${l}'; window.renderPremiumCatalog();"
-                    class="px-3 py-1.5 rounded-xl text-xs font-extrabold ${premiumState.selectedLine === l ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
-                    ${l}
+            const uniqueLines = ['TODAS', ...new Set(FUXION_OFFICIAL_CATALOG.map(p => p.line))];
+            linesBox.innerHTML = uniqueLines.map(ln => `
+                <button type="button" onclick="premiumState.selectedLine='${ln}'; window.renderPremiumCatalog();"
+                    class="px-3 py-1.5 rounded-xl text-[11px] font-extrabold border ${premiumState.selectedLine === ln ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-700 border-slate-200'}">
+                    ${ln}
                 </button>
             `).join('');
 
             const q = (document.getElementById('prem-catalog-search')?.value || '').toLowerCase();
-            const filtered = FUXION_OFFICIAL_CATALOG.filter(p => {
-                const matchLine = premiumState.selectedLine === 'Todos' || p.line === premiumState.selectedLine;
-                const matchText = p.name.toLowerCase().includes(q) || p.flavor.toLowerCase().includes(q) || p.tagline.toLowerCase().includes(q);
-                return matchLine && matchText;
-            });
+            const list = FUXION_OFFICIAL_CATALOG.filter(p =>
+                (premiumState.selectedLine === 'TODAS' || p.line === premiumState.selectedLine) &&
+                (p.name.toLowerCase().includes(q) || p.flavor.toLowerCase().includes(q) || p.tagline.toLowerCase().includes(q) || p.ingredients.toLowerCase().includes(q))
+            );
 
-            grid.innerHTML = filtered.map(p => `
-                <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft flex flex-col justify-between gap-4">
+            grid.innerHTML = list.map(p => `
+                <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-card-soft flex flex-col justify-between gap-3">
                     <div class="space-y-2">
                         <div class="flex items-center justify-between gap-2">
                             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white" style="background:${p.color};">${p.line}</span>
-                            <button type="button" onclick="window.openProductDetailModal('${p.id}');" class="text-[11px] font-bold text-sky-600 hover:underline">Ver Ficha</button>
+                            <button type="button" onclick="window.openProductDetailModal('${p.id}');" class="text-[11px] font-bold text-sky-600 hover:underline">Ficha &amp; Patentes</button>
                         </div>
-                        <h4 class="text-base font-black text-slate-900">${p.name}</h4>
-                        <p class="text-[11px] font-bold text-sky-700">${p.tagline}</p>
+                        <div class="p-3 rounded-2xl border border-slate-100 flex items-center gap-3" style="background: linear-gradient(135deg, ${p.color}15 0%, #F8FAFC 100%);">
+                            <div class="w-11 h-14 rounded-xl shadow-sm flex flex-col items-center justify-center text-white font-black text-[9px] text-center p-1 shrink-0" style="background:${p.color};">
+                                <span>FUXION</span>
+                                <span class="text-[7px] opacity-90 mt-0.5">CLEAN</span>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-sm font-black text-slate-900 truncate">${p.name}</h4>
+                                <p class="text-[11px] font-bold text-sky-700 leading-tight">${p.tagline}</p>
+                            </div>
+                        </div>
                         <p class="text-xs text-slate-500">${p.flavor} • ${p.presentation}</p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
@@ -4261,7 +4655,6 @@
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
         };
 
-        // Las 8 Habilidades Maestras con Editar y + Agregar Mensaje Personalizado
         function renderPremiumSkillsSection() {
             const tabsBox = document.getElementById('prem-skills-tabs');
             const detailBox = document.getElementById('prem-skill-detail-container');
@@ -4772,6 +5165,7 @@
                 followUpDate,
                 tags: [],
                 sentSteps: [],
+                purchaseHistory: [],
                 note: note || 'Seguimiento activo'
             });
 
@@ -4861,6 +5255,13 @@
             container.innerHTML = filtered.map(p => {
                 const cleanNum = p.phone.replace(/\D/g, '');
                 const waText = `¡Hola ${p.name}! 👋 Te saluda ${appState.currentUser?.businessName || appState.currentUser?.name || 'tu asesor'}. Te escribo para compartirte información sobre las bebidas naturales FuXion 🌿✨.`;
+                const historyHtml = Array.isArray(p.purchaseHistory) && p.purchaseHistory.length > 0
+                    ? `<div class="mt-1.5 p-2 rounded-xl bg-amber-50/80 border border-amber-200 text-[10px] text-amber-950">
+                        <span class="font-black"><i class="fa-solid fa-bag-shopping text-amber-600 mr-1"></i>Historial de Compras (${p.purchaseHistory.length}):</span>
+                        ${p.purchaseHistory.slice(0, 3).map(h => `<span class="inline-block ml-1 px-1.5 py-0.5 rounded bg-white border border-amber-200 font-bold">${h.qty}x ${h.productName} (${h.saleUnit || 'Caja'}) • Recompra: ${h.repurchaseDate || '-'}</span>`).join('')}
+                       </div>`
+                    : '';
+
                 return `
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="space-y-1">
@@ -4871,6 +5272,7 @@
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800">${p.funnel}</span>
                             </div>
                             <p class="text-xs font-mono text-slate-600">${p.phone} • <span class="font-sans text-slate-400">${p.note || ''}</span></p>
+                            ${historyHtml}
                         </div>
                         <div class="flex items-center gap-1.5 flex-wrap">
                             ${isComercio ? `
@@ -5081,6 +5483,7 @@
                     followUpDate: todayStr,
                     tags: [],
                     sentSteps: [],
+                    purchaseHistory: [],
                     note: `Importado (${it.source})`
                 });
                 added++;
@@ -5335,7 +5738,7 @@
             `).join('');
         }
 
-        // ==================== AGENDA, EQUIPO, SIMULADOR Y HERRAMIENTAS ====================
+        // ==================== AGENDA, EQUIPO (CON AUDITORÍA DE CONTRASEÑAS ADMIN), SIMULADOR Y HERRAMIENTAS ====================
         function updateDashboardKPIs() {
             const total = appState.prospects.length;
             const todayStr = new Date().toISOString().split('T')[0];
@@ -5437,7 +5840,10 @@
             const pendingCount = user.isAdmin ? adminDb.filter(c => c.status !== 'Activado' && c.status !== 'Resuelto').length : 0;
             if (user.isAdmin) {
                 const setT = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-                setT('admin-total-codes-count', adminDb.length);
+                const regOnly = adminDb.filter(c => c.type !== 'PASSWORD_RECOVERY');
+                setT('admin-total-codes-count', regOnly.length);
+                setT('admin-referral-codes-count', regOnly.filter(c => c.uplineCode && c.uplineCode !== 'Directo Empresa' && c.uplineCode !== ADMIN_SPONSOR_CODE).length);
+                setT('admin-direct-codes-count', regOnly.filter(c => c.uplineCode === ADMIN_SPONSOR_CODE).length);
                 setT('desktop-admin-badge-count', pendingCount);
                 setT('mobile-admin-badge-count', pendingCount);
             }
@@ -5458,13 +5864,55 @@
         window.switchTeamViewMode = function(mode) {
             document.getElementById('team-tree-container').classList.toggle('hidden', mode !== 'tree');
             document.getElementById('team-table-container').classList.toggle('hidden', mode !== 'table');
+            const bTree = document.getElementById('btn-team-view-tree');
+            const bTable = document.getElementById('btn-team-view-table');
+            if (mode === 'tree') {
+                bTree.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm flex items-center gap-1.5';
+                bTable.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 flex items-center gap-1.5';
+            } else {
+                bTable.className = 'px-3.5 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-sm flex items-center gap-1.5';
+                bTree.className = 'px-3.5 py-2 rounded-xl text-slate-600 font-bold text-xs hover:text-slate-900 flex items-center gap-1.5';
+            }
+        };
+
+        window.toggleRevealAllPasswords = function() {
+            appState.revealAllPasswordsFlag = !appState.revealAllPasswordsFlag;
+            const lbl = document.getElementById('label-reveal-all-pass');
+            if (lbl) lbl.textContent = appState.revealAllPasswordsFlag ? 'Ocultar Todas las Contraseñas' : 'Mostrar Todas las Contraseñas';
+            window.renderTeamView();
         };
 
         window.renderTeamView = function() {
             const user = appState.currentUser;
             if (!user) return;
-            const regUsers = safeParseStorageArray('lp_registered_users').filter(u => !u.isComercio && u.accountType !== 'comercio');
-            const partners = user.isAdmin ? regUsers : regUsers.filter(u => u.uplineCode === user.sponsorCode);
+            const isAdmin = !!user.isAdmin;
+            const allPartners = safeParseStorageArray('lp_registered_users').filter(u => !u.isComercio && u.accountType !== 'comercio');
+
+            // El Administrador ve toda la red (directos, socios de socios y todos los niveles)
+            const visiblePartners = isAdmin ? allPartners : allPartners.filter(u => u.uplineCode === user.sponsorCode);
+
+            const leftBranch = [];
+            const rightBranch = [];
+            visiblePartners.forEach((p, idx) => {
+                if (idx % 2 === 0) leftBranch.push(p);
+                else rightBranch.push(p);
+            });
+
+            const renderBranchCards = (list, branchName, accentClass) => {
+                if (list.length === 0) {
+                    return `<div class="p-4 rounded-2xl bg-white border border-dashed border-slate-300 text-center text-[11px] text-slate-400">Cupo disponible en ${branchName}</div>`;
+                }
+                return list.map(d => `
+                    <div class="p-3.5 rounded-2xl bg-white border-2 ${accentClass} shadow-sm text-center space-y-1">
+                        <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 font-black text-xs flex items-center justify-center mx-auto">
+                            ${d.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
+                        </div>
+                        <p class="text-xs font-black text-slate-900 truncate">${d.name}</p>
+                        <p class="text-[10px] font-mono font-bold text-sky-600">${d.sponsorCode}</p>
+                        <p class="text-[10px] text-slate-500">Patrocinador: ${d.uplineCode || ADMIN_SPONSOR_CODE}</p>
+                    </div>
+                `).join('');
+            };
 
             const treeEl = document.getElementById('mlm-genealogy-tree');
             if (treeEl) {
@@ -5472,23 +5920,81 @@
                     <div class="px-6 py-4 rounded-3xl cosmic-hero-bg text-white text-center shadow-lg border-2 border-sky-400">
                         <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-black uppercase">TÚ • LÍDER PRINCIPAL</span>
                         <p class="text-sm font-black mt-1">${user.name}</p>
-                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${partners.length} Socios</p>
+                        <p class="text-[11px] font-mono text-sky-300">${user.sponsorCode} • ${visiblePartners.length} Socios</p>
+                    </div>
+                    <div class="mlm-connector-v"></div>
+                    <div class="mlm-branch-bar"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl pt-3">
+                        <div class="space-y-2.5">
+                            <div class="text-center"><span class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-[10px] font-black uppercase">Rama Izquierda (${leftBranch.length})</span></div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${renderBranchCards(leftBranch, 'Rama Izquierda', 'border-sky-200')}</div>
+                        </div>
+                        <div class="space-y-2.5">
+                            <div class="text-center"><span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-black uppercase">Rama Derecha (${rightBranch.length})</span></div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${renderBranchCards(rightBranch, 'Rama Derecha', 'border-indigo-200')}</div>
+                        </div>
                     </div>
                 `;
             }
+
+            const thAdminPass = document.getElementById('th-admin-password');
+            const btnRevealAll = document.getElementById('btn-admin-reveal-all-passwords');
+            const dupFilterWrap = document.getElementById('admin-duplicate-email-filter-wrap');
+            if (thAdminPass) thAdminPass.classList.toggle('hidden', !isAdmin);
+            if (btnRevealAll) {
+                btnRevealAll.classList.toggle('hidden', !isAdmin);
+                if (isAdmin) btnRevealAll.classList.add('inline-flex');
+            }
+            if (dupFilterWrap) dupFilterWrap.classList.toggle('hidden', !isAdmin);
+
+            const q = (document.getElementById('team-table-search')?.value || '').toLowerCase();
+            const filtered = visiblePartners.filter(m =>
+                m.name.toLowerCase().includes(q) ||
+                (m.email || '').toLowerCase().includes(q) ||
+                (m.uplineCode || '').toLowerCase().includes(q) ||
+                (m.sponsorCode || '').toLowerCase().includes(q)
+            );
+
             const tbody = document.getElementById('team-data-table-body');
             if (tbody) {
-                tbody.innerHTML = partners.length === 0
+                tbody.innerHTML = filtered.length === 0
                     ? `<tr><td colspan="6" class="py-6 text-center text-slate-400">No hay socios registrados aún.</td></tr>`
-                    : partners.map((m, i) => `
+                    : filtered.map((m, i) => {
+                        const isDirectAdmin = (m.uplineCode || ADMIN_SPONSOR_CODE) === ADMIN_SPONSOR_CODE;
+                        const isRevealed = appState.revealAllPasswordsFlag || !!appState.revealedPasswords[m.id];
+                        return `
                         <tr>
-                            <td class="py-3 px-4 font-bold">${m.name}</td>
-                            <td class="py-3 px-4 font-mono">${m.email}</td>
-                            <td class="py-3 px-4">${i % 2 === 0 ? 'Rama Izquierda' : 'Rama Derecha'}</td>
+                            <td class="py-3 px-4">
+                                <span class="font-bold text-slate-900 block">${m.name}</span>
+                                <span class="text-[10px] text-slate-500">${m.city || 'Red FuXion'}</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="font-mono block">${m.email}</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black ${isDirectAdmin ? 'bg-sky-100 text-sky-800' : 'bg-purple-100 text-purple-800'}">
+                                    ${isDirectAdmin ? 'Directo RudyG-Ad' : 'Red de Socios (' + (m.uplineCode || '-') + ')'}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="block font-bold">${i % 2 === 0 ? 'Rama Izquierda' : 'Rama Derecha'}</span>
+                                <span class="text-[10px] font-mono text-slate-500">Sponsor: ${m.uplineCode || ADMIN_SPONSOR_CODE}</span>
+                            </td>
                             <td class="py-3 px-4 font-mono">${m.phone}</td>
-                            <td class="py-3 px-4 text-right"><a href="https://api.whatsapp.com/send?phone=${(m.phone || '').replace(/\D/g, '')}" target="_blank" class="px-2.5 py-1 rounded-xl bg-[#00B074] text-white font-bold text-[11px]">WhatsApp</a></td>
+                            ${isAdmin ? `
+                                <td class="py-3 px-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200">
+                                        <span class="font-mono font-black text-slate-900">${isRevealed ? (m.password || '—') : '••••••••'}</span>
+                                        <button type="button" onclick="appState.revealedPasswords['${m.id}']=!appState.revealedPasswords['${m.id}']; window.renderTeamView();" class="text-slate-600 hover:text-slate-900">
+                                            <i class="fa-regular ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            ` : ''}
+                            <td class="py-3 px-4 text-right">
+                                <a href="https://api.whatsapp.com/send?phone=${(m.phone || '').replace(/\D/g, '')}" target="_blank" class="px-2.5 py-1 rounded-xl bg-[#00B074] text-white font-bold text-[11px]">WhatsApp</a>
+                            </td>
                         </tr>
-                    `).join('');
+                    `;
+                    }).join('');
             }
         };
 
@@ -5696,11 +6202,20 @@
             const np = document.getElementById('profile-input-newpass').value.trim();
             if (np && np.length >= 4) {
                 if (appState.currentUser.isAdmin) localStorage.setItem('lp_admin_pass', np);
-                else appState.currentUser.password = np;
+                else {
+                    appState.currentUser.password = np;
+                    const users = safeParseStorageArray('lp_registered_users');
+                    const idx = users.findIndex(u => u.id === appState.currentUser.id);
+                    if (idx !== -1) {
+                        users[idx] = { ...users[idx], ...appState.currentUser };
+                        localStorage.setItem('lp_registered_users', JSON.stringify(users));
+                    }
+                    publishCloudSyncEvent('ACTIVATED_PARTNER', appState.currentUser);
+                }
             }
             localStorage.setItem('lp_active_session', JSON.stringify(appState.currentUser));
             renderDashboardUI();
-            showToast('Perfil actualizado.');
+            showToast('Perfil actualizado y sincronizado.');
         };
 
         window.exportUserBackupPDF = function() {
@@ -5851,7 +6366,8 @@
             showToast('Solicitud enviada. Ingresa el código de 6 dígitos brindado por el Administrador.');
         };
 
-        window.verifyAndActivateUser = function() {
+        window.verifyAndActivateUser = async function() {
+            await window.syncExternalRegistrationsNow(false);
             const email = document.getElementById('act-email').value.trim().toLowerCase();
             const code = document.getElementById('act-code').value.trim();
 
@@ -5908,7 +6424,7 @@
             localStorage.setItem('lp_active_session', JSON.stringify(activeUser));
             loadUserScopedData(activeUser.id);
             showDashboard(activeUser);
-            showToast('¡Cuenta activada con éxito!');
+            showToast('¡Cuenta activada con éxito en cualquier dispositivo!');
         };
 
         window.processPasswordRecovery = function() {
@@ -5968,6 +6484,7 @@
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isDone ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">${item.status}</span>
                             </div>
                             <p class="text-xs text-slate-600"><b>Correo:</b> ${item.email} • <b>Tel:</b> ${item.phone || '-'}</p>
+                            <p class="text-[11px] text-slate-500"><b>Patrocinador:</b> ${item.uplineCode || ADMIN_SPONSOR_CODE} • <b>Contraseña:</b> <span class="font-mono font-bold text-slate-900">${item.password || '-'}</span></p>
                             ${isCom ? `<p class="text-[11px] text-amber-800"><b>Dirección:</b> ${item.address}, ${item.district}, ${item.province}, ${item.department}</p>` : ''}
                         </div>
                         <div class="flex items-center gap-2.5">
